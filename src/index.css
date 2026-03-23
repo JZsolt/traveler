@@ -21,6 +21,8 @@
     @apply font-sans antialiased bg-background text-foreground;
     padding-bottom: env(safe-area-inset-bottom);
     -webkit-tap-highlight-color: transparent;
+    -webkit-user-select: text;
+    user-select: text;
   }
   * {
     @apply border-border outline-ring/50;
