@@ -34,12 +34,16 @@ export function DaySection({ day, defaultOpen = false }) {
           {day.images?.length > 0 && (
             <div className="grid grid-cols-3 gap-1.5 md:gap-2.5 mt-3 mb-4">
               {day.images.map((img, i) => (
-                <div key={i} className="overflow-hidden rounded-xl">
+                <div key={i} className="overflow-hidden rounded-xl bg-slate-200">
                   <img
                     src={img.url}
                     alt={img.caption}
-                    className="w-full h-24 md:h-36 object-cover hover:scale-105 transition-transform duration-300"
+                    className="w-full h-24 md:h-36 object-cover hover:scale-105 transition-all duration-300"
                     loading="lazy"
+                    decoding="async"
+                    fetchPriority={i === 0 ? 'high' : 'low'}
+                    onLoad={(e) => e.target.style.opacity = 1}
+                    style={{ opacity: 0, transition: 'opacity 0.3s' }}
                   />
                   <p className="text-center text-[9px] md:text-[10px] text-slate-400 mt-1 px-1">{img.caption}</p>
                 </div>

@@ -1,5 +1,6 @@
+import { useState } from 'react'
 import { Badge } from '@/components/ui/badge'
-import { MapPin, Copy } from 'lucide-react'
+import { MapPin, Copy, Check } from 'lucide-react'
 import { GuideInfo } from './GuideInfo'
 
 function extractLocationName(url) {
@@ -14,9 +15,17 @@ function extractLocationName(url) {
 }
 
 export function ScheduleItem({ item }) {
+  const [copied, setCopied] = useState(false)
   const mapLink = item.links?.find(l => l.label.includes('Térkép') || l.label.includes('📍'))
   const otherLinks = item.links?.filter(l => l !== mapLink)
   const locationName = mapLink ? extractLocationName(mapLink.url) : null
+
+  const handleCopy = (text) => {
+    navigator.clipboard.writeText(text).then(() => {
+      setCopied(true)
+      setTimeout(() => setCopied(false), 1500)
+    })
+  }
 
   return (
     <div className={`flex gap-1 py-3 ${item.highlight ? 'bg-amber-50/60 px-4 -mx-4 border-l-3 border-amber-400' : 'border-b border-slate-100/80'}`}>
@@ -51,15 +60,11 @@ export function ScheduleItem({ item }) {
                   <span>{locationName}</span>
                 </a>
                 <button
-                  onClick={() => navigator.clipboard.writeText(locationName).then(() => {
-                    const el = document.activeElement
-                    if (el) el.classList.add('text-emerald-600')
-                    setTimeout(() => el?.classList.remove('text-emerald-600'), 800)
-                  })}
-                  className="flex items-center px-2 py-1.5 text-blue-400 hover:text-blue-700 hover:bg-blue-100 transition-colors border-l border-blue-200 cursor-pointer"
+                  onClick={() => handleCopy(locationName)}
+                  className={`flex items-center px-2 py-1.5 hover:bg-blue-100 transition-colors border-l border-blue-200 cursor-pointer ${copied ? 'text-emerald-500' : 'text-blue-400 hover:text-blue-700'}`}
                   title="Másolás"
                 >
-                  <Copy className="w-3 h-3" />
+                  {copied ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
                 </button>
               </div>
             )}
@@ -96,6 +101,13 @@ export function ScheduleItem({ item }) {
         {/* Guide */}
         {item.guide && <GuideInfo guide={item.guide} />}
       </div>
+      {/* Toast */}
+      {copied && (
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-slate-800 text-white text-[13px] font-medium px-4 py-2.5 rounded-xl shadow-lg flex items-center gap-2 animate-fade-in">
+          <Check className="w-4 h-4 text-emerald-400" />
+          Másolva!
+        </div>
+      )}
     </div>
   )
 }

@@ -76,9 +76,9 @@ export const trips = [
         title: "Brüsszel",
         subtitle: "Április 8. szerda — Érkezés + városnézés",
         images: [
-          { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Bruxelles_Grand_Place.JPG/960px-Bruxelles_Grand_Place.JPG", caption: "Grand-Place — Brüsszel szíve" },
-          { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Atomium_Br%C3%BCssel.JPG/960px-Atomium_Br%C3%BCssel.JPG", caption: "Atomium" },
-          { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Manneken_Pis_Brussel.jpg/960px-Manneken_Pis_Brussel.jpg", caption: "Manneken Pis" }
+          { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Bruxelles_Grand_Place.JPG/320px-Bruxelles_Grand_Place.JPG", caption: "Grand-Place — Brüsszel szíve" },
+          { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Atomium_Br%C3%BCssel.JPG/320px-Atomium_Br%C3%BCssel.JPG", caption: "Atomium" },
+          { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Manneken_Pis_Brussel.jpg/320px-Manneken_Pis_Brussel.jpg", caption: "Manneken Pis" }
         ],
         schedule: [
           { time: "06:10", title: "✈️ Érkezés Charleroi (CRL)", desc: "Poggyász átvétel, frissítés. Charleroi egy kis reptér, gyorsan kijuttok." },
@@ -248,9 +248,9 @@ export const trips = [
         title: "Hollandia — Keukenhof + Amszterdam",
         subtitle: "Április 9. csütörtök — A nagy kaland!",
         images: [
-          { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Keukenhof_Tulip_Gardens_1.JPG/960px-Keukenhof_Tulip_Gardens_1.JPG", caption: "Keukenhof — 7 millió tulipán" },
-          { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/960px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg", caption: "Van Gogh — Csillagos éj" },
-          { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Amsterdam_canals_in_summer.JPG/960px-Amsterdam_canals_in_summer.JPG", caption: "Amszterdam csatornái" }
+          { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Keukenhof_Tulip_Gardens_1.JPG/320px-Keukenhof_Tulip_Gardens_1.JPG", caption: "Keukenhof — 7 millió tulipán" },
+          { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/320px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg", caption: "Van Gogh — Csillagos éj" },
+          { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Amsterdam_canals_in_summer.JPG/320px-Amsterdam_canals_in_summer.JPG", caption: "Amszterdam csatornái" }
         ],
         alerts: [
           { type: "warning", text: "Napi útvonal: Brüsszel → Amszterdam → bus → Keukenhof → bus → Amszterdam (Van Gogh + város) → Brüsszel" }
@@ -388,9 +388,9 @@ export const trips = [
         title: "Bruges — A mesebeli város",
         subtitle: "Április 10. péntek — Egész napos kirándulás",
         images: [
-          { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Brugge-CanalRozenhoedkaai.JPG/960px-Brugge-CanalRozenhoedkaai.JPG", caption: "Rozenhoedkaai — a legikonikusabb pont" },
-          { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Bruges_Market_Square_and_Belfry.jpg/960px-Bruges_Market_Square_and_Belfry.jpg", caption: "Markt tér és Belfort-torony" },
-          { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Brugge_beguinage.JPG/960px-Brugge_beguinage.JPG", caption: "Begijnhof — fehér házak, nyugalom" }
+          { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Brugge-CanalRozenhoedkaai.JPG/320px-Brugge-CanalRozenhoedkaai.JPG", caption: "Rozenhoedkaai — a legikonikusabb pont" },
+          { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Bruges_Market_Square_and_Belfry.jpg/320px-Bruges_Market_Square_and_Belfry.jpg", caption: "Markt tér és Belfort-torony" },
+          { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Brugge_beguinage.JPG/320px-Brugge_beguinage.JPG", caption: "Begijnhof — fehér házak, nyugalom" }
         ],
         alerts: [
           { type: "tip", text: "🚂 IC vonat Brussels-Midi → Brugge · ~1 óra · direkt járat. 12 év alatti gyerek INGYENES! Jegy az automatából, nem kell előre. · belgiantrain.be\n💡 Bruges teljesen gyalogosan bejárható! A centrum kompakt — minden 15 percen belül elérhető." }
@@ -529,9 +529,9 @@ export const trips = [
         title: "Gent — Lovagvárak és street art",
         subtitle: "Április 11. szombat — Hétvégi vonatkedvezmény!",
         images: [
-          { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Grasbrug_en_Graslei.JPG/960px-Grasbrug_en_Graslei.JPG", caption: "Graslei — Gent szíve" },
-          { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Gravensteen_Gent_vanuit_MIAT.JPG/960px-Gravensteen_Gent_vanuit_MIAT.JPG", caption: "Gravensteen — Grófok Vára" },
-          { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Belgio_-_Gand_-_ponte_San_Michele%2C_chiesa_San_Michele_e_fiume_Lys.jpg/960px-Belgio_-_Gand_-_ponte_San_Michele%2C_chiesa_San_Michele_e_fiume_Lys.jpg", caption: "Sint-Michielsbrug — 3 torony" }
+          { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Grasbrug_en_Graslei.JPG/320px-Grasbrug_en_Graslei.JPG", caption: "Graslei — Gent szíve" },
+          { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Gravensteen_Gent_vanuit_MIAT.JPG/320px-Gravensteen_Gent_vanuit_MIAT.JPG", caption: "Gravensteen — Grófok Vára" },
+          { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Belgio_-_Gand_-_ponte_San_Michele%2C_chiesa_San_Michele_e_fiume_Lys.jpg/320px-Belgio_-_Gand_-_ponte_San_Michele%2C_chiesa_San_Michele_e_fiume_Lys.jpg", caption: "Sint-Michielsbrug — 3 torony" }
         ],
         alerts: [
           { type: "tip", text: "💰 SZOMBAT = hétvégi jegy! Fél áron! Brussels→Gent retúr: ~€8.80/fő (€17.60 helyett). 12 év alatti gyerek INGYENES!\n💡 Gent centruma gyalogosan bejárható! Csak a pályaudvar↔centrum villamos kell (~15 perc)." }
