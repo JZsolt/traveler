@@ -26,6 +26,9 @@
   }
   * {
     @apply border-border outline-ring/50;
+    -webkit-user-select: text;
+    user-select: text;
+    -webkit-touch-callout: default;
   }
   html {
     @apply font-sans;
