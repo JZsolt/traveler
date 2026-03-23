@@ -12,10 +12,13 @@ dist
 dist-ssr
 *.local
 
-# BMad
+# BMad core (telepíthető külön)
 _bmad/
-_bmad-output/
-.claude/
+
+# Claude local settings (gép-specifikus)
+.claude/settings.local.json
+
+# Dev PWA
 
 # Dev PWA
 dev-dist
