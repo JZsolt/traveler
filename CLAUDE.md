@@ -15,9 +15,13 @@ npm install          # React app függőségek
 npm run dev          # dev szerver (localhost:5173)
 ```
 
-Az app ezzel működik. A BMAD (brainstorming, utazás tervezés) használatához
-külön telepíteni kell a `_bmad/` core engine-t a projekt gyökerébe.
-A `.claude/skills/` (BMAD skillek) a repóban vannak, de a core nélkül nem futnak.
+Az app ezzel működik. A BMAD (brainstorming, utazás tervezés) használatához:
+
+```bash
+npx bmad-method          # BMAD core telepítés a projekt gyökerébe (_bmad/ mappa)
+```
+
+Ez létrehozza az `_bmad/` core engine-t. A `.claude/skills/` (BMAD skillek) már a repóban vannak.
 
 ## Fejlesztés
 
