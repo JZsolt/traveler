@@ -21,12 +21,12 @@ export function TripPage() {
         <div className="inline-block bg-[#e94560] px-6 py-2.5 rounded-full text-sm md:text-base font-semibold mb-4">
           {trip.subtitle}
         </div>
-        <p className="text-xs md:text-sm opacity-70 max-w-md mx-auto leading-relaxed">
-          👥 {trip.people}<br />
-          🏠 Szállás: {trip.accommodation.address}<br />
-          ✈️ {trip.flight.airport} · Érkezés {trip.flight.arrival} → Indulás {trip.flight.departure}<br />
-          💰 Büdzsé: ~1000 EUR / család
-        </p>
+        <div className="text-xs md:text-sm opacity-70 max-w-md mx-auto space-y-2">
+          <p>👥 {trip.people}</p>
+          <p>🏠 Szállás: <a href={trip.accommodation.mapUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 text-white/90 hover:text-white">{trip.accommodation.address}</a></p>
+          <p>✈️ {trip.flight.airport} · Érkezés {trip.flight.arrival} → Indulás {trip.flight.departure}</p>
+          <p>💰 Büdzsé: ~1000 EUR / család</p>
+        </div>
       </div>
 
       {/* Overview */}
