@@ -84,7 +84,18 @@ export const trips = [
           { time: "06:10", title: "✈️ Érkezés Charleroi (CRL)", desc: "Poggyász átvétel, frissítés. Charleroi egy kis reptér, gyorsan kijuttok." },
           { time: "06:45", title: "🚌 FLIBCO busz → Szállás", desc: "A FLIBCO shuttle közvetlenül a terminálból indul, félóránként. Jegyet előre érdemes venni. Brussels-Midi-nél szálltok le, onnan metro a szállásig.", highlight: true, links: [{ label: "flibco.com", url: "https://www.flibco.com" }, { label: "📍 Térkép", url: "https://maps.google.com/?q=Rue+De+Pascale+15+Brussels+1040" }], transport: [{ type: "transit", label: "🚌 FLIBCO · ~50 perc → Brussels-Midi", url: "https://www.google.com/maps/dir/Brussels+South+Charleroi+Airport/Brussels-Midi+Station" }, { type: "transit", label: "🚇 Metro M2/M6 · ~10 perc → Trône", url: "https://www.google.com/maps/dir/Brussels-Midi+Station/Trône+metro+station+Brussels" }, { type: "walk", label: "🚶 ~3 perc → Rue De Pascale 15", url: "https://www.google.com/maps/dir/Trône+metro+station+Brussels/Rue+De+Pascale+15+Brussels+1040" }] },
           { time: "08:00", title: "🏠 Szállás — poggyász lerakás", desc: "Rue De Pascale 15 — az EU-negyed szívében. Lehet, hogy korai a check-in, de a cuccot leadhatjátok.", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Rue+De+Pascale+15+Brussels+1040" }] },
-          { time: "08:45", title: "☕ Reggeli a környéken", desc: "Le Pain Quotidien vagy helyi pékség — croissant, pain au chocolat + kávé. (~€5-8/fő)", transport: [{ type: "walk", label: "🚶 ~2 perc · séta a környéken", url: "https://www.google.com/maps/dir/Rue+De+Pascale+15+Brussels/Le+Pain+Quotidien+Rue+de+Namur+Brussels" }] },
+          { time: "08:45", title: "☕ Reggeli a környéken", desc: "Croissant, pain au chocolat + kávé. (~€5-8/fő)", transport: [{ type: "walk", label: "🚶 ~2 perc · séta a környéken", url: "https://www.google.com/maps/dir/Rue+De+Pascale+15+Brussels/Le+Pain+Quotidien+Rue+de+Namur+Brussels" }], guide: {
+              mustSee: [
+                "Le Pain Quotidien (Rue de Namur 68) — belga lánc, bio kenyerek, nagy közös asztal, Google 4.2★",
+                "Charli (Rue du Bailli 1) — specialty kávé, avokádós toast, modern, Google 4.5★",
+                "OR Coffee (Rue Auguste Orts 9, Grand-Place közelében) — helyi specialty kávézó, Google 4.5★",
+                "Panos — belga pékséglánc, gyors és olcsó (~€4-5), mindenhol van"
+              ],
+              tips: [
+                "A szállás közelében (EU-negyed) sok kávézó hétfő-péntekig az irodai dolgozóknak nyitva van — szerdán tökéletes",
+                "Olcsóbb opció: szupermarketből croissant + kávé (~€2-3) — Delhaize, Carrefour Express mindenhol van"
+              ]
+            } },
           { time: "09:30", title: "🌳 Parc du Cinquantenaire", badges: ["INGYENES"], desc: "Hatalmas park impozáns diadalívvel — I. Lipót belga király építtette Belgium 50. évfordulójára. A kislány futhat a réten, ti kávéztok a padon. Az ívek alatt néha kiállítások vannak.", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Parc+du+Cinquantenaire+Brussels" }, { label: "Wikipedia", url: "https://en.wikipedia.org/wiki/Cinquantenaire" }], transport: [{ type: "walk", label: "🚶 ~5 perc · séta a szállástól", url: "https://www.google.com/maps/dir/Rue+De+Pascale+15+Brussels/Parc+du+Cinquantenaire" }], guide: {
               history: [
                 "II. Lipót belga király rendelte el a park építését 1880-ban Belgium függetlenségének 50. évfordulójára (Cinquantenaire = ötvenedik évforduló)",
@@ -254,7 +265,19 @@ export const trips = [
                 "A gyerekeknek a Mini-Europe interaktívabb és szórakoztatóbb mint az Atomium belső kiállítása"
               ]
             } },
-          { time: "19:30", title: "🍽 Vacsora", highlight: true, desc: "Sainte-Catherine negyed — a helyi halétterem-negyed, ahol a brüsszeliek is esznek (nem turista csapda!). Vagy vissza a Grand-Place környékre a hangulatért. (~€15-22/fő)", links: [{ label: "📍 Ste-Catherine tér", url: "https://maps.google.com/?q=Place+Sainte-Catherine+Brussels" }], transport: [{ type: "transit", label: "🚇 Metro · ~20 perc · Heysel → De Brouckère", url: "https://www.google.com/maps/dir/Atomium+Brussels/Place+Sainte-Catherine+Brussels" }] },
+          { time: "19:30", title: "🍽 Vacsora", highlight: true, desc: "Sainte-Catherine negyed — a helyi halétterem-negyed, ahol a brüsszeliek is esznek (nem turista csapda!). (~€15-22/fő)", links: [{ label: "📍 Ste-Catherine tér", url: "https://maps.google.com/?q=Place+Sainte-Catherine+Brussels" }], transport: [{ type: "transit", label: "🚇 Metro · ~20 perc · Heysel → De Brouckère", url: "https://www.google.com/maps/dir/Atomium+Brussels/Place+Sainte-Catherine+Brussels" }], guide: {
+              mustSee: [
+                "Noordzee / Mer du Nord (Rue Ste-Catherine 45) — pult étterem, halak és tengeri gyümölcsök, helyi legenda! Google 4.3★",
+                "Le Greenwich (Rue des Chartreux 7) — hangulatos bisztró, belga klasszikusok, Google 4.2★",
+                "Nüetnigenansen (Rue du Marché aux Porcs 1) — flamand konyha, szép belső, Google 4.4★",
+                "Restobières (Rue des Renards 32) — minden fogás sörrel készül, egyedi! Google 4.3★"
+              ],
+              tips: [
+                "A Ste-Catherine negyed 10 perc séta a Grand-Place-tól — megéri a kitérő",
+                "A Noordzee-ben nincs ülőhely — a pultnál állva esztek, de a hal frissebb mint bárhol",
+                "Gyerekbarát opció: a belga 'vol-au-vent' (csirkés-gombás pite) vagy 'stoemp' (krumplipüré zöldségekkel)"
+              ]
+            } },
           { time: "21:00", title: "🌙 Grand-Place éjszakai kivilágítás", badges: ["INGYENES"], desc: "A tér aranyozott homlokzatai éjszaka meleg fényben ragyognak — teljesen más élmény mint nappal! Ilyenkor kevesebb a turista, és a tér varázslatos.", transport: [{ type: "walk", label: "🚶 ~5 perc · séta", url: "https://www.google.com/maps/dir/Place+Sainte-Catherine+Brussels/Grand+Place+Brussels" }] },
           { time: "21:30", title: "🛏 Vissza a szállásra — korai fekvés!", desc: "Holnap a legnagyobb nap — korai kelés Hollandiába!", transport: [{ type: "transit", label: "🚇 Metro · ~8 perc · De Brouckère → Trône", url: "https://www.google.com/maps/dir/Grand+Place+Brussels/Rue+De+Pascale+15+Brussels" }] }
         ],
@@ -476,7 +499,15 @@ export const trips = [
           { type: "tip", text: "🚂 IC vonat Brussels-Midi → Brugge · ~1 óra · direkt járat. 12 év alatti gyerek INGYENES! Jegy az automatából, nem kell előre. · belgiantrain.be\n💡 Bruges teljesen gyalogosan bejárható! A centrum kompakt — minden 15 percen belül elérhető." }
         ],
         schedule: [
-          { time: "08:30", title: "☕ Reggeli" },
+          { time: "08:30", title: "☕ Reggeli", desc: "A szálláson vagy a környéken. (~€5-8/fő)", guide: {
+              mustSee: [
+                "Ugyanazok a helyek mint az 1. napon — Le Pain Quotidien, Charli, Panos",
+                "Vagy: a szálláson reggeli (ha van), szupermarketből előző este bevásárolva"
+              ],
+              tips: [
+                "Ma Bruges-be mentek — pakolás után reggelizzetek, ne siessetek"
+              ]
+            } },
           { time: "09:30", title: "🚂 IC vonat → Brugge", highlight: true, transport: [{ type: "transit", label: "🚇 Metro Trône→Midi (5 perc) + 🚂 Vonat ~1 óra → Brugge", url: "https://www.google.com/maps/dir/Rue+De+Pascale+15+Brussels/Bruges+Station" }] },
           { time: "10:30", title: "📍 Érkezés Brugge", desc: "A pályaudvartól a centrumig kellemes séta a Minnewater parkon és a Begijnhof-on át. Már az út maga is szép!", transport: [{ type: "walk", label: "🚶 ~15 perc · séta a centrumba", url: "https://www.google.com/maps/dir/Brugge+Station/Markt+Bruges" }] },
           { time: "10:45", title: "🏛 Markt (Piactér)", badges: ["INGYENES"], desc: "Bruges középkori szíve! A teret színes lépcsős oromzatú házak szegélyezik, középen Jan Breydel és Pieter de Coninck szobra (flamand szabadsághősök 1302-ből). A lovaskocsi-túrák is innen indulnak.", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Markt+Bruges" }, { label: "Wikipedia", url: "https://en.wikipedia.org/wiki/Markt_(Bruges)" }], guide: {
@@ -690,7 +721,19 @@ export const trips = [
                 "A sörüzletben palackozott Brugse Zot vihető haza ajándékba (~€4)"
               ]
             } },
-          { time: "18:30", title: "🍽 Vacsora Bruges-ben", highlight: true, desc: "Waterzooi (krémes csirke/hal ragu — Flandria büszkesége!) vagy stoofvlees. A Markt-tól 1-2 utcával beljebb olcsóbb és autentikusabb. (~€15-22/fő)" },
+          { time: "18:30", title: "🍽 Vacsora Bruges-ben", highlight: true, desc: "Waterzooi vagy stoofvlees — a Markt-tól 1-2 utcával beljebb olcsóbb és autentikusabb. (~€15-22/fő)", guide: {
+              mustSee: [
+                "De Stove (Kleine Sint-Amandsstraat 4) — intim, 20 férőhelyes, házi belga konyha, Google 4.6★ — foglalás ajánlott!",
+                "Den Dyver (Dijver 5) — sörrel főzött fogások, a csatorna partján, Google 4.3★",
+                "Cambrinus (Philipstockstraat 19) — 400+ belga sör + klasszikus étel, Google 4.2★",
+                "Tom Pouce (Burg 17) — a Burg téren, jó ár-érték, gyerekbarát, Google 4.0★"
+              ],
+              tips: [
+                "A Markt téri éttermek 30-50%-kal drágábbak — 1 utcányival beljebb ugyanazt kapjátok",
+                "Stoofvlees = flamand marhapörkölt sörben párolva, fritekkel — a gyereknek is ízlik",
+                "Foglaljatok előre ha szombat/vasárnap van — Bruges hétvégén tele van"
+              ]
+            } },
           { time: "20:00", title: "🚂 Vonat → Brüsszel", highlight: true, desc: "Utolsó vonatok ~22:30-ig, bőven van idő.", transport: [{ type: "walk", label: "🚶 ~15 perc → pályaudvar", url: "https://www.google.com/maps/dir/Markt+Bruges/Brugge+Station" }, { type: "transit", label: "🚂 Vonat ~1 óra → Brussels-Midi", url: "https://www.google.com/maps/dir/Brugge+Station/Brussels-Midi+Station" }] }
         ],
         costs: [
@@ -714,7 +757,13 @@ export const trips = [
           { type: "tip", text: "💰 SZOMBAT = hétvégi jegy! Fél áron! Brussels→Gent retúr: ~€8.80/fő (€17.60 helyett). 12 év alatti gyerek INGYENES!\n💡 Gent centruma gyalogosan bejárható! Csak a pályaudvar↔centrum villamos kell (~15 perc)." }
         ],
         schedule: [
-          { time: "09:00", title: "☕ Reggeli — nyugisan", desc: "Ma nem kell rohanni! Tegnap Bruges, ma Gent — nyugisabb tempó." },
+          { time: "09:00", title: "☕ Reggeli — nyugisan", desc: "Ma nem kell rohanni! Tegnap Bruges, ma Gent — nyugisabb tempó. (~€5-8/fő)", guide: {
+              mustSee: [
+                "Ugyanazok mint korábban: Le Pain Quotidien, Charli, OR Coffee",
+                "Vagy valami újat: Cafe Novo (Rue de Namur 78) — lokális kedvenc, Google 4.4★",
+                "Ha hétvége: a Place du Châtelain piacán reggeli (szombat 7-14h, 15 perc séta)"
+              ]
+            } },
           { time: "10:00", title: "🚂 IC vonat → Gent", highlight: true, transport: [{ type: "transit", label: "🚂 Vonat · ~28 perc · Brussels-Midi → Gent-Sint-Pieters", url: "https://www.google.com/maps/dir/Brussels-Midi+Station/Gent-Sint-Pieters+Station" }] },
           { time: "10:30", title: "📍 Érkezés + villamos a centrumba", transport: [{ type: "transit", label: "🚋 Villamos 1 · ~15 perc → Korenmarkt", url: "https://www.google.com/maps/dir/Gent-Sint-Pieters+Station/Korenmarkt+Gent" }] },
           { time: "10:45", title: "⛪ Sint-Baafskathedraal (Szent Bavó-katedrális)", desc: "A katedrális maga INGYENES és lenyűgöző gótikus belső. A fő attrakció: A Genti Oltár (Van Eyck testvérek, 1432) — az olajfestészet egyik legnagyobb mestermű! A Monuments Men csapata mentette meg a náci bányából a II. világháborúban. Opcionális belépő: €16/fő.", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Sint-Baafskathedraal+Gent" }, { label: "Wikipedia", url: "https://hu.wikipedia.org/wiki/Sint-Baafskathedraal" }], transport: [{ type: "walk", label: "🚶 ~2 perc · a Korenmarkt sarkán", url: "https://www.google.com/maps/dir/Korenmarkt+Gent/Sint-Baafskathedraal+Gent" }], guide: {
@@ -881,7 +930,18 @@ export const trips = [
           { time: "16:30", title: "🛍 Utolsó séta + vásárlás", desc: "Cuberdons haza, genti csoki, esetleg a Tierenteyn-Verlent mustárboltja (1790 óta!). Gent maga a szuvenír." },
           { time: "17:30", title: "🚂 Vonat → Brüsszel", highlight: true, transport: [{ type: "transit", label: "🚋 Villamos · ~15 perc → pályaudvar", url: "https://www.google.com/maps/dir/Korenmarkt+Gent/Gent-Sint-Pieters+Station" }, { type: "transit", label: "🚂 Vonat · ~28 perc → Brussels-Midi", url: "https://www.google.com/maps/dir/Gent-Sint-Pieters+Station/Brussels-Midi+Station" }] },
           { time: "18:15", title: "📦 Pakolás a szálláson", desc: "Holnap hajnali kelés! Készítsetek ki mindent este." },
-          { time: "19:30", title: "🍽 Búcsúvacsora Brüsszelben", highlight: true, desc: "Grand-Place környék — utolsó moules-frites, utolsó belga sör, utolsó gofri. Szép volt! (~€15-22/fő)", transport: [{ type: "transit", label: "🚇 Metro · ~8 perc · Trône → De Brouckère", url: "https://www.google.com/maps/dir/Rue+De+Pascale+15+Brussels/Grand+Place+Brussels" }] },
+          { time: "19:30", title: "🍽 Búcsúvacsora Brüsszelben", highlight: true, desc: "Utolsó moules-frites, utolsó belga sör, utolsó gofri. Szép volt! (~€15-22/fő)", transport: [{ type: "transit", label: "🚇 Metro · ~8 perc · Trône → De Brouckère", url: "https://www.google.com/maps/dir/Rue+De+Pascale+15+Brussels/Grand+Place+Brussels" }], guide: {
+              mustSee: [
+                "Restobières (Rue des Renards 32) — sörös konyha, ha az 1. nap kimaradt, Google 4.3★",
+                "Fin de Siècle (Rue des Chartreux 9) — no-menu board, naponta változó belga klasszikusok, Google 4.2★",
+                "Chez Henri (Rue de Flandre 113) — legjobb frietkot Brüsszelben, a helyiek szerint, Google 4.4★",
+                "A La Mort Subite (Rue Montagne aux Herbes Potagères 7) — ikonikus sörözö 1928-ból, lambic sörök, Google 4.4★"
+              ],
+              tips: [
+                "Utolsó este: ha volt kedvencetek az utazás alatt, menjetek vissza oda!",
+                "A Delirium Café (Impasse de la Fidélité) 2000+ sörével világrekorder — megér egy utolsó kört"
+              ]
+            } },
           { time: "21:30", title: "🛏 Korai fekvés!!" }
         ],
         costs: [
