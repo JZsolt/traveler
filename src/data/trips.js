@@ -129,7 +129,7 @@ export const trips = [
                 "A kijáratnál van egy ajándékbolt EU-s szuvenírekkel"
               ]
             } },
-          { time: "11:30", title: "🏛 Grand-Place", badges: ["INGYENES"], highlight: true, desc: "UNESCO Világörökség — Európa egyik legszebb tere! Az aranyozott homlokzatú céhházak a 17. századból valók. Victor Hugo \"a világ legszebb terének\" nevezte. Minden 2. évben virágszőnyeg borítja (sajnos nem áprilisban). Este kivilágítva a legszebb!", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Grand+Place+Brussels" }, { label: "Wikipedia", url: "https://en.wikipedia.org/wiki/Grand-Place" }], transport: [{ type: "transit", label: "🚇 Metro · ~8 perc · Maelbeek → De Brouckère + 5 perc séta", url: "https://www.google.com/maps/dir/Parlamentarium+Brussels/Grand+Place+Brussels" }], guide: {
+          { time: "11:30", title: "🏛 Grand-Place", badges: ["INGYENES"], highlight: true, desc: "UNESCO Világörökség — Európa egyik legszebb tere! Az aranyozott homlokzatú céhházak a 17. századból valók. Victor Hugo \"a világ legszebb terének\" nevezte. Minden 2. évben virágszőnyeg borítja (sajnos nem áprilisban). Este kivilágítva a legszebb!", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Grand+Place+Brussels" }, { label: "Magyar Wiki", url: "https://hu.wikipedia.org/wiki/Grand-Place" }], transport: [{ type: "transit", label: "🚇 Metro · ~8 perc · Maelbeek → De Brouckère + 5 perc séta", url: "https://www.google.com/maps/dir/Parlamentarium+Brussels/Grand+Place+Brussels" }], guide: {
               history: [
                 "1695-ben XIV. Lajos francia csapatai szinte teljesen lerombolták a teret — a brüsszeliek 4 év alatt építették újjá, még szebben, a mai barokk stílusban",
                 "A tér eredetileg piactér volt a 12. századtól — itt tartották a vásárokat, kivégzéseket és ünnepségeket",
@@ -155,7 +155,7 @@ export const trips = [
                 "Este 21:00 után a legszebb, kivilágítva és turisták nélkül"
               ]
             } },
-          { time: "12:00", title: "👦 Manneken Pis", badges: ["INGYENES"], desc: "Brüsszel ikonikus 61 cm-es szobrocskája 1619-ből. Hetente más jelmezbe öltöztetik (már 1000+ kosztümje van!) — nézzétek meg, aznap miben van! Van egy női megfelelője is, a Jeanneke Pis, a Delirium Café mellett.", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Manneken+Pis+Brussels" }, { label: "Wikipedia", url: "https://en.wikipedia.org/wiki/Manneken_Pis" }], transport: [{ type: "walk", label: "🚶 ~5 perc · séta a Grand-Place-tól délre", url: "https://www.google.com/maps/dir/Grand+Place+Brussels/Manneken+Pis+Brussels" }], guide: {
+          { time: "12:00", title: "👦 Manneken Pis", badges: ["INGYENES"], desc: "Brüsszel ikonikus 61 cm-es szobrocskája 1619-ből. Hetente más jelmezbe öltöztetik (már 1000+ kosztümje van!) — nézzétek meg, aznap miben van! Van egy női megfelelője is, a Jeanneke Pis, a Delirium Café mellett.", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Manneken+Pis+Brussels" }, { label: "Magyar Wiki", url: "https://hu.wikipedia.org/wiki/Manneken_Pis" }, { label: "Garderobe naptár", url: "https://www.mannekenpis.brussels/en/calendar" }], transport: [{ type: "walk", label: "🚶 ~5 perc · séta a Grand-Place-tól délre", url: "https://www.google.com/maps/dir/Grand+Place+Brussels/Manneken+Pis+Brussels" }], guide: {
               history: [
                 "Az eredeti szobor 1388-ból származik, a jelenlegi bronz verzió Jérôme Duquesnoy flamand szobrász munkája 1619-ből",
                 "Többször ellopták: az angolok 1745-ben, a franciák 1747-ben — XIV. Lajos bocsánatkérésül arany ruhát küldött neki",
@@ -179,8 +179,32 @@ export const trips = [
                 "Ne hagyd ki a Jeanneke Pis-t sem (3 perc séta) — sokkal kevésbé ismert, de szintén vicces"
               ]
             } },
-          { time: "12:15", title: "🍽 Ebéd — Moules-frites!", highlight: true, desc: "A belga nemzeti étel: gőzölt kagyló fehérboros szószban, sült krumplival! Chez Léon (1893 óta működik!) vagy bármelyik étterem a Rue des Bouchers-on. Tipp: a mellékutcák olcsóbbak. (~€12-18/fő)", links: [{ label: "📍 Étterem utca", url: "https://maps.google.com/?q=Rue+des+Bouchers+Brussels" }], transport: [{ type: "walk", label: "🚶 ~3 perc · vissza a Grand-Place felé", url: "https://www.google.com/maps/dir/Manneken+Pis/Rue+des+Bouchers+Brussels" }] },
-          { time: "13:30", title: "🧇 Belga gofri kóstolás", desc: "Két típus létezik: a brüsszeli (könnyű, ropogós, téglalap alakú) és a liège-i (nehezebb, cukros, kerek). A Maison Dandoy 1829 óta süti a legjobbat! Utcai standokról ~€4-6/db, tejszínhabbal, eperrel, csokival.", links: [{ label: "📍 Maison Dandoy", url: "https://maps.google.com/?q=Maison+Dandoy+Grand+Place+Brussels" }], transport: [{ type: "walk", label: "🚶 ~1 perc · a Grand-Place sarkán", url: "https://www.google.com/maps/dir/Rue+des+Bouchers+Brussels/Maison+Dandoy+Grand+Place" }] },
+          { time: "12:15", title: "🍽 Ebéd — Moules-frites!", highlight: true, desc: "A belga nemzeti étel: gőzölt kagyló fehérboros szószban, sült krumplival! Tipp: a Rue des Bouchers turista csapda — a mellékutcákban olcsóbb és jobb. (~€12-18/fő)", links: [{ label: "📍 Étterem utca", url: "https://maps.google.com/?q=Rue+des+Bouchers+Brussels" }], transport: [{ type: "walk", label: "🚶 ~3 perc · vissza a Grand-Place felé", url: "https://www.google.com/maps/dir/Manneken+Pis/Rue+des+Bouchers+Brussels" }], guide: {
+              mustSee: [
+                "Chez Léon (Rue des Bouchers 18) — 1893 óta, a klasszikus, turistás de ikonikus. Google 3.9★",
+                "Aux Armes de Bruxelles (Rue des Bouchers 13) — elegánsabb, helyi kedvenc, Google 4.1★",
+                "Le Pré Salé (Rue de Flandre 20, Ste-Catherine negyed) — a brüsszeliek kedvence, nem a turista zónában! Google 4.3★",
+                "Bij den Boansen (Quai aux Briques 60, Ste-Catherine) — autentikus halpiac étterem, Google 4.2★"
+              ],
+              tips: [
+                "A Rue des Bouchers-on az éttermek előtt álló pincérek próbálnak behívni — ez turista csapda jel",
+                "A Ste-Catherine negyed (10 perc séta) a helyi halkonyha központja — itt esznek a brüsszeliek",
+                "A moules (kagyló) szezon szept-ápr — áprilisban még jó, friss!",
+                "Gyereknek: a legtöbb helyen van poulet-frites (csirke + sült krumpli)"
+              ]
+            } },
+          { time: "13:30", title: "🧇 Belga gofri kóstolás", desc: "Két típus létezik: a brüsszeli (könnyű, ropogós, téglalap) és a liège-i (nehezebb, cukros, kerek). (~€4-6/db, tejszínhabbal, eperrel, csokival)", links: [{ label: "📍 Maison Dandoy", url: "https://maps.google.com/?q=Maison+Dandoy+Grand+Place+Brussels" }, { label: "Magyar Wiki: Belga gofri", url: "https://hu.wikipedia.org/wiki/Belga_gofri" }], transport: [{ type: "walk", label: "🚶 ~1 perc · a Grand-Place sarkán", url: "https://www.google.com/maps/dir/Rue+des+Bouchers+Brussels/Maison+Dandoy+Grand+Place" }], guide: {
+              mustSee: [
+                "Maison Dandoy (Rue au Beurre 31) — 1829 óta, a leghíresebb, Google 4.3★ — drágább de megéri",
+                "Vitalgaufre (Rue de la Colline 3) — helyi kedvenc, kisebb, autentikusabb, Google 4.6★",
+                "Utcai standok a Grand-Place körül — olcsóbbak (€3-4), de a minőség változó"
+              ],
+              tips: [
+                "A brüsszeli gofrit SIMÁN (porcukorral) kell enni — a sok topping turista dolog",
+                "A liège-i gofri magában is édes (cukorkristályos tészta) — nem kell rá csoki",
+                "Kerüljétek a standokat ahol előre becsomagolt, hideg gofrit árulnak — frissen sütve kell enni"
+              ]
+            } },
           { time: "14:00", title: "🍫 Sablon negyed — csokoládé & antik", badges: ["INGYENES"], desc: "Brüsszel legelegánsabb negyede. Pierre Marcolini, Wittamer és Neuhaus (aki feltalálta a praliné bonbont 1912-ben!) mind itt van. Sok helyen ingyen kóstolhattok. Az antik boltok és galériák is lenyűgözőek. Hétvégenként antikpiac a téren.", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Place+du+Grand+Sablon+Brussels" }, { label: "Wikipedia", url: "https://en.wikipedia.org/wiki/Sablon,_Brussels" }], transport: [{ type: "walk", label: "🚶 ~12 perc · séta délre, lejtőn le a Sablon felé", url: "https://www.google.com/maps/dir/Grand+Place+Brussels/Place+du+Grand+Sablon+Brussels" }], guide: {
               history: [
                 "A Sablon neve a homokos (sablonneux) talajból ered — a középkorban itt volt a város homokbányája",
@@ -295,7 +319,7 @@ export const trips = [
               ]
             } },
           { time: "13:00", title: "🚌 Bus 397 → Amszterdam vissza", transport: [{ type: "transit", label: "🚌 Bus 397 · ~40 perc → Europaplein", url: "https://www.google.com/maps/dir/Keukenhof+Lisse/Albert+Cuyp+Market+Amsterdam" }] },
-          { time: "13:45", title: "🍽 Ebéd: Albert Cuyp Piac", highlight: true, desc: "Amszterdam legnagyobb utcai piaca, 1905 óta! 300+ stand: holland sajt (próbáljátok a trüffelsajtosat!), friss hering, stroopwafel (frissen sütve, meleg karamellel), kibbeling (rántott hal). Budget paradicsom! (~€8-12/fő)", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Albert+Cuyp+Market+Amsterdam" }, { label: "albertcuypmarkt.amsterdam", url: "https://albertcuypmarkt.amsterdam" }], transport: [{ type: "walk", label: "🚶 ~10 perc · séta a piactól", url: "https://www.google.com/maps/dir/Europaplein+Amsterdam/Albert+Cuyp+Market+Amsterdam" }], guide: {
+          { time: "13:45", title: "🍽 Ebéd: Albert Cuyp Piac", highlight: true, desc: "Amszterdam legnagyobb utcai piaca, 1905 óta! 300+ stand: holland sajt (próbáljátok a trüffelsajtosat!), friss hering, stroopwafel (frissen sütve, meleg karamellel), kibbeling (rántott hal). Budget paradicsom! (~€8-12/fő)", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Albert+Cuyp+Market+Amsterdam" }, { label: "Wikipedia", url: "https://en.wikipedia.org/wiki/Albert_Cuyp_Market" }], transport: [{ type: "walk", label: "🚶 ~10 perc · séta a piactól", url: "https://www.google.com/maps/dir/Europaplein+Amsterdam/Albert+Cuyp+Market+Amsterdam" }], guide: {
               mustSee: [
                 "Friss stroopwafel — meleg karamellás töltelékkel, frissen sütve az utcán (ne a bolti változatot vedd!)",
                 "Holland haring (Hollandse Nieuwe) — a helyiek nyers hagymával eszik, a halat a farkánál fogva csúsztatják be a szájukba",
@@ -363,7 +387,7 @@ export const trips = [
                 "A kávézókban a 'koffie verkeerd' (rossz kávé) = café latte — ne lepődjetek meg a nevén"
               ]
             } },
-          { time: "17:00", title: "💐 Bloemenmarkt — Úszó virágpiac", desc: "A világ egyetlen úszó virágpiaca 1862 óta! A Singel csatornán álló bárkákon tulipánhagymákat, virágokat, holland szuveníreket árulnak. Vigyetek haza tulipánhagymákat — áprilisban ültethetitek!", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Bloemenmarkt+Amsterdam" }, { label: "iamsterdam.com", url: "https://www.iamsterdam.com/en/see-and-do/shopping/overview-amsterdam-markets/bloemenmarkt" }], transport: [{ type: "walk", label: "🚶 ~12 perc · séta a csatornák mentén délre", url: "https://www.google.com/maps/dir/Jordaan+Amsterdam/Bloemenmarkt+Amsterdam" }], guide: {
+          { time: "17:00", title: "💐 Bloemenmarkt — Úszó virágpiac", desc: "A világ egyetlen úszó virágpiaca 1862 óta! A Singel csatornán álló bárkákon tulipánhagymákat, virágokat, holland szuveníreket árulnak. Vigyetek haza tulipánhagymákat — áprilisban ültethetitek!", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Bloemenmarkt+Amsterdam" }, { label: "Wikipedia", url: "https://en.wikipedia.org/wiki/Bloemenmarkt" }], transport: [{ type: "walk", label: "🚶 ~12 perc · séta a csatornák mentén délre", url: "https://www.google.com/maps/dir/Jordaan+Amsterdam/Bloemenmarkt+Amsterdam" }], guide: {
               history: [
                 "1862-ben alapították — a kereskedők eredetileg csónakkal hozták a virágokat a közeli kertészetekből, és a bárkákról árulták",
                 "A Singel csatorna mentén található, a Koningsplein és a Muntplein között — Amszterdam egyik legrégebbi piaca"
@@ -382,7 +406,7 @@ export const trips = [
                 "Az árak alkudhatók ha többet vesztek — különösen záróra előtt (17:30)"
               ]
             } },
-          { time: "17:30", title: "🌳 Vondelpark", badges: ["INGYENES", "GYEREKBARÁT"], desc: "Amszterdam Central Parkja — 47 hektáron tavak, rétek, játszóterek, kávézók. A kislány végre szabadon rohangálhat! Ha szép az idő, a hollandok piknikeznek a fűben.", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Vondelpark+Amsterdam" }, { label: "hetvondelpark.net", url: "https://www.hetvondelpark.net" }], transport: [{ type: "walk", label: "🚶 ~10 perc · séta nyugat felé", url: "https://www.google.com/maps/dir/Bloemenmarkt+Amsterdam/Vondelpark+Amsterdam" }], guide: {
+          { time: "17:30", title: "🌳 Vondelpark", badges: ["INGYENES", "GYEREKBARÁT"], desc: "Amszterdam Central Parkja — 47 hektáron tavak, rétek, játszóterek, kávézók. A kislány végre szabadon rohangálhat! Ha szép az idő, a hollandok piknikeznek a fűben.", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Vondelpark+Amsterdam" }, { label: "Wikipedia", url: "https://en.wikipedia.org/wiki/Vondelpark" }], transport: [{ type: "walk", label: "🚶 ~10 perc · séta nyugat felé", url: "https://www.google.com/maps/dir/Bloemenmarkt+Amsterdam/Vondelpark+Amsterdam" }], guide: {
               history: [
                 "1865-ben nyitották meg, Joost van den Vondel holland költőről (1587-1679) nevezték el — az ő szobra áll a park bejáratánál",
                 "Eredetileg lovaglópark volt a gazdag amszterdamiak számára — ma évi 10 millió látogató jön"
@@ -479,7 +503,7 @@ export const trips = [
                 "A Markt-ról indul a legtöbb sétatúra — ingyenes walking tour naponta 10:30-kor és 14:00-kor"
               ]
             } },
-          { time: "11:00", title: "🗼 Belfort-torony", optional: true, desc: "83 méter magas, 366 lépcsőfok — de a kilátás megéri! A toronyban 47 harangjáték (carillon) szól, UNESCO Világörökség. A szűk csigalépcső kaland a kislánynak! €14/felnőtt, €6/gyerek.", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Belfry+of+Bruges" }, { label: "museebrugge.be", url: "https://www.museebrugge.be/en/visit-our-museums/our-museums-and-monuments/belfort" }], guide: {
+          { time: "11:00", title: "🗼 Belfort-torony", optional: true, desc: "83 méter magas, 366 lépcsőfok — de a kilátás megéri! A toronyban 47 harangjáték (carillon) szól, UNESCO Világörökség. A szűk csigalépcső kaland a kislánynak! €14/felnőtt, €6/gyerek.", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Belfry+of+Bruges" }, { label: "Wikipedia", url: "https://en.wikipedia.org/wiki/Belfry_of_Bruges" }], guide: {
               history: [
                 "A torony építése 1240-ben kezdődött, a jelenlegi formáját 1482-re nyerte el — a csúcsa eredményleg magasabb volt, de egy 1741-es villámcsapás után nem építették újra",
                 "A középkorban a város kincstára volt a toronyban — a városi szabadságlevelet és pecsétet itt őrizték",
@@ -500,7 +524,7 @@ export const trips = [
                 "A lépcső nagyon szűk — kislányt fogjátok kézen, és kényelmes cipő kötelező"
               ]
             } },
-          { time: "11:30", title: "🏰 Burg tér + Városháza + Szent Vér Bazilika", badges: ["INGYENES"], desc: "A Burg tér Bruges politikai szíve volt. A Városháza (1376) Flandria legrégebbi gótikus épülete. A Szent Vér Bazilika egy 12. századi kápolna, ahol állítólag Krisztus vérének ereklyéjét őrzik!", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Burg+Square+Bruges" }, { label: "visitbruges.be", url: "https://www.visitbruges.be/en/burg" }], transport: [{ type: "walk", label: "🚶 ~2 perc · szomszédos tér", url: "https://www.google.com/maps/dir/Markt+Bruges/Burg+Square+Bruges" }], guide: {
+          { time: "11:30", title: "🏰 Burg tér + Városháza + Szent Vér Bazilika", badges: ["INGYENES"], desc: "A Burg tér Bruges politikai szíve volt. A Városháza (1376) Flandria legrégebbi gótikus épülete. A Szent Vér Bazilika egy 12. századi kápolna, ahol állítólag Krisztus vérének ereklyéjét őrzik!", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Burg+Square+Bruges" }, { label: "Wikipedia", url: "https://en.wikipedia.org/wiki/Burg_(Bruges)" }], transport: [{ type: "walk", label: "🚶 ~2 perc · szomszédos tér", url: "https://www.google.com/maps/dir/Markt+Bruges/Burg+Square+Bruges" }], guide: {
               history: [
                 "A Burg tér a 9. századtól Bruges hatalmi központja — itt állt az eredeti erődítmény (burg), amiről a város a nevét kapta",
                 "A Szent Vér ereklyét állítólag Thierry d'Alsace flandriai gróf hozta a Szentföldről a II. keresztes háború után (1149)",
@@ -542,8 +566,36 @@ export const trips = [
                 "A csónakban elöl a legjobb a kilátás — ha van választás, kérjetek elülső helyet"
               ]
             } },
-          { time: "12:45", title: "🍟 Ebéd — Bruges-i frietjes!", desc: "A belga sült krumpli az igazi \"French fries\" — kétszer sütve, kívül ropogós, belül puha! Rengeteg szósz közül választhattok (andalouse, samourai, tartare...). Stoofvlees (flamand sörben párolt marhapörkölt) a tökéletes mellé. (~€10-15/fő)", transport: [{ type: "walk", label: "🚶 ~5 perc · vissza a Markt felé", url: "https://www.google.com/maps/dir/Boat+tours+Bruges/Markt+Bruges" }] },
-          { time: "13:30", title: "🍫 Csokoládé-séta", desc: "Bruges a belga csokoládé fővárosa — 50+ csokoládébolt a centrumban! Dumon: családi manufaktúra, mennyei trüffelek. The Chocolate Line: Dominique Persoone, a \"csokirocksztár\" boltja, meglepő ízek (wasabi, bacon...). Leonidas: a klasszikus, jó ár-érték arány ajándéknak. Sok helyen ingyen kóstolhattok!", transport: [{ type: "walk", label: "🚶 séta · boltról boltra a Katelijnestraat mentén", url: "https://www.google.com/maps/dir/Markt+Bruges/The+Chocolate+Line+Bruges" }] },
+          { time: "12:45", title: "🍟 Ebéd — Bruges-i frietjes!", desc: "A belga sült krumpli az igazi 'French fries' — kétszer sütve, kívül ropogós, belül puha! Rengeteg szósz közül választhattok (andalouse, samourai, tartare...). Stoofvlees (flamand sörben párolt marhapörkölt) a tökéletes mellé. (~€10-15/fő)", transport: [{ type: "walk", label: "🚶 ~5 perc · vissza a Markt felé", url: "https://www.google.com/maps/dir/Boat+tours+Bruges/Markt+Bruges" }], guide: {
+              mustSee: [
+                "Chez Vincent (Simon Stevinplein 15) — a helyiek kedvence, nem turista csapda, Google 4.2★",
+                "The Potato Bar (Langestraat 39) — modern frituur, kreatív toppingek, Google 4.4★",
+                "De Bolansen (Wollestraat 35) — steak + frieten, családbarát, Google 4.3★"
+              ],
+              tips: [
+                "A 'frituur' = sült krumplis stand, az 'eetcafé' = kisvendéglő — mindkettő jó és olcsó",
+                "A Markt téri éttermek 30-50%-kal drágábbak — 1 utcányival beljebb ugyanazt kapjátok kevesebbért",
+                "Andalouse szósz = majonéz + paradicsom + csípős paprika — a belga kedvenc"
+              ]
+            } },
+          { time: "13:30", title: "🍫 Csokoládé-séta", desc: "Bruges a belga csokoládé fővárosa — 50+ csokoládébolt a centrumban! Sok helyen ingyen kóstolhattok!", links: [{ label: "📍 Katelijnestraat", url: "https://maps.google.com/?q=Katelijnestraat+Bruges" }, { label: "Magyar Wiki: Belga csoki", url: "https://hu.wikipedia.org/wiki/Belga_csokoládé" }], transport: [{ type: "walk", label: "🚶 séta · boltról boltra a Katelijnestraat mentén", url: "https://www.google.com/maps/dir/Markt+Bruges/The+Chocolate+Line+Bruges" }], guide: {
+              mustSee: [
+                "Dumon (Eiermarkt 6) — családi manufaktúra 1992 óta, mennyei trüffelek, Google 4.7★ — a helyiek szerint a legjobb Bruges-ben",
+                "The Chocolate Line (Simon Stevinplein 19) — Dominique Persoone, a 'csokirocksztár' boltja, meglepő ízek: wasabi, bacon, cola, tequila. Google 4.5★",
+                "Leonidas (Breidelstraat 24) — a klasszikus belga praliné, jó ár-érték arány ajándéknak. Google 4.3★",
+                "Neuhaus (Steenstraat 66) — ők találták fel a praliné bonbont 1912-ben, prémium kategória. Google 4.5★"
+              ],
+              funFacts: [
+                "Belgium a világ legnagyobb csokoládé-exportőre — évi 220.000 tonna",
+                "Bruges-ben 50+ csokoládébolt van a kis belvárosban — több mint patika",
+                "A belga csoki titkja: min. 35% kakaóvaj (EU törvény), szemben más országok 20%-ával"
+              ],
+              tips: [
+                "Minden boltban ingyen kóstolhattok — ne szégyelljétek kérni, ez a szokás",
+                "A legjobb ajándék: Dumon trüffel (házias) vagy Leonidas mix (áras)",
+                "A Katelijnestraat és a Steenstraat a két fő 'csoki utca' — végig sétáljatok mindkettőn"
+              ]
+            } },
           { time: "14:30", title: "🏡 Begijnhof (Béguinage)", badges: ["INGYENES"], desc: "UNESCO Világörökség! Fehérre meszelt házacskák egy zárt udvar körül — a 13. században beginák (vallásos nők) éltek itt. Ma bencés apácáké. A kert tavasszal nárciszokkal tele — áprilisban tökéletes! Bruges legcsendesebb, legbékésebb helye.", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Begijnhof+Bruges" }, { label: "Wikipedia", url: "https://en.wikipedia.org/wiki/Beguinage_of_Bruges" }], transport: [{ type: "walk", label: "🚶 ~10 perc · séta délre", url: "https://www.google.com/maps/dir/The+Chocolate+Line+Bruges/Begijnhof+Bruges" }], guide: {
               history: [
                 "1245-ben alapította Konstantinápolyi Margit flandriai grófnő — a beginák (beguine) félig vallásos, félig világi nők voltak akik közösségben éltek, de nem tettek szerzetesi fogadalmat",
@@ -568,7 +620,7 @@ export const trips = [
                 "A hátsó bejárat a Minnewater felől a hangulatos — a főbejárat a Wijngaardstraat-ról van"
               ]
             } },
-          { time: "15:00", title: "🦢 Minnewater ('Szerelem tava')", badges: ["INGYENES", "GYEREKBARÁT"], desc: "Romantikus tó hattyúkkal! A legenda szerint egy lány, Minna, szerelméért halt meg, és a tavat róla nevezték el. A hattyúk 1488 óta élnek itt — Miksa császár büntetésül rendelte, mert a brugge-iek lefejezték tanácsadóját, akinek a címerében hattyú volt.", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Minnewater+Bruges" }, { label: "visitbruges.be", url: "https://www.visitbruges.be/en/minnewater-lake-of-love" }], transport: [{ type: "walk", label: "🚶 ~2 perc · a Begijnhof mellett", url: "https://www.google.com/maps/dir/Begijnhof+Bruges/Minnewater+Bruges" }], guide: {
+          { time: "15:00", title: "🦢 Minnewater ('Szerelem tava')", badges: ["INGYENES", "GYEREKBARÁT"], desc: "Romantikus tó hattyúkkal! A legenda szerint egy lány, Minna, szerelméért halt meg, és a tavat róla nevezték el. A hattyúk 1488 óta élnek itt — Miksa császár büntetésül rendelte, mert a brugge-iek lefejezték tanácsadóját, akinek a címerében hattyú volt.", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Minnewater+Bruges" }, { label: "Wikipedia", url: "https://en.wikipedia.org/wiki/Minnewater" }], transport: [{ type: "walk", label: "🚶 ~2 perc · a Begijnhof mellett", url: "https://www.google.com/maps/dir/Begijnhof+Bruges/Minnewater+Bruges" }], guide: {
               history: [
                 "A Minnewater a középkorban belső kikötőként szolgált — itt kötöttek ki a kereskedőhajók amelyek a Zwin csatornán érkeztek az Északi-tengerről",
                 "A név eredete vitatott: a 'minne' jelenthet szerelmet (középkori holland) vagy belső vizet (binnenwaters)",
@@ -588,7 +640,17 @@ export const trips = [
                 "A park padjai ideálisak pihenőre — a Begijnhof után ez egy nyugodt pont"
               ]
             } },
-          { time: "15:30", title: "🧇🍺 Gofri + sör szünet", desc: "Üljetek le egy teraszra, rendeljetek egy Brugse Zot-ot (Bruges saját söre, a \"Bruges-i Bolond\") és egy gofrit. Megérdemlitek! (~€5-8/fő)" },
+          { time: "15:30", title: "🧇🍺 Gofri + sör szünet", desc: "Üljetek le egy teraszra, rendeljetek egy Brugse Zot-ot (Bruges saját söre) és egy gofrit. Megérdemlitek! (~€5-8/fő)", guide: {
+              mustSee: [
+                "That's Toast (Noordzandstraat 28) — gofri és kávé specialista, Google 4.6★",
+                "Oyya (Noordzandstraat 1) — kreatív gofri toppingek, Google 4.5★",
+                "Café Rose Red (Cordoeaniersstraat 16) — hangulatos sörbar, 200+ belga sör, Google 4.5★"
+              ],
+              tips: [
+                "A Brugse Zot a helyi sör — a De Halve Maan főzi, könnyű szőke, 6%",
+                "Kerüljétek a Markt téri teraszokat — drágábbak, a mellékutcákban jobb"
+              ]
+            } },
           { time: "16:00", title: "🚶 Szabad séta / vásárlás", desc: "Bruges-i csipke (handmade lace — hagyomány a 16. századtól), csokoládé ajándékba, szuvenírek. A legjobb program: egyszerűen eltévedni a sikátorokban!" },
           { time: "17:00", title: "📸 Rozenhoedkaai", badges: ["INGYENES"], desc: "Bruges legtöbbet fotózott pontja! A csatorna, a középkori házak és a Belfort-torony együtt — képeslapba illő. Alkonyatkor különösen varázslatos.", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Rozenhoedkaai+Bruges" }, { label: "Wikipedia", url: "https://en.wikipedia.org/wiki/Rozenhoedkaai" }], transport: [{ type: "walk", label: "🚶 ~8 perc · visszafelé észak felé", url: "https://www.google.com/maps/dir/Minnewater+Bruges/Rozenhoedkaai+Bruges" }], guide: {
               mustSee: [
@@ -655,7 +717,7 @@ export const trips = [
           { time: "09:00", title: "☕ Reggeli — nyugisan", desc: "Ma nem kell rohanni! Tegnap Bruges, ma Gent — nyugisabb tempó." },
           { time: "10:00", title: "🚂 IC vonat → Gent", highlight: true, transport: [{ type: "transit", label: "🚂 Vonat · ~28 perc · Brussels-Midi → Gent-Sint-Pieters", url: "https://www.google.com/maps/dir/Brussels-Midi+Station/Gent-Sint-Pieters+Station" }] },
           { time: "10:30", title: "📍 Érkezés + villamos a centrumba", transport: [{ type: "transit", label: "🚋 Villamos 1 · ~15 perc → Korenmarkt", url: "https://www.google.com/maps/dir/Gent-Sint-Pieters+Station/Korenmarkt+Gent" }] },
-          { time: "10:45", title: "⛪ Sint-Baafskathedraal (Szent Bavó-katedrális)", desc: "A katedrális maga INGYENES és lenyűgöző gótikus belső. A fő attrakció: A Genti Oltár (Van Eyck testvérek, 1432) — az olajfestészet egyik legnagyobb mestermű! A Monuments Men csapata mentette meg a náci bányából a II. világháborúban. Opcionális belépő: €16/fő.", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Sint-Baafskathedraal+Gent" }, { label: "sintbaafskathedraal.be", url: "https://www.sintbaafskathedraal.be/en" }], transport: [{ type: "walk", label: "🚶 ~2 perc · a Korenmarkt sarkán", url: "https://www.google.com/maps/dir/Korenmarkt+Gent/Sint-Baafskathedraal+Gent" }], guide: {
+          { time: "10:45", title: "⛪ Sint-Baafskathedraal (Szent Bavó-katedrális)", desc: "A katedrális maga INGYENES és lenyűgöző gótikus belső. A fő attrakció: A Genti Oltár (Van Eyck testvérek, 1432) — az olajfestészet egyik legnagyobb mestermű! A Monuments Men csapata mentette meg a náci bányából a II. világháborúban. Opcionális belépő: €16/fő.", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Sint-Baafskathedraal+Gent" }, { label: "Wikipedia", url: "https://hu.wikipedia.org/wiki/Sint-Baafskathedraal" }], transport: [{ type: "walk", label: "🚶 ~2 perc · a Korenmarkt sarkán", url: "https://www.google.com/maps/dir/Korenmarkt+Gent/Sint-Baafskathedraal+Gent" }], guide: {
               history: [
                 "A katedrális a 10. századig nyúlik vissza — az eredeti Szent János-templom helyén épült, a jelenlegi gótikus épület a 14-16. századból való",
                 "A Genti Oltár (Het Lam Gods, az Isten Báránya) Jan és Hubert van Eyck 1432-es főműve — a nyugati festészet egyik legfontosabb műalkotása, az olajfestés technikájának úttörője",
@@ -680,7 +742,7 @@ export const trips = [
                 "Az audio guide (€4) nagyon részletesen mesél az oltárról — megéri ha nincs időtök a teljes kiállításra"
               ]
             } },
-          { time: "11:30", title: "🏛 Graslei & Korenlei", badges: ["INGYENES"], desc: "Gent legikonikusabb helyszíne! A Leie folyó két partján középkori céhházak sorakoznak — a gabonakereskedők, kőműves és mérlegelők céhháza mind itt van. A 12-13. századi homlokzatok Európa legjobb állapotban megmaradt középkori rakpartjai.", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Graslei+Gent" }, { label: "visit.gent.be", url: "https://visit.gent.be/en/see-do/graslei-and-korenlei" }], transport: [{ type: "walk", label: "🚶 ~3 perc · a katedrálistól", url: "https://www.google.com/maps/dir/Sint-Baafskathedraal+Gent/Graslei+Gent" }], guide: {
+          { time: "11:30", title: "🏛 Graslei & Korenlei", badges: ["INGYENES"], desc: "Gent legikonikusabb helyszíne! A Leie folyó két partján középkori céhházak sorakoznak — a gabonakereskedők, kőműves és mérlegelők céhháza mind itt van. A 12-13. századi homlokzatok Európa legjobb állapotban megmaradt középkori rakpartjai.", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Graslei+Gent" }, { label: "Wikipedia", url: "https://en.wikipedia.org/wiki/Graslei" }], transport: [{ type: "walk", label: "🚶 ~3 perc · a katedrálistól", url: "https://www.google.com/maps/dir/Sint-Baafskathedraal+Gent/Graslei+Gent" }], guide: {
               history: [
                 "A Graslei (Fű-rakpart) és Korenlei (Gabona-rakpart) Gent középkori kikötője volt — innen indult a gabona, gyapjú és fűszer kereskedelme egész Európába",
                 "A céhházak a 12-15. századból valók — minden céh (gabonakereskedők, kőművesek, mérlegelők) saját díszes székházat épített a gazdagságát fitogtatva",
@@ -703,7 +765,7 @@ export const trips = [
                 "40 perces csónaktúrák indulnak a Graslei-tól (~€9/fő) — más perspektívából mutatja a várost"
               ]
             } },
-          { time: "12:00", title: "⚔️ Gravensteen (Grófok Vára)", highlight: true, badges: ["GYEREKBARÁT"], desc: "Igazi lovagvár a város közepén! 1180-ban építette I. Fülöp flandriai gróf a keresztes háborúk szíriai erődítményei mintájára. Vastag falak, tornyok, vizesárok — a kislány ODALESZ! Belül fegyverkiállítás és börtöncellák. A tetőről panoráma kilátás egész Gentre. €12/felnőtt, €2/gyerek.", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Gravensteen+Gent" }, { label: "gravensteen.be", url: "https://www.historischehuizen.stad.gent/en/castle-counts" }], transport: [{ type: "walk", label: "🚶 ~4 perc · a Graslei-tól", url: "https://www.google.com/maps/dir/Graslei+Gent/Gravensteen+Gent" }], guide: {
+          { time: "12:00", title: "⚔️ Gravensteen (Grófok Vára)", highlight: true, badges: ["GYEREKBARÁT"], desc: "Igazi lovagvár a város közepén! 1180-ban építette I. Fülöp flandriai gróf a keresztes háborúk szíriai erődítményei mintájára. Vastag falak, tornyok, vizesárok — a kislány ODALESZ! Belül fegyverkiállítás és börtöncellák. A tetőről panoráma kilátás egész Gentre. €12/felnőtt, €2/gyerek.", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Gravensteen+Gent" }, { label: "Wikipedia", url: "https://en.wikipedia.org/wiki/Gravensteen" }], transport: [{ type: "walk", label: "🚶 ~4 perc · a Graslei-tól", url: "https://www.google.com/maps/dir/Graslei+Gent/Gravensteen+Gent" }], guide: {
               history: [
                 "I. Fülöp (Fülöp d'Alsace) flandriai gróf 1180-ban építtette a szíriai Krak des Chevaliers keresztes erőd mintájára — az egyik legjobban megmaradt középkori vizesárkos vár Európában",
                 "A vár 900 éves története során volt grófi rezidencia, börtön, pénzverde, gyapjúraktár és még gyár is — a 19. században textilmunkások dolgoztak a falai között",
@@ -728,7 +790,20 @@ export const trips = [
                 "Kb. 1-1.5 óra a teljes bejárás — a tetőre mindenképp menjetek fel"
               ]
             } },
-          { time: "13:00", title: "🍲 Ebéd — Gentse Waterzooi", desc: "Gent saját fogása! Krémes csirke (eredetileg hal) ragu zöldségekkel és tejszínes lével. A legenda szerint itt találták fel, és a név \"forró víz\"-et jelent gentül. Tipp: a Patershol-ban az éttermek hangulatos középkori házakban vannak. (~€12-18/fő)", transport: [{ type: "walk", label: "🚶 ~3 perc · a vár mellett", url: "https://www.google.com/maps/dir/Gravensteen+Gent/Patershol+Gent" }] },
+          { time: "13:00", title: "🍲 Ebéd — Gentse Waterzooi", desc: "Gent saját fogása! Krémes csirke (eredetileg hal) ragu zöldségekkel és tejszínes lével. A név 'forró víz'-et jelent gentül. (~€12-18/fő)", links: [{ label: "Magyar Wiki: Waterzooi", url: "https://hu.wikipedia.org/wiki/Waterzooi" }], transport: [{ type: "walk", label: "🚶 ~3 perc · a vár mellett", url: "https://www.google.com/maps/dir/Gravensteen+Gent/Patershol+Gent" }], guide: {
+              mustSee: [
+                "'t Klokhuys (Corduwaniersstraat 65, Patershol) — hangulatos középkori ház, kiváló waterzooi, Google 4.4★",
+                "Pakhuis (Schuurkenstraat 4) — ipari loft étterem, modern belga konyha, Google 4.1★",
+                "Amadeus (Plotersgracht 8, Patershol) — spare ribs specialista, all-you-can-eat, Google 4.3★",
+                "Bij Sint-Jacobs (Bij Sint-Jacobs 15) — bolhapiac mellett, autentikus, Google 4.3★"
+              ],
+              tips: [
+                "A Patershol éttermei a hangulatos választás — középkori házakban, a vár mellett",
+                "Csirke waterzooi a népszerűbb, hal waterzooi az eredeti — mindkettő isteni",
+                "Ha a kislány nem szereti: bőven van pasta, steak, krokett is a menükben",
+                "Szombaton a Groentenmarkt melletti standokon street food ebéd is opció (~€6-8/fő)"
+              ]
+            } },
           { time: "14:00", title: "🍬 Cuberdons kóstolás", desc: "Gent titkos különlegessége! Lila kúp alakú gumicukor, kívül kemény, belül lágy málnás töltelék. A Groentenmarkt-on két rivális cuberdon-árus háborúzik egymással évek óta — mindkettőt próbáljátok ki! (~€3-5/zacskó)", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Groentenmarkt+Gent" }], transport: [{ type: "walk", label: "🚶 ~2 perc · a Groentenmarkt-on", url: "https://www.google.com/maps/dir/Patershol+Gent/Groentenmarkt+Gent" }], guide: {
               history: [
                 "A cuberdon (neuzekes = 'orrocskák' flamandul) a 19. század közepén született Gentben — egy gyógyszerész találta fel véletlenül, miközben köhögés elleni cukorkát próbált készíteni",
@@ -748,7 +823,7 @@ export const trips = [
                 "Zacskóban vihetők haza, de 2-3 héten belül egyétek meg"
               ]
             } },
-          { time: "14:30", title: "🏘 Patershol negyed", badges: ["INGYENES"], desc: "Gent legrégebbi lakónegyede — szűk középkori sikátorok, macskakövek, rejtett kávézók. A 11. századig visszanyúló utcahálózat labirintusszerű. A Gravensteen-tól pár lépés.", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Patershol+Gent" }, { label: "visit.gent.be", url: "https://visit.gent.be/en/see-do/patershol" }], guide: {
+          { time: "14:30", title: "🏘 Patershol negyed", badges: ["INGYENES"], desc: "Gent legrégebbi lakónegyede — szűk középkori sikátorok, macskakövek, rejtett kávézók. A 11. századig visszanyúló utcahálózat labirintusszerű. A Gravensteen-tól pár lépés.", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Patershol+Gent" }, { label: "Wikipedia", url: "https://en.wikipedia.org/wiki/Patershol" }], guide: {
               history: [
                 "Gent legrégebbi lakónegyede, a 11. századig nyúlik vissza — a név a karmelita atyákról (paters) ered, akiknek kolostora itt állt",
                 "A középkorban a bőripar központja volt — a cserzőműhelyeknek kellett a közeli Leie folyó vize",
@@ -781,7 +856,7 @@ export const trips = [
               ]
             } },
           { time: "15:30", title: "🍺 Terász a Graslei-n", desc: "Genti Gruut sör (egyedi: fűszerekkel készül, komló nélkül — visszanyúl a középkori sörhagyományhoz). A Graslei teraszán ülni a legszebb hely Gentben, különösen ha süt a nap. (~€4-6/fő)" },
-          { time: "16:00", title: "🎨 Graffiti Street (Werregarenstraat)", badges: ["INGYENES", "GYEREKBARÁT"], desc: "Gent egyetlen legális graffiti utcája! Minden fal, ajtó és ablak tele van színes street art-tal — hetente változik. A kislány imádni fogja a színeket! Kb. 100 méter hosszú, de minden négyzetcenti tele van.", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Werregarenstraat+Gent" }, { label: "visit.gent.be", url: "https://visit.gent.be/en/see-do/graffiti-street" }], transport: [{ type: "walk", label: "🚶 ~3 perc · a Graslei-tól", url: "https://www.google.com/maps/dir/Graslei+Gent/Werregarenstraat+Gent" }], guide: {
+          { time: "16:00", title: "🎨 Graffiti Street (Werregarenstraat)", badges: ["INGYENES", "GYEREKBARÁT"], desc: "Gent egyetlen legális graffiti utcája! Minden fal, ajtó és ablak tele van színes street art-tal — hetente változik. A kislány imádni fogja a színeket! Kb. 100 méter hosszú, de minden négyzetcenti tele van.", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Werregarenstraat+Gent" }, { label: "Wikipedia", url: "https://en.wikipedia.org/wiki/Werregarenstraat" }], transport: [{ type: "walk", label: "🚶 ~3 perc · a Graslei-tól", url: "https://www.google.com/maps/dir/Graslei+Gent/Werregarenstraat+Gent" }], guide: {
               history: [
                 "1995-ben a város legálissá nyilvánította az utcát graffiti számára — így a street art művészek szabadon alkothatnak anélkül hogy illegálisan festenének",
                 "Gent a belga street art mozgalom központja — a 'Sorry, Not Sorry' street art fesztivált évente itt rendezik meg",
