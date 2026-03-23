@@ -6,6 +6,19 @@ React + Vite + Tailwind CSS + shadcn/ui utazástervező app.
 Magyar nyelvű, mobile-first, PWA offline támogatással.
 Deploy: Vercel. Repo: github.com:JZsolt/traveler.git
 
+## Klónozás után
+
+```bash
+git clone git@github.com:JZsolt/traveler.git Utazasaim
+cd Utazasaim
+npm install          # React app függőségek
+npm run dev          # dev szerver (localhost:5173)
+```
+
+Az app ezzel működik. A BMAD (brainstorming, utazás tervezés) használatához
+külön telepíteni kell a `_bmad/` core engine-t a projekt gyökerébe.
+A `.claude/skills/` (BMAD skillek) a repóban vannak, de a core nélkül nem futnak.
+
 ## Fejlesztés
 
 ```bash
