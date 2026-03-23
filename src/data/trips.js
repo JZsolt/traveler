@@ -72,7 +72,7 @@ export const trips = [
           "Érkezéskor: poggyász gyorsan jön, a FLIBCO busz közvetlenül a kijáratnál indul",
           "Visszaútnál: 1.5 óra elég a check-in + security-re (kicsi a reptér)",
           "Nincs érdemi duty-free vagy bolt — ne számítsatok reptéri vásárlásra",
-          "WC és víztöltés a security után ingyenes"
+          "WC a security után ingyenes — a gate-nél van automata ha kell víz/kávé"
         ]
       },
       {
