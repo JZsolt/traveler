@@ -1,5 +1,5 @@
 import { Badge } from '@/components/ui/badge'
-import { MapPin } from 'lucide-react'
+import { MapPin, Copy } from 'lucide-react'
 import { GuideInfo } from './GuideInfo'
 
 function extractLocationName(url) {
@@ -44,11 +44,24 @@ export function ScheduleItem({ item }) {
         {(locationName || item.transport) && (
           <div className="mt-1.5 flex flex-wrap gap-1.5">
             {locationName && (
-              <a href={mapLink.url} target="_blank" rel="noopener noreferrer"
-                className="flex items-center gap-1 text-[11px] md:text-[12px] text-blue-600 hover:text-blue-800 transition-colors no-underline select-all px-2 py-1.5 rounded-lg bg-blue-50 hover:bg-blue-100 min-h-[32px]">
-                <MapPin className="w-3.5 h-3.5 shrink-0 fill-white stroke-blue-600 stroke-[2.5]" />
-                <span>{locationName}</span>
-              </a>
+              <div className="flex items-center gap-0 rounded-lg overflow-hidden bg-blue-50 min-h-[32px]">
+                <a href={mapLink.url} target="_blank" rel="noopener noreferrer"
+                  className="flex items-center gap-1 text-[11px] md:text-[12px] text-blue-600 hover:text-blue-800 transition-colors no-underline px-2 py-1.5 hover:bg-blue-100">
+                  <MapPin className="w-3.5 h-3.5 shrink-0 fill-white stroke-blue-600 stroke-[2.5]" />
+                  <span>{locationName}</span>
+                </a>
+                <button
+                  onClick={() => navigator.clipboard.writeText(locationName).then(() => {
+                    const el = document.activeElement
+                    if (el) el.classList.add('text-emerald-600')
+                    setTimeout(() => el?.classList.remove('text-emerald-600'), 800)
+                  })}
+                  className="flex items-center px-2 py-1.5 text-blue-400 hover:text-blue-700 hover:bg-blue-100 transition-colors border-l border-blue-200 cursor-pointer"
+                  title="Másolás"
+                >
+                  <Copy className="w-3 h-3" />
+                </button>
+              </div>
             )}
             {item.transport?.map((t, i) => (
               <a key={i} href={t.url} target="_blank" rel="noopener noreferrer"
