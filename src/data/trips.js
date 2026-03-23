@@ -56,6 +56,84 @@ export const trips = [
       { tip: "🌷 Keukenhof kombi jegy (belépő + busz)", saving: "~€15-20" },
       { tip: "💧 Csapvíz — kiváló mindkét országban", saving: "~€20-30" }
     ],
+    practicalInfo: [
+      {
+        title: "📱 Közlekedési appok — töltsd le előre!",
+        items: [
+          "STIB-MIVB — brüsszeli metró/busz/villamos: menetrend, jegyvásárlás",
+          "SNCB/NMBS — belga vonatok: menetrend, jegyvásárlás (Bruges, Gent)",
+          "9292 — holland közlekedés: busz, vonat, metró Amszterdamban",
+          "Google Maps — offline térkép: töltsd le Belgium + Hollandia térképét WiFi-n!",
+          "Flibco — Charleroi reptér busz: jegy + menetrend"
+        ]
+      },
+      {
+        title: "💳 Fizetés & pénz",
+        items: [
+          "Mindenhol elfogadják a kártyát (Visa/Mastercard) — még az utcai standokon is általában",
+          "Készpénz: ~€50-100 érdemes vinni apróra (WC, kisebb piacok, borravalónak)",
+          "Borravaló: NEM kötelező Belgiumban és Hollandiában — a számla tartalmazza a szervízdíjat",
+          "Ha adtok, kerekítsetek fel (~5-10%) — ez elegáns gesztus, de senki nem várja el",
+          "ATM (bancomat): mindenhol van, de kerüljétek a 'Euronet' automatákat (magas jutalék)"
+        ]
+      },
+      {
+        title: "🗣 Nyelv — pár hasznos szó",
+        items: [
+          "Brüsszel francia nyelvű (de mindenki tud angolul): Bonjour, Merci, S'il vous plaît, L'addition (számla)",
+          "Bruges & Gent flamand (holland) nyelvű: Hallo, Dank u, Alstublieft, De rekening",
+          "Amszterdam: szinte mindenki beszél angolul — a hollandok Európa legjobb angoltudásúak",
+          "A belga vonatjegy-automaták angolra állíthatók — ne ijedjetek meg a francia/holland felülettől"
+        ]
+      },
+      {
+        title: "📶 Mobilnet & WiFi",
+        items: [
+          "EU roaming: a magyar előfizetésetekkel díjmentesen netezhettek — ellenőrizzétek az adatkeretetek!",
+          "Ingyenes WiFi: szinte minden kávézóban, étteremben, és a főbb tereken (Grand-Place, Markt)",
+          "Offline térkép: Google Maps-ben töltsétek le Belgium és Hollandia térképét — ez a legfontosabb!"
+        ]
+      },
+      {
+        title: "🌦 Időjárás — áprilisi",
+        items: [
+          "Átlaghőmérséklet: 7-14°C — rétegesen öltözzetek (reggel hideg, délután kellemes)",
+          "Eső: Belgium és Hollandia = bármikor eshet, rövid záporok gyakoriak — esőkabát KÖTELEZŐ",
+          "Napfény: ~13 óra nappal, sötétedés ~20:30 körül — hosszú napok, jó fotóidő",
+          "Szél: Bruges és a holland tengerpart szeles — vékony széldzseki jól jön"
+        ]
+      },
+      {
+        title: "🚰 Víz & WC",
+        items: [
+          "Csapvíz kiváló minőségű mindkét országban — nyugodtan igyatok csapvizet (és spóroltok)",
+          "Étteremben kérjetek 'eau du robinet' / 'kraanwater' (csapvíz) — ingyenes, de nem mindig adják szívesen",
+          "Nyilvános WC: általában €0.50 — legyen mindig apró nálatok",
+          "Múzeumok, éttermek WC-je ingyenes — használjátok ki"
+        ]
+      },
+      {
+        title: "👧 Gyerekkel utazás",
+        items: [
+          "Belga vonat: 12 év alatti gyerek INGYENES (felnőtt kísérővel) — nem kell jegy!",
+          "Legtöbb múzeum 18 év alattiaknak kedvezményes vagy ingyenes",
+          "Bugaboo/babakocsi: Bruges és Gent macskakövesek — kényelmes cipő jobb, mint babakocsi",
+          "Játszóterek: Cinquantenaire park (Nap 1), Vondelpark (Nap 2), Minnewater (Nap 3)",
+          "Gyerekmenü: szinte mindenhol van — nuggets, pasta, croque-monsieur (melegszendvics)",
+          "Ha elfárad: a szálláson délután 15-17h pihenő beiktatva minden nap"
+        ]
+      },
+      {
+        title: "🆘 Vészhelyzet",
+        items: [
+          "Európai segélyhívó: 112 (rendőrség, mentő, tűzoltó — mindenhol működik)",
+          "Magyar konzulátus Brüsszel: Rue de Trèves 92, +32 2 792 1100",
+          "Gyógyszertár (pharmacie/apotheek): a szállás közelében Multipharma (Rue de Namur 48) — hétköznap 9-19h",
+          "Kórház: Cliniques de l'Europe - St-Michel (10 perc a szállástól) — sürgősségi",
+          "Európai Egészségbiztosítási Kártya (EHIC/EEKK): VIGYÉTEK MAGATOKKAL — ingyenes ellátás az EU-ban"
+        ]
+      }
+    ],
     bookingChecklist: [
       { item: "Van Gogh Múzeum jegy — ápr. 9 délutáni slot", url: "https://www.vangoghmuseum.nl/en/visit/tickets" },
       { item: "Eurostar VAGY FlixBus Brüsszel↔Amszterdam", url: "https://www.eurostar.com" },
