@@ -58,24 +58,6 @@ export const trips = [
     ],
     practicalInfo: [
       {
-        title: "🕐 Időzóna",
-        items: [
-          "Románia → Belgium/Hollandia: -1 óra (CET, közép-európai idő)",
-          "Ha 06:10-kor landoltok Charleroi-ban, Romániában 07:10 van — az órátokat állítsátok át!",
-          "Az iPhone/Android automatikusan átáll ha be van kapcsolva az automatikus időzóna"
-        ]
-      },
-      {
-        title: "✈️ Charleroi (CRL) reptér",
-        items: [
-          "Kicsi, egyszerű reptér — gyorsan ki- és bejuttok, nincs bonyolult terminál",
-          "Érkezéskor: poggyász gyorsan jön, a FLIBCO busz közvetlenül a kijáratnál indul",
-          "Visszaútnál: 1.5 óra elég a check-in + security-re (kicsi a reptér)",
-          "Nincs érdemi duty-free vagy bolt — ne számítsatok reptéri vásárlásra",
-          "WC a security után ingyenes — a gate-nél van automata ha kell víz/kávé"
-        ]
-      },
-      {
         title: "📱 Közlekedési appok — töltsd le előre!",
         items: [
           "STIB-MIVB — brüsszeli metró/busz/villamos: menetrend, jegyvásárlás",
