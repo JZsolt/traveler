@@ -26,9 +26,6 @@
   }
   * {
     @apply border-border outline-ring/50;
-    -webkit-user-select: text;
-    user-select: text;
-    -webkit-touch-callout: default;
   }
   html {
     @apply font-sans;
@@ -145,4 +142,11 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+}
+
+/* Force text selection everywhere — iOS PWA standalone strips it */
+*, *::before, *::after {
+  -webkit-user-select: text !important;
+  user-select: text !important;
+  -webkit-touch-callout: default !important;
 }
