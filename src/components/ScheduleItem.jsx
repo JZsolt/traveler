@@ -103,7 +103,7 @@ export function ScheduleItem({ item }) {
       </div>
       {/* Toast */}
       {copied && (
-        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-slate-800 text-white text-[13px] font-medium px-4 py-2.5 rounded-xl shadow-lg flex items-center gap-2 animate-fade-in">
+        <div className="fixed bottom-6 inset-x-0 z-50 w-fit mx-auto bg-slate-800 text-white text-[13px] font-medium px-4 py-2.5 rounded-xl shadow-lg flex items-center gap-2 animate-fade-in">
           <Check className="w-4 h-4 text-emerald-400" />
           Másolva!
         </div>
