@@ -175,8 +175,7 @@ export const trips = [
               ]
             } },
           { time: "09:30", title: "🌳 Parc du Cinquantenaire", badges: ["INGYENES"], desc: "Hatalmas park impozáns diadalívvel — I. Lipót belga király építtette Belgium 50. évfordulójára. A kislány futhat a réten, ti kávéztok a padon. Az ívek alatt néha kiállítások vannak.", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Parc+du+Cinquantenaire+Brussels" }, { label: "Wikipedia", url: "https://en.wikipedia.org/wiki/Cinquantenaire" }], transport: [{ type: "walk", label: "🚶 ~5 perc · séta a szállástól", url: "https://www.google.com/maps/dir/Rue+De+Pascale+15+Brussels/Parc+du+Cinquantenaire" }], guide: {
-              image: { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Cinquantenaire.jpg/960px-Cinquantenaire.jpg", caption: "Parc du Cinquantenaire - a diadaliv" },
-              history: [
+                            history: [
                 "II. Lipót belga király rendelte el a park építését 1880-ban Belgium függetlenségének 50. évfordulójára (Cinquantenaire = ötvenedik évforduló)",
                 "A monumentális diadalívet eredetileg fából építették, a kőváltozat csak 1905-re készült el — Lipót nem érte meg az átadást",
                 "A park alatt húzódik az Európai Unió főhadiszállásához vezető alagút"
@@ -298,8 +297,7 @@ export const trips = [
               ]
             } },
           { time: "14:00", title: "🍫 Sablon negyed — csokoládé & antik", badges: ["INGYENES"], desc: "Brüsszel legelegánsabb negyede. Pierre Marcolini, Wittamer és Neuhaus (aki feltalálta a praliné bonbont 1912-ben!) mind itt van. Sok helyen ingyen kóstolhattok. Az antik boltok és galériák is lenyűgözőek. Hétvégenként antikpiac a téren.", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Place+du+Grand+Sablon+Brussels" }, { label: "Wikipedia", url: "https://en.wikipedia.org/wiki/Sablon,_Brussels" }], transport: [{ type: "walk", label: "🚶 ~12 perc · séta délre, lejtőn le a Sablon felé", url: "https://www.google.com/maps/dir/Grand+Place+Brussels/Place+du+Grand+Sablon+Brussels" }], guide: {
-              image: { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Sablon_Church_Brussels.jpg/960px-Sablon_Church_Brussels.jpg", caption: "Notre-Dame du Sablon templom" },
-              history: [
+                            history: [
                 "A Sablon neve a homokos (sablonneux) talajból ered — a középkorban itt volt a város homokbányája",
                 "A Notre-Dame du Sablon templom a 15. századból származik, brüsszeli gótika remekműve — eredetileg az íjász céh kápolnája volt",
                 "A praliné bonbont Jean Neuhaus svájci-belga cukrász találta fel itt 1912-ben — a világ első telt csokija!"
@@ -497,8 +495,7 @@ export const trips = [
               ]
             } },
           { time: "17:00", title: "💐 Bloemenmarkt — Úszó virágpiac", desc: "A világ egyetlen úszó virágpiaca 1862 óta! A Singel csatornán álló bárkákon tulipánhagymákat, virágokat, holland szuveníreket árulnak. Vigyetek haza tulipánhagymákat — áprilisban ültethetitek!", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Bloemenmarkt+Amsterdam" }, { label: "Wikipedia", url: "https://en.wikipedia.org/wiki/Bloemenmarkt" }], transport: [{ type: "walk", label: "🚶 ~12 perc · séta a csatornák mentén délre", url: "https://www.google.com/maps/dir/Jordaan+Amsterdam/Bloemenmarkt+Amsterdam" }], guide: {
-              image: { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Amsterdam_Bloemenmarkt_2014.jpg/960px-Amsterdam_Bloemenmarkt_2014.jpg", caption: "Bloemenmarkt - az uszo viragpiac" },
-              history: [
+                            history: [
                 "1862-ben alapították — a kereskedők eredetileg csónakkal hozták a virágokat a közeli kertészetekből, és a bárkákról árulták",
                 "A Singel csatorna mentén található, a Koningsplein és a Muntplein között — Amszterdam egyik legrégebbi piaca"
               ],
@@ -537,8 +534,7 @@ export const trips = [
             } },
           { time: "18:30", title: "🍺 Teraszozás egy gracht mellett", highlight: true, desc: "Holland sör (Heineken, Amstel, vagy craft sör), bitterballen (rántott húsgolyó — a holland snack!), és a csatorna felett alkonyat. Ez AZ amszterdami élmény. (~€5-8/fő)", transport: [{ type: "walk", label: "🚶 ~5 perc · séta a Leidseplein felé", url: "https://www.google.com/maps/dir/Vondelpark+Amsterdam/Leidseplein+Amsterdam" }] },
           { time: "19:30", title: "📍 Dam tér + Királyi Palota", badges: ["INGYENES"], desc: "Amszterdam központi tere a 17. századi Királyi Palotával. A palota 13.659 facölöpön áll (igen, tizenháromezer)! Este gyönyörűen kivilágított.", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Dam+Square+Amsterdam" }, { label: "paleisamsterdam.nl", url: "https://www.paleisamsterdam.nl/en" }], transport: [{ type: "walk", label: "🚶 ~15 perc · séta a Jordaan-on át", url: "https://www.google.com/maps/dir/Leidseplein+Amsterdam/Dam+Square+Amsterdam" }], guide: {
-              image: { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Royal_Palace_Amsterdam.jpg/960px-Royal_Palace_Amsterdam.jpg", caption: "Dam ter - Kiralyi Palota" },
-              history: [
+                            history: [
                 "A Dam tér neve a 13. századi gátról (dam) ered, amit az Amstel folyón építettek — innen az Amsterdam név is (Amstel + dam)",
                 "A Királyi Palota (Koninklijk Paleis) 1655-ben épült városházaként — Napóleon öccse, Lajos király alakította királyi palotává 1808-ban",
                 "A Nemzeti Emlékmű (National Monument) a tér közepén a II. világháborús áldozatoknak állít emléket (1956)"
@@ -646,8 +642,7 @@ export const trips = [
               ]
             } },
           { time: "11:30", title: "🏰 Burg tér + Városháza + Szent Vér Bazilika", badges: ["INGYENES"], desc: "A Burg tér Bruges politikai szíve volt. A Városháza (1376) Flandria legrégebbi gótikus épülete. A Szent Vér Bazilika egy 12. századi kápolna, ahol állítólag Krisztus vérének ereklyéjét őrzik!", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Burg+Square+Bruges" }, { label: "Wikipedia", url: "https://en.wikipedia.org/wiki/Burg_(Bruges)" }], transport: [{ type: "walk", label: "🚶 ~2 perc · szomszédos tér", url: "https://www.google.com/maps/dir/Markt+Bruges/Burg+Square+Bruges" }], guide: {
-              image: { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Brugge_-_Burg_4.jpg/960px-Brugge_-_Burg_4.jpg", caption: "Burg ter - Szent Ver Bazilika" },
-              history: [
+                            history: [
                 "A Burg tér a 9. századtól Bruges hatalmi központja — itt állt az eredeti erődítmény (burg), amiről a város a nevét kapta",
                 "A Szent Vér ereklyét állítólag Thierry d'Alsace flandriai gróf hozta a Szentföldről a II. keresztes háború után (1149)",
                 "A Városháza (Stadhuis) 1376-1421 között épült — Flandria és Belgium legrégebbi gótikus városházája",
