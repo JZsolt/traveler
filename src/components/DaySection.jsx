@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { ChevronDown } from 'lucide-react'
+import { ChevronDown, X } from 'lucide-react'
 import { ScheduleItem } from './ScheduleItem'
 import { CostTable } from './CostTable'
 import { AlertBox } from './AlertBox'
@@ -7,6 +7,7 @@ import { TransportOptions } from './TransportOptions'
 
 export function DaySection({ day, defaultOpen = false }) {
   const [open, setOpen] = useState(defaultOpen)
+  const [lightbox, setLightbox] = useState(null)
 
   return (
     <div className="border-b border-slate-200/60">
@@ -34,7 +35,7 @@ export function DaySection({ day, defaultOpen = false }) {
           {day.images?.length > 0 && (
             <div className="grid grid-cols-3 gap-1.5 md:gap-2.5 mt-3 mb-4">
               {day.images.map((img, i) => (
-                <div key={i} className="overflow-hidden rounded-xl bg-slate-200">
+                <div key={i} className="overflow-hidden rounded-xl bg-slate-200 cursor-pointer" onClick={() => setLightbox(img)}>
                   <img
                     src={img.url}
                     alt={img.caption}
@@ -48,6 +49,17 @@ export function DaySection({ day, defaultOpen = false }) {
                   <p className="text-center text-[9px] md:text-[10px] text-slate-400 mt-1 px-1">{img.caption}</p>
                 </div>
               ))}
+            </div>
+          )}
+
+          {/* Lightbox */}
+          {lightbox && (
+            <div className="fixed inset-0 z-[100] bg-black/90 flex flex-col items-center justify-center p-4" onClick={() => setLightbox(null)}>
+              <button onClick={() => setLightbox(null)} className="absolute top-4 right-4 text-white/70 hover:text-white cursor-pointer z-10" style={{ paddingTop: 'env(safe-area-inset-top, 0px)' }}>
+                <X className="w-7 h-7" />
+              </button>
+              <img src={lightbox.url} alt={lightbox.caption} className="max-w-full max-h-[80vh] object-contain rounded-lg" />
+              <p className="text-white/80 text-sm mt-3 text-center">{lightbox.caption}</p>
             </div>
           )}
 
