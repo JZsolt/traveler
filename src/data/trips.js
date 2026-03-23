@@ -363,10 +363,66 @@ export const trips = [
                 "A kávézókban a 'koffie verkeerd' (rossz kávé) = café latte — ne lepődjetek meg a nevén"
               ]
             } },
-          { time: "17:00", title: "💐 Bloemenmarkt — Úszó virágpiac", desc: "A világ egyetlen úszó virágpiaca 1862 óta! A Singel csatornán álló bárkákon tulipánhagymákat, virágokat, holland szuveníreket árulnak. Vigyetek haza tulipánhagymákat — áprilisban ültethetitek!", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Bloemenmarkt+Amsterdam" }], transport: [{ type: "walk", label: "🚶 ~12 perc · séta a csatornák mentén délre", url: "https://www.google.com/maps/dir/Jordaan+Amsterdam/Bloemenmarkt+Amsterdam" }] },
-          { time: "17:30", title: "🌳 Vondelpark", badges: ["INGYENES", "GYEREKBARÁT"], desc: "Amszterdam Central Parkja — 47 hektáron tavak, rétek, játszóterek, kávézók. A kislány végre szabadon rohangálhat! Ha szép az idő, a hollandok piknikeznek a fűben.", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Vondelpark+Amsterdam" }], transport: [{ type: "walk", label: "🚶 ~10 perc · séta nyugat felé", url: "https://www.google.com/maps/dir/Bloemenmarkt+Amsterdam/Vondelpark+Amsterdam" }] },
+          { time: "17:00", title: "💐 Bloemenmarkt — Úszó virágpiac", desc: "A világ egyetlen úszó virágpiaca 1862 óta! A Singel csatornán álló bárkákon tulipánhagymákat, virágokat, holland szuveníreket árulnak. Vigyetek haza tulipánhagymákat — áprilisban ültethetitek!", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Bloemenmarkt+Amsterdam" }, { label: "iamsterdam.com", url: "https://www.iamsterdam.com/en/see-and-do/shopping/overview-amsterdam-markets/bloemenmarkt" }], transport: [{ type: "walk", label: "🚶 ~12 perc · séta a csatornák mentén délre", url: "https://www.google.com/maps/dir/Jordaan+Amsterdam/Bloemenmarkt+Amsterdam" }], guide: {
+              history: [
+                "1862-ben alapították — a kereskedők eredetileg csónakkal hozták a virágokat a közeli kertészetekből, és a bárkákról árulták",
+                "A Singel csatorna mentén található, a Koningsplein és a Muntplein között — Amszterdam egyik legrégebbi piaca"
+              ],
+              mustSee: [
+                "A tulipánhagyma standok — rengeteg fajta kapható, csomagolva, EU-n belül hazavihető",
+                "A fából készült tulipán szuvenírek — klasszikus holland ajándék",
+                "A csatorna felőli oldal — innen látni hogy a standok valóban bárkákon állnak"
+              ],
+              funFacts: [
+                "Bár 'úszó piac'-nak hívják, a bárkák valójában rögzítettek és nem mozognak — de technikailag a vízen vannak",
+                "A piac ma inkább turista látványosság mint helyi virágpiac — a hollandok az Albert Cuyp-on vagy online vásárolnak"
+              ],
+              tips: [
+                "Tulipánhagymát CSAK 'EU export approved' matricával vegyetek — különben a reptéri vám elkobozhatja",
+                "Az árak alkudhatók ha többet vesztek — különösen záróra előtt (17:30)"
+              ]
+            } },
+          { time: "17:30", title: "🌳 Vondelpark", badges: ["INGYENES", "GYEREKBARÁT"], desc: "Amszterdam Central Parkja — 47 hektáron tavak, rétek, játszóterek, kávézók. A kislány végre szabadon rohangálhat! Ha szép az idő, a hollandok piknikeznek a fűben.", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Vondelpark+Amsterdam" }, { label: "hetvondelpark.net", url: "https://www.hetvondelpark.net" }], transport: [{ type: "walk", label: "🚶 ~10 perc · séta nyugat felé", url: "https://www.google.com/maps/dir/Bloemenmarkt+Amsterdam/Vondelpark+Amsterdam" }], guide: {
+              history: [
+                "1865-ben nyitották meg, Joost van den Vondel holland költőről (1587-1679) nevezték el — az ő szobra áll a park bejáratánál",
+                "Eredetileg lovaglópark volt a gazdag amszterdamiak számára — ma évi 10 millió látogató jön"
+              ],
+              mustSee: [
+                "A nagy játszótér a park közepén — csúszdák, mászókák, homokozó",
+                "A Groot Melkhuis kávézó — terasz a tó mellett, gyerekbarát",
+                "A Vondelpark Openluchttheater — nyári szabadtéri előadások (ingyenes!)"
+              ],
+              funFacts: [
+                "A park 47 hektáros — kb. 66 futballpálya méretű, Amszterdam legnagyobb parkja",
+                "Kb. 100 féle fa él a parkban és rengeteg papagáj — igen, vadon élő zöld papagájok Amszterdamban!"
+              ],
+              tips: [
+                "A park déli bejárata (Museumplein felől) a legközelebbi a Van Gogh Múzeumtól",
+                "Szép időben a hollandok piknikeznek — vigyetek magatok is nassolnivalót"
+              ]
+            } },
           { time: "18:30", title: "🍺 Teraszozás egy gracht mellett", highlight: true, desc: "Holland sör (Heineken, Amstel, vagy craft sör), bitterballen (rántott húsgolyó — a holland snack!), és a csatorna felett alkonyat. Ez AZ amszterdami élmény. (~€5-8/fő)", transport: [{ type: "walk", label: "🚶 ~5 perc · séta a Leidseplein felé", url: "https://www.google.com/maps/dir/Vondelpark+Amsterdam/Leidseplein+Amsterdam" }] },
-          { time: "19:30", title: "📍 Dam tér + Királyi Palota", badges: ["INGYENES"], desc: "Amszterdam központi tere a 17. századi Királyi Palotával. A palota 13.659 facölöpön áll (igen, tizenháromezer)! Este gyönyörűen kivilágított.", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Dam+Square+Amsterdam" }], transport: [{ type: "walk", label: "🚶 ~15 perc · séta a Jordaan-on át", url: "https://www.google.com/maps/dir/Leidseplein+Amsterdam/Dam+Square+Amsterdam" }] },
+          { time: "19:30", title: "📍 Dam tér + Királyi Palota", badges: ["INGYENES"], desc: "Amszterdam központi tere a 17. századi Királyi Palotával. A palota 13.659 facölöpön áll (igen, tizenháromezer)! Este gyönyörűen kivilágított.", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Dam+Square+Amsterdam" }, { label: "paleisamsterdam.nl", url: "https://www.paleisamsterdam.nl/en" }], transport: [{ type: "walk", label: "🚶 ~15 perc · séta a Jordaan-on át", url: "https://www.google.com/maps/dir/Leidseplein+Amsterdam/Dam+Square+Amsterdam" }], guide: {
+              history: [
+                "A Dam tér neve a 13. századi gátról (dam) ered, amit az Amstel folyón építettek — innen az Amsterdam név is (Amstel + dam)",
+                "A Királyi Palota (Koninklijk Paleis) 1655-ben épült városházaként — Napóleon öccse, Lajos király alakította királyi palotává 1808-ban",
+                "A Nemzeti Emlékmű (National Monument) a tér közepén a II. világháborús áldozatoknak állít emléket (1956)"
+              ],
+              mustSee: [
+                "A Királyi Palota homlokzata — holland klasszicista remekmű, a timpanon felett Atlas tartja a világot",
+                "A Nationale Monument — 22 méter magas obeliszk, minden május 4-én itt tartják a nemzeti megemlékezést",
+                "A Madame Tussauds (a tér sarkán) — ha a kislány szereti a viaszfigurákat"
+              ],
+              funFacts: [
+                "A palota 13.659 facölöpön áll — ezeket 18 méter mélyre verték a homokos talajba, a sziklaalapig",
+                "A palota padlóján a márványba vésett térképeken az egész világ látható — a holland Aranykor ambícióit tükrözi",
+                "A Dam téren tartják az éves karácsonyi vásárt és a Koningsdag (Király Napja, ápr. 27) ünnepségeket"
+              ],
+              tips: [
+                "A palota belülről is látogatható (€12.50) de csak bizonyos napokon — nézd meg a weboldalon",
+                "A tér körül sok turista csapda étterem van — inkább a mellékutcákban egyetek"
+              ]
+            } },
           { time: "20:00", title: "🚌/🚄 Vissza Brüsszelbe", highlight: true, desc: "Amsterdam Centraal-ról. Fáradtan, de tele élményekkel!", transport: [{ type: "walk", label: "🚶 ~10 perc · Dam → Centraal", url: "https://www.google.com/maps/dir/Dam+Square+Amsterdam/Amsterdam+Centraal" }] },
           { time: "~22:30", title: "🏠 Érkezés Brüsszel" }
         ],
@@ -423,7 +479,27 @@ export const trips = [
                 "A Markt-ról indul a legtöbb sétatúra — ingyenes walking tour naponta 10:30-kor és 14:00-kor"
               ]
             } },
-          { time: "11:00", title: "🗼 Belfort-torony", optional: true, desc: "83 méter magas, 366 lépcsőfok — de a kilátás megéri! A toronyban 47 harangjáték (carillon) szól, UNESCO Világörökség. A szűk csigalépcső kaland a kislánynak! €14/felnőtt, €6/gyerek." },
+          { time: "11:00", title: "🗼 Belfort-torony", optional: true, desc: "83 méter magas, 366 lépcsőfok — de a kilátás megéri! A toronyban 47 harangjáték (carillon) szól, UNESCO Világörökség. A szűk csigalépcső kaland a kislánynak! €14/felnőtt, €6/gyerek.", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Belfry+of+Bruges" }, { label: "museebrugge.be", url: "https://www.museebrugge.be/en/visit-our-museums/our-museums-and-monuments/belfort" }], guide: {
+              history: [
+                "A torony építése 1240-ben kezdődött, a jelenlegi formáját 1482-re nyerte el — a csúcsa eredményleg magasabb volt, de egy 1741-es villámcsapás után nem építették újra",
+                "A középkorban a város kincstára volt a toronyban — a városi szabadságlevelet és pecsétet itt őrizték",
+                "A 47 harangból álló carillon UNESCO Világörökség — ma is zenél, negyedóránként szól"
+              ],
+              mustSee: [
+                "A kilátás a tetőről — egész Bruges és a flamand síkság a tengerig",
+                "A harangjáték mechanizmusa a torony belsejében — ha felmentek, útközben látjátok",
+                "A szűk csigalépcső — a 366 lépcsőfok maga is élmény (és jó edzés!)"
+              ],
+              funFacts: [
+                "A torony 1.2 méterrel dől észak-kelet felé — szándéktalan, de stabil",
+                "A carillon-játékos (beiaardier) kézzel játssza a harangokat egy speciális billentyűzeten — a város hivatalos állása"
+              ],
+              tips: [
+                "Egyszerre max 70 ember lehet fent — csúcsidőben (11-14h) akár 30 perc a sor",
+                "Menjetek minél korábban (10:00-kor nyit) — ilyenkor szinte üres",
+                "A lépcső nagyon szűk — kislányt fogjátok kézen, és kényelmes cipő kötelező"
+              ]
+            } },
           { time: "11:30", title: "🏰 Burg tér + Városháza + Szent Vér Bazilika", badges: ["INGYENES"], desc: "A Burg tér Bruges politikai szíve volt. A Városháza (1376) Flandria legrégebbi gótikus épülete. A Szent Vér Bazilika egy 12. századi kápolna, ahol állítólag Krisztus vérének ereklyéjét őrzik!", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Burg+Square+Bruges" }], transport: [{ type: "walk", label: "🚶 ~2 perc · szomszédos tér", url: "https://www.google.com/maps/dir/Markt+Bruges/Burg+Square+Bruges" }], guide: {
               history: [
                 "A Burg tér a 9. századtól Bruges hatalmi központja — itt állt az eredeti erődítmény (burg), amiről a város a nevét kapta",
@@ -492,7 +568,26 @@ export const trips = [
                 "A hátsó bejárat a Minnewater felől a hangulatos — a főbejárat a Wijngaardstraat-ról van"
               ]
             } },
-          { time: "15:00", title: "🦢 Minnewater (\"Szerelem tava\")", badges: ["INGYENES", "GYEREKBARÁT"], desc: "Romantikus tó hattyúkkal! A legenda szerint egy lány, Minna, szerelméért halt meg, és a tavat róla nevezték el. A hattyúk 1488 óta élnek itt — Miksa császár büntetésül rendelte, mert a brugge-iek lefejezték tanácsadóját. A kislány etethet hattyúkat!", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Minnewater+Bruges" }], transport: [{ type: "walk", label: "🚶 ~2 perc · a Begijnhof mellett", url: "https://www.google.com/maps/dir/Begijnhof+Bruges/Minnewater+Bruges" }] },
+          { time: "15:00", title: "🦢 Minnewater ('Szerelem tava')", badges: ["INGYENES", "GYEREKBARÁT"], desc: "Romantikus tó hattyúkkal! A legenda szerint egy lány, Minna, szerelméért halt meg, és a tavat róla nevezték el. A hattyúk 1488 óta élnek itt — Miksa császár büntetésül rendelte, mert a brugge-iek lefejezték tanácsadóját, akinek a címerében hattyú volt.", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Minnewater+Bruges" }, { label: "visitbruges.be", url: "https://www.visitbruges.be/en/minnewater-lake-of-love" }], transport: [{ type: "walk", label: "🚶 ~2 perc · a Begijnhof mellett", url: "https://www.google.com/maps/dir/Begijnhof+Bruges/Minnewater+Bruges" }], guide: {
+              history: [
+                "A Minnewater a középkorban belső kikötőként szolgált — itt kötöttek ki a kereskedőhajók amelyek a Zwin csatornán érkeztek az Északi-tengerről",
+                "A név eredete vitatott: a 'minne' jelenthet szerelmet (középkori holland) vagy belső vizet (binnenwaters)",
+                "A hattyúk 1488 óta vannak itt — Miksa császár rendelte el örök büntetésként, mert a bruges-iek lefejezték Pieter Lanchals tanácsadóját (akinek a nevében a 'hals' = nyak, a címerében hattyú volt)"
+              ],
+              mustSee: [
+                "A Poertoren (Lőportorony, 1398) a tó partján — a város régi lőporraktára, ma nem látogatható belülről, de kívülről fotogén",
+                "A zsilipház a tó végén — innen szabályozták a város vízszintjét",
+                "A hattyúk — nyugodtan közeledj, de ne etesd kenyérrel (nem jó nekik), inkább salátával"
+              ],
+              funFacts: [
+                "A város gondozói (zwaanherders = hattyúpásztorok) naponta etetik a hattyúkat — ez hivatalos bruges-i állás",
+                "A legenda szerint ha egy pár megcsókolja egymást a Minnewater hídján, örökké szeretni fogják egymást"
+              ],
+              tips: [
+                "A tó legszebb a Begijnhof felőli partról — a fehér házak és a hattyúk együtt tökéletes fotó",
+                "A park padjai ideálisak pihenőre — a Begijnhof után ez egy nyugodt pont"
+              ]
+            } },
           { time: "15:30", title: "🧇🍺 Gofri + sör szünet", desc: "Üljetek le egy teraszra, rendeljetek egy Brugse Zot-ot (Bruges saját söre, a \"Bruges-i Bolond\") és egy gofrit. Megérdemlitek! (~€5-8/fő)" },
           { time: "16:00", title: "🚶 Szabad séta / vásárlás", desc: "Bruges-i csipke (handmade lace — hagyomány a 16. századtól), csokoládé ajándékba, szuvenírek. A legjobb program: egyszerűen eltévedni a sikátorokban!" },
           { time: "17:00", title: "📸 Rozenhoedkaai", badges: ["INGYENES"], desc: "Bruges legtöbbet fotózott pontja! A csatorna, a középkori házak és a Belfort-torony együtt — képeslapba illő. Alkonyatkor különösen varázslatos.", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Rozenhoedkaai+Bruges" }], transport: [{ type: "walk", label: "🚶 ~8 perc · visszafelé észak felé", url: "https://www.google.com/maps/dir/Minnewater+Bruges/Rozenhoedkaai+Bruges" }], guide: {
@@ -512,7 +607,27 @@ export const trips = [
                 "Ha túl zsúfolt, a szomszédos Groenerei csatorna ugyanolyan szép, de turistamentes"
               ]
             } },
-          { time: "17:30", title: "🍺 De Halve Maan sörfőzde", optional: true, desc: "Bruges egyetlen még működő sörfőzdéje, 1856 óta! A Brugse Zot és a Straffe Hendrik sörök itt készülnek. Érdekesség: 2016-ban sör-csővezetéket építettek a föld alatt a palackozóig, 3 km hosszan! Kóstolós túra ~€12/fő.", links: [{ label: "halvemaan.be", url: "https://www.halvemaan.be/en" }], transport: [{ type: "walk", label: "🚶 ~5 perc", url: "https://www.google.com/maps/dir/Rozenhoedkaai+Bruges/De+Halve+Maan+Bruges" }] },
+          { time: "17:30", title: "🍺 De Halve Maan sörfőzde", optional: true, desc: "Bruges egyetlen még működő sörfőzdéje, 1856 óta! A Brugse Zot és a Straffe Hendrik sörök itt készülnek. Kóstolós túra ~€12/fő.", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=De+Halve+Maan+Bruges" }, { label: "halvemaan.be", url: "https://www.halvemaan.be/en" }], transport: [{ type: "walk", label: "🚶 ~5 perc", url: "https://www.google.com/maps/dir/Rozenhoedkaai+Bruges/De+Halve+Maan+Bruges" }], guide: {
+              history: [
+                "A Maes család 1856 óta főz sört ezen a helyen — hat generáción át, ma Xavier Vanneste vezeti",
+                "2016-ban 4 millió euróért építették meg a világ első sör-csővezetékét: 3 km hosszú, föld alatti cső a főzdétől a palackozóig — napi 6000 liter sör folyik benne",
+                "A sör-csővezeték crowdfundinggal jött létre — aki befektetett, élete végéig ingyen sört kap"
+              ],
+              mustSee: [
+                "A tetőterasz — a főzde tetejéről 360°-os kilátás Bruges-re, a Belfort-toronnyal szemben",
+                "A főzési folyamat — a túra végigvezet a réz üstökön, hordókon és a modern palackozón",
+                "A kóstolás — a túra végén egy Brugse Zot jár, a tetőteraszon"
+              ],
+              funFacts: [
+                "A Brugse Zot ('Bruges-i Bolond') neve onnan ered, hogy Miksa császár bolondok házát ígért a bruges-ieknek, akik mindig ünnepeltek",
+                "A Straffe Hendrik ('Erős Henrik') 11%-os — a legerősebb sörük, óvatosan!"
+              ],
+              tips: [
+                "A túra 45 perc, utolsó indulás 16:00 — érdemes online foglalni hétvégén",
+                "A gyerek limonádét kap a kóstolás helyett",
+                "A sörüzletben palackozott Brugse Zot vihető haza ajándékba (~€4)"
+              ]
+            } },
           { time: "18:30", title: "🍽 Vacsora Bruges-ben", highlight: true, desc: "Waterzooi (krémes csirke/hal ragu — Flandria büszkesége!) vagy stoofvlees. A Markt-tól 1-2 utcával beljebb olcsóbb és autentikusabb. (~€15-22/fő)" },
           { time: "20:00", title: "🚂 Vonat → Brüsszel", highlight: true, desc: "Utolsó vonatok ~22:30-ig, bőven van idő.", transport: [{ type: "walk", label: "🚶 ~15 perc → pályaudvar", url: "https://www.google.com/maps/dir/Markt+Bruges/Brugge+Station" }, { type: "transit", label: "🚂 Vonat ~1 óra → Brussels-Midi", url: "https://www.google.com/maps/dir/Brugge+Station/Brussels-Midi+Station" }] }
         ],
@@ -614,8 +729,41 @@ export const trips = [
               ]
             } },
           { time: "13:00", title: "🍲 Ebéd — Gentse Waterzooi", desc: "Gent saját fogása! Krémes csirke (eredetileg hal) ragu zöldségekkel és tejszínes lével. A legenda szerint itt találták fel, és a név \"forró víz\"-et jelent gentül. Tipp: a Patershol-ban az éttermek hangulatos középkori házakban vannak. (~€12-18/fő)", transport: [{ type: "walk", label: "🚶 ~3 perc · a vár mellett", url: "https://www.google.com/maps/dir/Gravensteen+Gent/Patershol+Gent" }] },
-          { time: "14:00", title: "🍬 Cuberdons kóstolás", desc: "Gent titkos különlegessége! Lila kúp alakú gumicukor, kívül kemény, belül lágy málnás töltelék. A Groentenmarkt-on két rivális cuberdon-árus háborúzik egymással évek óta — mindkettőt próbáljátok ki! (~€3-5/zacskó)", transport: [{ type: "walk", label: "🚶 ~2 perc · a Groentenmarkt-on", url: "https://www.google.com/maps/dir/Patershol+Gent/Groentenmarkt+Gent" }] },
-          { time: "14:30", title: "🏘 Patershol negyed", badges: ["INGYENES"], desc: "Gent legrégebbi lakónegyede — szűk középkori sikátorok, macskakövek, rejtett kávézók. A 11. századig visszanyúló utcahálózat labirintusszerű. A Gravensteen-tól pár lépés.", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Patershol+Gent" }] },
+          { time: "14:00", title: "🍬 Cuberdons kóstolás", desc: "Gent titkos különlegessége! Lila kúp alakú gumicukor, kívül kemény, belül lágy málnás töltelék. A Groentenmarkt-on két rivális cuberdon-árus háborúzik egymással évek óta — mindkettőt próbáljátok ki! (~€3-5/zacskó)", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Groentenmarkt+Gent" }], transport: [{ type: "walk", label: "🚶 ~2 perc · a Groentenmarkt-on", url: "https://www.google.com/maps/dir/Patershol+Gent/Groentenmarkt+Gent" }], guide: {
+              history: [
+                "A cuberdon (neuzekes = 'orrocskák' flamandul) a 19. század közepén született Gentben — egy gyógyszerész találta fel véletlenül, miközben köhögés elleni cukorkát próbált készíteni",
+                "A Groentenmarkt-on évtizedek óta 'háborúzik' két rivális árus — nem beszélnek egymással, de egymás mellett árulnak"
+              ],
+              mustSee: [
+                "A két rivális stand a Groentenmarkt-on — mindkettőnél kóstoljatok, és döntsétek el melyik jobb",
+                "A készítés — ha szerencsétek van, látjátok ahogy a friss cuberdont formázzák"
+              ],
+              funFacts: [
+                "A cuberdon receptje titkos — a pontos összetételt minden gyártó féltve őrzi",
+                "Csak frissen finom — 3 héten belül meg kell enni, mert a belső töltelék megszilárdul",
+                "Gentben próbálkoztak cuberdon-ízű sörrel, likőrrel és jégkrémmel is"
+              ],
+              tips: [
+                "A klasszikus íz a málnás (lila) — de vannak exotikus változatok: mango, mojito, cola",
+                "Zacskóban vihetők haza, de 2-3 héten belül egyétek meg"
+              ]
+            } },
+          { time: "14:30", title: "🏘 Patershol negyed", badges: ["INGYENES"], desc: "Gent legrégebbi lakónegyede — szűk középkori sikátorok, macskakövek, rejtett kávézók. A 11. századig visszanyúló utcahálózat labirintusszerű. A Gravensteen-tól pár lépés.", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Patershol+Gent" }, { label: "visit.gent.be", url: "https://visit.gent.be/en/see-do/patershol" }], guide: {
+              history: [
+                "Gent legrégebbi lakónegyede, a 11. századig nyúlik vissza — a név a karmelita atyákról (paters) ered, akiknek kolostora itt állt",
+                "A középkorban a bőripar központja volt — a cserzőműhelyeknek kellett a közeli Leie folyó vize",
+                "Az 1980-as években majdnem lebontották városfejlesztés címén — a lakók tiltakozása mentette meg"
+              ],
+              mustSee: [
+                "A szűk sikátorok — Kraanlei, Plotersgracht, Corduwaniersstraat: középkori utcanevek, macskakő, rejtett sarkok",
+                "Az éttermek — a hangulatos középkori házakban ma Gent legjobb éttermei működnek",
+                "A Gravensteen falai a Patershol felől — innen a legjobb a várra a fotó"
+              ],
+              tips: [
+                "Csak sétáljatok és fedezzétek fel — nincs konkrét látnivaló, maga a negyed az élmény",
+                "Az éttermek itt drágábbak de autentikusabbak — ha Gentben akartok vacsorázni, ide gyertek"
+              ]
+            } },
           { time: "15:00", title: "📸 Sint-Michielsbrug (Szent Mihály híd)", badges: ["INGYENES"], desc: "Gent LEGJOBB panoráma pontja! Innen egyszerre látni a három tornyot: Sint-Niklaaskerk, Belfort és Sint-Baafskathedraal — egyetlen fényképen. Este kivilágítva még szebb. Kötelező fotó!", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Sint-Michielsbrug+Gent" }], transport: [{ type: "walk", label: "🚶 ~5 perc · a Graslei-tól", url: "https://www.google.com/maps/dir/Patershol+Gent/Sint-Michielsbrug+Gent" }], guide: {
               mustSee: [
                 "A 'három torony' egy vonalban: Sint-Niklaaskerk (13. sz.), Belfort (14. sz.), Sint-Baafskathedraal (15. sz.) — egyetlen fotón három század építészete",
