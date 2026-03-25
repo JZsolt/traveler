@@ -23,6 +23,9 @@ _bmad/
 # Dev PWA
 dev-dist
 
+# Root PDF-ek (eredeti jegyek — másolat public/tickets/ alatt)
+/*.pdf
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

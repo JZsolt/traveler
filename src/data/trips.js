@@ -143,8 +143,8 @@ export const trips = [
     ],
     overview: [
       { day: 1, date: "Ápr. 8 (sze)", program: "🏛 Brüsszel", highlights: "Grand-Place, Manneken Pis, Sablon, gofri, (Atomium)" },
-      { day: 2, date: "Ápr. 9 (csü)", program: "🌷 Hollandia", highlights: "Keukenhof tulipánpark, Van Gogh Múzeum, Amszterdam" },
-      { day: 3, date: "Ápr. 10 (pé)", program: "🏰 Bruges", highlights: "Csatornák, csónaktúra, csokoládé, Begijnhof" },
+      { day: 2, date: "Ápr. 9 (csü)", program: "🏰 Bruges", highlights: "Csatornák, csónaktúra, csokoládé, Begijnhof" },
+      { day: 3, date: "Ápr. 10 (pé)", program: "🌷 Hollandia", highlights: "Keukenhof tulipánpark, Van Gogh Múzeum, Amszterdam" },
       { day: 4, date: "Ápr. 11 (szo)", program: "⚔️ Gent", highlights: "Gravensteen vár, Graslei, Waterzooi, graffiti utca" },
       { day: 5, date: "Ápr. 12 (vas)", program: "✈️ Hazaút", highlights: "Hajnali transzfer → CRL" }
     ],
@@ -360,7 +360,7 @@ export const trips = [
               ]
             } },
           { time: "21:00", title: "🌙 Grand-Place éjszakai kivilágítás", badges: ["INGYENES"], desc: "A tér aranyozott homlokzatai éjszaka meleg fényben ragyognak — teljesen más élmény mint nappal! Ilyenkor kevesebb a turista, és a tér varázslatos.", transport: [{ type: "walk", label: "🚶 ~5 perc · séta", url: "https://www.google.com/maps/dir/Place+Sainte-Catherine+Brussels/Grand+Place+Brussels" }] },
-          { time: "21:30", title: "🛏 Vissza a szállásra — korai fekvés!", desc: "Holnap a legnagyobb nap — korai kelés Hollandiába!", transport: [{ type: "transit", label: "🚇 Metro · ~8 perc · De Brouckère → Trône", url: "https://www.google.com/maps/dir/Grand+Place+Brussels/Rue+De+Pascale+15+Brussels" }] }
+          { time: "21:30", title: "🛏 Vissza a szállásra — korai fekvés!", desc: "Holnap Hollandia — korai kelés (06:30), vonat 07:49 Midi-ről! Készítsetek ki mindent este.", transport: [{ type: "transit", label: "🚇 Metro · ~8 perc · De Brouckère → Trône", url: "https://www.google.com/maps/dir/Grand+Place+Brussels/Rue+De+Pascale+15+Brussels" }] }
         ],
         costs: [
           { item: "FLIBCO busz CRL→Brüsszel", cost: "~€76" },
@@ -373,207 +373,8 @@ export const trips = [
       },
       {
         dayNum: 2,
-        title: "Hollandia — Keukenhof + Amszterdam",
-        subtitle: "Április 9. csütörtök — A nagy kaland!",
-        images: [
-          { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Keukenhof_Tulip_Gardens_1.JPG/960px-Keukenhof_Tulip_Gardens_1.JPG", caption: "Keukenhof — 7 millió tulipán" },
-          { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/960px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg", caption: "Van Gogh — Csillagos éj" },
-          { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Amsterdam_canals_in_summer.JPG/960px-Amsterdam_canals_in_summer.JPG", caption: "Amszterdam csatornái" }
-        ],
-        alerts: [
-          { type: "warning", text: "Napi útvonal: Brüsszel → Amszterdam → bus → Keukenhof → bus → Amszterdam (Van Gogh + város) → Brüsszel" }
-        ],
-        transportOptions: {
-          title: "Közlekedési opciók Brüsszel ↔ Amszterdam",
-          options: [
-            { name: "💰 FlixBus", time: "~2h40", pricePerPerson: "€15-25", total: "~€130-200", url: "https://www.flixbus.com", recommended: true },
-            { name: "🚄 Eurostar", time: "~2h", pricePerPerson: "€35-60", total: "~€300-500", url: "https://www.eurostar.com" },
-            { name: "🚂 IC vonat", time: "~3h", pricePerPerson: "€25-40", total: "~€200-320", url: "https://www.nsinternational.com" }
-          ]
-        },
-        schedule: [
-          { time: "06:00", title: "⏰ Ébresztő", desc: "Korai, de egy nap alatt két ország — megéri!" },
-          { time: "06:30", title: "🚌/🚄 Indulás → Amszterdam", highlight: true, transport: [{ type: "transit", label: "🚌 FlixBus ~2h40 VAGY 🚄 Eurostar ~2h · Brussels-Nord/Midi → Amsterdam Centraal", url: "https://www.google.com/maps/dir/Brussels-Midi+Station/Amsterdam+Centraal" }] },
-          { time: "~09:00", title: "📍 Érkezés Amsterdam Centraal", desc: "A pályaudvar maga is látnivaló — gyönyörű neoreneszánsz épület 1889-ből, a vízre épült cölöpökön! Csomagokat a locker-be (~€6-10).", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Amsterdam+Centraal" }, { label: "Wikipedia", url: "https://en.wikipedia.org/wiki/Amsterdam_Centraal_station" }] },
-          { time: "09:15", title: "🚌 Bus 397 → Keukenhof", highlight: true, desc: "Europaplein buszmegállóból indul a közvetlen Keukenhof Express. Kombi jegy (busz+belépő) megvásárolható online — olcsóbb!", links: [{ label: "keukenhof.nl", url: "https://www.keukenhof.nl" }], transport: [{ type: "transit", label: "🚇 Metro · ~10 perc · Centraal → Europaplein", url: "https://www.google.com/maps/dir/Amsterdam+Centraal/Europaplein+Amsterdam" }, { type: "transit", label: "🚌 Bus 397 · ~40 perc → Keukenhof", url: "https://www.google.com/maps/dir/Europaplein+Amsterdam/Keukenhof+Lisse" }] },
-          { time: "10:00", title: "🌷 KEUKENHOF PARK", badges: ["JÁTSZÓTÉR"], desc: "A világ legnagyobb virágoskertje! 32 hektáron 7 millió tulipán, jácint, nárcisz virágzik. Az üvegházakban orchideák és liliomok. A kislánynak: labirintus, játszótér, és a Juliana-pavilonban interaktív kiállítás. Tipp: a kert hátsó része csendesebb és legalább olyan szép! Ápr. 9 = csütörtök, kevesebb tömeg mint hétvégén.", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Keukenhof+Lisse" }], guide: {
-              image: { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Keukenhof_Tulip_Gardens_1.JPG/960px-Keukenhof_Tulip_Gardens_1.JPG", caption: "Keukenhof - tulipanmezok" },
-              history: [
-                "A Keukenhof (\"konyhakert\") neve onnan ered, hogy a 15. században Jakoba von Bayern grófnő konyhakertje volt itt — innen szerezte be a fűszereket a Teylingen kastélyba",
-                "1949-ben nyitotta meg a polgármester, hogy a holland virágkertészek kiállíthassák termékeiket — azóta évi 1.5 millió látogató jön",
-                "A tulipánmánia (1637) idején egyetlen ritka tulipánhagymáért házat lehetett venni Amszterdamban — a világ első spekulatív buborékja volt",
-                "A tulipán eredetileg Törökországból érkezett Hollandiába a 16. században — a neve a török 'tülbend' (turbán) szóból ered"
-              ],
-              mustSee: [
-                "A Juliana-pavilon — a legnagyobb fedett virágkiállítás, orchideák és liliomok ezreivel",
-                "A szélmalom — a park ikonikus jelképe, belsejébe fel lehet menni, onnan látni a végtelen tulipánmezőket",
-                "A Keukenhof-kastély kertje (a park hátuljában) — kevésbé zsúfolt és gyönyörű angol kert stílusban",
-                "Az Inspirációs Kertek — kis mintakertek amikből ötleteket meríthettek az otthoni kerthez"
-              ],
-              funFacts: [
-                "Évente 7 millió virághagymát ültetnek el kézzel — 40 kertész 3 hónapig dolgozik az ültetésen (okt-dec)",
-                "A park csak 8 hétig van nyitva (márc. közepe – máj. közepe) — ti pont a csúcsszezonban mentek!",
-                "800 fajta tulipán virágzik egyszerre — némelyik tulipán olyan ritka, hogy csak itt látható",
-                "A park területe 32 hektár — kb. 45 futballpálya méretű"
-              ],
-              tips: [
-                "Menjetek azonnal a park hátuljába — mindenki a bejáratnál fotózik, hátul üres és ugyanolyan szép",
-                "A labirintus és a játszótér a déli részen van — ha a kislány elfárad, oda menjetek",
-                "Vigyetek elemózsiát — a park éttermeiben turista árak vannak",
-                "Az üvegházak esős időben is tökéletesek"
-              ]
-            } },
-          { time: "13:00", title: "🚌 Bus 397 → Amszterdam vissza", transport: [{ type: "transit", label: "🚌 Bus 397 · ~40 perc → Europaplein", url: "https://www.google.com/maps/dir/Keukenhof+Lisse/Albert+Cuyp+Market+Amsterdam" }] },
-          { time: "13:45", title: "🍽 Ebéd: Albert Cuyp Piac", highlight: true, desc: "Amszterdam legnagyobb utcai piaca, 1905 óta! 300+ stand: holland sajt (próbáljátok a trüffelsajtosat!), friss hering, stroopwafel (frissen sütve, meleg karamellel), kibbeling (rántott hal). Budget paradicsom! (~€8-12/fő)", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Albert+Cuyp+Market+Amsterdam" }, { label: "Wikipedia", url: "https://en.wikipedia.org/wiki/Albert_Cuyp_Market" }], transport: [{ type: "walk", label: "🚶 ~10 perc · séta a piactól", url: "https://www.google.com/maps/dir/Europaplein+Amsterdam/Albert+Cuyp+Market+Amsterdam" }], guide: {
-              mustSee: [
-                "Friss stroopwafel — meleg karamellás töltelékkel, frissen sütve az utcán (ne a bolti változatot vedd!)",
-                "Holland haring (Hollandse Nieuwe) — a helyiek nyers hagymával eszik, a halat a farkánál fogva csúsztatják be a szájukba",
-                "Kibbeling — rántott tőkehal-falatok remoulade szósszal, a holland fish & chips",
-                "Gouda sajt kóstolás — a 'jong' (fiatal) krémes, az 'oud' (érett) pikáns; a trüffelös a gourmet-kedvencek"
-              ],
-              funFacts: [
-                "A piacot Albert Cuyp holland festőről (1620-1691) nevezték el, aki a mindennapi holland életet festette",
-                "Hétfőtől szombatig 300+ stand árul itt — ruha, elektronika, virág és persze étel",
-                "A De Pijp negyed, ahol a piac van, Amszterdam multikulturális szíve — 'a Latin Quarter'-nek is hívják"
-              ],
-              tips: [
-                "A piac végén (a Ferdinand Bolstraat felé) kevesebb a turista és olcsóbbak az árak",
-                "A sajtkóstolás mindenhol ingyenes — ne szégyelljetek kérni!",
-                "Vigyázzatok a biciklisekre a piac szélén — Amszterdamban a kerékpáros mindig elsőbbséget élvez"
-              ]
-            } },
-          { time: "14:30", title: "🎨 Van Gogh Múzeum", desc: "A világ legnagyobb Van Gogh gyűjteménye: 200+ festmény, 500 rajz. Napraforgók, Csillagos éj, Önarcképek... Az audio guide magyarul is elérhető. 18 év alatt INGYENES! Előre foglalt időpont KÖTELEZŐ. ~1.5-2 óra elég.", links: [{ label: "📍 Jegyvásárlás", url: "https://www.vangoghmuseum.nl/en/visit/tickets" }], transport: [{ type: "walk", label: "🚶 ~8 perc · séta a Museumplein felé", url: "https://www.google.com/maps/dir/Albert+Cuyp+Market+Amsterdam/Van+Gogh+Museum+Amsterdam" }], guide: {
-              image: { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/960px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg", caption: "Van Gogh - Csillagos ej" },
-              history: [
-                "Vincent van Gogh (1853-1890) mindössze 10 évet festett, de ez alatt 2100+ műalkotást készített — életében egyetlen egyet adott el",
-                "A múzeum 1973-ban nyílt, Theo van Gogh (Vincent öccse) családjának adományából — Theo egész életében támogatta bátyját anyagilag és lelkileg",
-                "Van Gogh élete tragikus volt: pszichiátriai problémák, szegénység, magány — 37 évesen öngyilkos lett Auvers-sur-Oise-ban",
-                "Halála után Theo özvegye, Johanna van Gogh-Bonger tette világhírűvé — ő szervezte az első kiállításokat és adta ki a levelezését"
-              ],
-              mustSee: [
-                "Napraforgók (1889) — a világ egyik legismertebb festménye, 7 változat létezik, itt van az egyik eredeti",
-                "A hálószoba Arles-ban (1888) — Van Gogh saját szobáját festette, a ferde perspektíva szándékos",
-                "Önarcképek sorozata — az 1. emeleten kronologikus sorrendben, láthatod ahogy a stílusa és mentális állapota változik",
-                "Mandulavirágzás (1890) — újszülött unokaöccsének festette (akit szintén Vincentnek hívtak), gyönyörű japán hatás"
-              ],
-              funFacts: [
-                "A Csillagos éj NEM itt van — az a New York-i MoMA-ban található! Viszont itt van a Csillagos éj a Rhône felett",
-                "Van Gogh nem vágta le a fülét teljesen — csak a fülcimpáját, és egy 'Rêve' nevű bordélyházban hagyta egy nőnél",
-                "Életében egyetlen festményét adta el: A vörös szőlőskert (400 frankért) — ma a művei 100+ millió dollárt érnek",
-                "A múzeum a világ leglátogatottabb egyszemélyes művészeti múzeuma — évi 2.1 millió látogató"
-              ],
-              tips: [
-                "Az audio guide (€5) megéri — Van Gogh leveleiből idéz, amik megmagyarázzák a festmények mögötti érzelmeket",
-                "A 2. emelet kronológiai, a 0. emelet tematikus — ha kevés az időtök, a 2. emelet a legfontosabb",
-                "A múzeumshop-ban gyönyörű reprodukciók kaphatók — tökéletes ajándék"
-              ]
-            } },
-          { time: "16:30", title: "🚶 Jordaan negyed & grachtok", badges: ["INGYENES"], desc: "Amszterdam leghangulatosabb negyede! Szűk utcák, vintage boltok, galériák, kávézók. A grachtok (csatornák) UNESCO Világörökségek — a 17. századi Aranykorban építették. Csak sétáljatok és szívjátok be a holland hangulatot!", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Jordaan+Amsterdam" }, { label: "Wikipedia", url: "https://en.wikipedia.org/wiki/Jordaan" }], transport: [{ type: "transit", label: "🚋 Villamos · ~10 perc", url: "https://www.google.com/maps/dir/Van+Gogh+Museum+Amsterdam/Jordaan+Amsterdam" }], guide: {
-              image: { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Amsterdam_canals_in_summer.JPG/960px-Amsterdam_canals_in_summer.JPG", caption: "Jordaan - amszterdami csatornahazak" },
-              history: [
-                "A Jordaan eredetileg munkásnegyed volt a 17. században — a francia hugenották és más menekültek települtek ide",
-                "A név valószínűleg a francia 'jardin' (kert) szóból ered, mert a területet kertekre és csatornákra osztották",
-                "A grachtenrendszert (csatornarendszert) az 1600-as években építették az Aranykorban — a világ legambiciózabb városrendezési projektje volt",
-                "2010-ben a grachtöv UNESCO Világörökség lett — a Herengracht, Keizersgracht és Prinsengracht a három fő csatorna"
-              ],
-              mustSee: [
-                "A Brouwersgracht és Prinsengracht sarka — Amszterdam legtöbbet fotózott csatornakereszteződése",
-                "A '9 Straatjes' (9 kis utca) — vintage boltok, independent designerek, kávézók",
-                "A házak homlokzatai: figyelj a díszes oromzatokra és a 'gevelstenen' (homlokzati kövek) — régen így azonosították a házakat, mert nem voltak házszámok",
-                "Az Anne Frank Ház a Prinsengracht 263-ban van — kívülről érdemes megnézni (belülre hónapokkal előre kell jegyet venni)"
-              ],
-              funFacts: [
-                "Az amszterdami házak azért dőlnek előre, mert szándékosan így építették — a horoggerendával (hijsbalk) könnyebb volt a bútorokat felhúzni a szűk lépcsőház helyett",
-                "Amszterdam 1281 híddal rendelkezik — több mint Velence!",
-                "A csatornákban ~15.000 bicikli nyugszik a víz alatt — évente 8000-et halásznak ki",
-                "A házhajók (woonboten) száma kb. 2500 — a várakozási lista egy helyre akár 10 év is lehet"
-              ],
-              tips: [
-                "A legjobb fotók a hidakról készülnek, különösen az Herengracht-on",
-                "Vigyázzatok a biciklisekre! Amszterdamban a bringás király — a gyalogos tér az a vékony csík a fal mellett",
-                "A kávézókban a 'koffie verkeerd' (rossz kávé) = café latte — ne lepődjetek meg a nevén"
-              ]
-            } },
-          { time: "17:00", title: "💐 Bloemenmarkt — Úszó virágpiac", desc: "A világ egyetlen úszó virágpiaca 1862 óta! A Singel csatornán álló bárkákon tulipánhagymákat, virágokat, holland szuveníreket árulnak. Vigyetek haza tulipánhagymákat — áprilisban ültethetitek!", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Bloemenmarkt+Amsterdam" }, { label: "Wikipedia", url: "https://en.wikipedia.org/wiki/Bloemenmarkt" }], transport: [{ type: "walk", label: "🚶 ~12 perc · séta a csatornák mentén délre", url: "https://www.google.com/maps/dir/Jordaan+Amsterdam/Bloemenmarkt+Amsterdam" }], guide: {
-                            history: [
-                "1862-ben alapították — a kereskedők eredetileg csónakkal hozták a virágokat a közeli kertészetekből, és a bárkákról árulták",
-                "A Singel csatorna mentén található, a Koningsplein és a Muntplein között — Amszterdam egyik legrégebbi piaca"
-              ],
-              mustSee: [
-                "A tulipánhagyma standok — rengeteg fajta kapható, csomagolva, EU-n belül hazavihető",
-                "A fából készült tulipán szuvenírek — klasszikus holland ajándék",
-                "A csatorna felőli oldal — innen látni hogy a standok valóban bárkákon állnak"
-              ],
-              funFacts: [
-                "Bár 'úszó piac'-nak hívják, a bárkák valójában rögzítettek és nem mozognak — de technikailag a vízen vannak",
-                "A piac ma inkább turista látványosság mint helyi virágpiac — a hollandok az Albert Cuyp-on vagy online vásárolnak"
-              ],
-              tips: [
-                "Tulipánhagymát CSAK 'EU export approved' matricával vegyetek — különben a reptéri vám elkobozhatja",
-                "Az árak alkudhatók ha többet vesztek — különösen záróra előtt (17:30)"
-              ]
-            } },
-          { time: "17:30", title: "🌳 Vondelpark", badges: ["INGYENES", "GYEREKBARÁT"], desc: "Amszterdam Central Parkja — 47 hektáron tavak, rétek, játszóterek, kávézók. A kislány végre szabadon rohangálhat! Ha szép az idő, a hollandok piknikeznek a fűben.", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Vondelpark+Amsterdam" }, { label: "Wikipedia", url: "https://en.wikipedia.org/wiki/Vondelpark" }], transport: [{ type: "walk", label: "🚶 ~10 perc · séta nyugat felé", url: "https://www.google.com/maps/dir/Bloemenmarkt+Amsterdam/Vondelpark+Amsterdam" }], guide: {
-              history: [
-                "1865-ben nyitották meg, Joost van den Vondel holland költőről (1587-1679) nevezték el — az ő szobra áll a park bejáratánál",
-                "Eredetileg lovaglópark volt a gazdag amszterdamiak számára — ma évi 10 millió látogató jön"
-              ],
-              mustSee: [
-                "A nagy játszótér a park közepén — csúszdák, mászókák, homokozó",
-                "A Groot Melkhuis kávézó — terasz a tó mellett, gyerekbarát",
-                "A Vondelpark Openluchttheater — nyári szabadtéri előadások (ingyenes!)"
-              ],
-              funFacts: [
-                "A park 47 hektáros — kb. 66 futballpálya méretű, Amszterdam legnagyobb parkja",
-                "Kb. 100 féle fa él a parkban és rengeteg papagáj — igen, vadon élő zöld papagájok Amszterdamban!"
-              ],
-              tips: [
-                "A park déli bejárata (Museumplein felől) a legközelebbi a Van Gogh Múzeumtól",
-                "Szép időben a hollandok piknikeznek — vigyetek magatok is nassolnivalót"
-              ]
-            } },
-          { time: "18:30", title: "🍺 Teraszozás egy gracht mellett", highlight: true, desc: "Holland sör (Heineken, Amstel, vagy craft sör), bitterballen (rántott húsgolyó — a holland snack!), és a csatorna felett alkonyat. Ez AZ amszterdami élmény. (~€5-8/fő)", transport: [{ type: "walk", label: "🚶 ~5 perc · séta a Leidseplein felé", url: "https://www.google.com/maps/dir/Vondelpark+Amsterdam/Leidseplein+Amsterdam" }] },
-          { time: "19:30", title: "📍 Dam tér + Királyi Palota", badges: ["INGYENES"], desc: "Amszterdam központi tere a 17. századi Királyi Palotával. A palota 13.659 facölöpön áll (igen, tizenháromezer)! Este gyönyörűen kivilágított.", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Dam+Square+Amsterdam" }, { label: "paleisamsterdam.nl", url: "https://www.paleisamsterdam.nl/en" }], transport: [{ type: "walk", label: "🚶 ~15 perc · séta a Jordaan-on át", url: "https://www.google.com/maps/dir/Leidseplein+Amsterdam/Dam+Square+Amsterdam" }], guide: {
-                            history: [
-                "A Dam tér neve a 13. századi gátról (dam) ered, amit az Amstel folyón építettek — innen az Amsterdam név is (Amstel + dam)",
-                "A Királyi Palota (Koninklijk Paleis) 1655-ben épült városházaként — Napóleon öccse, Lajos király alakította királyi palotává 1808-ban",
-                "A Nemzeti Emlékmű (National Monument) a tér közepén a II. világháborús áldozatoknak állít emléket (1956)"
-              ],
-              mustSee: [
-                "A Királyi Palota homlokzata — holland klasszicista remekmű, a timpanon felett Atlas tartja a világot",
-                "A Nationale Monument — 22 méter magas obeliszk, minden május 4-én itt tartják a nemzeti megemlékezést",
-                "A Madame Tussauds (a tér sarkán) — ha a kislány szereti a viaszfigurákat"
-              ],
-              funFacts: [
-                "A palota 13.659 facölöpön áll — ezeket 18 méter mélyre verték a homokos talajba, a sziklaalapig",
-                "A palota padlóján a márványba vésett térképeken az egész világ látható — a holland Aranykor ambícióit tükrözi",
-                "A Dam téren tartják az éves karácsonyi vásárt és a Koningsdag (Király Napja, ápr. 27) ünnepségeket"
-              ],
-              tips: [
-                "A palota belülről is látogatható (€12.50) de csak bizonyos napokon — nézd meg a weboldalon",
-                "A tér körül sok turista csapda étterem van — inkább a mellékutcákban egyetek"
-              ]
-            } },
-          { time: "20:00", title: "🚌/🚄 Vissza Brüsszelbe", highlight: true, desc: "Amsterdam Centraal-ról. Fáradtan, de tele élményekkel!", transport: [{ type: "walk", label: "🚶 ~10 perc · Dam → Centraal", url: "https://www.google.com/maps/dir/Dam+Square+Amsterdam/Amsterdam+Centraal" }] },
-          { time: "~22:30", title: "🏠 Érkezés Brüsszel" }
-        ],
-        costs: [
-          { item: "Brüsszel↔Amszterdam (FlixBus retúr)", cost: "~€130–200" },
-          { item: "Bus 397 Amsterdam↔Keukenhof retúr", cost: "~€60" },
-          { item: "Keukenhof belépő (4 felnőtt + 1 gyerek)", cost: "~€90" },
-          { item: "Van Gogh Múzeum (4 felnőtt, gyerek ingyenes!)", cost: "~€88" },
-          { item: "Amsterdam locker + metro", cost: "~€18" },
-          { item: "Étkezés (ebéd + terasz + snack)", cost: "~€80–120" },
-          { item: "Nap 2 összesen (FlixBus)", cost: "~€466–576", total: true }
-        ],
-        endAlerts: [
-          { type: "urgent", text: "🔴 Van Gogh jegyet MOST foglald! Ápr. 9. délutáni slot (14:00-15:00).", url: "https://www.vangoghmuseum.nl/en/visit/tickets" }
-        ]
-      },
-      {
-        dayNum: 3,
         title: "Bruges — A mesebeli város",
-        subtitle: "Április 10. péntek — Egész napos kirándulás",
+        subtitle: "Április 9. csütörtök — Egész napos kirándulás",
         images: [
           { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Brugge-CanalRozenhoedkaai.JPG/960px-Brugge-CanalRozenhoedkaai.JPG", caption: "Rozenhoedkaai — a legikonikusabb pont" },
           { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Bruges_Market_Square_and_Belfry.jpg/960px-Bruges_Market_Square_and_Belfry.jpg", caption: "Markt tér és Belfort-torony" },
@@ -823,14 +624,216 @@ export const trips = [
                 "Foglaljatok előre ha szombat/vasárnap van — Bruges hétvégén tele van"
               ]
             } },
-          { time: "20:00", title: "🚂 Vonat → Brüsszel", highlight: true, desc: "Utolsó vonatok ~22:30-ig, bőven van idő.", transport: [{ type: "walk", label: "🚶 ~15 perc → pályaudvar", url: "https://www.google.com/maps/dir/Markt+Bruges/Brugge+Station" }, { type: "transit", label: "🚂 Vonat ~1 óra → Brussels-Midi", url: "https://www.google.com/maps/dir/Brugge+Station/Brussels-Midi+Station" }] }
+          { time: "20:00", title: "🚂 Vonat → Brüsszel", highlight: true, desc: "Utolsó vonatok ~22:30-ig, bőven van idő. Holnap korai kelés Hollandiába (vonat 07:49) — ne maradjatok sokáig!", transport: [{ type: "walk", label: "🚶 ~15 perc → pályaudvar", url: "https://www.google.com/maps/dir/Markt+Bruges/Brugge+Station" }, { type: "transit", label: "🚂 Vonat ~1 óra → Brussels-Midi", url: "https://www.google.com/maps/dir/Brugge+Station/Brussels-Midi+Station" }] }
         ],
         costs: [
           { item: "Vonat Brüsszel↔Bruges retúr (4 felnőtt, gyerek ingyenes)", cost: "~€141" },
           { item: "Csónaktúra", cost: "~€55" },
           { item: "Belfort-torony (opcionális)", cost: "~€62" },
           { item: "Étkezés + csokoládé", cost: "~€140–210" },
-          { item: "Nap 3 összesen", cost: "~€336–468", total: true }
+          { item: "Nap 2 összesen", cost: "~€336–468", total: true }
+        ]
+      },
+      {
+        dayNum: 3,
+        title: "Hollandia — Keukenhof + Amszterdam",
+        subtitle: "Április 10. péntek — A nagy kaland!",
+        images: [
+          { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Keukenhof_Tulip_Gardens_1.JPG/960px-Keukenhof_Tulip_Gardens_1.JPG", caption: "Keukenhof — 7 millió tulipán" },
+          { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/960px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg", caption: "Van Gogh — Csillagos éj" },
+          { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Amsterdam_canals_in_summer.JPG/960px-Amsterdam_canals_in_summer.JPG", caption: "Amszterdam csatornái" }
+        ],
+        tickets: [
+          { label: "Keukenhof kombi jegy (5 fő)", desc: "Belépő + Bus 852 retúr · ápr. 10.", pdf: "/tickets/keukenhof-kombi.pdf" },
+          { label: "Vonat jegyek (oda + vissza)", desc: "Eurocity 9527 + NS + Eurostar 9398", pdf: "/tickets/vonat-brusszel-amsterdam.pdf" }
+        ],
+        alerts: [
+          { type: "warning", text: "Napi útvonal: Brüsszel-Midi → vonat → Amsterdam Zuid → metro → RAI/Europaplein → Bus 852 → Keukenhof → Bus 852 → Amszterdam (város) → Amsterdam Zuid → Schiphol → Eurostar → Brüsszel-Midi" }
+        ],
+        schedule: [
+          { time: "06:30", title: "⏰ Ébresztő + reggeli", desc: "Korai kelés, de egy nap alatt két ország — megéri! Gyors reggeli a szálláson vagy útközben." },
+          { time: "07:15", title: "🚇 Metro → Brüsszel-Midi", transport: [{ type: "transit", label: "🚇 Metro Trône → Midi · ~8 perc", url: "https://www.google.com/maps/dir/Rue+De+Pascale+15+Brussels/Brussels-Midi+Station" }] },
+          { time: "07:49", title: "🚄 Eurocity Direct 9527 → Amsterdam Zuid", highlight: true, desc: "Kocsiszám es helyjegy nincs — 2. osztály, szabad helyfoglalás. ~2h50 út, kiváló idő pihenésre vagy a nap tervezésére. A gyerek jegye ingyenes!", transport: [{ type: "transit", label: "🚄 Eurocity Direct 9527 · ~2h50 · Bruxelles-Midi → Amsterdam Zuid", url: "https://www.google.com/maps/dir/Brussels-Midi+Station/Amsterdam+Zuid+Station" }] },
+          { time: "~10:40", title: "📍 Érkezés Amsterdam Zuid", desc: "Szálljatok le Amsterdam Zuid-on (NEM Centraal!). Innen 1 megálló metroval (M52) az Europaplein-re, ahol a Keukenhof busz indul." },
+          { time: "10:50", title: "🚇 Metro M52 → Europaplein", transport: [{ type: "transit", label: "🚇 Metro M52 · 1 megálló · Amsterdam Zuid → Europaplein", url: "https://www.google.com/maps/dir/Amsterdam+Zuid+Station/Europaplein+Amsterdam" }] },
+          { time: "11:00", title: "🚌 Bus 852 → Keukenhof", highlight: true, desc: "KeukenhofBuzz 852-es busz, Europaplein megállóból. A kombi jegy (belépő + busz retúr) QR-kóddal a telefonon mutatható! Kövessétek a táblákat a RAI állomástól.", links: [{ label: "keukenhof.nl", url: "https://www.keukenhof.nl" }], transport: [{ type: "transit", label: "🚌 Bus 852 · ~40 perc · Europaplein → Keukenhof", url: "https://www.google.com/maps/dir/Europaplein+Amsterdam/Keukenhof+Lisse" }] },
+          { time: "~11:40", title: "🌷 KEUKENHOF PARK", badges: ["JÁTSZÓTÉR"], desc: "A világ legnagyobb virágoskertje! 32 hektáron 7 millió tulipán, jácint, nárcisz virágzik. Az üvegházakban orchideák és liliomok. A kislánynak: labirintus, játszótér, és a Juliana-pavilonban interaktív kiállítás. Tipp: a kert hátsó része csendesebb és legalább olyan szép! Ápr. 10 = péntek, kevesebb tömeg mint hétvégén.", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Keukenhof+Lisse" }], guide: {
+              image: { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Keukenhof_Tulip_Gardens_1.JPG/960px-Keukenhof_Tulip_Gardens_1.JPG", caption: "Keukenhof - tulipanmezok" },
+              history: [
+                "A Keukenhof (\"konyhakert\") neve onnan ered, hogy a 15. században Jakoba von Bayern grófnő konyhakertje volt itt — innen szerezte be a fűszereket a Teylingen kastélyba",
+                "1949-ben nyitotta meg a polgármester, hogy a holland virágkertészek kiállíthassák termékeiket — azóta évi 1.5 millió látogató jön",
+                "A tulipánmánia (1637) idején egyetlen ritka tulipánhagymáért házat lehetett venni Amszterdamban — a világ első spekulatív buborékja volt",
+                "A tulipán eredetileg Törökországból érkezett Hollandiába a 16. században — a neve a török 'tülbend' (turbán) szóból ered"
+              ],
+              mustSee: [
+                "A Juliana-pavilon — a legnagyobb fedett virágkiállítás, orchideák és liliomok ezreivel",
+                "A szélmalom — a park ikonikus jelképe, belsejébe fel lehet menni, onnan látni a végtelen tulipánmezőket",
+                "A Keukenhof-kastély kertje (a park hátuljában) — kevésbé zsúfolt és gyönyörű angol kert stílusban",
+                "Az Inspirációs Kertek — kis mintakertek amikből ötleteket meríthettek az otthoni kerthez"
+              ],
+              funFacts: [
+                "Évente 7 millió virághagymát ültetnek el kézzel — 40 kertész 3 hónapig dolgozik az ültetésen (okt-dec)",
+                "A park csak 8 hétig van nyitva (márc. közepe – máj. közepe) — ti pont a csúcsszezonban mentek!",
+                "800 fajta tulipán virágzik egyszerre — némelyik tulipán olyan ritka, hogy csak itt látható",
+                "A park területe 32 hektár — kb. 45 futballpálya méretű"
+              ],
+              tips: [
+                "Menjetek azonnal a park hátuljába — mindenki a bejáratnál fotózik, hátul üres és ugyanolyan szép",
+                "A labirintus és a játszótér a déli részen van — ha a kislány elfárad, oda menjetek",
+                "Vigyetek elemózsiát — a park éttermeiben turista árak vannak",
+                "Az üvegházak esős időben is tökéletesek"
+              ]
+            } },
+          { time: "14:30", title: "🚌 Bus 852 → Amsterdam RAI vissza", desc: "Utolsó busz RAI-ba 20:00, de ne késsetek — este még Amszterdam vár!", transport: [{ type: "transit", label: "🚌 Bus 852 · ~40 perc · Keukenhof → Europaplein/RAI", url: "https://www.google.com/maps/dir/Keukenhof+Lisse/Europaplein+Amsterdam" }] },
+          { time: "15:15", title: "🍽 Ebéd: Albert Cuyp Piac", highlight: true, desc: "Amszterdam legnagyobb utcai piaca, 1905 óta! 300+ stand: holland sajt (próbáljátok a trüffelsajtosat!), friss hering, stroopwafel (frissen sütve, meleg karamellel), kibbeling (rántott hal). Budget paradicsom! (~€8-12/fő)", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Albert+Cuyp+Market+Amsterdam" }, { label: "Wikipedia", url: "https://en.wikipedia.org/wiki/Albert_Cuyp_Market" }], transport: [{ type: "walk", label: "🚶 ~10 perc · séta a piactól", url: "https://www.google.com/maps/dir/Europaplein+Amsterdam/Albert+Cuyp+Market+Amsterdam" }], guide: {
+              mustSee: [
+                "Friss stroopwafel — meleg karamellás töltelékkel, frissen sütve az utcán (ne a bolti változatot vedd!)",
+                "Holland haring (Hollandse Nieuwe) — a helyiek nyers hagymával eszik, a halat a farkánál fogva csúsztatják be a szájukba",
+                "Kibbeling — rántott tőkehal-falatok remoulade szósszal, a holland fish & chips",
+                "Gouda sajt kóstolás — a 'jong' (fiatal) krémes, az 'oud' (érett) pikáns; a trüffelös a gourmet-kedvencek"
+              ],
+              funFacts: [
+                "A piacot Albert Cuyp holland festőről (1620-1691) nevezték el, aki a mindennapi holland életet festette",
+                "Hétfőtől szombatig 300+ stand árul itt — ruha, elektronika, virág és persze étel",
+                "A De Pijp negyed, ahol a piac van, Amszterdam multikulturális szíve — 'a Latin Quarter'-nek is hívják"
+              ],
+              tips: [
+                "A piac végén (a Ferdinand Bolstraat felé) kevesebb a turista és olcsóbbak az árak",
+                "A sajtkóstolás mindenhol ingyenes — ne szégyelljetek kérni!",
+                "Vigyázzatok a biciklisekre a piac szélén — Amszterdamban a kerékpáros mindig elsőbbséget élvez"
+              ]
+            } },
+          { time: "16:00", title: "🎨 Van Gogh Múzeum", desc: "A világ legnagyobb Van Gogh gyűjteménye: 200+ festmény, 500 rajz. Napraforgók, Csillagos éj, Önarcképek... Az audio guide magyarul is elérhető. 18 év alatt INGYENES! Előre foglalt időpont KÖTELEZŐ. ~1.5-2 óra elég.", links: [{ label: "📍 Jegyvásárlás", url: "https://www.vangoghmuseum.nl/en/visit/tickets" }], transport: [{ type: "walk", label: "🚶 ~8 perc · séta a Museumplein felé", url: "https://www.google.com/maps/dir/Albert+Cuyp+Market+Amsterdam/Van+Gogh+Museum+Amsterdam" }], guide: {
+              image: { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/960px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg", caption: "Van Gogh - Csillagos ej" },
+              history: [
+                "Vincent van Gogh (1853-1890) mindössze 10 évet festett, de ez alatt 2100+ műalkotást készített — életében egyetlen egyet adott el",
+                "A múzeum 1973-ban nyílt, Theo van Gogh (Vincent öccse) családjának adományából — Theo egész életében támogatta bátyját anyagilag és lelkileg",
+                "Van Gogh élete tragikus volt: pszichiátriai problémák, szegénység, magány — 37 évesen öngyilkos lett Auvers-sur-Oise-ban",
+                "Halála után Theo özvegye, Johanna van Gogh-Bonger tette világhírűvé — ő szervezte az első kiállításokat és adta ki a levelezését"
+              ],
+              mustSee: [
+                "Napraforgók (1889) — a világ egyik legismertebb festménye, 7 változat létezik, itt van az egyik eredeti",
+                "A hálószoba Arles-ban (1888) — Van Gogh saját szobáját festette, a ferde perspektíva szándékos",
+                "Önarcképek sorozata — az 1. emeleten kronologikus sorrendben, láthatod ahogy a stílusa és mentális állapota változik",
+                "Mandulavirágzás (1890) — újszülött unokaöccsének festette (akit szintén Vincentnek hívtak), gyönyörű japán hatás"
+              ],
+              funFacts: [
+                "A Csillagos éj NEM itt van — az a New York-i MoMA-ban található! Viszont itt van a Csillagos éj a Rhône felett",
+                "Van Gogh nem vágta le a fülét teljesen — csak a fülcimpáját, és egy 'Rêve' nevű bordélyházban hagyta egy nőnél",
+                "Életében egyetlen festményét adta el: A vörös szőlőskert (400 frankért) — ma a művei 100+ millió dollárt érnek",
+                "A múzeum a világ leglátogatottabb egyszemélyes művészeti múzeuma — évi 2.1 millió látogató"
+              ],
+              tips: [
+                "Az audio guide (€5) megéri — Van Gogh leveleiből idéz, amik megmagyarázzák a festmények mögötti érzelmeket",
+                "A 2. emelet kronológiai, a 0. emelet tematikus — ha kevés az időtök, a 2. emelet a legfontosabb",
+                "A múzeumshop-ban gyönyörű reprodukciók kaphatók — tökéletes ajándék"
+              ]
+            } },
+          { time: "17:30", title: "🚶 Jordaan negyed & grachtok", badges: ["INGYENES"], desc: "Amszterdam leghangulatosabb negyede! Szűk utcák, vintage boltok, galériák, kávézók. A grachtok (csatornák) UNESCO Világörökségek — a 17. századi Aranykorban építették. Csak sétáljatok és szívjátok be a holland hangulatot!", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Jordaan+Amsterdam" }, { label: "Wikipedia", url: "https://en.wikipedia.org/wiki/Jordaan" }], transport: [{ type: "transit", label: "🚋 Villamos · ~10 perc", url: "https://www.google.com/maps/dir/Van+Gogh+Museum+Amsterdam/Jordaan+Amsterdam" }], guide: {
+              image: { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Amsterdam_canals_in_summer.JPG/960px-Amsterdam_canals_in_summer.JPG", caption: "Jordaan - amszterdami csatornahazak" },
+              history: [
+                "A Jordaan eredetileg munkásnegyed volt a 17. században — a francia hugenották és más menekültek települtek ide",
+                "A név valószínűleg a francia 'jardin' (kert) szóból ered, mert a területet kertekre és csatornákra osztották",
+                "A grachtenrendszert (csatornarendszert) az 1600-as években építették az Aranykorban — a világ legambiciózabb városrendezési projektje volt",
+                "2010-ben a grachtöv UNESCO Világörökség lett — a Herengracht, Keizersgracht és Prinsengracht a három fő csatorna"
+              ],
+              mustSee: [
+                "A Brouwersgracht és Prinsengracht sarka — Amszterdam legtöbbet fotózott csatornakereszteződése",
+                "A '9 Straatjes' (9 kis utca) — vintage boltok, independent designerek, kávézók",
+                "A házak homlokzatai: figyelj a díszes oromzatokra és a 'gevelstenen' (homlokzati kövek) — régen így azonosították a házakat, mert nem voltak házszámok",
+                "Az Anne Frank Ház a Prinsengracht 263-ban van — kívülről érdemes megnézni (belülre hónapokkal előre kell jegyet venni)"
+              ],
+              funFacts: [
+                "Az amszterdami házak azért dőlnek előre, mert szándékosan így építették — a horoggerendával (hijsbalk) könnyebb volt a bútorokat felhúzni a szűk lépcsőház helyett",
+                "Amszterdam 1281 híddal rendelkezik — több mint Velence!",
+                "A csatornákban ~15.000 bicikli nyugszik a víz alatt — évente 8000-et halásznak ki",
+                "A házhajók (woonboten) száma kb. 2500 — a várakozási lista egy helyre akár 10 év is lehet"
+              ],
+              tips: [
+                "A legjobb fotók a hidakról készülnek, különösen az Herengracht-on",
+                "Vigyázzatok a biciklisekre! Amszterdamban a bringás király — a gyalogos tér az a vékony csík a fal mellett",
+                "A kávézókban a 'koffie verkeerd' (rossz kávé) = café latte — ne lepődjetek meg a nevén"
+              ]
+            } },
+          { time: "18:00", title: "💐 Bloemenmarkt — Úszó virágpiac", desc: "A világ egyetlen úszó virágpiaca 1862 óta! A Singel csatornán álló bárkákon tulipánhagymákat, virágokat, holland szuveníreket árulnak. Vigyetek haza tulipánhagymákat — áprilisban ültethetitek!", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Bloemenmarkt+Amsterdam" }, { label: "Wikipedia", url: "https://en.wikipedia.org/wiki/Bloemenmarkt" }], transport: [{ type: "walk", label: "🚶 ~12 perc · séta a csatornák mentén délre", url: "https://www.google.com/maps/dir/Jordaan+Amsterdam/Bloemenmarkt+Amsterdam" }], guide: {
+                            history: [
+                "1862-ben alapították — a kereskedők eredetileg csónakkal hozták a virágokat a közeli kertészetekből, és a bárkákról árulták",
+                "A Singel csatorna mentén található, a Koningsplein és a Muntplein között — Amszterdam egyik legrégebbi piaca"
+              ],
+              mustSee: [
+                "A tulipánhagyma standok — rengeteg fajta kapható, csomagolva, EU-n belül hazavihető",
+                "A fából készült tulipán szuvenírek — klasszikus holland ajándék",
+                "A csatorna felőli oldal — innen látni hogy a standok valóban bárkákon állnak"
+              ],
+              funFacts: [
+                "Bár 'úszó piac'-nak hívják, a bárkák valójában rögzítettek és nem mozognak — de technikailag a vízen vannak",
+                "A piac ma inkább turista látványosság mint helyi virágpiac — a hollandok az Albert Cuyp-on vagy online vásárolnak"
+              ],
+              tips: [
+                "Tulipánhagymát CSAK 'EU export approved' matricával vegyetek — különben a reptéri vám elkobozhatja",
+                "Az árak alkudhatók ha többet vesztek — különösen záróra előtt (17:30)"
+              ]
+            } },
+          { time: "18:30", title: "🌳 Vondelpark", optional: true, badges: ["INGYENES", "GYEREKBARÁT"], desc: "Amszterdam Central Parkja — 47 hektáron tavak, rétek, játszóterek, kávézók. A kislány végre szabadon rohangálhat! Ha szép az idő, a hollandok piknikeznek a fűben.", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Vondelpark+Amsterdam" }, { label: "Wikipedia", url: "https://en.wikipedia.org/wiki/Vondelpark" }], transport: [{ type: "walk", label: "🚶 ~10 perc · séta nyugat felé", url: "https://www.google.com/maps/dir/Bloemenmarkt+Amsterdam/Vondelpark+Amsterdam" }], guide: {
+              history: [
+                "1865-ben nyitották meg, Joost van den Vondel holland költőről (1587-1679) nevezték el — az ő szobra áll a park bejáratánál",
+                "Eredetileg lovaglópark volt a gazdag amszterdamiak számára — ma évi 10 millió látogató jön"
+              ],
+              mustSee: [
+                "A nagy játszótér a park közepén — csúszdák, mászókák, homokozó",
+                "A Groot Melkhuis kávézó — terasz a tó mellett, gyerekbarát",
+                "A Vondelpark Openluchttheater — nyári szabadtéri előadások (ingyenes!)"
+              ],
+              funFacts: [
+                "A park 47 hektáros — kb. 66 futballpálya méretű, Amszterdam legnagyobb parkja",
+                "Kb. 100 féle fa él a parkban és rengeteg papagáj — igen, vadon élő zöld papagájok Amszterdamban!"
+              ],
+              tips: [
+                "A park déli bejárata (Museumplein felől) a legközelebbi a Van Gogh Múzeumtól",
+                "Szép időben a hollandok piknikeznek — vigyetek magatok is nassolnivalót"
+              ]
+            } },
+          { time: "19:00", title: "🍺 Teraszozás egy gracht mellett", highlight: true, desc: "Holland sör (Heineken, Amstel, vagy craft sör), bitterballen (rántott húsgolyó — a holland snack!), és a csatorna felett alkonyat. Ez AZ amszterdami élmény. (~€5-8/fő)", transport: [{ type: "walk", label: "🚶 ~5 perc · séta a Leidseplein felé", url: "https://www.google.com/maps/dir/Vondelpark+Amsterdam/Leidseplein+Amsterdam" }] },
+          { time: "19:30", title: "📍 Dam tér + Királyi Palota", optional: true, badges: ["INGYENES"], desc: "Amszterdam központi tere a 17. századi Királyi Palotával. A palota 13.659 facölöpön áll (igen, tizenháromezer)! Este gyönyörűen kivilágított.", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Dam+Square+Amsterdam" }, { label: "paleisamsterdam.nl", url: "https://www.paleisamsterdam.nl/en" }], transport: [{ type: "walk", label: "🚶 ~15 perc · séta a Jordaan-on át", url: "https://www.google.com/maps/dir/Leidseplein+Amsterdam/Dam+Square+Amsterdam" }], guide: {
+                            history: [
+                "A Dam tér neve a 13. századi gátról (dam) ered, amit az Amstel folyón építettek — innen az Amsterdam név is (Amstel + dam)",
+                "A Királyi Palota (Koninklijk Paleis) 1655-ben épült városházaként — Napóleon öccse, Lajos király alakította királyi palotává 1808-ban",
+                "A Nemzeti Emlékmű (National Monument) a tér közepén a II. világháborús áldozatoknak állít emléket (1956)"
+              ],
+              mustSee: [
+                "A Királyi Palota homlokzata — holland klasszicista remekmű, a timpanon felett Atlas tartja a világot",
+                "A Nationale Monument — 22 méter magas obeliszk, minden május 4-én itt tartják a nemzeti megemlékezést",
+                "A Madame Tussauds (a tér sarkán) — ha a kislány szereti a viaszfigurákat"
+              ],
+              funFacts: [
+                "A palota 13.659 facölöpön áll — ezeket 18 méter mélyre verték a homokos talajba, a sziklaalapig",
+                "A palota padlóján a márványba vésett térképeken az egész világ látható — a holland Aranykor ambícióit tükrözi",
+                "A Dam téren tartják az éves karácsonyi vásárt és a Koningsdag (Király Napja, ápr. 27) ünnepségeket"
+              ],
+              tips: [
+                "A palota belülről is látogatható (€12.50) de csak bizonyos napokon — nézd meg a weboldalon",
+                "A tér körül sok turista csapda étterem van — inkább a mellékutcákban egyetek"
+              ]
+            } },
+          { time: "20:00", title: "🚇 Metro → Amsterdam Zuid", desc: "Ideje indulni Schiphol fele! Metro M52 bármelyik központi megállóból Amsterdam Zuid-ra.", transport: [{ type: "transit", label: "🚇 Metro M52 · ~10 perc → Amsterdam Zuid", url: "https://www.google.com/maps/dir/Dam+Square+Amsterdam/Amsterdam+Zuid+Station" }] },
+          { time: "20:15", title: "🚂 NS vonat → Schiphol Airport", desc: "Amsterdam Zuid-ról Schiphol-ra ~5-10 perc vonattal. Az NS jegy QR-kóddal a telefonon mutatható.", transport: [{ type: "transit", label: "🚂 NS Sprinter · ~7 perc · Amsterdam Zuid → Schiphol Airport", url: "https://www.google.com/maps/dir/Amsterdam+Zuid+Station/Schiphol+Airport" }] },
+          { time: "20:30", title: "📍 Érkezés Schiphol Airport", desc: "21:07-ig kell ott lennetek (Eurostar check-in)! Kövessétek a Eurostar jelzéseket a reptéren belül. Van idő még gyorsan vásárolni a Schiphol Plaza-ban." },
+          { time: "21:27", title: "🚄 Eurostar 9398 → Brussels Midi", highlight: true, desc: "Schiphol Airport-ról direkt Brüsszelbe! Coach 16, helyek: 45-48, 54. PNR: NVDGPK. ~1h40 kényelmes út — aludni is lehet!", transport: [{ type: "transit", label: "🚄 Eurostar 9398 · 1h39 · Schiphol → Brussels Midi", url: "https://www.google.com/maps/dir/Schiphol+Airport/Brussels-Midi+Station" }] },
+          { time: "23:06", title: "🏠 Érkezés Brüsszel-Midi", desc: "Metro Midi → Trône, onnan séta a szállásra. Fáradtan, de tele élményekkel!" }
+        ],
+        costs: [
+          { item: "Eurocity Direct oda (2 adult €33 + 2 youth €27 + gyerek ingyen)", cost: "€120" },
+          { item: "Keukenhof kombi jegy (belépő + Bus 852 retúr, 4 felnőtt + 1 gyerek)", cost: "€171.50" },
+          { item: "Amsterdam Zuid → Schiphol NS jegy (4 × €3.70 + gyerek ingyen)", cost: "€14.80" },
+          { item: "Eurostar vissza (2 adult €35 + 2 youth €28 + gyerek €17)", cost: "€143" },
+          { item: "Van Gogh Múzeum (4 felnőtt, gyerek ingyenes!)", cost: "~€88" },
+          { item: "Amsterdam metro napijegy", cost: "~€20" },
+          { item: "Étkezés (ebéd + terasz + snack)", cost: "~€80–120" },
+          { item: "Nap 3 összesen", cost: "~€637–657", total: true }
+        ],
+        endAlerts: [
+          { type: "urgent", text: "🔴 Van Gogh jegyet MOST foglald! Ápr. 10. délutáni slot (16:00-17:00).", url: "https://www.vangoghmuseum.nl/en/visit/tickets" },
+          { type: "tip", text: "🎫 Vonat + Keukenhof + Eurostar jegyek MEGVANNAK! PDF-ek a telefonon. Eurostar PNR: NVDGPK" }
         ]
       },
       {
@@ -846,7 +849,7 @@ export const trips = [
           { type: "tip", text: "💰 SZOMBAT = hétvégi jegy! Fél áron! Brussels→Gent retúr: ~€8.80/fő (€17.60 helyett). 12 év alatti gyerek INGYENES!\n💡 Gent centruma gyalogosan bejárható! Csak a pályaudvar↔centrum villamos kell (~15 perc)." }
         ],
         schedule: [
-          { time: "09:00", title: "☕ Reggeli — nyugisan", desc: "Ma nem kell rohanni! Tegnap Bruges, ma Gent — nyugisabb tempó. (~€5-8/fő)", guide: {
+          { time: "09:00", title: "☕ Reggeli — nyugisan", desc: "Ma nem kell rohanni! Tegnap Hollandia, ma Gent — nyugisabb tempó. (~€5-8/fő)", guide: {
               mustSee: [
                 "Ugyanazok mint korábban: Le Pain Quotidien, Charli, OR Coffee",
                 "Vagy valami újat: Cafe Novo (Rue de Namur 78) — lokális kedvenc, Google 4.4★",
