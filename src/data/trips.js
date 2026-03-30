@@ -29,7 +29,7 @@ export const trips = [
       { name: "Keukenhof", reason: "kombi jegy busszal", url: "https://www.keukenhof.nl" }
     ],
     usefulLinks: [
-      { emoji: "🎨", name: "Van Gogh Múzeum", desc: "Jegyek MEGVANNAK · ápr. 10. · 16:00", url: "https://www.vangoghmuseum.nl/en/visit/tickets" },
+      { emoji: "🎨", name: "Van Gogh Múzeum", desc: "Jegyek MEGVANNAK · ápr. 10. · 17:15", url: "https://www.vangoghmuseum.nl/en/visit/tickets" },
       { emoji: "🌷", name: "Keukenhof", desc: "Tulipánpark jegyek + kombi busz", url: "https://www.keukenhof.nl" },
       { emoji: "🚄", name: "Eurostar", desc: "Brüsszel↔Amszterdam gyorsvonat", url: "https://www.eurostar.com" },
       { emoji: "🚌", name: "FlixBus", desc: "Brüsszel↔Amszterdam budget busz", url: "https://www.flixbus.com" },
@@ -49,7 +49,7 @@ export const trips = [
     savingTips: [
       { tip: "🚂 Belga vonat: 12 év alatti gyerek INGYENES", saving: "~€50-70" },
       { tip: "💰 Hétvégi vonatjegy (szo-vas): 50% kedvezmény", saving: "~€35" },
-      { tip: "🎨 Van Gogh Múzeum: 18 év alatt INGYENES", saving: "€22" },
+      { tip: "🎨 Van Gogh Múzeum: 18 év alatt INGYENES", saving: "€25" },
       { tip: "🚌 FlixBus vs Eurostar Amszterdamba", saving: "~€100-200" },
       { tip: "🏛 Ingyenes: Grand-Place, parkok, Graslei, Begijnhof", saving: "Sokat!" },
       { tip: "🍟 Street food > étterem (frituurok, piacok)", saving: "~€50-100" },
@@ -135,7 +135,7 @@ export const trips = [
       }
     ],
     bookingChecklist: [
-      { item: "Van Gogh Múzeum jegy — MEGVAN ✅ · ápr. 10. 16:00 slot", url: "https://www.vangoghmuseum.nl/en/visit/tickets" },
+      { item: "Van Gogh Múzeum jegy — MEGVAN ✅ · ápr. 10. 17:15 slot", url: "https://www.vangoghmuseum.nl/en/visit/tickets" },
       { item: "Eurostar VAGY FlixBus Brüsszel↔Amszterdam", url: "https://www.eurostar.com" },
       { item: "Keukenhof jegy (kombi busszal)", url: "https://www.keukenhof.nl" },
       { item: "FLIBCO busz CRL↔Brüsszel (oda + vissza)", url: "https://www.flibco.com" },
@@ -646,7 +646,7 @@ export const trips = [
         tickets: [
           { label: "Keukenhof kombi jegy (5 fő)", desc: "Belépő + Bus 852 retúr · ápr. 10.", pdf: "/tickets/keukenhof-kombi.pdf" },
           { label: "Vonat jegyek (oda + vissza)", desc: "Eurocity 9527 + NS + Eurostar 9398", pdf: "/tickets/vonat-brusszel-amsterdam.pdf" },
-          { label: "Van Gogh Muzeum (4 felnott)", desc: "Belepojegy · apr. 10. · 16:00 slot", pdf: "/tickets/van-gogh-muzeum.pdf" }
+          { label: "Van Gogh Muzeum (5 fo)", desc: "4 felnott + 1 gyerek · apr. 10. · 17:15 slot", pdf: "/tickets/van-gogh-muzeum.pdf" }
         ],
         alerts: [
           { type: "warning", text: "Napi útvonal: Brüsszel-Midi → vonat → Amsterdam Zuid → metro → RAI/Europaplein → Bus 852 → Keukenhof → Bus 852 → Amszterdam (város) → Amsterdam Zuid → Schiphol → Eurostar → Brüsszel-Midi" }
@@ -704,7 +704,7 @@ export const trips = [
                 "Vigyázzatok a biciklisekre a piac szélén — Amszterdamban a kerékpáros mindig elsőbbséget élvez"
               ]
             } },
-          { time: "16:00", title: "🎨 Van Gogh Múzeum", desc: "A világ legnagyobb Van Gogh gyűjteménye: 200+ festmény, 500 rajz. Napraforgók, Csillagos éj, Önarcképek... Az audio guide magyarul is elérhető. 18 év alatt INGYENES! Jegy MEGVAN, 16:00 slot. ~1.5-2 óra elég.", links: [{ label: "📍 Múzeum oldala", url: "https://www.vangoghmuseum.nl/en/visit/tickets" }], transport: [{ type: "walk", label: "🚶 ~8 perc · séta a Museumplein felé", url: "https://www.google.com/maps/dir/Albert+Cuyp+Market+Amsterdam/Van+Gogh+Museum+Amsterdam" }], guide: {
+          { time: "17:15", title: "🎨 Van Gogh Múzeum", desc: "A világ legnagyobb Van Gogh gyűjteménye: 200+ festmény, 500 rajz. Napraforgók, Csillagos éj, Önarcképek... Az audio guide magyarul is elérhető. 18 év alatt INGYENES! Jegy MEGVAN, 17:15 slot. ~1.5-2 óra elég.", links: [{ label: "📍 Múzeum oldala", url: "https://www.vangoghmuseum.nl/en/visit/tickets" }], transport: [{ type: "walk", label: "🚶 ~8 perc · séta a Museumplein felé", url: "https://www.google.com/maps/dir/Albert+Cuyp+Market+Amsterdam/Van+Gogh+Museum+Amsterdam" }], guide: {
               image: { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/960px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg", caption: "Van Gogh - Csillagos ej" },
               history: [
                 "Vincent van Gogh (1853-1890) mindössze 10 évet festett, de ez alatt 2100+ műalkotást készített — életében egyetlen egyet adott el",
@@ -730,7 +730,7 @@ export const trips = [
                 "A múzeumshop-ban gyönyörű reprodukciók kaphatók — tökéletes ajándék"
               ]
             } },
-          { time: "17:30", title: "🚶 Jordaan negyed & grachtok", badges: ["INGYENES"], desc: "Amszterdam leghangulatosabb negyede! Szűk utcák, vintage boltok, galériák, kávézók. A grachtok (csatornák) UNESCO Világörökségek — a 17. századi Aranykorban építették. Csak sétáljatok és szívjátok be a holland hangulatot!", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Jordaan+Amsterdam" }, { label: "Wikipedia", url: "https://en.wikipedia.org/wiki/Jordaan" }], transport: [{ type: "transit", label: "🚋 Villamos · ~10 perc", url: "https://www.google.com/maps/dir/Van+Gogh+Museum+Amsterdam/Jordaan+Amsterdam" }], guide: {
+          { time: "~19:00", title: "🚶 Jordaan negyed & grachtok", badges: ["INGYENES"], desc: "Amszterdam leghangulatosabb negyede! Szűk utcák, vintage boltok, galériák, kávézók. A grachtok (csatornák) UNESCO Világörökségek — a 17. századi Aranykorban építették. Csak sétáljatok és szívjátok be a holland hangulatot!", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Jordaan+Amsterdam" }, { label: "Wikipedia", url: "https://en.wikipedia.org/wiki/Jordaan" }], transport: [{ type: "transit", label: "🚋 Villamos · ~10 perc", url: "https://www.google.com/maps/dir/Van+Gogh+Museum+Amsterdam/Jordaan+Amsterdam" }], guide: {
               image: { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Amsterdam_canals_in_summer.JPG/960px-Amsterdam_canals_in_summer.JPG", caption: "Jordaan - amszterdami csatornahazak" },
               history: [
                 "A Jordaan eredetileg munkásnegyed volt a 17. században — a francia hugenották és más menekültek települtek ide",
@@ -756,7 +756,7 @@ export const trips = [
                 "A kávézókban a 'koffie verkeerd' (rossz kávé) = café latte — ne lepődjetek meg a nevén"
               ]
             } },
-          { time: "18:00", title: "💐 Bloemenmarkt — Úszó virágpiac", desc: "A világ egyetlen úszó virágpiaca 1862 óta! A Singel csatornán álló bárkákon tulipánhagymákat, virágokat, holland szuveníreket árulnak. Vigyetek haza tulipánhagymákat — áprilisban ültethetitek!", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Bloemenmarkt+Amsterdam" }, { label: "Wikipedia", url: "https://en.wikipedia.org/wiki/Bloemenmarkt" }], transport: [{ type: "walk", label: "🚶 ~12 perc · séta a csatornák mentén délre", url: "https://www.google.com/maps/dir/Jordaan+Amsterdam/Bloemenmarkt+Amsterdam" }], guide: {
+          { time: "19:15", title: "💐 Bloemenmarkt — Úszó virágpiac", optional: true, desc: "A világ egyetlen úszó virágpiaca 1862 óta! A Singel csatornán álló bárkákon tulipánhagymákat, virágokat, holland szuveníreket árulnak. Vigyetek haza tulipánhagymákat — áprilisban ültethetitek!", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Bloemenmarkt+Amsterdam" }, { label: "Wikipedia", url: "https://en.wikipedia.org/wiki/Bloemenmarkt" }], transport: [{ type: "walk", label: "🚶 ~12 perc · séta a csatornák mentén délre", url: "https://www.google.com/maps/dir/Jordaan+Amsterdam/Bloemenmarkt+Amsterdam" }], guide: {
                             history: [
                 "1862-ben alapították — a kereskedők eredetileg csónakkal hozták a virágokat a közeli kertészetekből, és a bárkákról árulták",
                 "A Singel csatorna mentén található, a Koningsplein és a Muntplein között — Amszterdam egyik legrégebbi piaca"
@@ -775,7 +775,7 @@ export const trips = [
                 "Az árak alkudhatók ha többet vesztek — különösen záróra előtt (17:30)"
               ]
             } },
-          { time: "18:30", title: "🌳 Vondelpark", optional: true, badges: ["INGYENES", "GYEREKBARÁT"], desc: "Amszterdam Central Parkja — 47 hektáron tavak, rétek, játszóterek, kávézók. A kislány végre szabadon rohangálhat! Ha szép az idő, a hollandok piknikeznek a fűben.", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Vondelpark+Amsterdam" }, { label: "Wikipedia", url: "https://en.wikipedia.org/wiki/Vondelpark" }], transport: [{ type: "walk", label: "🚶 ~10 perc · séta nyugat felé", url: "https://www.google.com/maps/dir/Bloemenmarkt+Amsterdam/Vondelpark+Amsterdam" }], guide: {
+          { time: "19:30", title: "🌳 Vondelpark", optional: true, badges: ["INGYENES", "GYEREKBARÁT"], desc: "Amszterdam Central Parkja — 47 hektáron tavak, rétek, játszóterek, kávézók. A kislány végre szabadon rohangálhat! Ha szép az idő, a hollandok piknikeznek a fűben.", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Vondelpark+Amsterdam" }, { label: "Wikipedia", url: "https://en.wikipedia.org/wiki/Vondelpark" }], transport: [{ type: "walk", label: "🚶 ~10 perc · séta nyugat felé", url: "https://www.google.com/maps/dir/Bloemenmarkt+Amsterdam/Vondelpark+Amsterdam" }], guide: {
               history: [
                 "1865-ben nyitották meg, Joost van den Vondel holland költőről (1587-1679) nevezték el — az ő szobra áll a park bejáratánál",
                 "Eredetileg lovaglópark volt a gazdag amszterdamiak számára — ma évi 10 millió látogató jön"
@@ -794,8 +794,8 @@ export const trips = [
                 "Szép időben a hollandok piknikeznek — vigyetek magatok is nassolnivalót"
               ]
             } },
-          { time: "19:00", title: "🍺 Teraszozás egy gracht mellett", highlight: true, desc: "Holland sör (Heineken, Amstel, vagy craft sör), bitterballen (rántott húsgolyó — a holland snack!), és a csatorna felett alkonyat. Ez AZ amszterdami élmény. (~€5-8/fő)", transport: [{ type: "walk", label: "🚶 ~5 perc · séta a Leidseplein felé", url: "https://www.google.com/maps/dir/Vondelpark+Amsterdam/Leidseplein+Amsterdam" }] },
-          { time: "19:30", title: "📍 Dam tér + Királyi Palota", optional: true, badges: ["INGYENES"], desc: "Amszterdam központi tere a 17. századi Királyi Palotával. A palota 13.659 facölöpön áll (igen, tizenháromezer)! Este gyönyörűen kivilágított.", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Dam+Square+Amsterdam" }, { label: "paleisamsterdam.nl", url: "https://www.paleisamsterdam.nl/en" }], transport: [{ type: "walk", label: "🚶 ~15 perc · séta a Jordaan-on át", url: "https://www.google.com/maps/dir/Leidseplein+Amsterdam/Dam+Square+Amsterdam" }], guide: {
+          { time: "19:30", title: "🍺 Teraszozás egy gracht mellett", highlight: true, desc: "Holland sör (Heineken, Amstel, vagy craft sör), bitterballen (rántott húsgolyó — a holland snack!), és a csatorna felett alkonyat. Ez AZ amszterdami élmény. (~€5-8/fő)", transport: [{ type: "walk", label: "🚶 ~5 perc · séta a Leidseplein felé", url: "https://www.google.com/maps/dir/Vondelpark+Amsterdam/Leidseplein+Amsterdam" }] },
+          { time: "19:45", title: "📍 Dam tér + Királyi Palota", optional: true, badges: ["INGYENES"], desc: "Amszterdam központi tere a 17. századi Királyi Palotával. A palota 13.659 facölöpön áll (igen, tizenháromezer)! Este gyönyörűen kivilágított.", links: [{ label: "📍 Térkép", url: "https://maps.google.com/?q=Dam+Square+Amsterdam" }, { label: "paleisamsterdam.nl", url: "https://www.paleisamsterdam.nl/en" }], transport: [{ type: "walk", label: "🚶 ~15 perc · séta a Jordaan-on át", url: "https://www.google.com/maps/dir/Leidseplein+Amsterdam/Dam+Square+Amsterdam" }], guide: {
                             history: [
                 "A Dam tér neve a 13. századi gátról (dam) ered, amit az Amstel folyón építettek — innen az Amsterdam név is (Amstel + dam)",
                 "A Királyi Palota (Koninklijk Paleis) 1655-ben épült városházaként — Napóleon öccse, Lajos király alakította királyi palotává 1808-ban",
@@ -827,10 +827,10 @@ export const trips = [
           { item: "Keukenhof kombi jegy (belépő + Bus 852 retúr, 4 felnőtt + 1 gyerek)", cost: "€171.50" },
           { item: "Amsterdam Zuid → Schiphol NS jegy (4 × €3.70 + gyerek ingyen)", cost: "€14.80" },
           { item: "Eurostar vissza (2 adult €35 + 2 youth €28 + gyerek €17)", cost: "€143" },
-          { item: "Van Gogh Múzeum (4 felnőtt, gyerek ingyenes!)", cost: "~€88" },
+          { item: "Van Gogh Muzeum (4 felnott x €25, gyerek ingyenes!)", cost: "€100" },
           { item: "Amsterdam metro napijegy", cost: "~€20" },
           { item: "Étkezés (ebéd + terasz + snack)", cost: "~€80–120" },
-          { item: "Nap 3 összesen", cost: "~€637–657", total: true }
+          { item: "Nap 3 összesen", cost: "~€649–669", total: true }
         ],
         endAlerts: [
           { type: "tip", text: "🎫 Vonat + Keukenhof + Eurostar + Van Gogh jegyek MEGVANNAK! PDF-ek a telefonon. Eurostar PNR: NVDGPK" }
