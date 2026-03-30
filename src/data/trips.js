@@ -24,12 +24,12 @@ export const trips = [
       comfortTotal: "~€1927"
     },
     urgentBookings: [
-      { name: "Van Gogh Múzeum", reason: "jegyek naponta elfogynak", url: "https://www.vangoghmuseum.nl/en/visit/tickets" },
+      { name: "Van Gogh Múzeum", reason: "jegyek MEGVANNAK ✅", url: "https://www.vangoghmuseum.nl/en/visit/tickets" },
       { name: "Eurostar/FlixBus Amszterdam", reason: "korai ár = fele ár", urls: [{ label: "eurostar.com", url: "https://www.eurostar.com" }, { label: "flixbus.com", url: "https://www.flixbus.com" }] },
       { name: "Keukenhof", reason: "kombi jegy busszal", url: "https://www.keukenhof.nl" }
     ],
     usefulLinks: [
-      { emoji: "🎨", name: "Van Gogh Múzeum", desc: "Jegyvásárlás — AZONNAL foglald!", url: "https://www.vangoghmuseum.nl/en/visit/tickets" },
+      { emoji: "🎨", name: "Van Gogh Múzeum", desc: "Jegyek MEGVANNAK · ápr. 10. · 16:00", url: "https://www.vangoghmuseum.nl/en/visit/tickets" },
       { emoji: "🌷", name: "Keukenhof", desc: "Tulipánpark jegyek + kombi busz", url: "https://www.keukenhof.nl" },
       { emoji: "🚄", name: "Eurostar", desc: "Brüsszel↔Amszterdam gyorsvonat", url: "https://www.eurostar.com" },
       { emoji: "🚌", name: "FlixBus", desc: "Brüsszel↔Amszterdam budget busz", url: "https://www.flixbus.com" },
@@ -135,7 +135,7 @@ export const trips = [
       }
     ],
     bookingChecklist: [
-      { item: "Van Gogh Múzeum jegy — ápr. 9 délutáni slot", url: "https://www.vangoghmuseum.nl/en/visit/tickets" },
+      { item: "Van Gogh Múzeum jegy — MEGVAN ✅ · ápr. 10. 16:00 slot", url: "https://www.vangoghmuseum.nl/en/visit/tickets" },
       { item: "Eurostar VAGY FlixBus Brüsszel↔Amszterdam", url: "https://www.eurostar.com" },
       { item: "Keukenhof jegy (kombi busszal)", url: "https://www.keukenhof.nl" },
       { item: "FLIBCO busz CRL↔Brüsszel (oda + vissza)", url: "https://www.flibco.com" },
@@ -645,7 +645,8 @@ export const trips = [
         ],
         tickets: [
           { label: "Keukenhof kombi jegy (5 fő)", desc: "Belépő + Bus 852 retúr · ápr. 10.", pdf: "/tickets/keukenhof-kombi.pdf" },
-          { label: "Vonat jegyek (oda + vissza)", desc: "Eurocity 9527 + NS + Eurostar 9398", pdf: "/tickets/vonat-brusszel-amsterdam.pdf" }
+          { label: "Vonat jegyek (oda + vissza)", desc: "Eurocity 9527 + NS + Eurostar 9398", pdf: "/tickets/vonat-brusszel-amsterdam.pdf" },
+          { label: "Van Gogh Muzeum (4 felnott)", desc: "Belepojegy · apr. 10. · 16:00 slot", pdf: "/tickets/van-gogh-muzeum.pdf" }
         ],
         alerts: [
           { type: "warning", text: "Napi útvonal: Brüsszel-Midi → vonat → Amsterdam Zuid → metro → RAI/Europaplein → Bus 852 → Keukenhof → Bus 852 → Amszterdam (város) → Amsterdam Zuid → Schiphol → Eurostar → Brüsszel-Midi" }
@@ -703,7 +704,7 @@ export const trips = [
                 "Vigyázzatok a biciklisekre a piac szélén — Amszterdamban a kerékpáros mindig elsőbbséget élvez"
               ]
             } },
-          { time: "16:00", title: "🎨 Van Gogh Múzeum", desc: "A világ legnagyobb Van Gogh gyűjteménye: 200+ festmény, 500 rajz. Napraforgók, Csillagos éj, Önarcképek... Az audio guide magyarul is elérhető. 18 év alatt INGYENES! Előre foglalt időpont KÖTELEZŐ. ~1.5-2 óra elég.", links: [{ label: "📍 Jegyvásárlás", url: "https://www.vangoghmuseum.nl/en/visit/tickets" }], transport: [{ type: "walk", label: "🚶 ~8 perc · séta a Museumplein felé", url: "https://www.google.com/maps/dir/Albert+Cuyp+Market+Amsterdam/Van+Gogh+Museum+Amsterdam" }], guide: {
+          { time: "16:00", title: "🎨 Van Gogh Múzeum", desc: "A világ legnagyobb Van Gogh gyűjteménye: 200+ festmény, 500 rajz. Napraforgók, Csillagos éj, Önarcképek... Az audio guide magyarul is elérhető. 18 év alatt INGYENES! Jegy MEGVAN, 16:00 slot. ~1.5-2 óra elég.", links: [{ label: "📍 Múzeum oldala", url: "https://www.vangoghmuseum.nl/en/visit/tickets" }], transport: [{ type: "walk", label: "🚶 ~8 perc · séta a Museumplein felé", url: "https://www.google.com/maps/dir/Albert+Cuyp+Market+Amsterdam/Van+Gogh+Museum+Amsterdam" }], guide: {
               image: { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/960px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg", caption: "Van Gogh - Csillagos ej" },
               history: [
                 "Vincent van Gogh (1853-1890) mindössze 10 évet festett, de ez alatt 2100+ műalkotást készített — életében egyetlen egyet adott el",
@@ -832,8 +833,7 @@ export const trips = [
           { item: "Nap 3 összesen", cost: "~€637–657", total: true }
         ],
         endAlerts: [
-          { type: "urgent", text: "🔴 Van Gogh jegyet MOST foglald! Ápr. 10. délutáni slot (16:00-17:00).", url: "https://www.vangoghmuseum.nl/en/visit/tickets" },
-          { type: "tip", text: "🎫 Vonat + Keukenhof + Eurostar jegyek MEGVANNAK! PDF-ek a telefonon. Eurostar PNR: NVDGPK" }
+          { type: "tip", text: "🎫 Vonat + Keukenhof + Eurostar + Van Gogh jegyek MEGVANNAK! PDF-ek a telefonon. Eurostar PNR: NVDGPK" }
         ]
       },
       {
