@@ -84,7 +84,7 @@ export function TripPage() {
       {/* Days */}
       <div>
         {trip.days.map((day, i) => (
-          <DaySection key={day.dayNum} day={day} defaultOpen={i === 0} />
+          <DaySection key={day.dayNum} day={day} />
         ))}
       </div>
 
