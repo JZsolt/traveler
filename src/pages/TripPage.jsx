@@ -27,6 +27,28 @@ export function TripPage() {
           <p>✈️ {trip.flight.airport} · Érkezés {trip.flight.arrival} → Indulás {trip.flight.departure}</p>
           <p>💰 Büdzsé: ~1000 EUR / család</p>
         </div>
+
+        {/* Szállás infó panel */}
+        {trip.accommodation.host && (
+          <div className="mt-6 bg-white/10 backdrop-blur-sm rounded-xl p-4 max-w-md mx-auto text-left text-xs md:text-sm space-y-2">
+            <p className="text-center font-semibold text-sm mb-3">🏠 Szállás infó</p>
+            <p>👤 Házigazda: {trip.accommodation.host}</p>
+            {trip.accommodation.gateCode && <p>🔑 Kapu kód: <span className="font-mono bg-white/20 px-1.5 py-0.5 rounded">{trip.accommodation.gateCode}</span></p>}
+            {trip.accommodation.doorCode && <p>🚪 Bejárat kód: <span className="font-mono bg-white/20 px-1.5 py-0.5 rounded">{trip.accommodation.doorCode}</span></p>}
+            {trip.accommodation.wifi && (
+              <p>📶 WiFi: <span className="font-mono bg-white/20 px-1.5 py-0.5 rounded">{trip.accommodation.wifi.name}</span> · Jelszó: <span className="font-mono bg-white/20 px-1.5 py-0.5 rounded">{trip.accommodation.wifi.password}</span></p>
+            )}
+            {trip.accommodation.videos && (
+              <div className="flex flex-wrap gap-2 pt-1">
+                {trip.accommodation.videos.map((v, i) => (
+                  <a key={i} href={v.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 bg-[#e94560] hover:bg-[#d63d56] px-3 py-1.5 rounded-full text-xs font-medium transition-colors">
+                    ▶ {v.label}
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Overview */}
@@ -75,10 +97,17 @@ export function TripPage() {
         </div>
 
         {/* Urgent bookings */}
-        <AlertBox
-          type="urgent"
-          text={`⚠️ AZONNAL LEFOGLALANDÓ:\n${trip.urgentBookings.map((b, i) => `${i + 1}. ${b.name} — ${b.reason}`).join('\n')}`}
-        />
+        {trip.urgentBookings.every(b => b.done) ? (
+          <AlertBox
+            type="tip"
+            text={`✅ Minden fontos foglalás MEGVAN!\n${trip.urgentBookings.map((b, i) => `${i + 1}. ${b.name} — ${b.reason}`).join('\n')}`}
+          />
+        ) : (
+          <AlertBox
+            type="urgent"
+            text={`⚠️ AZONNAL LEFOGLALANDÓ:\n${trip.urgentBookings.filter(b => !b.done).map((b, i) => `${i + 1}. ${b.name} — ${b.reason}`).join('\n')}`}
+          />
+        )}
       </div>
 
       {/* Days */}
@@ -142,11 +171,11 @@ export function TripPage() {
           <h2 className="text-base md:text-lg font-bold border-b-2 border-[#e94560] pb-1 mb-3">☐ Foglalási checklist</h2>
           <ul className="space-y-1.5">
             {trip.bookingChecklist.map((item, i) => (
-              <li key={i} className="flex items-start gap-2 text-xs py-1.5 border-b border-slate-100">
-                <span className="text-base">☐</span>
+              <li key={i} className={`flex items-start gap-2 text-xs py-1.5 border-b border-slate-100 ${item.done ? 'opacity-60' : ''}`}>
+                <span className="text-base">{item.done ? '✅' : '☐'}</span>
                 <span>
-                  <strong>{item.item}</strong>
-                  {item.url && (
+                  <strong className={item.done ? 'line-through' : ''}>{item.item}</strong>
+                  {item.url && !item.done && (
                     <>
                       {' → '}
                       <a href={item.url} target="_blank" rel="noopener noreferrer" className="text-[#0f3460] underline">
