@@ -108,6 +108,23 @@ export function TripPage() {
             text={`⚠️ AZONNAL LEFOGLALANDÓ:\n${trip.urgentBookings.filter(b => !b.done).map((b, i) => `${i + 1}. ${b.name} — ${b.reason}`).join('\n')}`}
           />
         )}
+
+        {/* Insurance */}
+        {trip.insurance && (
+          <a
+            href={trip.insurance.pdf}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-3 p-3 bg-emerald-50 border border-emerald-200 rounded-xl hover:bg-emerald-100 transition-colors no-underline text-[#1a1a2e] mt-4"
+          >
+            <span className="text-xl">🛡️</span>
+            <div className="flex-1 min-w-0">
+              <strong className="block text-xs">{trip.insurance.label}</strong>
+              <span className="text-[10px] text-gray-500">{trip.insurance.desc}</span>
+            </div>
+            <ExternalLink className="w-3.5 h-3.5 opacity-30 shrink-0" />
+          </a>
+        )}
       </div>
 
       {/* Days */}
