@@ -1401,6 +1401,11 @@ export const trips = [
             desc: '4 felnott + 1 gyerek · apr. 10. · 17:15 slot',
             pdf: '/tickets/van-gogh-muzeum.pdf',
           },
+          {
+            label: 'Utasbiztositas',
+            desc: 'Polita THS184041424',
+            pdf: '/insurance/POLITA_THS184041424.pdf',
+          },
         ],
         alerts: [
           {
