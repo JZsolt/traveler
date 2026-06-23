@@ -25,7 +25,7 @@ export function TripPage() {
           <p>👥 {trip.people}</p>
           <p>🏠 Szállás: <a href={trip.accommodation.mapUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 text-white/90 hover:text-white">{trip.accommodation.address}</a></p>
           <p>✈️ {trip.flight.airport} · Érkezés {trip.flight.arrival} → Indulás {trip.flight.departure}</p>
-          <p>💰 Büdzsé: ~1000 EUR / család</p>
+          <p>💰 Büdzsé: {trip.budget.headline || '~1000 EUR / család'}</p>
         </div>
 
         {/* Szállás infó panel */}
@@ -80,13 +80,15 @@ export function TripPage() {
         {/* Budget summary */}
         <div className="bg-gradient-to-r from-[#1a1a2e] to-[#0f3460] text-white p-5 rounded-2xl mt-5">
           <h3 className="text-sm md:text-base font-bold mb-1">💰 Költségvetés összesítő</h3>
-          <p className="text-[10px] opacity-50 mb-3">Teljes utazás (5 nap) becsült költségei — repjegy nélkül</p>
+          <p className="text-[10px] opacity-50 mb-3">
+            {trip.budget.summaryLabel || 'Teljes utazás (5 nap) becsült költségei — repjegy nélkül'}
+          </p>
           <div className="grid grid-cols-2 gap-2.5">
             {[
-              { amount: trip.budget.lowPerFamily, label: "Spórolós / 1 család (2 fő + gyerek)" },
-              { amount: trip.budget.comfortPerFamily, label: "Komfort / 1 család (2 fő + gyerek)" },
-              { amount: trip.budget.lowTotal, label: "Spórolós / mind az 5 fő együtt" },
-              { amount: trip.budget.comfortTotal, label: "Komfort / mind az 5 fő együtt" }
+              { amount: trip.budget.lowPerFamily, label: trip.budget.lowPerFamilyLabel || "Spórolós / 1 család (2 fő + gyerek)" },
+              { amount: trip.budget.comfortPerFamily, label: trip.budget.comfortPerFamilyLabel || "Komfort / 1 család (2 fő + gyerek)" },
+              { amount: trip.budget.lowTotal, label: trip.budget.lowTotalLabel || "Spórolós / mind az 5 fő együtt" },
+              { amount: trip.budget.comfortTotal, label: trip.budget.comfortTotalLabel || "Komfort / mind az 5 fő együtt" }
             ].map((b, i) => (
               <div key={i} className="bg-white/10 p-3 rounded-xl text-center">
                 <div className="text-lg md:text-2xl font-extrabold text-[#e94560]">{b.amount}</div>
@@ -145,7 +147,7 @@ export function TripPage() {
                 <tr className="bg-slate-100">
                   <th className="p-2 text-left">#</th>
                   <th className="p-2 text-left">Tipp</th>
-                  <th className="p-2 text-right">Megtakarítás (5 fő)</th>
+                  <th className="p-2 text-right">{trip.savingTipsLabel || 'Megtakarítás (5 fő)'}</th>
                 </tr>
               </thead>
               <tbody>

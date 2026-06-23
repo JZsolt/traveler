@@ -1,4 +1,12 @@
 export function TransportOptions({ data }) {
+  const headers = data.headers || {
+    option: 'Opció',
+    time: 'Idő',
+    pricePerPerson: 'Ár/fő retúr',
+    total: '5 fő retúr',
+    link: 'Link',
+  }
+
   return (
     <div className="mt-2">
       <h3 className="text-xs md:text-sm font-bold mb-2">{data.title}</h3>
@@ -6,11 +14,11 @@ export function TransportOptions({ data }) {
         <table className="w-full text-[10px] md:text-xs">
           <thead>
             <tr className="bg-slate-100">
-              <th className="p-1.5 text-left font-semibold">Opció</th>
-              <th className="p-1.5 text-left font-semibold">Idő</th>
-              <th className="p-1.5 text-left font-semibold">Ár/fő retúr</th>
-              <th className="p-1.5 text-left font-semibold">5 fő retúr</th>
-              <th className="p-1.5 text-left font-semibold">Link</th>
+              <th className="p-1.5 text-left font-semibold">{headers.option}</th>
+              <th className="p-1.5 text-left font-semibold">{headers.time}</th>
+              <th className="p-1.5 text-left font-semibold">{headers.pricePerPerson}</th>
+              <th className="p-1.5 text-left font-semibold">{headers.total}</th>
+              <th className="p-1.5 text-left font-semibold">{headers.link}</th>
             </tr>
           </thead>
           <tbody>
@@ -22,7 +30,7 @@ export function TransportOptions({ data }) {
                 <td className="p-1.5">{opt.total}</td>
                 <td className="p-1.5">
                   <a href={opt.url} target="_blank" rel="noopener noreferrer" className="text-[#0f3460] underline">
-                    Foglalás
+                    {opt.linkLabel || data.linkLabel || 'Foglalás'}
                   </a>
                 </td>
               </tr>

@@ -1,0 +1,1002 @@
+{
+  "slug": "praga-odyssea-2026",
+  "title": "Prága · Odyssea IMAX 70mm",
+  "subtitle": "2026. július 21–24.",
+  "emoji": "🇨🇿 🎬 🚗",
+  "startDate": "2026-07-21",
+  "endDate": "2026-07-24",
+  "people": "4 felnőtt · 2 házaspár · 1 sofőr",
+  "highlights": [
+    "IMAX 70mm",
+    "Prágai sörözők",
+    "Károly híd",
+    "Prágai vár",
+    "Unicum Ház"
+  ],
+  "accommodation": {
+    "address": "Prága — Flora / Žižkov / Vinohrady környéke, még foglalni kell",
+    "mapUrl": "https://maps.google.com/?q=Flora+Prague",
+    "host": "Még nincs szállás",
+    "videos": []
+  },
+  "flight": {
+    "airport": "Autóval Marossárpatakról",
+    "arrival": "júl. 21. este",
+    "departure": "júl. 24."
+  },
+  "budget": {
+    "lowPerFamily": "~€450",
+    "comfortPerFamily": "~€625",
+    "lowTotal": "~€900",
+    "comfortTotal": "~€1250",
+    "lowPerFamilyLabel": "Spórolós / 1 pár",
+    "comfortPerFamilyLabel": "Kényelmesebb / 1 pár",
+    "lowTotalLabel": "Spórolós / 4 felnőtt együtt",
+    "comfortTotalLabel": "Kényelmesebb / 4 felnőtt együtt",
+    "headline": "~€900-1250 / 4 felnőtt",
+    "summaryLabel": "Teljes 4 napos roadtrip becslés — IMAX jegyek már megvannak"
+  },
+  "savingTipsLabel": "Megtakarítás / 4 felnőtt",
+  "urgentBookings": [
+    {
+      "name": "Odyssea IMAX 70mm jegy",
+      "reason": "MEGVAN ✅ · júl. 22. 09:00 · Flora · 8. sor 22-25",
+      "done": true
+    },
+    {
+      "name": "Prágai szállás parkolóval",
+      "reason": "ezt kell először lefoglalni, mert autóval mentek",
+      "url": "https://www.booking.com/searchresults.html?ss=Flora%2C+Prague"
+    },
+    {
+      "name": "Budapesti félutas alvás",
+      "reason": "Unicum Ház miatt praktikus, és hazafelé is lazítja az utat",
+      "url": "https://www.booking.com/searchresults.html?ss=Budapest"
+    }
+  ],
+  "usefulLinks": [
+    {
+      "emoji": "🎬",
+      "name": "Cinema City Flora",
+      "desc": "Odyssea · IMAX 70mm · 2026. július 22. 09:00",
+      "url": "https://maps.google.com/?q=Cinema+City+Flora+Prague"
+    },
+    {
+      "emoji": "🅿️",
+      "name": "Prágai parkolás",
+      "desc": "Hivatalos parkolási infók, P+R opciók",
+      "url": "https://prague.eu/en/parking/"
+    },
+    {
+      "emoji": "🚇",
+      "name": "Prágai tömegközlekedés",
+      "desc": "Metro, villamos, jegyek, városi közlekedés",
+      "url": "https://prague.eu/en/transportation/"
+    },
+    {
+      "emoji": "🏰",
+      "name": "Prágai vár",
+      "desc": "Hivatalos látogatói oldal",
+      "url": "https://www.hrad.cz/en/prague-castle-for-visitors"
+    },
+    {
+      "emoji": "🌉",
+      "name": "Károly híd",
+      "desc": "Prague City Tourism oldal",
+      "url": "https://prague.eu/en/objevujte/charles-bridge-karluv-most/"
+    },
+    {
+      "emoji": "🍺",
+      "name": "U Fleků",
+      "desc": "Történelmi prágai sörfőzde és söröző",
+      "url": "https://en.ufleku.cz/"
+    },
+    {
+      "emoji": "🍻",
+      "name": "U Medvídků",
+      "desc": "Történelmi söröző, étterem és mini sörfőzde",
+      "url": "https://umedvidku.cz/en/"
+    },
+    {
+      "emoji": "🥃",
+      "name": "Unicum Ház",
+      "desc": "Zwack látogatóközpont Budapesten",
+      "url": "https://zwackunicum.hu/"
+    }
+  ],
+  "packingList": [
+    "Jogsi, forgalmi, biztosítás, zöldkártya / digitális biztosítás",
+    "Autópálya matricák / útdíjak ellenőrzése: Románia, Magyarország, Szlovákia, Csehország",
+    "Powerbank + töltőkábelek az autóba",
+    "Kényelmes cipő Prágához",
+    "Víz, snack, kávé a hosszú útra",
+    "Jegy PDF offline is legyen elmentve"
+  ],
+  "savingTips": [
+    {
+      "tip": "🅿️ Szállás saját parkolóval vagy P+R + tömegközlekedés",
+      "saving": "~€30-80"
+    },
+    {
+      "tip": "🍺 Óváros főterén ne üljetek be random turistás helyre",
+      "saving": "~€40-80"
+    },
+    {
+      "tip": "🚇 24/72 órás prágai jegy kényelmesebb, mint külön jegyezni",
+      "saving": "idő + stressz"
+    },
+    {
+      "tip": "⛽ Mazda CX-30 6.8 l/100 km mellett az autóköltség 4 főre jól szétoszlik",
+      "saving": "~€100+/fő vonathoz képest"
+    }
+  ],
+  "practicalInfo": [
+    {
+      "title": "🚗 Vezetés & útvonal",
+      "items": [
+        "Egy sofőrrel is vállalható, ha korán indultok és 2-3 normális megállót előre beterveztek.",
+        "A Mazda CX-30 6.8 l/100 km fogyasztással kb. 145-155 liter benzinnel számolható a teljes körre, útvonaltól és kitérőktől függően.",
+        "Kedd este már Prágában kell aludni, hajnali indulással nem érdemes kockáztatni a 09:00 IMAX-et.",
+        "Budapest hazafelé nem csak pihenő: Unicum Ház programot is kap.",
+        "Indulás előtt ellenőrizzétek az aktuális útvonalat, határidőt, útdíjakat és matricákat."
+      ]
+    },
+    {
+      "title": "🏨 Szálláskeresési szabály",
+      "items": [
+        "Első szempont: garantált parkoló vagy nagyon közeli, egyértelmű parkolási lehetőség.",
+        "Jó környék: Flora, Žižkov, Vinohrady, Strašnice, Jiřího z Poděbrad.",
+        "Kerüljétek az Óváros közepét autóval, mert a parkolás és behajtás felesleges stressz.",
+        "Késő esti check-in legyen biztos, mert az érkezés csúszhat."
+      ]
+    },
+    {
+      "title": "🎬 Mozi nap",
+      "items": [
+        "A vetítés 09:00-kor van, ezért 08:15-08:30 körül már érdemes a Flora környékén lenni.",
+        "A jegyen 8. sor 22-25 helyek szerepelnek, 4 jegy.",
+        "A film után ne tervezzetek túl sűrű programot, elég egy jó ebéd és egy klasszikus prágai séta."
+      ]
+    },
+    {
+      "title": "🍺 Prágai sörözés",
+      "items": [
+        "Kötelező klasszikus: U Fleků, saját 13° barna lagerrel és régi prágai hangulattal.",
+        "Kötelező másik: U Medvídků, történelmi söröző és mini sörfőzde, erős saját sörökkel.",
+        "Olcsóbb, egyszerűbb vonalhoz keressetek Lokál jellegű helyet vagy Žižkov/Vinohrady környéki kocsmát.",
+        "A sofőr másnap vezet, ezért a nagyobb sörözést a mozi nap estéjére tegyétek, ne indulás előtti reggelre."
+      ]
+    }
+  ],
+  "bookingChecklist": [
+    {
+      "item": "Odyssea IMAX 70mm jegyek — MEGVAN ✅ · júl. 22. 09:00 · Flora",
+      "done": true
+    },
+    {
+      "item": "Prágai szállás saját parkolóval / garantált parkolóval",
+      "url": "https://www.booking.com/searchresults.html?ss=Flora%2C+Prague"
+    },
+    {
+      "item": "Budapest vagy Budapest környéki alvás hazafelé",
+      "url": "https://www.booking.com/searchresults.html?ss=Budapest"
+    },
+    {
+      "item": "Unicum Ház látogatás időpont / nyitvatartás ellenőrzése",
+      "url": "https://zwackunicum.hu/"
+    },
+    {
+      "item": "Autópálya matricák és útdíjak ellenőrzése indulás előtt"
+    },
+    {
+      "item": "Offline Google Maps: Románia, Magyarország, Szlovákia/Csehország, Prága"
+    }
+  ],
+  "overview": [
+    {
+      "day": 1,
+      "date": "Júl. 21 (kedd)",
+      "program": "🚗 Marossárpatak → Prága",
+      "highlights": "Egy sofőr, 2-3 megálló, este check-in és könnyű sörözés"
+    },
+    {
+      "day": 2,
+      "date": "Júl. 22 (sze)",
+      "program": "🎬 Odyssea IMAX + Prága",
+      "highlights": "09:00 IMAX 70mm, Óváros, Károly híd, U Fleků / U Medvídků"
+    },
+    {
+      "day": 3,
+      "date": "Júl. 23 (csü)",
+      "program": "🏰 Prágai vár → Budapest",
+      "highlights": "Várnegyed délelőtt, jó ebéd, délután indulás Budapestig"
+    },
+    {
+      "day": 4,
+      "date": "Júl. 24 (péntek)",
+      "program": "🥃 Unicum Ház → Marossárpatak",
+      "highlights": "Unicum látogatóközpont, majd hazavezetés"
+    }
+  ],
+  "days": [
+    {
+      "dayNum": 1,
+      "title": "Marossárpatak → Prága",
+      "subtitle": "Július 21. kedd — hosszú vezetős nap, este check-in",
+      "images": [
+        {
+          "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Czech-2013-Prague-View_from_Charles_Bridge_of_Prague_Castle.jpg/960px-Czech-2013-Prague-View_from_Charles_Bridge_of_Prague_Castle.jpg",
+          "caption": "Prága panoráma"
+        },
+        {
+          "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Prague_07-2016_Metro_img5_LineB_Andel.jpg/960px-Prague_07-2016_Metro_img5_LineB_Andel.jpg",
+          "caption": "Prágai metró"
+        },
+        {
+          "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/%C5%BDi%C5%BEkov_Television_Tower_Prague_-_Entrance_level-6451.jpg/960px-%C5%BDi%C5%BEkov_Television_Tower_Prague_-_Entrance_level-6451.jpg",
+          "caption": "Žižkov környéke"
+        }
+      ],
+      "alerts": [
+        {
+          "type": "urgent",
+          "text": "A cél csak annyi, hogy este biztonságban Prágában legyetek. Ne tegyetek erre a napra városnézést."
+        }
+      ],
+      "transportOptions": {
+        "title": "Útvonal logika",
+        "headers": {
+          "option": "Opció",
+          "time": "Idő",
+          "pricePerPerson": "Költség/fő",
+          "total": "Autó / 4 fő",
+          "link": "Útvonal"
+        },
+        "linkLabel": "Útvonal",
+        "options": [
+          {
+            "name": "🚗 Direkt Prágába",
+            "time": "~12-14 óra pihenőkkel",
+            "pricePerPerson": "~€70-85",
+            "total": "~€280-340 / autó",
+            "url": "https://www.google.com/maps/dir/Maross%C3%A1rpatak/Prague",
+            "recommended": true
+          },
+          {
+            "name": "☕ 2-3 tervezett megálló",
+            "time": "30-45 perc / nagyobb stop",
+            "pricePerPerson": "~€10-20",
+            "total": "~€40-80 / 4 fő",
+            "url": "https://www.google.com/maps/dir/Maross%C3%A1rpatak/Oradea/Budapest/Brno/Prague"
+          }
+        ]
+      },
+      "schedule": [
+        {
+          "time": "05:30",
+          "title": "🚗 Indulás Marossárpatakról",
+          "desc": "Korai indulással, egy sofőrrel, 2-3 normális megállóval is tartható. A cél az esti prágai check-in.",
+          "links": [
+            {
+              "label": "📍 Térkép",
+              "url": "https://maps.google.com/?q=Maross%C3%A1rpatak"
+            },
+            {
+              "label": "Útvonal Prágába",
+              "url": "https://www.google.com/maps/dir/Maross%C3%A1rpatak/Prague"
+            }
+          ],
+          "guide": {
+            "tips": [
+              "A sofőrnek legyen rendes alvás előző este, és ne legyen nagy sörözés indulás előtt.",
+              "Az első hosszabb stop legyen akkor, amikor már tényleg kell, ne túl korán.",
+              "Kávé, víz, snack legyen az autóban, hogy ne benzinkúti impulzusvásárlásból éljetek."
+            ]
+          }
+        },
+        {
+          "time": "09:00",
+          "title": "☕ Stop 1 — Nagyvárad / határ környéke",
+          "desc": "Gyors mosdó, kávé, tankolás ha kell. Ne legyen hosszú reggeli, ez még csak technikai pihenő.",
+          "links": [
+            {
+              "label": "📍 Térkép",
+              "url": "https://maps.google.com/?q=Oradea"
+            },
+            {
+              "label": "Útvonal stopokkal",
+              "url": "https://www.google.com/maps/dir/Maross%C3%A1rpatak/Oradea/Budapest/Brno/Prague"
+            }
+          ],
+          "guide": {
+            "tips": [
+              "15-25 perc elég.",
+              "Itt még ne veszítsetek időt városnézéssel."
+            ]
+          }
+        },
+        {
+          "time": "12:30",
+          "title": "🍽 Stop 2 — Budapest környéke / M0",
+          "desc": "Ez legyen a fő nappali pihenő: ebéd, séta 10 percet, sofőr reset.",
+          "highlight": true,
+          "links": [
+            {
+              "label": "📍 Térkép",
+              "url": "https://maps.google.com/?q=M0+Budapest"
+            },
+            {
+              "label": "Útvonal",
+              "url": "https://www.google.com/maps/dir/Oradea/Budapest/Brno/Prague"
+            }
+          ],
+          "guide": {
+            "tips": [
+              "30-45 percet érdemes rászánni, mert innen még hosszú a Prága szakasz.",
+              "A belvárosba ne menjetek be, csak pálya közeli stop."
+            ]
+          }
+        },
+        {
+          "time": "16:30",
+          "title": "☕ Stop 3 — Brno / Mikulov környéke",
+          "desc": "Utolsó nagyobb pihenő Prága előtt. Kávé, mosdó, sofőr frissítés.",
+          "links": [
+            {
+              "label": "📍 Térkép",
+              "url": "https://maps.google.com/?q=Brno"
+            },
+            {
+              "label": "Útvonal Prágába",
+              "url": "https://www.google.com/maps/dir/Brno/Prague"
+            }
+          ],
+          "guide": {
+            "tips": [
+              "Ha jól haladtok, Brno környéke praktikus.",
+              "Ha csúsztok, ez lehet csak egy benzinkutas 15 perces megálló."
+            ]
+          }
+        },
+        {
+          "time": "este",
+          "title": "🏨 Check-in Prágában",
+          "desc": "Flora, Žižkov vagy Vinohrady környéke praktikus, mert közel van a mozihoz és nem kell az Óvárosba autózni.",
+          "highlight": true,
+          "links": [
+            {
+              "label": "📍 Térkép",
+              "url": "https://maps.google.com/?q=Flora+Prague"
+            },
+            {
+              "label": "Szálláskeresés",
+              "url": "https://www.booking.com/searchresults.html?ss=Flora%2C+Prague"
+            }
+          ],
+          "guide": {
+            "mustSee": [
+              "Saját parkoló vagy garantált parkoló.",
+              "Késő esti check-in.",
+              "20 percen belüli eljutás Flora IMAX-hoz."
+            ],
+            "tips": [
+              "A prágai check-in kódokat és parkolási infót indulás előtt mentsétek offline.",
+              "Ha a szállásnak nincs parkolója, inkább keressetek másikat."
+            ]
+          }
+        },
+        {
+          "time": "20:30",
+          "title": "🍺 Könnyű első sör — Žižkov / Vinohrady",
+          "desc": "Nem nagy éjszaka, csak érkezős sör és vacsora. Másnap 09:00 IMAX.",
+          "optional": true,
+          "links": [
+            {
+              "label": "📍 Térkép",
+              "url": "https://maps.google.com/?q=Vinohrady+Prague+beer"
+            },
+            {
+              "label": "Prague beer culture",
+              "url": "https://www.prague.eu/en/articles/history-of-czech-beer-10522"
+            }
+          ],
+          "guide": {
+            "mustSee": [
+              "Egy sima tank Pilsner vagy Kozel.",
+              "Egyszerű cseh vacsora, nem turista show."
+            ],
+            "tips": [
+              "A sofőr másnap nem vezet sokat, de a korai mozi miatt ezt tartsátok röviden.",
+              "Ha a szállás környékén van normális söröző, ne menjetek át a belvárosba."
+            ]
+          }
+        }
+      ],
+      "costs": [
+        {
+          "item": "Teljes kör autóköltség becslés: ~2200 km × 6.8 l/100 km = ~150 l benzin + matricák",
+          "cost": "~€280-340 / autó"
+        },
+        {
+          "item": "Nap 1-re eső autóköltség arányos része",
+          "cost": "~€150-190"
+        },
+        {
+          "item": "Prágai szállás 1 éj / 4 fő minimal",
+          "cost": "~€100-170"
+        },
+        {
+          "item": "Vacsora + 1-2 sör / 4 fő",
+          "cost": "~€60-100"
+        },
+        {
+          "item": "Nap 1 összesen",
+          "cost": "~€310-460",
+          "total": true
+        }
+      ]
+    },
+    {
+      "dayNum": 2,
+      "title": "Odyssea IMAX 70mm + Prága best of",
+      "subtitle": "Július 22. szerda — 09:00 mozi, délután klasszikus séta",
+      "tickets": [
+        {
+          "label": "Odyssea IMAX 70mm",
+          "desc": "Flora · 2026.07.22. 09:00 · 8. sor 22-25",
+          "pdf": "/tickets/odyssea-imax-praga-2026.pdf"
+        }
+      ],
+      "images": [
+        {
+          "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Prague_Charles_Bridge_2021_04.jpg/960px-Prague_Charles_Bridge_2021_04.jpg",
+          "caption": "Károly híd"
+        },
+        {
+          "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Prague_07-2016_View_from_Old_Town_Hall_Tower_img3.jpg/960px-Prague_07-2016_View_from_Old_Town_Hall_Tower_img3.jpg",
+          "caption": "Óváros tér"
+        },
+        {
+          "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/CZE_Prague%2C_U_Fleku_001.jpg/960px-CZE_Prague%2C_U_Fleku_001.jpg",
+          "caption": "U Fleků"
+        }
+      ],
+      "alerts": [
+        {
+          "type": "urgent",
+          "text": "08:15-08:30 között legyetek a Flora környékén. A jegy megvan, de a reggeli városi közlekedésre hagyjatok pufferidőt."
+        }
+      ],
+      "schedule": [
+        {
+          "time": "08:15",
+          "title": "🎬 Érkezés Cinema City Flora",
+          "desc": "Jegyek: 8. sor, 22-25. Nyugodtan érjetek oda, vegyetek vizet/kávét, aztán jöhet a 70mm.",
+          "highlight": true,
+          "links": [
+            {
+              "label": "📍 Térkép",
+              "url": "https://maps.google.com/?q=Cinema+City+Flora+Prague"
+            },
+            {
+              "label": "Cinema City",
+              "url": "https://www.cinemacity.cz/"
+            }
+          ],
+          "guide": {
+            "history": [
+              "A Flora IMAX Prága egyik legismertebb nagyformátumú mozija.",
+              "A 70mm IMAX vetítés miatt ez az út fő fix pontja."
+            ],
+            "mustSee": [
+              "Legyen meg a PDF offline is.",
+              "A sor és helyek ellenőrzése után ne hagyjátok az utolsó percre a beülést."
+            ],
+            "tips": [
+              "Reggel a dugó és parkolás miatt inkább tömegközlekedéssel vagy gyalog menjetek, ha közel van a szállás.",
+              "A film után ne tervezzetek azonnal időpontra foglalt programot."
+            ]
+          }
+        },
+        {
+          "time": "09:00",
+          "title": "🎞 Odyssea — IMAX 70mm",
+          "desc": "A roadtrip fő eseménye. Ez a nap ne legyen túltervezve, a film után maradjon laza prágai séta.",
+          "highlight": true,
+          "badges": [
+            "MEGVAN"
+          ],
+          "links": [
+            {
+              "label": "📍 Térkép",
+              "url": "https://maps.google.com/?q=Cinema+City+Flora+Prague"
+            },
+            {
+              "label": "The Odyssey",
+              "url": "https://en.wikipedia.org/wiki/The_Odyssey_(2026_film)"
+            }
+          ],
+          "guide": {
+            "funFacts": [
+              "Christopher Nolan filmjei miatt a nagyformátumú IMAX vetítések külön eseménynek számítanak.",
+              "A 70mm IMAX jegyek nagyon korán fogytak, ezért ez már most fix programpont."
+            ],
+            "tips": [
+              "Telefonok némítva, PDF elmentve, érkezés korán.",
+              "A film után hagyjatok legalább 30-45 percet csak leereszteni és ebédet keresni."
+            ]
+          }
+        },
+        {
+          "time": "13:00",
+          "title": "🍽 Ebéd Flora / Vinohrady környékén",
+          "desc": "Film után ne menjetek rögtön a turistaközpontba éhesen. Ebédeljetek a szállás/mozi környékén.",
+          "links": [
+            {
+              "label": "📍 Térkép",
+              "url": "https://maps.google.com/?q=Vinohrady+Prague+restaurants"
+            },
+            {
+              "label": "Prague food & drink",
+              "url": "https://prague.eu/en/food-drinks/"
+            }
+          ],
+          "guide": {
+            "mustSee": [
+              "Cseh klasszikus: svíčková, gulyás, sült kacsa, knédli.",
+              "Könnyebb opció: vietnámi pho vagy bisztró Vinohradyban."
+            ],
+            "tips": [
+              "Az Óváros főterét étkezésre kerüljétek.",
+              "Ha jó helyet találtok a szállás közelében, érdemes oda visszamenni este is."
+            ]
+          }
+        },
+        {
+          "time": "15:00",
+          "title": "🏛 Óváros tér + Orloj",
+          "desc": "Klasszikus prágai első kör: Óváros tér, csillagászati óra, utcák a Károly híd felé.",
+          "links": [
+            {
+              "label": "📍 Térkép",
+              "url": "https://maps.google.com/?q=Old+Town+Square+Prague"
+            },
+            {
+              "label": "Old Town Hall",
+              "url": "https://prague.eu/en/objevujte/old-town-hall-with-astronomical-clock-staromestska-radnice-s-orlojem/"
+            }
+          ],
+          "transport": [
+            {
+              "type": "transit",
+              "label": "🚇 Flora → Staroměstská / Můstek",
+              "url": "https://www.google.com/maps/dir/Flora+Prague/Old+Town+Square+Prague"
+            }
+          ],
+          "guide": {
+            "history": [
+              "Az Óváros tér Prága történelmi magja, a város egyik legismertebb tere.",
+              "Az Orloj középkori csillagászati óra, óránként mozgó figurákkal."
+            ],
+            "mustSee": [
+              "Orloj és az Óvárosháza tornya kívülről.",
+              "Týn-templom homlokzata.",
+              "Kis utcák a Károly híd felé."
+            ],
+            "tips": [
+              "Nagyon turistás, fotózni jó, enni kevésbé.",
+              "A tér után rögtön menjetek tovább a híd irányába."
+            ]
+          }
+        },
+        {
+          "time": "16:30",
+          "title": "🌉 Károly híd + Kampa",
+          "desc": "Prága kötelező sétája: Károly híd, Moldva, majd le Kampa felé.",
+          "links": [
+            {
+              "label": "📍 Térkép",
+              "url": "https://maps.google.com/?q=Charles+Bridge+Prague"
+            },
+            {
+              "label": "Károly híd",
+              "url": "https://prague.eu/en/objevujte/charles-bridge-karluv-most/"
+            }
+          ],
+          "transport": [
+            {
+              "type": "walk",
+              "label": "🚶 Óváros tér → Károly híd ~10 perc",
+              "url": "https://www.google.com/maps/dir/Old+Town+Square+Prague/Charles+Bridge+Prague"
+            }
+          ],
+          "guide": {
+            "history": [
+              "A Károly híd a 14. században épült, és sokáig a város egyik legfontosabb átkelője volt.",
+              "A híd a prágai várnegyed és az Óváros közötti történelmi tengely része."
+            ],
+            "mustSee": [
+              "Kilátás a várra a hídról.",
+              "Kampa sziget nyugodtabb részei.",
+              "Lesser Town Bridge Tower kívülről."
+            ],
+            "tips": [
+              "Délután zsúfolt, de első prágai útnál így is kötelező.",
+              "Ha túl sok az ember, menjetek le Kampa felé pár utcával arrébb."
+            ]
+          }
+        },
+        {
+          "time": "18:00",
+          "title": "🍺 Kötelező söröző 1 — U Fleků",
+          "desc": "Történelmi prágai sörfőzde Křemencova 11 alatt. Saját 13° barna lager, nagy sörház hangulat.",
+          "highlight": true,
+          "links": [
+            {
+              "label": "📍 Térkép",
+              "url": "https://maps.google.com/?q=U+Fleku+Prague"
+            },
+            {
+              "label": "U Fleků",
+              "url": "https://en.ufleku.cz/"
+            }
+          ],
+          "guide": {
+            "history": [
+              "U Fleků 1499 óta működő prágai sörfőzde és étterem.",
+              "A saját barna lagerük helyben készül, ez a hely fő indoka."
+            ],
+            "mustSee": [
+              "1 korsó saját barna lager.",
+              "Ha éhesek vagytok: gulyás, sült hús, knédli.",
+              "A belső termek és az udvar hangulata."
+            ],
+            "tips": [
+              "Turistásabb és nem a legolcsóbb, ezért itt elég 1-2 sör és a hangulat.",
+              "Ha tele van vagy drága érzés, menjetek tovább U Medvídků felé."
+            ]
+          }
+        },
+        {
+          "time": "20:00",
+          "title": "🍻 Kötelező söröző 2 + vacsora — U Medvídků",
+          "desc": "Történelmi söröző, étterem és mini sörfőzde az Óváros szélén. Jobb vacsora-opció, mint a főtéri turistacsapdák.",
+          "highlight": true,
+          "links": [
+            {
+              "label": "📍 Térkép",
+              "url": "https://maps.google.com/?q=U+Medvidku+Prague"
+            },
+            {
+              "label": "U Medvídků",
+              "url": "https://umedvidku.cz/en/"
+            }
+          ],
+          "guide": {
+            "history": [
+              "U Medvídků története a 15. századig nyúlik vissza.",
+              "Ma étterem, hotel és mini sörfőzde egyben."
+            ],
+            "mustSee": [
+              "Saját sörök kóstolása, de ésszel, mert másnap vezetés van.",
+              "Cseh klasszikus vacsora: svíčková, gulyás, sült kacsa, knédli.",
+              "Alternatíva ugyanarra az estére: Lokál Dlouhá, ha modernebb és egyszerűbb hely kell."
+            ],
+            "tips": [
+              "Vacsorára ez jobb célpont, mint az Óváros tér körüli random helyek.",
+              "Ha fixre mentek, érdemes aznap délután ránézni a foglalási lehetőségre."
+            ]
+          }
+        },
+        {
+          "time": "22:00",
+          "title": "🍺 B terv / levezető — Lokál Dlouhá vagy Žižkov",
+          "desc": "Ha még van kedv, egy egyszerűbb korsó. Ez opcionális, mert másnap még vár és Prága→Budapest vezetés jön.",
+          "optional": true,
+          "links": [
+            {
+              "label": "📍 Térkép",
+              "url": "https://maps.google.com/?q=Lokal+Dlouha+Prague"
+            },
+            {
+              "label": "Lokál Dlouhá",
+              "url": "https://lokal.ambi.cz/en/dlouha/"
+            }
+          ],
+          "guide": {
+            "mustSee": [
+              "Lokál Dlouhá: klasszikus csapolt Pilsner és egyszerű cseh konyha.",
+              "Žižkov/Vinohrady: olcsóbb, kevésbé díszlet jellegű sörözők."
+            ],
+            "tips": [
+              "A sofőrnek itt már érdemes visszafogni.",
+              "Taxival vagy tömegközlekedéssel menjetek vissza a szállásra."
+            ]
+          }
+        }
+      ],
+      "costs": [
+        {
+          "item": "IMAX jegyek — megvannak",
+          "cost": "4 × 449 Kč"
+        },
+        {
+          "item": "Prágai tömegközlekedés / 4 fő",
+          "cost": "~€20-40"
+        },
+        {
+          "item": "Ebéd + U Fleků + U Medvídků / 4 fő, spórolósan",
+          "cost": "~€130-220"
+        },
+        {
+          "item": "Prágai szállás 1 éj / 4 fő minimal",
+          "cost": "~€100-170"
+        },
+        {
+          "item": "Nap 2 összesen",
+          "cost": "~€250-430 + már megvett jegyek",
+          "total": true
+        }
+      ]
+    },
+    {
+      "dayNum": 3,
+      "title": "Prágai vár délelőtt, indulás Budapestig",
+      "subtitle": "Július 23. csütörtök — fél nap Prága, délután vezetés",
+      "images": [
+        {
+          "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Czech-2013-Prague-View_from_Charles_Bridge_of_Prague_Castle.jpg/960px-Czech-2013-Prague-View_from_Charles_Bridge_of_Prague_Castle.jpg",
+          "caption": "Prágai vár"
+        },
+        {
+          "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Prague_Charles_Bridge_2021_11.jpg/960px-Prague_Charles_Bridge_2021_11.jpg",
+          "caption": "Károly híd és várnegyed"
+        },
+        {
+          "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Prague_Old_Town_Square%2C_Czech_Republic_-_Oct_2010.jpg/960px-Prague_Old_Town_Square%2C_Czech_Republic_-_Oct_2010.jpg",
+          "caption": "Óváros tér"
+        }
+      ],
+      "alerts": [
+        {
+          "type": "warning",
+          "text": "A délelőtti programot időben le kell zárni. Ez nem teljes prágai nap, mert délután még vezetni kell Budapestig."
+        }
+      ],
+      "schedule": [
+        {
+          "time": "09:30",
+          "title": "🏰 Prágai vár + Szent Vitus",
+          "desc": "A másik kötelező prágai blokk. Ha nincs kedv belépőzni, kívülről és a várnegyed sétával is működik.",
+          "links": [
+            {
+              "label": "📍 Térkép",
+              "url": "https://maps.google.com/?q=Prague+Castle"
+            },
+            {
+              "label": "Prágai vár",
+              "url": "https://www.hrad.cz/en/prague-castle-for-visitors"
+            }
+          ],
+          "guide": {
+            "history": [
+              "A Prágai vár Európa egyik legismertebb történelmi várkomplexuma.",
+              "A Szent Vitus-székesegyház a cseh történelem egyik legfontosabb temploma."
+            ],
+            "mustSee": [
+              "Szent Vitus kívül-belül, ha nincs nagy sor.",
+              "Kilátás a városra a várnegyedből.",
+              "Arany utcácska csak akkor, ha belefér időben és belépőben."
+            ],
+            "tips": [
+              "Ne kezdjetek hosszú múzeumozásba.",
+              "A cél 2-3 órás kompakt várnegyed, nem egész napos bejárás."
+            ]
+          }
+        },
+        {
+          "time": "12:30",
+          "title": "🍽 Ebéd indulás előtt — Kantýna / Lokál / gyors cseh klasszikus",
+          "desc": "Egy rendes ebéd kell Prága előtt, mert utána hosszú vezetés jön Budapestig.",
+          "links": [
+            {
+              "label": "📍 Térkép",
+              "url": "https://maps.google.com/?q=Kantyna+Prague"
+            },
+            {
+              "label": "Útvonal Budapestig",
+              "url": "https://www.google.com/maps/dir/Prague/Budapest"
+            }
+          ],
+          "guide": {
+            "mustSee": [
+              "Kantýna: húsos, gyorsabb, jó ebéd, ha belefér útvonalban.",
+              "Lokál: egyszerű cseh ebéd és Pilsner, de a sofőrnek alkohol nélkül.",
+              "Gyors B terv: szendvics / leves / pho Vinohrady vagy Florenc környékén."
+            ],
+            "tips": [
+              "Ne induljatok éhesen hosszú útra.",
+              "Tankolást ne az utolsó pillanatban intézzétek.",
+              "Ha későn jöttök ki a várból, a plusz programokat töröljétek."
+            ]
+          }
+        },
+        {
+          "time": "14:00",
+          "title": "🚗 Prága → Budapest",
+          "desc": "Ez nem csak fáradtságcsökkentés: másnap belefér az Unicum Ház, aztán haza.",
+          "highlight": true,
+          "links": [
+            {
+              "label": "📍 Térkép",
+              "url": "https://maps.google.com/?q=Budapest"
+            },
+            {
+              "label": "Útvonal",
+              "url": "https://www.google.com/maps/dir/Prague/Budapest"
+            }
+          ],
+          "guide": {
+            "tips": [
+              "Budapesten vagy az agglomerációban olyan helyet válasszatok, ahol könnyű parkolni.",
+              "Ha nagyon fáradtak vagytok, ne menjetek be a belvárosba este.",
+              "A sofőrnek ez legyen alkoholmentes este vagy nagyon visszafogott."
+            ]
+          }
+        },
+        {
+          "time": "este",
+          "title": "🛌 Alvás Budapest / környéke",
+          "desc": "Ez a nap biztonsági szelepe. Másnap már nem kell Prágából hazanyomni az egész távot.",
+          "links": [
+            {
+              "label": "📍 Térkép",
+              "url": "https://maps.google.com/?q=Budapest"
+            },
+            {
+              "label": "Szálláskeresés",
+              "url": "https://www.booking.com/searchresults.html?ss=Budapest"
+            }
+          ],
+          "guide": {
+            "mustSee": [
+              "Parkolós hotel vagy apartman.",
+              "Gyors reggeli és egyszerű kijutás az autópályára."
+            ],
+            "tips": [
+              "Ha csak alvás + másnap Unicum, Ferencváros / IX. kerület környéke praktikus lehet.",
+              "A cél a pihenés, nem a budapesti városnézés."
+            ]
+          }
+        }
+      ],
+      "costs": [
+        {
+          "item": "Prágai vár / opcionális belépők",
+          "cost": "~€0-80"
+        },
+        {
+          "item": "Ebéd / 4 fő",
+          "cost": "~€50-90"
+        },
+        {
+          "item": "Prága → Budapest üzemanyag + útdíj arányos rész",
+          "cost": "~€90-140"
+        },
+        {
+          "item": "Budapest szállás 1 éj / 4 fő",
+          "cost": "~€90-180"
+        },
+        {
+          "item": "Nap 3 összesen",
+          "cost": "~€230-490",
+          "total": true
+        }
+      ]
+    },
+    {
+      "dayNum": 4,
+      "title": "Unicum Ház + Budapest → Marossárpatak",
+      "subtitle": "Július 24. péntek — Unicum látogatóközpont, aztán haza",
+      "alerts": [
+        {
+          "type": "tip",
+          "text": "Az Unicum Házat csak akkor tegyétek fixre, ha előre ellenőriztétek az aktuális nyitvatartást / foglalást. Kóstolásnál a sofőrnek nulla vagy minimális alkohol."
+        }
+      ],
+      "schedule": [
+        {
+          "time": "09:30",
+          "title": "🥃 Unicum Ház / Zwack látogatóközpont",
+          "desc": "Budapesti extra program hazafelé: Unicum történet, gyárhangulat, múzeum/látogatóközpont. Jó, mert útba tehető, de nem viszi el az egész napot.",
+          "highlight": true,
+          "links": [
+            {
+              "label": "📍 Térkép",
+              "url": "https://maps.google.com/?q=Zwack+Unicum+Budapest"
+            },
+            {
+              "label": "Zwack / Unicum",
+              "url": "https://zwackunicum.hu/"
+            }
+          ],
+          "guide": {
+            "history": [
+              "Az Unicum magyar gyógynövénylikőr, a Zwack családhoz kötődő ikonikus ital.",
+              "A budapesti Zwack helyszín a márka történetének fő látogatóközpontja."
+            ],
+            "mustSee": [
+              "Régi Unicum palackok és reklámok.",
+              "A Zwack család története.",
+              "Kóstoló csak úgy, hogy a sofőr vezetésre alkalmas marad."
+            ],
+            "tips": [
+              "Előző nap ellenőrizzétek a nyitvatartást és hogy kell-e időpont.",
+              "Ha nincs nyitva vagy csúsztok, ezt töröljétek, és induljatok haza.",
+              "A program után rögtön ebéd / kávé / indulás, ne csússzon délutánra."
+            ]
+          }
+        },
+        {
+          "time": "11:30",
+          "title": "🍽 Gyors ebéd / kávé Budapesten",
+          "desc": "Ne nagy városnézés legyen, csak indulás előtti étkezés. Ferencváros, Mester utca, Corvin környéke praktikus.",
+          "links": [
+            {
+              "label": "📍 Térkép",
+              "url": "https://maps.google.com/?q=Ferencvaros+Budapest+restaurants"
+            },
+            {
+              "label": "Útvonal haza",
+              "url": "https://www.google.com/maps/dir/Budapest/Maross%C3%A1rpatak"
+            }
+          ],
+          "guide": {
+            "tips": [
+              "Olyan helyet válasszatok, ahol könnyű visszajutni az autóhoz.",
+              "12:30 körül legkésőbb induljatok, ha nem akartok késő este hazaérni."
+            ]
+          }
+        },
+        {
+          "time": "12:30",
+          "title": "🚗 Budapest → Marossárpatak",
+          "desc": "Hazafelé már nincs kötelező program. Rövid megállók, egy sofőr, biztonságos tempó.",
+          "highlight": true,
+          "links": [
+            {
+              "label": "📍 Térkép",
+              "url": "https://maps.google.com/?q=Maross%C3%A1rpatak"
+            },
+            {
+              "label": "Útvonal",
+              "url": "https://www.google.com/maps/dir/Budapest/Maross%C3%A1rpatak"
+            }
+          ],
+          "guide": {
+            "tips": [
+              "Ha valaki nagyon fáradt, álljatok meg hosszabban.",
+              "Ne tervezzetek fix esti programot otthonra.",
+              "A sofőr miatt az Unicum kóstolóval legyetek fegyelmezettek."
+            ]
+          }
+        }
+      ],
+      "costs": [
+        {
+          "item": "Budapest → Marossárpatak üzemanyag + útdíj arányos rész",
+          "cost": "~€80-130"
+        },
+        {
+          "item": "Unicum Ház + ebéd / 4 fő",
+          "cost": "~€60-140"
+        },
+        {
+          "item": "Nap 4 összesen",
+          "cost": "~€140-270",
+          "total": true
+        }
+      ]
+    }
+  ]
+}
