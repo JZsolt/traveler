@@ -11,14 +11,14 @@ Deploy: Vercel. Repo: github.com:JZsolt/traveler.git
 ```bash
 git clone git@github.com:JZsolt/traveler.git Utazasaim
 cd Utazasaim
-npm install          # React app függőségek
-npm run dev          # dev szerver (localhost:5173)
+pnpm install         # React app függőségek
+pnpm dev             # dev szerver (localhost:5173)
 ```
 
 Az app ezzel működik. A BMAD (brainstorming, utazás tervezés) használatához:
 
 ```bash
-npx bmad-method          # BMAD core telepítés a projekt gyökerébe (_bmad/ mappa)
+pnpm dlx bmad-method     # BMAD core telepítés a projekt gyökerébe (_bmad/ mappa)
 ```
 
 Ez létrehozza az `_bmad/` core engine-t. A `.claude/skills/` (BMAD skillek) már a repóban vannak.
@@ -26,9 +26,9 @@ Ez létrehozza az `_bmad/` core engine-t. A `.claude/skills/` (BMAD skillek) má
 ## Fejlesztés
 
 ```bash
-npm run dev          # dev szerver (localhost:5173)
-npx vite --host      # dev szerver hálózatról is elérhető (mobil teszteléshez)
-npm run build        # production build → dist/
+pnpm dev             # dev szerver (localhost:5173)
+pnpm vite --host     # dev szerver hálózatról is elérhető (mobil teszteléshez)
+pnpm build           # production build → dist/
 ```
 
 ## Struktúra
