@@ -1,6 +1,6 @@
 {
   "slug": "praga-odyssea-2026",
-  "title": "Prága · Odyssea IMAX 70mm",
+  "title": "Prága · Budapest",
   "subtitle": "2026. július 21–24.",
   "emoji": "🇨🇿 🎬 🚗",
   "startDate": "2026-07-21",
@@ -553,6 +553,66 @@
           }
         },
         {
+          "time": "14:00",
+          "title": "🧪 Speculum Alchemiae",
+          "desc": "Rejtett föld alatti alkimista labor az Óvárosban, ahol II. Rudolf császár idején aranyat próbáltak csinálni. Rövid, de különleges élmény.",
+          "optional": true,
+          "links": [
+            {
+              "label": "📍 Térkép",
+              "url": "https://maps.google.com/?q=Speculum+Alchemiae+Prague"
+            },
+            {
+              "label": "Speculum Alchemiae",
+              "url": "https://en.wikipedia.org/wiki/Speculum_Alchemiae"
+            }
+          ],
+          "guide": {
+            "history": [
+              "A 16. századi labor II. Rudolf császár korából maradt fenn, aki megszállottan kereste a 'bölcsek kövét'.",
+              "Prága a középkori alkímia és misztika egyik fő központja volt Európában."
+            ],
+            "mustSee": [
+              "A föld alatti labirintus és a titkos alagút a Moldva felé.",
+              "Korabeli alkimista eszközök és edények."
+            ],
+            "tips": [
+              "30-40 perces túra, nem kell sokat tervezni rá.",
+              "Haštalská 1, az Óváros szélén — jól kombinálható az Óváros tér sétával."
+            ]
+          }
+        },
+        {
+          "time": "14:30",
+          "title": "☕ Grand Café Orient — kubista kávézó",
+          "desc": "Prága a világ egyik kevés városa kubista építészettel. A Grand Café Orient a Fekete Madonna Háza emeletén ennek a ritka stílusnak gyönyörű példája.",
+          "optional": true,
+          "links": [
+            {
+              "label": "📍 Térkép",
+              "url": "https://maps.google.com/?q=Grand+Cafe+Orient+Prague"
+            },
+            {
+              "label": "Cseh kubizmus",
+              "url": "https://en.wikipedia.org/wiki/Czech_Cubism"
+            }
+          ],
+          "guide": {
+            "history": [
+              "A Fekete Madonna Háza 1912-ben épült, Josef Gočár tervei alapján — az egyetlen kubista kávézó a világon.",
+              "A cseh kubizmus egyedülálló építészeti irányzat, ami csak Prágában valósult meg ilyen formában."
+            ],
+            "mustSee": [
+              "A kávézó belső tere: kubista bútorok, lámpák, korlátok.",
+              "A Fekete Madonna Háza homlokzata kívülről."
+            ],
+            "tips": [
+              "Ovocný trh 19, az Óváros tér közelében — séta közben útba esik.",
+              "Egy kávé és sütemény elég, a hangulatáért menjetek be."
+            ]
+          }
+        },
+        {
           "time": "15:00",
           "title": "🏛 Óváros tér + Orloj",
           "desc": "Klasszikus prágai első kör: Óváros tér, csillagászati óra, utcák a Károly híd felé.",
@@ -591,8 +651,8 @@
         },
         {
           "time": "16:30",
-          "title": "🌉 Károly híd + Kampa",
-          "desc": "Prága kötelező sétája: Károly híd, Moldva, majd le Kampa felé.",
+          "title": "🌉 Károly híd · Kampa · Čertovka",
+          "desc": "Prága kötelező sétája: Károly híd, Moldva, majd le Kampa felé. A Čertovka ('Ördög csatornája') rejtett kis vízfolyás Kampa mellett — Prága egyik legfotogénebb titkos zugolya.",
           "links": [
             {
               "label": "📍 Térkép",
@@ -618,6 +678,7 @@
             "mustSee": [
               "Kilátás a várra a hídról.",
               "Kampa sziget nyugodtabb részei.",
+              "Čertovka csatorna — a kis vízimalom és a szűk átjáró Kampa szélén.",
               "Lesser Town Bridge Tower kívülről."
             ],
             "tips": [
@@ -654,6 +715,36 @@
             "tips": [
               "Turistásabb és nem a legolcsóbb, ezért itt elég 1-2 sör és a hangulat.",
               "Ha tele van vagy drága érzés, menjetek tovább U Medvídků felé."
+            ]
+          }
+        },
+        {
+          "time": "19:30",
+          "title": "🎭 Stavovské divadlo — alternatív este",
+          "desc": "Ha a nagy sörözés helyett kulturális estét akartok: opera vagy balett abban a színházban, ahol Mozart maga mutatta be a Don Giovannit 1787-ben.",
+          "optional": true,
+          "links": [
+            {
+              "label": "📍 Térkép",
+              "url": "https://maps.google.com/?q=Estates+Theatre+Prague"
+            },
+            {
+              "label": "Stavovské divadlo",
+              "url": "https://en.wikipedia.org/wiki/Estates_Theatre"
+            }
+          ],
+          "guide": {
+            "history": [
+              "A Stavovské divadlo (Rendi Színház) 1783-ban nyílt meg, és azóta is működik.",
+              "Mozart itt mutatta be a Don Giovannit 1787. október 29-én — a színház szinte változatlan azóta."
+            ],
+            "mustSee": [
+              "Az épület neoklasszikus homlokzata kívülről is gyönyörű.",
+              "Ha van előadás: a belső díszítés és az akusztika élmény."
+            ],
+            "tips": [
+              "Jegyeket érdemes előre megnézni online: narodnidivadlo.cz",
+              "Ha nincs előadás, kívülről is érdemes odamenni az Óváros tér közelében."
             ]
           }
         },
@@ -707,6 +798,9 @@
             "mustSee": [
               "Lokál Dlouhá: klasszikus csapolt Pilsner és egyszerű cseh konyha.",
               "Žižkov/Vinohrady: olcsóbb, kevésbé díszlet jellegű sörözők."
+            ],
+            "funFacts": [
+              "Egyes prágai kocsmákban az asztalokon saját csapból húzhattok sört magatoknak — igazi cseh élmény sörimádóknak!"
             ],
             "tips": [
               "A sofőrnek itt már érdemes visszafogni.",
@@ -795,7 +889,70 @@
           }
         },
         {
-          "time": "12:30",
+          "time": "11:30",
+          "title": "📚 Strahov Könyvtár",
+          "desc": "A Strahov kolostor könyvtára Európa egyik legszebb barokk könyvtára. A Prágai vártól 10 percre van gyalog.",
+          "links": [
+            {
+              "label": "📍 Térkép",
+              "url": "https://maps.google.com/?q=Strahov+Library+Prague"
+            },
+            {
+              "label": "Strahov kolostor",
+              "url": "https://en.wikipedia.org/wiki/Strahov_Monastery"
+            }
+          ],
+          "guide": {
+            "history": [
+              "A Strahov kolostor 1143-ban alapított premontrei kolostor, Prága egyik legrégebbi épülete.",
+              "A Teológiai és a Filozófiai terem freskói és könyvállványai a barokk kor remekművei."
+            ],
+            "mustSee": [
+              "Teológiai terem: stukkódíszes mennyezet és régi földgömbök.",
+              "Filozófiai terem: hatalmas, mennyezetig érő könyvespolcok.",
+              "A kolostor sörkertje kilátással a városra."
+            ],
+            "tips": [
+              "A Prágai vártól sétával 10 perc — a vár után természetes folytatás.",
+              "A könyvtári termekbe belépő kell, de rövid és megéri.",
+              "A kolostor sörfőzdéje (Klášterní pivovar Strahov) jó ebédopció a közelben."
+            ]
+          }
+        },
+        {
+          "time": "12:00",
+          "title": "🏰 Vyšehrad",
+          "desc": "Prága másik vára a Moldva magas partján, sokkal kevesebb turistával. Kilátás a folyóra és a városra, cseh hősök temetője.",
+          "optional": true,
+          "links": [
+            {
+              "label": "📍 Térkép",
+              "url": "https://maps.google.com/?q=Vysehrad+Prague"
+            },
+            {
+              "label": "Vyšehrad",
+              "url": "https://en.wikipedia.org/wiki/Vy%C5%A1ehrad"
+            }
+          ],
+          "guide": {
+            "history": [
+              "Vyšehrad a 10. században épült, és a cseh királyok koronázási helye volt.",
+              "A legenda szerint Libuše hercegnő innen jósolta meg Prága megalapítását."
+            ],
+            "mustSee": [
+              "Kilátás a Moldvára és a prágai panorámára a bástyákról.",
+              "Vyšehradi temető: Dvořák, Smetana és más cseh nagyságok sírja.",
+              "Szent Péter és Pál-bazilika."
+            ],
+            "tips": [
+              "A Prágai várhoz képest sokkal nyugodtabb és kevésbé turistás.",
+              "A D1-es autópálya (Budapest felé) közelében van — logikus utolsó prágai megálló indulás előtt.",
+              "30-45 perc elég a főbb pontokhoz."
+            ]
+          }
+        },
+        {
+          "time": "13:00",
           "title": "🍽 Ebéd indulás előtt — Kantýna / Lokál / gyors cseh klasszikus",
           "desc": "Egy rendes ebéd kell Prága előtt, mert utána hosszú vezetés jön Budapestig.",
           "links": [
