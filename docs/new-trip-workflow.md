@@ -92,7 +92,7 @@ Fázis 2 (terv) → kész
 Ha a user azt mondja: "tervezzünk egy új utazást [város]":
 
 1. Kérdezd meg a hiányzó alapinfókat (dátum, kik, szállás, repjegy)
-2. Olvasd be a `docs/trip-data-schema.md`-t a pontos struktúráért
+2. Olvasd be a `src/data/trips/_template.json`-t a pontos struktúráért
 3. Indítsd el a tervező fázist
 4. A POI és étterem kutatást indítsd párhuzamos sub-agentekkel
 5. Szeresd össze, validáld, commitold

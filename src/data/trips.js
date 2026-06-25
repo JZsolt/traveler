@@ -1,4 +1,3 @@
-import pragaOdyssea2026 from './trips/praga-odyssea-2026.json'
-import brusszel2026 from './trips/brusszel-2026.json'
+const tripModules = import.meta.glob(['./trips/*.json', '!./trips/_template.json'], { eager: true })
 
-export const trips = [pragaOdyssea2026, brusszel2026]
+export const trips = Object.values(tripModules).map(module => module.default)

@@ -7,6 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
+    "validate:trips": "node scripts/validate-trips.mjs",
+    "validate:trips:strict": "node scripts/validate-trips.mjs --strict",
     "preview": "vite preview"
   },
   "dependencies": {
