@@ -18,6 +18,10 @@ _bmad/
 # Claude local settings (gép-specifikus)
 .claude/settings.local.json
 
+# Codex local settings (gép-specifikus)
+.codex/settings.local.json
+.codex/settings.json
+
 # Dev PWA
 
 # Dev PWA
