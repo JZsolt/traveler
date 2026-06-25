@@ -42,6 +42,21 @@ src/
     TripPage.jsx       # Trip részletek oldal (/trip/:slug)
 ```
 
+## BMAD Method — kreatív tervezés & brainstorming
+
+A projektben telepítve van a BMAD Method (`_bmad/` mappa, magyar nyelvre konfigurálva).
+**Automatikusan hívd meg a megfelelő BMAD skill-t, NE várd, hogy a user emlékezzen a parancsra!**
+
+| Mikor hívd meg | Skill parancs |
+|----------------|---------------|
+| Utazás ötletelés, bármilyen brainstorming, kreatív tervezés | `/bmad-brainstorming` |
+| "Mit csináljak?", "Hogyan tovább?", BMAD kérdés | `/bmad-help` |
+| PRD / követelmény dokumentum készítés | `/bmad-create-prd` |
+| Kritikai review (terv, dokumentum, kód) | `/bmad-review-adversarial-general` |
+| Szöveg/prose minőség javítás | `/bmad-editorial-review-prose` |
+| Dokumentum struktúra review | `/bmad-editorial-review-structure` |
+| Edge case analízis | `/bmad-review-edge-case-hunter` |
+
 ## Új utazás — brainstorming + generálás
 
 ### FONTOS: Amikor a user új utazást kér, ELŐSZÖR brainstorming, UTÁNA generálás!
@@ -51,9 +66,15 @@ Csak a template kell majd: `src/data/trips/_template.json`
 
 ---
 
-### Fázis 1: Brainstorming session
+### Fázis 1: Brainstorming — útvonal választás
 
-Mielőtt bármit generálnál, gyűjtsd össze az alábbi infókat. Ami az üzenetből kiderül, azt NE kérdezd újra. A többit kérdezd meg az `AskUserQuestion` tool-lal, max 3-4 kérdést kötegbe.
+**A) Gyors mód** — ha a user már tudja mit akar (pl. "csináld meg a római tripet, 4 felnőtt, júl 15-20"):
+Kérdezd meg ami hiányzik az `AskUserQuestion` tool-lal, max 3-4 kérdést kötegbe.
+
+**B) Kreatív mód** — ha a user ötletelni akar (pl. "tervezzünk valami utazást", "hova menjünk?"):
+Hívd meg a `/bmad-brainstorming` skill-t! Az végigviszi az ötletelést strukturáltan.
+
+Mindkét módnál az alábbi infókat kell összegyűjteni:
 
 **Úti cél & logisztika:**
 - Hová? (város/ország/régió)
