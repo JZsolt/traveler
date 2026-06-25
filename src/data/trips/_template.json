@@ -1,0 +1,179 @@
+{
+  "slug": "varos-2026",
+  "title": "Varos1 · Varos2",
+  "subtitle": "2026. honap dd–dd.",
+  "emoji": "🇭🇺 🏛",
+  "startDate": "2026-01-01",
+  "endDate": "2026-01-03",
+  "people": "4 felnott · 2 hazaspar",
+  "highlights": ["Latnivalo 1", "Latnivalo 2", "Latnivalo 3", "Latnivalo 4", "Latnivalo 5"],
+
+  "accommodation": {
+    "address": "Utca 1, Varos, Iranyitoszam",
+    "mapUrl": "https://maps.google.com/?q=Szallas+Cim+Varos",
+    "host": "Szallas neve / gazda"
+  },
+
+  "flight": {
+    "airport": "Repuloter (KOD) — vagy: Autoval / Vonattal",
+    "arrival": "honap dd. ido",
+    "departure": "honap dd. ido"
+  },
+
+  "budget": {
+    "lowPerFamily": "~€XXX",
+    "comfortPerFamily": "~€XXX",
+    "lowTotal": "~€XXX",
+    "comfortTotal": "~€XXX",
+    "lowPerFamilyLabel": "Sporolos / 1 csalad",
+    "comfortPerFamilyLabel": "Kenyelmesebb / 1 csalad",
+    "lowTotalLabel": "Sporolos osszesen",
+    "comfortTotalLabel": "Kenyelmesebb osszesen",
+    "headline": "~€XXX-XXX / X fo",
+    "summaryLabel": "Teljes ut becslese"
+  },
+
+  "urgentBookings": [
+    {
+      "name": "Foglalas neve",
+      "reason": "Miert surgos",
+      "url": "https://...",
+      "done": false
+    }
+  ],
+
+  "usefulLinks": [
+    {
+      "emoji": "🏛",
+      "name": "Hasznos link neve",
+      "desc": "Rovid leiras",
+      "url": "https://..."
+    }
+  ],
+
+  "packingList": [
+    "Kenyelmes cipo",
+    "Powerbank + tolto"
+  ],
+
+  "savingTips": [
+    { "tip": "💡 Sporolasi tipp", "saving": "~€XX" }
+  ],
+
+  "practicalInfo": [
+    {
+      "title": "💳 Szekcio cime",
+      "items": ["Praktikus info 1", "Praktikus info 2"]
+    }
+  ],
+
+  "bookingChecklist": [
+    { "item": "Teendo 1", "url": "https://..." },
+    { "item": "Teendo 2" }
+  ],
+
+  "overview": [
+    { "day": 1, "date": "Hon. dd (nap)", "program": "🏛 Rovid napi cim", "highlights": "Fobb programok" }
+  ],
+
+  "days": [
+    {
+      "dayNum": 1,
+      "title": "Nap cime",
+      "subtitle": "Honap dd. napnev — rovid leiras",
+      "tickets": [
+        {
+          "label": "Jegy neve",
+          "desc": "Helyszin · datum · reszletek",
+          "pdf": "/tickets/fajlnev.pdf"
+        }
+      ],
+      "images": [
+        {
+          "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/.../960px-....jpg",
+          "caption": "Kep leirasa"
+        }
+      ],
+      "alerts": [
+        { "type": "tip", "text": "💡 Zold tipp" },
+        { "type": "warning", "text": "⚡ Narancs figyelmeztetes" },
+        { "type": "urgent", "text": "🔴 Piros surgos" }
+      ],
+      "transportOptions": {
+        "title": "Kozlekedesi opciok",
+        "options": [
+          {
+            "name": "🚄 Opcio neve",
+            "time": "~XX perc",
+            "pricePerPerson": "€XX",
+            "total": "~€XX / X fo",
+            "url": "https://...",
+            "recommended": true
+          }
+        ]
+      },
+      "schedule": [
+        {
+          "time": "10:00",
+          "title": "🏛 Latnivalo neve",
+          "desc": "Rovid, informativ leiras a helyrol.",
+          "highlight": true,
+          "badges": ["INGYENES"],
+          "links": [
+            { "label": "📍 Terkep", "url": "https://maps.google.com/?q=Helynev+Varos" },
+            { "label": "Wikipedia", "url": "https://hu.wikipedia.org/wiki/Cikknev" }
+          ],
+          "transport": [
+            { "type": "transit", "label": "🚇 Honnan → Hova · ~X perc", "url": "https://www.google.com/maps/dir/Honnan/Hova" },
+            { "type": "walk", "label": "🚶 ~X perc seta", "url": "https://www.google.com/maps/dir/Honnan/Hova" }
+          ],
+          "guide": {
+            "history": ["Tortenelmi teny 1.", "Tortenelmi teny 2."],
+            "mustSee": ["Ezt nezd meg 1.", "Ezt nezd meg 2."],
+            "funFacts": ["Erdekesseg 1."],
+            "tips": ["Praktikus tipp 1.", "Praktikus tipp 2."]
+          }
+        },
+        {
+          "time": "13:00",
+          "title": "🍽 Ebed — kornyek/etterem",
+          "desc": "Etkezes leiras es kontextus.",
+          "highlight": true,
+          "links": [
+            { "label": "📍 Terkep", "url": "https://maps.google.com/?q=Etterem+Varos" }
+          ],
+          "guide": {
+            "mustSee": [
+              "Etterem Neve · Google ★4.5 · Cim utca 1",
+              "Masik Etterem · Google ★4.3 · Cim utca 2"
+            ],
+            "tips": ["Etkezesi tipp."]
+          }
+        },
+        {
+          "time": "15:00",
+          "title": "🎨 Opcionalis program",
+          "desc": "Csak ha van kedv es ido.",
+          "optional": true,
+          "links": [
+            { "label": "📍 Terkep", "url": "https://maps.google.com/?q=..." },
+            { "label": "Hivatalos oldal", "url": "https://..." }
+          ],
+          "guide": {
+            "history": ["Hatter info."],
+            "tips": ["Tipp az opcionalis programhoz."]
+          }
+        }
+      ],
+      "costs": [
+        { "item": "Belepok / X fo", "cost": "~€XX" },
+        { "item": "Etkezes (ebed + vacsora) / X fo", "cost": "~€XX-XX" },
+        { "item": "Kozlekedes", "cost": "~€XX" },
+        { "item": "Nap 1 osszesen", "cost": "~€XX-XX", "total": true }
+      ],
+      "endAlerts": [
+        { "type": "warning", "text": "Holnapra vonatkozo figyelmeztetes" }
+      ]
+    }
+  ]
+}

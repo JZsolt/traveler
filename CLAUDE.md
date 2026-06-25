@@ -42,12 +42,79 @@ src/
     TripPage.jsx       # Trip részletek oldal (/trip/:slug)
 ```
 
-## Új utazás hozzáadása
+## Új utazás — brainstorming + generálás
 
-1. A `src/data/trips.js` fájlban a `trips` tömbbe adj hozzá egy új objektumot
-2. Kövesd a lenti adatstruktúrát (vagy nézd meg a meglévő brüsszeli tripet mintának)
-3. A főoldal és a routing automatikusan működik — nem kell komponenst írni
-4. Az adatstruktúra leírása: `docs/trip-data-schema.md`
+### FONTOS: Amikor a user új utazást kér, ELŐSZÖR brainstorming, UTÁNA generálás!
+
+**NE olvass be meglévő trip fájlokat, schema doc-ot, vagy komponenseket.**
+Csak a template kell majd: `src/data/trips/_template.json`
+
+---
+
+### Fázis 1: Brainstorming session
+
+Mielőtt bármit generálnál, gyűjtsd össze az alábbi infókat. Ami az üzenetből kiderül, azt NE kérdezd újra. A többit kérdezd meg az `AskUserQuestion` tool-lal, max 3-4 kérdést kötegbe.
+
+**Úti cél & logisztika:**
+- Hová? (város/ország/régió)
+- Honnan indultok? (indulási pont — autósnál kiemelten fontos)
+- Mikor? (konkrét dátumok vagy hozzávetőleges időszak)
+- Mennyi időre? (ha a dátumokból nem egyértelmű)
+- Mivel? (autó / repülő / vonat) — ha autó: hány sofőr, milyen autó
+
+**Utazók:**
+- Hány felnőtt? Hány gyerek? (gyerekeknél életkor is kell — befolyásolja a programokat)
+- Milyen összetétel? (házaspárok, barátok, nagycsalád, szólóban stb.)
+
+**Pénz:**
+- Van fix keret vagy range? (pl. "max €1000" vagy "€800-1200")
+- Ez összesen vagy fejenként?
+- Spórolós vagy kényelmes vonal?
+
+**A trip jellege:**
+- Mi a fő cél? (pihenés / city break / roadtrip / kultúra / gasztro / strand / kaland)
+- Milyen tempó? (laza, sok szabadidővel / sűrű, mindent bejárni)
+- Van konkrét érdeklődés? (sörözés, múzeumok, természet, éjszakai élet, történelem stb.)
+
+**Szállás & fix dolgok:**
+- Szállás preferencia? (hotel / Airbnb / hostel / mindegy)
+- Fontos szempont? (parkoló, központi, medence, gyerekbarát stb.)
+- Van már valami fix? (lefoglalt jegy, szállás, repjegy, program)
+
+### Fázis 1 vége: Trip Brief
+
+Amikor minden infó megvan, foglald össze egy rövid **Trip Brief**-ben:
+
+```
+🗺 Cél: Róma · Vatikán
+📅 Dátum: 2026. okt. 15–19. (5 nap)
+👥 Utazók: 4 felnőtt + 1 gyerek (8 éves) · 2 család
+✈️ Közlekedés: repülő BUD→FCO
+💰 Budget: ~€1200-1600 összesen, kényelmes
+🎯 Jelleg: city break, kultúra + gasztro, közepes tempó
+🏨 Szállás: Airbnb, központi
+📌 Fix: semmi még
+```
+
+**Kérd a user jóváhagyását a Brief-re, MIELŐTT generálsz!**
+
+---
+
+### Fázis 2: Trip generálás (a Brief alapján)
+
+Olvasd be: `src/data/trips/_template.json` — ez a sablon MINDEN mezővel és mintaértékkel.
+
+1. Másold: `_template.json` → `src/data/trips/[slug].json`
+2. Töltsd ki az alapadatokat (slug, title, dates, emoji az ország zászlajával)
+3. `people`: a megadott összetétel alapján (pl. "4 felnőtt · 2 gyerek · 2 család")
+4. Generálj annyi `days[]` elemet, ahány napra szól az út
+5. Minden naphoz: 4-8 schedule item (POI-k, étkezések, opcionálisok)
+6. **Költségek (costs) mindig az ÖSSZES utazóra vonatkoznak** — nem fejenként
+7. `budget` label-ek: igazítsd a csapat összetételéhez (pl. "Spórolós / 1 pár", "Összesen / 6 fő")
+8. Budget összegek: célállomás + létszám alapján becsüld (Nyugat-EU drágább, Balkán olcsóbb)
+9. Gyerekek esetén: `badges` mezőben jelöld a GYEREKBARÁT programokat, éttermeknél gyerekmenü tipp
+10. Regisztráld a `src/data/trips.js`-ben (import + trips tömbbe)
+11. Ellenőrzés: `node -c src/data/trips.js` MINDIG a commit előtt
 
 ## Fontos szabályok
 
