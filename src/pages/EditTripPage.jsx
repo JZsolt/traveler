@@ -108,9 +108,9 @@ export function EditTripPage() {
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Kezdes *</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Kezdés *</label>
               <input
                 type="date"
                 required
@@ -120,7 +120,7 @@ export function EditTripPage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Veges *</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Vége *</label>
               <input
                 type="date"
                 required
