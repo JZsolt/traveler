@@ -1,4 +1,5 @@
 export function BudgetSummary({ budget }) {
+  if (!budget?.lowPerFamily) return null
   const rows = [
     { amount: budget.lowPerFamily, label: budget.lowPerFamilyLabel || 'Spórolós / 1 család (2 fő + gyerek)' },
     { amount: budget.comfortPerFamily, label: budget.comfortPerFamilyLabel || 'Komfort / 1 család (2 fő + gyerek)' },

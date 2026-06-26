@@ -1,6 +1,7 @@
 import { ExternalLink } from 'lucide-react'
 
 export function UsefulLinks({ links }) {
+  if (!links?.length) return null
   return (
     <div>
       <h2 className="text-base md:text-lg font-bold border-b-2 border-[#e94560] pb-1 mb-3">🔗 Hasznos linkek</h2>

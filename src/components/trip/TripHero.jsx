@@ -18,17 +18,23 @@ export function TripHero({ trip }) {
       </div>
       <div className="text-xs md:text-sm opacity-70 max-w-md mx-auto space-y-2">
         <p>👥 {trip.people}</p>
-        <p>
-          🏠 Szállás:{' '}
-          <a href={trip.accommodation.mapUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 text-white/90 hover:text-white">
-            {trip.accommodation.address}
-          </a>
-        </p>
-        <p>{getTransportEmoji(trip.flight.airport)} {trip.flight.airport} · Érkezés {trip.flight.arrival} → Indulás {trip.flight.departure}</p>
-        <p>💰 Büdzsé: {trip.budget.headline || '~1000 EUR / család'}</p>
+        {trip.accommodation?.address && (
+          <p>
+            🏠 Szállás:{' '}
+            <a href={trip.accommodation.mapUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 text-white/90 hover:text-white">
+              {trip.accommodation.address}
+            </a>
+          </p>
+        )}
+        {trip.flight?.airport && (
+          <p>{getTransportEmoji(trip.flight.airport)} {trip.flight.airport} · Érkezés {trip.flight.arrival} → Indulás {trip.flight.departure}</p>
+        )}
+        {trip.budget?.headline && (
+          <p>💰 Büdzsé: {trip.budget.headline}</p>
+        )}
       </div>
 
-      {trip.accommodation.host && (
+      {trip.accommodation?.host && (
         <div className="mt-6 bg-white/10 backdrop-blur-sm rounded-xl p-4 max-w-md mx-auto text-left text-xs md:text-sm space-y-2">
           <p className="text-center font-semibold text-sm mb-3">🏠 Szállás infó</p>
           <p>👤 Házigazda: {trip.accommodation.host}</p>

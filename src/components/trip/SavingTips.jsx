@@ -1,4 +1,5 @@
 export function SavingTips({ tips, label }) {
+  if (!tips?.length) return null
   return (
     <div>
       <h2 className="text-base md:text-lg font-bold border-b-2 border-[#e94560] pb-1 mb-3">💰 Pénz-spórolási tippek</h2>

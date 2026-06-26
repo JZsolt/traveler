@@ -3,6 +3,7 @@ import { BudgetSummary } from './BudgetSummary'
 import { InsuranceLink } from './InsuranceLink'
 
 function UrgentBookings({ bookings }) {
+  if (!bookings?.length) return null
   if (bookings.every(booking => booking.done)) {
     return (
       <AlertBox
@@ -35,7 +36,7 @@ export function TripOverview({ trip }) {
             </tr>
           </thead>
           <tbody>
-            {trip.overview.map(row => (
+            {(trip.overview || []).map(row => (
               <tr key={row.day} className="border-b border-slate-100">
                 <td className="p-2 font-bold">{row.day}</td>
                 <td className="p-2">{row.date}</td>
