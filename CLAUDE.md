@@ -2,8 +2,8 @@
 
 ## Projekt
 
-React + Vite + Tailwind CSS + shadcn/ui utazástervező app.
-Magyar nyelvű, mobile-first, PWA offline támogatással.
+React + Vite + Tailwind CSS + shadcn/ui + Supabase utazástervező app.
+Magyar nyelvű, mobile-first, PWA.
 Deploy: Vercel. Repo: github.com:JZsolt/traveler.git
 
 ## Klónozás után
@@ -11,11 +11,38 @@ Deploy: Vercel. Repo: github.com:JZsolt/traveler.git
 ```bash
 git clone git@github.com:JZsolt/traveler.git Utazasaim
 cd Utazasaim
-pnpm install         # React app függőségek
-pnpm dev             # dev szerver (localhost:5173)
+pnpm install
 ```
 
-Az app ezzel működik. A BMAD (brainstorming, utazás tervezés) használatához:
+### Supabase beállítás (KÖTELEZŐ — az app nem működik nélküle!)
+
+1. Hozz létre egy Supabase projektet: https://supabase.com
+2. Futtasd az SQL migrációt a Supabase SQL Editor-ban: `supabase/migrations/001_create_trips.sql`
+3. Futtasd a GRANT-okat is:
+   ```sql
+   GRANT ALL ON public.trips TO service_role;
+   GRANT ALL ON public.trips TO authenticated;
+   GRANT SELECT ON public.trips TO anon;
+   ```
+4. Hozd létre a `.env.local` fájlt (`.gitignore`-ban van, soha nem commitolódik):
+   ```
+   VITE_SUPABASE_URL=https://xxxxx.supabase.co
+   VITE_SUPABASE_ANON_KEY=eyJ...
+   SUPABASE_URL=https://xxxxx.supabase.co
+   SUPABASE_SERVICE_ROLE_KEY=eyJ...
+   ```
+5. Seed (trip adatok feltöltése a DB-be):
+   ```bash
+   SUPABASE_URL=... SUPABASE_SERVICE_ROLE_KEY=... pnpm run seed
+   ```
+   Vagy ha a `.env.local`-ban vannak a SUPABASE_ változók:
+   ```bash
+   export $(grep -v '^#' .env.local | grep -E '^SUPABASE_' | xargs) && pnpm run seed
+   ```
+
+Ha a Supabase nincs konfigurálva vagy nem elérhető, az app hibaüzenetet jelenít meg debug checklist-tel.
+
+### BMAD telepítés (opcionális — brainstorming, utazás tervezés)
 
 ```bash
 pnpm dlx bmad-method     # BMAD core telepítés a projekt gyökerébe (_bmad/ mappa)
@@ -29,18 +56,33 @@ Ez létrehozza az `_bmad/` core engine-t. A `.claude/skills/` (BMAD skillek) má
 pnpm dev             # dev szerver (localhost:5173)
 pnpm vite --host     # dev szerver hálózatról is elérhető (mobil teszteléshez)
 pnpm build           # production build → dist/
+pnpm run seed        # trip JSON-ok → Supabase (SUPABASE_ env kell)
+pnpm run validate:trips  # trip JSON validáció
 ```
 
 ## Struktúra
 
 ```
 src/
-  data/trips.js       # ÖSSZES utazás adata — IDE kell az új tripet hozzáadni
+  lib/supabase.js      # Supabase kliens (VITE_ env-ekből)
+  context/TripsContext.jsx  # Trip adat provider — Supabase-ből tölt
+  data/trips/_template.json # Trip sablon (generáláshoz)
   components/          # UI komponensek (DaySection, ScheduleItem, GuideInfo, stb.)
+  components/DbError.jsx   # DB hiba megjelenítés debug checklist-tel
   pages/
-    HomePage.jsx       # Főoldal — trip kártyák listája (automatikus a trips.js-ből)
+    HomePage.jsx       # Főoldal — trip kártyák listája (Supabase-ből)
     TripPage.jsx       # Trip részletek oldal (/trip/:slug)
+api/                   # Vercel Serverless Functions (szerver oldali)
+supabase/migrations/   # SQL migrációk
+scripts/               # Seed + validáció scriptek
 ```
+
+## Adatfolyam
+
+Trip adatok **kizárólag Supabase-ből** jönnek (nincs statikus fallback):
+1. `TripsContext` fetch-el a `trips` táblából (`trip_data` JSONB oszlop)
+2. Ha Supabase nem elérhető → `DbError` komponens debug útmutatóval
+3. Seed script: `src/data/trips/_template.json` alapján generált JSON-ok → Supabase upsert
 
 ## BMAD Method — kreatív tervezés & brainstorming
 
@@ -125,7 +167,7 @@ Amikor minden infó megvan, foglald össze egy rövid **Trip Brief**-ben:
 
 Olvasd be: `src/data/trips/_template.json` — ez a sablon MINDEN mezővel és mintaértékkel.
 
-1. Másold: `_template.json` → `src/data/trips/[slug].json`
+1. Generáld a trip JSON-t a `_template.json` struktúra alapján
 2. Töltsd ki az alapadatokat (slug, title, dates, emoji az ország zászlajával)
 3. `people`: a megadott összetétel alapján (pl. "4 felnőtt · 2 gyerek · 2 család")
 4. Generálj annyi `days[]` elemet, ahány napra szól az út
@@ -134,8 +176,7 @@ Olvasd be: `src/data/trips/_template.json` — ez a sablon MINDEN mezővel és m
 7. `budget` label-ek: igazítsd a csapat összetételéhez (pl. "Spórolós / 1 pár", "Összesen / 6 fő")
 8. Budget összegek: célállomás + létszám alapján becsüld (Nyugat-EU drágább, Balkán olcsóbb)
 9. Gyerekek esetén: `badges` mezőben jelöld a GYEREKBARÁT programokat, éttermeknél gyerekmenü tipp
-10. Regisztráld a `src/data/trips.js`-ben (import + trips tömbbe)
-11. Ellenőrzés: `node -c src/data/trips.js` MINDIG a commit előtt
+10. Mentsd el Supabase-be a seed scripttel vagy az API-n keresztül
 
 ## Fontos szabályok
 
@@ -146,4 +187,4 @@ Olvasd be: `src/data/trips/_template.json` — ez a sablon MINDEN mezővel és m
 - Linkek ellenőrzése: NE használj bizonytalan URL-eket, Wikipedia mindig működik
 - Képek: Wikimedia Commons 960px thumbnail URL-ek (mindig elérhetők)
 - Tipográfiai idézőjelek (`„"`) TILOSAK JS stringekben — használj aposztrófot (`'`) vagy escaped quote-ot (`\"`)
-- Build ellenőrzés: `node -c src/data/trips.js` szintaxis check MINDIG a commit előtt
+- Build ellenőrzés: `pnpm build` MINDIG a commit előtt

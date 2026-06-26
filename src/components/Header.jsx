@@ -1,8 +1,9 @@
 import { Link, useLocation } from 'react-router-dom'
-import { trips } from '@/data/trips'
+import { useTrips } from '@/context/TripsContext'
 
 export function Header() {
   const location = useLocation()
+  const { trips } = useTrips()
   const isTrip = location.pathname.startsWith('/trip/')
   const slug = location.pathname.split('/trip/')[1]
   const trip = slug ? trips.find(t => t.slug === slug) : null

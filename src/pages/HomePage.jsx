@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
-import { trips } from '@/data/trips'
+import { useTrips } from '@/context/TripsContext'
+import { DbError } from '@/components/DbError'
 import { Badge } from '@/components/ui/badge'
 
 function getTripStatus(trip) {
@@ -18,6 +19,7 @@ function getTripStatus(trip) {
 }
 
 export function HomePage() {
+  const { trips, loading, error } = useTrips()
   const sorted = [...trips].sort((a, b) => new Date(b.startDate) - new Date(a.startDate))
 
   return (
@@ -26,6 +28,15 @@ export function HomePage() {
         <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-2">✈️ Az Utazásaim</h1>
         <p className="text-base opacity-80 font-light">Minden kirándulás, egy helyen, linkekkel, menetrenddel, mindennel.</p>
       </div>
+
+      {loading && (
+        <div className="text-center py-20 text-gray-400">
+          <p className="text-2xl mb-2 animate-pulse">✈️</p>
+          <p className="text-sm">Betoltes...</p>
+        </div>
+      )}
+
+      {error && <DbError error={error} />}
 
       <div className="max-w-4xl mx-auto px-4 -mt-8 pb-16">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
