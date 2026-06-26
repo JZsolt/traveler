@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect, useCallback } from 'react'
 import { supabase } from '@/lib/supabase'
+import { normalizeTrip } from '@/lib/normalizeTrip'
 
 const TripsContext = createContext({
   trips: [],
@@ -27,7 +28,7 @@ export function TripsProvider({ children }) {
         .order('created_at', { ascending: false })
 
       if (fetchError) throw fetchError
-      setTrips((data || []).map(row => row.trip_data))
+      setTrips((data || []).map(row => normalizeTrip(row.trip_data)))
     } catch (err) {
       setError(err)
     } finally {

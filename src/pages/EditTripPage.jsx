@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useParams, useNavigate, Navigate } from 'react-router-dom'
 import { supabase } from '@/lib/supabase'
 import { useTrips } from '@/context/TripsContext'
+import { formatDateRange } from '@/lib/dateUtils'
 
 function toSlug(title) {
   return title
@@ -28,7 +29,6 @@ export function EditTripPage() {
     if (trip && !form) {
       setForm({
         title: trip.title || '',
-        subtitle: trip.subtitle || '',
         startDate: trip.startDate || '',
         endDate: trip.endDate || '',
         emoji: trip.emoji || '',
@@ -69,7 +69,7 @@ export function EditTripPage() {
       ...trip,
       slug: newSlug,
       title: form.title,
-      subtitle: form.subtitle,
+      subtitle: formatDateRange(form.startDate, form.endDate),
       startDate: form.startDate,
       endDate: form.endDate,
       emoji: form.emoji,
@@ -104,16 +104,6 @@ export function EditTripPage() {
               required
               value={form.title}
               onChange={e => update('title', e.target.value)}
-              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0f3460]"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Alcim</label>
-            <input
-              type="text"
-              value={form.subtitle}
-              onChange={e => update('subtitle', e.target.value)}
               className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0f3460]"
             />
           </div>

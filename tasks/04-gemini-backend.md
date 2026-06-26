@@ -13,7 +13,7 @@ Important:
 
 ---
 
-## TASK 1 — Create the Gemini planning endpoint
+## TASK 1 — Create the Gemini planning endpoint ✅ DONE
 
 Read only:
 
@@ -72,7 +72,7 @@ Run `npm run build`.
 
 ---
 
-## TASK 2 — Make Gemini responses more robust
+## TASK 2 — Make Gemini responses more robust ✅ DONE
 
 Goal:
 Handle Gemini responses that contain markdown or extra text.

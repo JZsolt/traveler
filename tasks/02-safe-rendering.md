@@ -66,7 +66,7 @@ Run `npm run build`.
 
 ---
 
-## TASK 2 — Add reusable trip normalization helper
+## TASK 2 — Add reusable trip normalization helper ✅ DONE
 
 Read the existing code first, but only inspect:
 

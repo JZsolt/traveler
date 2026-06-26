@@ -35,7 +35,7 @@ Important:
 
 ---
 
-## TASK 1 — Add AI planner chat shell
+## TASK 1 — Add AI planner chat shell ✅ DONE
 
 Read the existing code first, but only inspect:
 
@@ -67,7 +67,7 @@ Run `npm run build`.
 
 ---
 
-## TASK 2 — Connect AI planner UI to `/api/plan-trip`
+## TASK 2 — Connect AI planner UI to `/api/plan-trip` ✅ DONE
 
 Read the existing code first, but only inspect:
 
@@ -100,7 +100,7 @@ Run `npm run build`.
 
 ---
 
-## TASK 3 — Save generated AI trip to Supabase
+## TASK 3 — Save generated AI trip to Supabase ✅ DONE
 
 Read the existing code first, but only inspect:
 

@@ -36,7 +36,7 @@ Important:
 
 ---
 
-## TASK 1 — Add editable JSON import for a new trip
+## TASK 1 — Add editable JSON import for a new trip ✅ DONE
 
 Read the existing code first, but only inspect:
 
@@ -80,7 +80,7 @@ Run `npm run build`.
 
 ---
 
-## TASK 2 — Add JSON export for existing trips
+## TASK 2 — Add JSON export for existing trips ✅ DONE
 
 Read the existing code first, but only inspect:
 
@@ -107,7 +107,7 @@ Run `npm run build`.
 
 ---
 
-## TASK 3 — Add JSON validation helper
+## TASK 3 — Add JSON validation helper ✅ DONE
 
 Read the existing code first, but only inspect:
 
