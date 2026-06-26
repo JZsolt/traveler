@@ -71,6 +71,40 @@ function extractJson(text) {
   return text.trim()
 }
 
+async function checkUrl(url) {
+  try {
+    const res = await fetch(url, { method: 'HEAD', signal: AbortSignal.timeout(4000) })
+    return res.ok
+  } catch {
+    return false
+  }
+}
+
+async function validateImages(trip) {
+  if (!Array.isArray(trip.days)) return
+
+  const checks = []
+  for (const day of trip.days) {
+    if (!Array.isArray(day.images)) continue
+    for (let i = 0; i < day.images.length; i++) {
+      const img = day.images[i]
+      if (img?.url) {
+        checks.push({ day, index: i, url: img.url })
+      }
+    }
+  }
+
+  if (checks.length === 0) return
+
+  const results = await Promise.all(checks.map(c => checkUrl(c.url)))
+
+  for (let i = checks.length - 1; i >= 0; i--) {
+    if (!results[i]) {
+      checks[i].day.images.splice(checks[i].index, 1)
+    }
+  }
+}
+
 function validateTrip(data) {
   const errors = []
   if (!data || typeof data !== 'object') return { valid: false, errors: ['Nem objektum'] }
@@ -133,6 +167,8 @@ export default async function handler(req, res) {
     if (!valid) {
       return res.status(502).json({ error: 'A generalt trip JSON nem valid.', details: errors })
     }
+
+    await validateImages(parsed)
 
     return res.status(200).json({ trip: parsed })
   } catch (err) {
