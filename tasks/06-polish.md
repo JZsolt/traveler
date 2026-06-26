@@ -106,3 +106,56 @@ Requirements:
 
 Stop after this task.
 Run `npm run build`.
+
+---
+
+## TASK 5 — Sort trips by upcoming start date
+
+Read only:
+
+- src/context/TripsContext.jsx
+- src/pages/HomePage.jsx
+- src/lib
+
+Goal:
+
+Always display trips in a meaningful chronological order.
+
+Requirements:
+
+1. Sort trips by `startDate`.
+2. Upcoming trips should always appear first.
+3. Past trips should appear after all upcoming trips.
+4. Within upcoming trips:
+   - the closest upcoming trip comes first.
+5. Within past trips:
+   - the most recently finished trip comes first.
+6. The sorting must happen before rendering the trip list.
+7. Do not modify the database.
+8. Do not modify the stored trip JSON.
+9. Create a reusable helper if appropriate (for example `src/lib/sortTrips.js`).
+10. Handle missing or invalid dates gracefully without crashing.
+11. Do not redesign the UI.
+
+Example:
+
+Today: 2026-06-26
+
+Trips:
+
+- 2026-06-28 → #1
+- 2026-07-10 → #2
+- 2026-08-01 → #3
+- 2026-06-20 → #4
+- 2026-05-01 → #5
+
+Displayed order:
+
+1. 2026-06-28
+2. 2026-07-10
+3. 2026-08-01
+4. 2026-06-20
+5. 2026-05-01
+
+Stop after this task.
+Run `npm run build`.
