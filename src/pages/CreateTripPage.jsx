@@ -36,6 +36,7 @@ export function CreateTripPage() {
     { role: 'assistant', content: 'Szia! Tervezz velem utazast. Ird le hova szeretnel menni, mikor, hany fore, es milyen programokat szeretnel — en osszeallitom a reszletes tervet!' }
   ])
   const [chatInput, setChatInput] = useState('')
+  const [chatLoading, setChatLoading] = useState(false)
   const [generating, setGenerating] = useState(false)
   const [generatedTrip, setGeneratedTrip] = useState(null)
   const [aiError, setAiError] = useState(null)
@@ -122,14 +123,34 @@ export function CreateTripPage() {
     navigate(`/trip/${slug}`)
   }
 
-  function handleSendMessage() {
+  async function handleSendMessage() {
     const text = chatInput.trim()
-    if (!text || generating) return
+    if (!text || generating || chatLoading) return
     const updated = [...messages, { role: 'user', content: text }]
     setMessages(updated)
     setChatInput('')
     setAiError(null)
+    setChatLoading(true)
     setTimeout(() => chatEndRef.current?.scrollIntoView({ behavior: 'smooth' }), 50)
+
+    try {
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: updated }),
+      })
+      const data = await res.json()
+      if (!res.ok) {
+        setAiError(data.error || 'Hiba tortent a valasz generalasa kozben.')
+      } else {
+        setMessages(prev => [...prev, { role: 'assistant', content: data.reply }])
+      }
+    } catch {
+      setAiError('Nem sikerult elerni a szervert.')
+    } finally {
+      setChatLoading(false)
+      setTimeout(() => chatEndRef.current?.scrollIntoView({ behavior: 'smooth' }), 50)
+    }
   }
 
   async function handleGenerate() {
@@ -333,10 +354,10 @@ export function CreateTripPage() {
                   </div>
                 </div>
               ))}
-              {generating && (
+              {(chatLoading || generating) && (
                 <div className="flex justify-start">
                   <div className="bg-white text-gray-400 shadow-sm border border-gray-100 rounded-2xl rounded-bl-md px-4 py-2.5 text-sm animate-pulse">
-                    Gondolkodom...
+                    {generating ? 'Terv generalasa...' : 'Gondolkodom...'}
                   </div>
                 </div>
               )}
@@ -350,13 +371,13 @@ export function CreateTripPage() {
                 onChange={e => setChatInput(e.target.value)}
                 onKeyDown={e => e.key === 'Enter' && !e.shiftKey && (e.preventDefault(), handleSendMessage())}
                 placeholder="pl. 3 napos roma, 2 felnott, kultura + gasztro..."
-                disabled={generating}
+                disabled={generating || chatLoading}
                 className="flex-1 rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0f3460] disabled:opacity-50"
               />
               <button
                 type="button"
                 onClick={handleSendMessage}
-                disabled={!chatInput.trim() || generating}
+                disabled={!chatInput.trim() || generating || chatLoading}
                 className="bg-[#0f3460] text-white p-2.5 rounded-lg hover:bg-[#1a1a2e] transition-colors disabled:opacity-50"
               >
                 <Send className="w-4 h-4" />
