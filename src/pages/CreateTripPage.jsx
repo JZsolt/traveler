@@ -6,6 +6,7 @@ import { useTrips } from '@/context/TripsContext'
 import { formatDateRange } from '@/lib/dateUtils'
 import { validateTripJson } from '@/lib/validateTripJson'
 import { friendlyError } from '@/lib/friendlyError'
+import { ensureUniqueSlug } from '@/lib/ensureUniqueSlug'
 
 function toSlug(title) {
   return title
@@ -123,7 +124,8 @@ export function CreateTripPage() {
         }
         setError(null)
         setSaving(true)
-        const slug = normalizedTrip.slug || toSlug(normalizedTrip.title)
+        const baseSlug = normalizedTrip.slug || toSlug(normalizedTrip.title)
+        const slug = await ensureUniqueSlug(baseSlug)
         const { error: insertError } = await supabase
           .from('trips')
           .insert({ slug, trip_data: { ...normalizedTrip, slug }, owner: null })
@@ -259,12 +261,15 @@ export function CreateTripPage() {
     setAiError(null)
 
     const tripData = { ...draftToTripData(generatedTrip, form), aiModel }
-    const slug = tripData.slug
-    if (!slug) {
+    const baseSlug = tripData.slug
+    if (!baseSlug) {
       setAiError('Nincs ervenyes slug.')
       setSaving(false)
       return
     }
+
+    const slug = await ensureUniqueSlug(baseSlug)
+    tripData.slug = slug
 
     const { error: insertError } = await supabase
       .from('trips')

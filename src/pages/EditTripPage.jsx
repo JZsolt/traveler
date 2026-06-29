@@ -4,6 +4,7 @@ import { supabase } from '@/lib/supabase'
 import { useTrips } from '@/context/TripsContext'
 import { formatDateRange } from '@/lib/dateUtils'
 import { friendlyError } from '@/lib/friendlyError'
+import { ensureUniqueSlug } from '@/lib/ensureUniqueSlug'
 
 function toSlug(title) {
   return title
@@ -59,12 +60,14 @@ export function EditTripPage() {
     setSaving(true)
     setError(null)
 
-    const newSlug = toSlug(form.title)
-    if (!newSlug) {
+    const baseSlug = toSlug(form.title)
+    if (!baseSlug) {
       setError('A cim nem generalt ervenyes slug-ot.')
       setSaving(false)
       return
     }
+
+    const newSlug = await ensureUniqueSlug(baseSlug, slug)
 
     const updatedTripData = {
       ...trip,
