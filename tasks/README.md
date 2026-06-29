@@ -26,6 +26,7 @@ For every task:
 5. Run `pnpm run build`.
 6. Fix build errors.
 7. Summarize changed files.
-8. Stop and wait for approval before continuing.
+8. **Mark the task as ✅ DONE in the .md file header!**
+9. Stop and wait for approval before continuing.
 
 The goal is to keep every implementation small, reviewable, and easy to debug.

@@ -41,8 +41,9 @@ These rules apply to every implementation task.
 
 ## Before finishing
 
-- Run `npm run build`.
+- Run `pnpm run build`.
 - Fix all build errors.
 - Summarize every changed file.
 - Explain any important implementation decisions.
+- **Mark the task as ✅ DONE in the .md file header** (e.g. `# 06 — Polish ✅ DONE`).
 - Stop and wait for approval before continuing.
