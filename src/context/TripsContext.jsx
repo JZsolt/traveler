@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect, useCallback } from 'react'
 import { supabase } from '@/lib/supabase'
 import { normalizeTrip } from '@/lib/normalizeTrip'
+import { friendlyError } from '@/lib/friendlyError'
 
 const TripsContext = createContext({
   trips: [],
@@ -30,7 +31,7 @@ export function TripsProvider({ children }) {
       if (fetchError) throw fetchError
       setTrips((data || []).map(row => normalizeTrip(row.trip_data)))
     } catch (err) {
-      setError(err)
+      setError({ message: friendlyError(err), raw: err })
     } finally {
       setLoading(false)
     }

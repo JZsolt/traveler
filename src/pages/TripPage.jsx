@@ -3,6 +3,7 @@ import { useParams, Navigate, Link, useNavigate } from 'react-router-dom'
 import { SquarePen, Trash2, Download, Wand2 } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
 import { useTrips } from '@/context/TripsContext'
+import { friendlyError } from '@/lib/friendlyError'
 import { DbError } from '@/components/DbError'
 import { DaySection } from '@/components/DaySection'
 import { BookingChecklist } from '@/components/trip/BookingChecklist'
@@ -86,11 +87,11 @@ export function TripPage() {
       const data = await res.json()
 
       if (res.status === 429) {
-        setExpandError('AI limit elerve. Probald ujra kesobb.')
+        setExpandError(friendlyError(data.error || '429'))
         return
       }
       if (!res.ok) {
-        setExpandError(data.error || 'Hiba tortent.')
+        setExpandError(friendlyError(data.error))
         return
       }
 
@@ -113,8 +114,8 @@ export function TripPage() {
         .eq('slug', slug)
 
       await refetch()
-    } catch {
-      setExpandError('Nem sikerult elerni a szervert.')
+    } catch (err) {
+      setExpandError(friendlyError(err))
     } finally {
       setExpandingDay(null)
     }
@@ -175,7 +176,7 @@ export function TripPage() {
                   setDeleteError(null)
                   const { error: err } = await supabase.from('trips').delete().eq('slug', slug)
                   if (err) {
-                    setDeleteError(err.message)
+                    setDeleteError(friendlyError(err))
                     setDeleting(false)
                     return
                   }

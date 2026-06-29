@@ -5,6 +5,7 @@ import { supabase } from '@/lib/supabase'
 import { useTrips } from '@/context/TripsContext'
 import { formatDateRange } from '@/lib/dateUtils'
 import { validateTripJson } from '@/lib/validateTripJson'
+import { friendlyError } from '@/lib/friendlyError'
 
 function toSlug(title) {
   return title
@@ -127,7 +128,7 @@ export function CreateTripPage() {
           .from('trips')
           .insert({ slug, trip_data: { ...normalizedTrip, slug }, owner: null })
         if (insertError) {
-          setError(insertError.message)
+          setError(friendlyError(insertError))
           setSaving(false)
           return
         }
@@ -164,10 +165,10 @@ export function CreateTripPage() {
         if (data.reply) {
           setMessages(prev => [...prev, { role: 'assistant', content: data.reply }])
         } else {
-          setAiError(data.error || 'Hiba tortent.')
+          setAiError(friendlyError(data.error))
         }
       })
-      .catch(() => setAiError('Nem sikerult elerni a szervert.'))
+      .catch(err => setAiError(friendlyError(err)))
       .finally(() => {
         setChatLoading(false)
         setTimeout(() => chatEndRef.current?.scrollIntoView({ behavior: 'smooth' }), 50)
@@ -193,12 +194,12 @@ export function CreateTripPage() {
       })
       const data = await res.json()
       if (!res.ok) {
-        setAiError(data.error || 'Hiba tortent.')
+        setAiError(friendlyError(data.error))
       } else {
         setMessages(prev => [...prev, { role: 'assistant', content: data.reply }])
       }
-    } catch {
-      setAiError('Nem sikerult elerni a szervert.')
+    } catch (err) {
+      setAiError(friendlyError(err))
     } finally {
       setChatLoading(false)
       setTimeout(() => chatEndRef.current?.scrollIntoView({ behavior: 'smooth' }), 50)
@@ -229,13 +230,13 @@ export function CreateTripPage() {
       const data = await res.json()
 
       if (res.status === 429 || data.retryable) {
-        setAiError(data.error)
+        setAiError(friendlyError(data.error))
         setIs429(true)
         return
       }
 
       if (!res.ok) {
-        setAiError(data.error || 'Ismeretlen hiba tortent.')
+        setAiError(friendlyError(data.error))
         return
       }
 
@@ -244,8 +245,8 @@ export function CreateTripPage() {
         role: 'assistant',
         content: `Kesz a terv: ${data.trip.title} (${data.trip.days?.length || 0} nap). Nezd at az elonezetet lent!`,
       }])
-    } catch {
-      setAiError('Nem sikerult elerni a szervert.')
+    } catch (err) {
+      setAiError(friendlyError(err))
     } finally {
       setGenerating(false)
       setTimeout(() => chatEndRef.current?.scrollIntoView({ behavior: 'smooth' }), 50)
@@ -270,7 +271,7 @@ export function CreateTripPage() {
       .insert({ slug, trip_data: tripData, owner: null })
 
     if (insertError) {
-      setAiError(insertError.message)
+      setAiError(friendlyError(insertError))
       setSaving(false)
       return
     }

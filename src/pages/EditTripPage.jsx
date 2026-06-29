@@ -3,6 +3,7 @@ import { useParams, useNavigate, Navigate } from 'react-router-dom'
 import { supabase } from '@/lib/supabase'
 import { useTrips } from '@/context/TripsContext'
 import { formatDateRange } from '@/lib/dateUtils'
+import { friendlyError } from '@/lib/friendlyError'
 
 function toSlug(title) {
   return title
@@ -82,7 +83,7 @@ export function EditTripPage() {
       .eq('slug', slug)
 
     if (updateError) {
-      setError(updateError.message)
+      setError(friendlyError(updateError))
       setSaving(false)
       return
     }
@@ -190,7 +191,7 @@ export function EditTripPage() {
                       .delete()
                       .eq('slug', slug)
                     if (deleteError) {
-                      setError(deleteError.message)
+                      setError(friendlyError(deleteError))
                       setDeleting(false)
                       return
                     }
