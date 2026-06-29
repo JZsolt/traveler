@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { Upload, Send, Sparkles, Save, ArrowLeft } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
 import { useTrips } from '@/context/TripsContext'
+import { formatDateRange } from '@/lib/dateUtils'
 import { validateTripJson } from '@/lib/validateTripJson'
 
 function toSlug(title) {
@@ -14,6 +15,64 @@ function toSlug(title) {
     .replace(/^-+|-+$/g, '')
 }
 
+function draftToTripData(draft, form) {
+  const slug = toSlug(draft.title || form.destination)
+  return {
+    slug,
+    title: draft.title || form.destination,
+    subtitle: formatDateRange(draft.startDate || form.startDate, draft.endDate || form.endDate),
+    emoji: draft.emoji || '',
+    startDate: draft.startDate || form.startDate,
+    endDate: draft.endDate || form.endDate,
+    people: draft.people || form.people || '',
+    highlights: [],
+    status: 'draft',
+    expandedDays: [],
+    destination: draft.destination || form.destination,
+    accommodation: { address: '', mapUrl: '' },
+    flight: { airport: '', arrival: '', departure: '' },
+    budget: { headline: '' },
+    urgentBookings: [],
+    usefulLinks: [],
+    packingList: [],
+    savingTips: (draft.tips || []).map(t => ({ tip: t, saving: '' })),
+    practicalInfo: [],
+    bookingChecklist: [],
+    overview: (draft.days || []).map(d => ({
+      day: d.day,
+      date: '',
+      program: d.title,
+      highlights: d.summary || '',
+    })),
+    days: (draft.days || []).map(d => ({
+      dayNum: d.day,
+      title: d.title,
+      subtitle: d.summary || '',
+      tickets: [],
+      images: [],
+      alerts: [],
+      schedule: (d.items || []).map(item => ({
+        time: item.time || '',
+        title: item.title,
+        desc: item.note || '',
+        highlight: item.type === 'sight',
+        badges: item.type === 'food' ? ['ETTEREM'] : [],
+        links: [],
+        guide: {},
+      })),
+      costs: [],
+      endAlerts: [],
+      _draft: true,
+    })),
+  }
+}
+
+const DETAIL_OPTIONS = [
+  { value: 'quick', label: 'Gyors', desc: 'Max 3 program/nap' },
+  { value: 'normal', label: 'Normal', desc: 'Max 4 program/nap' },
+  { value: 'detailed', label: 'Reszletes', desc: 'Max 6 program/nap' },
+]
+
 export function CreateTripPage() {
   const navigate = useNavigate()
   const { refetch } = useTrips()
@@ -22,6 +81,7 @@ export function CreateTripPage() {
   const [step, setStep] = useState('form')
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState(null)
+  const [detailLevel, setDetailLevel] = useState('quick')
   const [form, setForm] = useState({
     destination: '',
     startDate: '',
@@ -35,6 +95,7 @@ export function CreateTripPage() {
   const [generating, setGenerating] = useState(false)
   const [generatedTrip, setGeneratedTrip] = useState(null)
   const [aiError, setAiError] = useState(null)
+  const [is429, setIs429] = useState(false)
 
   function update(field, value) {
     setForm(prev => ({ ...prev, [field]: value }))
@@ -81,9 +142,7 @@ export function CreateTripPage() {
     if (form.people) parts.push(`Utazok: ${form.people}`)
 
     const context = parts.join('\n')
-    const initialMessages = [
-      { role: 'user', content: context },
-    ]
+    const initialMessages = [{ role: 'user', content: context }]
     setMessages(initialMessages)
     setStep('chat')
     setChatLoading(true)
@@ -115,6 +174,7 @@ export function CreateTripPage() {
     setMessages(updated)
     setChatInput('')
     setAiError(null)
+    setIs429(false)
     setChatLoading(true)
     setTimeout(() => chatEndRef.current?.scrollIntoView({ behavior: 'smooth' }), 50)
 
@@ -138,10 +198,12 @@ export function CreateTripPage() {
     }
   }
 
-  async function handleGenerate() {
+  async function handleGenerate(overrideLevel) {
     if (generating) return
+    const level = overrideLevel || detailLevel
     setGenerating(true)
     setAiError(null)
+    setIs429(false)
     setGeneratedTrip(null)
     setTimeout(() => chatEndRef.current?.scrollIntoView({ behavior: 'smooth' }), 50)
 
@@ -149,10 +211,16 @@ export function CreateTripPage() {
       const res = await fetch('/api/plan-trip', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages }),
+        body: JSON.stringify({ messages, detailLevel: level }),
       })
 
       const data = await res.json()
+
+      if (res.status === 429) {
+        setAiError(data.error)
+        setIs429(true)
+        return
+      }
 
       if (!res.ok) {
         setAiError(data.error || 'Ismeretlen hiba tortent.')
@@ -160,7 +228,10 @@ export function CreateTripPage() {
       }
 
       setGeneratedTrip(data.trip)
-      setMessages(prev => [...prev, { role: 'assistant', content: `Kesz a terv: ${data.trip.title} (${data.trip.days?.length || 0} nap). Nezd at az elonezetet lent, es ha tetszik, mentsd el!` }])
+      setMessages(prev => [...prev, {
+        role: 'assistant',
+        content: `Kesz a terv: ${data.trip.title} (${data.trip.days?.length || 0} nap). Nezd at az elonezetet lent!`,
+      }])
     } catch {
       setAiError('Nem sikerult elerni a szervert.')
     } finally {
@@ -174,14 +245,13 @@ export function CreateTripPage() {
     setSaving(true)
     setAiError(null)
 
-    const slug = generatedTrip.slug || toSlug(generatedTrip.title)
+    const tripData = draftToTripData(generatedTrip, form)
+    const slug = tripData.slug
     if (!slug) {
-      setAiError('A generalt trip-nek nincs ervenyes slug-ja.')
+      setAiError('Nincs ervenyes slug.')
       setSaving(false)
       return
     }
-
-    const tripData = { ...generatedTrip, slug }
 
     const { error: insertError } = await supabase
       .from('trips')
@@ -252,6 +322,29 @@ export function CreateTripPage() {
                 />
               </div>
 
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Reszletesseg</label>
+                <div className="flex gap-2">
+                  {DETAIL_OPTIONS.map(opt => (
+                    <button
+                      key={opt.value}
+                      type="button"
+                      onClick={() => setDetailLevel(opt.value)}
+                      className={`flex-1 py-2 px-2 rounded-lg text-xs font-medium transition-all border ${
+                        detailLevel === opt.value
+                          ? 'bg-[#0f3460] text-white border-[#0f3460]'
+                          : 'bg-white text-gray-600 border-gray-200 hover:border-gray-300'
+                      }`}
+                    >
+                      <span className="block">{opt.label}</span>
+                      <span className={`block text-[10px] mt-0.5 ${detailLevel === opt.value ? 'text-white/70' : 'text-gray-400'}`}>
+                        {opt.desc}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
               {error && (
                 <div className="bg-red-50 border border-red-200 rounded-lg p-3 text-sm text-red-700">
                   {error}
@@ -293,7 +386,7 @@ export function CreateTripPage() {
             <div className="flex items-center gap-3 mb-6">
               <button
                 type="button"
-                onClick={() => { setStep('form'); setMessages([]); setGeneratedTrip(null); setAiError(null) }}
+                onClick={() => { setStep('form'); setMessages([]); setGeneratedTrip(null); setAiError(null); setIs429(false) }}
                 className="text-gray-400 hover:text-gray-600 transition-colors"
               >
                 <ArrowLeft className="w-5 h-5" />
@@ -353,7 +446,7 @@ export function CreateTripPage() {
 
               <button
                 type="button"
-                onClick={handleGenerate}
+                onClick={() => handleGenerate()}
                 disabled={generating || chatLoading}
                 className="w-full inline-flex items-center justify-center gap-2 bg-[#e94560] text-white font-semibold py-2.5 rounded-lg hover:bg-[#d63d56] transition-colors disabled:opacity-50"
               >
@@ -364,37 +457,60 @@ export function CreateTripPage() {
               {aiError && (
                 <div className="bg-red-50 border border-red-200 rounded-lg p-3 text-sm text-red-700">
                   {aiError}
+                  {is429 && (
+                    <button
+                      type="button"
+                      onClick={() => handleGenerate('quick')}
+                      className="mt-2 w-full bg-red-100 hover:bg-red-200 text-red-800 font-medium py-2 rounded-lg transition-colors text-xs"
+                    >
+                      Probald ujra gyors modban
+                    </button>
+                  )}
                 </div>
               )}
 
               {generatedTrip && (
                 <div className="bg-white border border-gray-200 rounded-2xl p-5 space-y-3 shadow-sm">
-                  <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide">Elonezet</p>
+                  <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide">Vazlat</p>
                   <div className="space-y-1">
                     <p className="text-lg font-bold text-[#1a1a2e]">
                       {generatedTrip.emoji} {generatedTrip.title}
                     </p>
-                    <p className="text-sm text-[#0f3460] font-medium">{generatedTrip.subtitle}</p>
-                    <p className="text-xs text-gray-500">
-                      {generatedTrip.startDate} — {generatedTrip.endDate}
+                    <p className="text-sm text-[#0f3460] font-medium">
+                      {formatDateRange(generatedTrip.startDate || form.startDate, generatedTrip.endDate || form.endDate)}
                     </p>
-                    {generatedTrip.people && (
-                      <p className="text-xs text-gray-500">{generatedTrip.people}</p>
+                    {(generatedTrip.people || form.people) && (
+                      <p className="text-xs text-gray-500">{generatedTrip.people || form.people}</p>
                     )}
                   </div>
-                  <div className="flex gap-2 text-xs text-gray-500">
-                    <span className="bg-gray-100 px-2 py-0.5 rounded-full">{generatedTrip.days?.length || 0} nap</span>
-                    <span className="bg-gray-100 px-2 py-0.5 rounded-full">{generatedTrip.highlights?.length || 0} highlight</span>
+
+                  <div className="space-y-2 pt-2">
+                    {(generatedTrip.days || []).map((d, i) => (
+                      <div key={i} className="bg-gray-50 rounded-lg p-3">
+                        <p className="text-sm font-semibold text-[#1a1a2e]">{d.day}. nap — {d.title}</p>
+                        {d.summary && <p className="text-xs text-gray-500 mt-0.5">{d.summary}</p>}
+                        <div className="mt-2 space-y-1">
+                          {(d.items || []).map((item, j) => (
+                            <p key={j} className="text-xs text-gray-600">
+                              <span className="text-gray-400">{item.time || '--:--'}</span>{' '}
+                              <span className="font-medium">{item.title}</span>
+                              {item.note && <span className="text-gray-400"> — {item.note}</span>}
+                            </p>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                  {generatedTrip.highlights?.length > 0 && (
-                    <div className="flex flex-wrap gap-1.5 pt-1">
-                      {generatedTrip.highlights.map((h, i) => (
-                        <span key={i} className="bg-slate-100 text-[#0f3460] text-[11px] font-medium px-2.5 py-0.5 rounded-full">
-                          {h}
-                        </span>
+
+                  {generatedTrip.tips?.length > 0 && (
+                    <div className="pt-2">
+                      <p className="text-xs font-semibold text-gray-400 mb-1">Tippek</p>
+                      {generatedTrip.tips.map((t, i) => (
+                        <p key={i} className="text-xs text-gray-600">- {t}</p>
                       ))}
                     </div>
                   )}
+
                   <button
                     type="button"
                     onClick={handleSaveAiTrip}
@@ -402,8 +518,11 @@ export function CreateTripPage() {
                     className="w-full inline-flex items-center justify-center gap-2 bg-[#0f3460] text-white font-semibold py-2.5 rounded-lg hover:bg-[#1a1a2e] transition-colors disabled:opacity-50 mt-2"
                   >
                     <Save className="w-4 h-4" />
-                    {saving ? 'Mentes...' : 'Utazas mentese'}
+                    {saving ? 'Mentes...' : 'Vazlat mentese'}
                   </button>
+                  <p className="text-[10px] text-gray-400 text-center">
+                    A mentett utazasban egyenkent reszletezheted a napokat.
+                  </p>
                 </div>
               )}
             </div>

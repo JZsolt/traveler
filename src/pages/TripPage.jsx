@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useParams, Navigate, Link, useNavigate } from 'react-router-dom'
-import { SquarePen, Trash2, Download } from 'lucide-react'
+import { SquarePen, Trash2, Download, Wand2 } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
 import { useTrips } from '@/context/TripsContext'
 import { DbError } from '@/components/DbError'
@@ -20,6 +20,8 @@ export function TripPage() {
   const [showDeleteModal, setShowDeleteModal] = useState(false)
   const [deleting, setDeleting] = useState(false)
   const [deleteError, setDeleteError] = useState(null)
+  const [expandingDay, setExpandingDay] = useState(null)
+  const [expandError, setExpandError] = useState(null)
 
   if (loading) return (
     <main className="pt-14" style={{ paddingTop: 'calc(3.5rem + env(safe-area-inset-top, 0px))' }}>
@@ -39,6 +41,75 @@ export function TripPage() {
   const trip = trips.find(t => t.slug === slug)
 
   if (!trip) return <Navigate to="/" replace />
+
+  const isDraft = trip.status === 'draft'
+  const expandedDays = trip.expandedDays || []
+
+  async function handleExpandDay(dayNum) {
+    setExpandingDay(dayNum)
+    setExpandError(null)
+
+    const day = trip.days.find(d => d.dayNum === dayNum)
+    if (!day) return
+
+    try {
+      const res = await fetch('/api/expand-day', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          tripTitle: trip.title,
+          destination: trip.destination || '',
+          dayNumber: dayNum,
+          currentDay: {
+            title: day.title,
+            summary: day.subtitle || '',
+            items: (day.schedule || []).map(s => ({
+              time: s.time,
+              title: s.title,
+              type: s.badges?.includes('ETTEREM') ? 'food' : 'sight',
+              note: s.desc,
+            })),
+          },
+          people: trip.people || '',
+        }),
+      })
+
+      const data = await res.json()
+
+      if (res.status === 429) {
+        setExpandError('AI limit elerve. Probald ujra kesobb.')
+        return
+      }
+      if (!res.ok) {
+        setExpandError(data.error || 'Hiba tortent.')
+        return
+      }
+
+      const expandedDay = { ...data.day, _draft: false }
+      const updatedDays = trip.days.map(d =>
+        d.dayNum === dayNum ? { ...d, ...expandedDay } : d
+      )
+      const updatedExpandedDays = [...expandedDays, dayNum]
+      const allExpanded = updatedExpandedDays.length >= trip.days.length
+      const updatedTripData = {
+        ...trip,
+        days: updatedDays,
+        expandedDays: updatedExpandedDays,
+        status: allExpanded ? 'complete' : 'draft',
+      }
+
+      await supabase
+        .from('trips')
+        .update({ trip_data: updatedTripData })
+        .eq('slug', slug)
+
+      await refetch()
+    } catch {
+      setExpandError('Nem sikerult elerni a szervert.')
+    } finally {
+      setExpandingDay(null)
+    }
+  }
 
   return (
     <main className="pb-16" style={{ paddingTop: 'calc(3.5rem + env(safe-area-inset-top, 0px))' }}>
@@ -118,11 +189,50 @@ export function TripPage() {
           </div>
         </div>
       )}
+      {isDraft && (
+        <div className="bg-amber-50 border-b border-amber-200 px-4 py-3 text-center">
+          <p className="text-sm text-amber-800 font-medium">
+            Vazlat — a napokat egyenkent reszletezheted az AI-jal
+          </p>
+        </div>
+      )}
+
       <TripOverview trip={trip} />
+
+      {expandError && (
+        <div className="max-w-3xl mx-auto px-4 md:px-10 mt-4">
+          <div className="bg-red-50 border border-red-200 rounded-lg p-3 text-sm text-red-700">
+            {expandError}
+          </div>
+        </div>
+      )}
 
       <div>
         {(trip.days || []).map(day => (
-          <DaySection key={day.dayNum} day={day} />
+          <div key={day.dayNum}>
+            <DaySection day={day} />
+            {isDraft && day._draft && !expandedDays.includes(day.dayNum) && (
+              <div className="flex justify-center py-2 -mt-1">
+                <button
+                  onClick={() => handleExpandDay(day.dayNum)}
+                  disabled={expandingDay !== null}
+                  className="inline-flex items-center gap-2 bg-[#0f3460] text-white text-xs font-semibold px-4 py-2 rounded-full hover:bg-[#1a1a2e] transition-colors disabled:opacity-50"
+                >
+                  {expandingDay === day.dayNum ? (
+                    <>
+                      <span className="animate-spin">⏳</span>
+                      Reszletezem...
+                    </>
+                  ) : (
+                    <>
+                      <Wand2 className="w-3.5 h-3.5" />
+                      Reszletezd ezt a napot
+                    </>
+                  )}
+                </button>
+              </div>
+            )}
+          </div>
         ))}
       </div>
 
