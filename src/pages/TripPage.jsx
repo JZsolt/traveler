@@ -71,6 +71,7 @@ export function TripPage() {
             })),
           },
           people: trip.people || '',
+          model: trip.aiModel || 'gemini-3.1-flash-lite',
         }),
       })
 

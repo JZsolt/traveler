@@ -1,5 +1,12 @@
 import { GoogleGenAI } from '@google/genai'
 
+const DEFAULT_MODEL = 'gemini-3.1-flash-lite'
+
+const MODELS = {
+  'gemini-2.5-flash': true,
+  'gemini-3.1-flash-lite': true,
+}
+
 const SYSTEM_PROMPT = `Te egy utazastervezo. Valaszolj KIZAROLAG valid JSON-nal. Semmi markdown, semmi magyarazat.
 Kapod egy utazas egy napjanak vazlatat. Reszletezd ki teljes napi tervve.
 
@@ -60,12 +67,13 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'GEMINI_API_KEY nincs konfigurálva.' })
   }
 
-  const { tripTitle, destination, dayNumber, currentDay, people } = req.body || {}
+  const { tripTitle, destination, dayNumber, currentDay, people, model: requestedModel } = req.body || {}
   if (!tripTitle || !dayNumber || !currentDay) {
     return res.status(400).json({ error: 'Hianyzo mezok: tripTitle, dayNumber, currentDay.' })
   }
 
-  console.log('[expand-day]', { tripTitle, dayNumber, destination })
+  const model = MODELS[requestedModel] ? requestedModel : DEFAULT_MODEL
+  console.log('[expand-day]', { model, tripTitle, dayNumber, destination })
 
   const userPrompt = `Utazas: ${tripTitle}
 Cel: ${destination || ''}
@@ -81,7 +89,7 @@ Reszletezd ki ezt a napot!`
     const ai = new GoogleGenAI({ apiKey })
 
     const response = await ai.models.generateContent({
-      model: 'gemini-2.5-flash',
+      model,
       config: {
         systemInstruction: SYSTEM_PROMPT,
         temperature: 0.7,

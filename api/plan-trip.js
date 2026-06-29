@@ -1,5 +1,12 @@
 import { GoogleGenAI } from '@google/genai'
 
+const DEFAULT_MODEL = 'gemini-3.1-flash-lite'
+
+const MODELS = {
+  'gemini-2.5-flash': { label: 'Gemini 2.5 Flash' },
+  'gemini-3.1-flash-lite': { label: 'Gemini 3.1 Flash Lite' },
+}
+
 const DETAIL_LEVELS = {
   quick: { maxItems: 3, maxTokens: 8000, label: 'gyors' },
   normal: { maxItems: 4, maxTokens: 12000, label: 'normal' },
@@ -77,7 +84,7 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'GEMINI_API_KEY nincs konfigurálva a szerveren.' })
   }
 
-  const { messages, detailLevel = 'quick' } = req.body || {}
+  const { messages, detailLevel = 'quick', model: requestedModel } = req.body || {}
   if (!messages || !Array.isArray(messages) || messages.length === 0) {
     return res.status(400).json({ error: 'Hianyzo vagy ures "messages" mezo.' })
   }
@@ -89,9 +96,10 @@ export default async function handler(req, res) {
 
   const level = DETAIL_LEVELS[detailLevel] ? detailLevel : 'quick'
   const { maxTokens } = DETAIL_LEVELS[level]
+  const model = MODELS[requestedModel] ? requestedModel : DEFAULT_MODEL
 
   console.log('[plan-trip]', {
-    model: 'gemini-2.5-flash',
+    model,
     detailLevel: level,
     messageCount: messages.length,
     promptLength: totalLength,
@@ -114,7 +122,7 @@ export default async function handler(req, res) {
     ]
 
     const response = await ai.models.generateContent({
-      model: 'gemini-2.5-flash',
+      model,
       config: {
         systemInstruction: buildPrompt(level),
         temperature: 0.7,

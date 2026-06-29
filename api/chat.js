@@ -1,5 +1,12 @@
 import { GoogleGenAI } from '@google/genai'
 
+const DEFAULT_MODEL = 'gemini-3.1-flash-lite'
+
+const MODELS = {
+  'gemini-2.5-flash': true,
+  'gemini-3.1-flash-lite': true,
+}
+
 const SYSTEM_PROMPT = `Te egy barat, lelkes utazastervezo asszisztens vagy. Magyarul beszelsz.
 
 A felhasznalo utazast tervez es te segitesz neki brainstormolni. A celod:
@@ -21,10 +28,12 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'GEMINI_API_KEY nincs konfigurálva.' })
   }
 
-  const { messages } = req.body || {}
+  const { messages, model: requestedModel } = req.body || {}
   if (!messages || !Array.isArray(messages) || messages.length === 0) {
     return res.status(400).json({ error: 'Hianyzo "messages" mezo.' })
   }
+
+  const model = MODELS[requestedModel] ? requestedModel : DEFAULT_MODEL
 
   try {
     const ai = new GoogleGenAI({ apiKey })
@@ -35,7 +44,7 @@ export default async function handler(req, res) {
     }))
 
     const response = await ai.models.generateContent({
-      model: 'gemini-2.5-flash',
+      model,
       config: {
         systemInstruction: SYSTEM_PROMPT,
         temperature: 0.8,

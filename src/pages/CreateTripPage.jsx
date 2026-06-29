@@ -67,6 +67,11 @@ function draftToTripData(draft, form) {
   }
 }
 
+const MODEL_OPTIONS = [
+  { value: 'gemini-3.1-flash-lite', label: '3.1 Flash Lite', desc: 'Gyors, 1000 RPD' },
+  { value: 'gemini-2.5-flash', label: '2.5 Flash', desc: 'Okosabb, 250 RPD' },
+]
+
 const DETAIL_OPTIONS = [
   { value: 'quick', label: 'Gyors', desc: 'Max 3 program/nap' },
   { value: 'normal', label: 'Normal', desc: 'Max 4 program/nap' },
@@ -82,6 +87,7 @@ export function CreateTripPage() {
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState(null)
   const [detailLevel, setDetailLevel] = useState('quick')
+  const [aiModel, setAiModel] = useState('gemini-3.1-flash-lite')
   const [form, setForm] = useState({
     destination: '',
     startDate: '',
@@ -150,7 +156,7 @@ export function CreateTripPage() {
     fetch('/api/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ messages: initialMessages }),
+      body: JSON.stringify({ messages: initialMessages, model: aiModel }),
     })
       .then(res => res.json())
       .then(data => {
@@ -182,7 +188,7 @@ export function CreateTripPage() {
       const res = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: updated }),
+        body: JSON.stringify({ messages: updated, model: aiModel }),
       })
       const data = await res.json()
       if (!res.ok) {
@@ -211,7 +217,7 @@ export function CreateTripPage() {
       const res = await fetch('/api/plan-trip', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages, detailLevel: level }),
+        body: JSON.stringify({ messages, detailLevel: level, model: aiModel }),
       })
 
       const data = await res.json()
@@ -245,7 +251,7 @@ export function CreateTripPage() {
     setSaving(true)
     setAiError(null)
 
-    const tripData = draftToTripData(generatedTrip, form)
+    const tripData = { ...draftToTripData(generatedTrip, form), aiModel }
     const slug = tripData.slug
     if (!slug) {
       setAiError('Nincs ervenyes slug.')
@@ -322,26 +328,50 @@ export function CreateTripPage() {
                 />
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Reszletesseg</label>
-                <div className="flex gap-2">
-                  {DETAIL_OPTIONS.map(opt => (
-                    <button
-                      key={opt.value}
-                      type="button"
-                      onClick={() => setDetailLevel(opt.value)}
-                      className={`flex-1 py-2 px-2 rounded-lg text-xs font-medium transition-all border ${
-                        detailLevel === opt.value
-                          ? 'bg-[#0f3460] text-white border-[#0f3460]'
-                          : 'bg-white text-gray-600 border-gray-200 hover:border-gray-300'
-                      }`}
-                    >
-                      <span className="block">{opt.label}</span>
-                      <span className={`block text-[10px] mt-0.5 ${detailLevel === opt.value ? 'text-white/70' : 'text-gray-400'}`}>
-                        {opt.desc}
-                      </span>
-                    </button>
-                  ))}
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">AI modell</label>
+                  <div className="flex flex-col gap-1.5">
+                    {MODEL_OPTIONS.map(opt => (
+                      <button
+                        key={opt.value}
+                        type="button"
+                        onClick={() => setAiModel(opt.value)}
+                        className={`py-2 px-2 rounded-lg text-xs font-medium transition-all border text-left ${
+                          aiModel === opt.value
+                            ? 'bg-[#0f3460] text-white border-[#0f3460]'
+                            : 'bg-white text-gray-600 border-gray-200 hover:border-gray-300'
+                        }`}
+                      >
+                        <span className="block">{opt.label}</span>
+                        <span className={`block text-[10px] mt-0.5 ${aiModel === opt.value ? 'text-white/70' : 'text-gray-400'}`}>
+                          {opt.desc}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Reszletesseg</label>
+                  <div className="flex flex-col gap-1.5">
+                    {DETAIL_OPTIONS.map(opt => (
+                      <button
+                        key={opt.value}
+                        type="button"
+                        onClick={() => setDetailLevel(opt.value)}
+                        className={`py-2 px-2 rounded-lg text-xs font-medium transition-all border text-left ${
+                          detailLevel === opt.value
+                            ? 'bg-[#0f3460] text-white border-[#0f3460]'
+                            : 'bg-white text-gray-600 border-gray-200 hover:border-gray-300'
+                        }`}
+                      >
+                        <span className="block">{opt.label}</span>
+                        <span className={`block text-[10px] mt-0.5 ${detailLevel === opt.value ? 'text-white/70' : 'text-gray-400'}`}>
+                          {opt.desc}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
                 </div>
               </div>
 
