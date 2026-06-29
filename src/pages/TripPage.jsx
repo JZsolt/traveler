@@ -13,6 +13,11 @@ import { TripHero } from '@/components/trip/TripHero'
 import { TripOverview } from '@/components/trip/TripOverview'
 import { UsefulLinks } from '@/components/trip/UsefulLinks'
 
+const AI_MODEL_OPTIONS = [
+  { value: 'gemini-3.1-flash-lite', label: '3.1 Flash Lite' },
+  { value: 'gemini-2.5-flash', label: '2.5 Flash' },
+]
+
 export function TripPage() {
   const { slug } = useParams()
   const navigate = useNavigate()
@@ -22,6 +27,8 @@ export function TripPage() {
   const [deleteError, setDeleteError] = useState(null)
   const [expandingDay, setExpandingDay] = useState(null)
   const [expandError, setExpandError] = useState(null)
+  const [expandPrompts, setExpandPrompts] = useState({})
+  const [expandModels, setExpandModels] = useState({})
 
   if (loading) return (
     <main className="pt-14" style={{ paddingTop: 'calc(3.5rem + env(safe-area-inset-top, 0px))' }}>
@@ -71,7 +78,8 @@ export function TripPage() {
             })),
           },
           people: trip.people || '',
-          model: trip.aiModel || 'gemini-3.1-flash-lite',
+          model: expandModels[dayNum] || trip.aiModel || 'gemini-3.1-flash-lite',
+          instruction: expandPrompts[dayNum] || '',
         }),
       })
 
@@ -213,11 +221,40 @@ export function TripPage() {
           <div key={day.dayNum}>
             <DaySection day={day} />
             {isDraft && day._draft && !expandedDays.includes(day.dayNum) && (
-              <div className="flex justify-center py-2 -mt-1">
+              <div className="max-w-3xl mx-auto px-4 md:px-10 py-3 -mt-1">
+                <div className="rounded-2xl border border-slate-200 bg-white p-3 shadow-sm space-y-3">
+                  <div className="grid grid-cols-2 gap-2">
+                    {AI_MODEL_OPTIONS.map(opt => {
+                      const selectedModel = expandModels[day.dayNum] || trip.aiModel || 'gemini-3.1-flash-lite'
+                      return (
+                        <button
+                          key={opt.value}
+                          type="button"
+                          onClick={() => setExpandModels(prev => ({ ...prev, [day.dayNum]: opt.value }))}
+                          disabled={expandingDay !== null}
+                          className={`rounded-lg border px-3 py-2 text-left text-xs font-medium transition-colors disabled:opacity-50 ${
+                            selectedModel === opt.value
+                              ? 'border-[#0f3460] bg-[#0f3460] text-white'
+                              : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300'
+                          }`}
+                        >
+                          {opt.label}
+                        </button>
+                      )
+                    })}
+                  </div>
+                  <textarea
+                    value={expandPrompts[day.dayNum] || ''}
+                    onChange={e => setExpandPrompts(prev => ({ ...prev, [day.dayNum]: e.target.value }))}
+                    rows={2}
+                    placeholder="Extra instrukció ehhez a naphoz: pl. több gyerekbarát program, jobb éttermek, kevesebb séta..."
+                    disabled={expandingDay !== null}
+                    className="w-full resize-y rounded-lg border border-slate-300 px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-[#0f3460] disabled:opacity-50"
+                  />
                 <button
                   onClick={() => handleExpandDay(day.dayNum)}
                   disabled={expandingDay !== null}
-                  className="inline-flex items-center gap-2 bg-[#0f3460] text-white text-xs font-semibold px-4 py-2 rounded-full hover:bg-[#1a1a2e] transition-colors disabled:opacity-50"
+                    className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#0f3460] px-4 py-2 text-xs font-semibold text-white transition-colors hover:bg-[#1a1a2e] disabled:opacity-50"
                 >
                   {expandingDay === day.dayNum ? (
                     <>
@@ -231,6 +268,7 @@ export function TripPage() {
                     </>
                   )}
                 </button>
+                </div>
               </div>
             )}
           </div>

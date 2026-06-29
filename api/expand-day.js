@@ -1,3 +1,4 @@
+/* global process */
 import { GoogleGenAI } from '@google/genai'
 
 const DEFAULT_MODEL = 'gemini-3.1-flash-lite'
@@ -67,7 +68,7 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'GEMINI_API_KEY nincs konfigurálva.' })
   }
 
-  const { tripTitle, destination, dayNumber, currentDay, people, model: requestedModel } = req.body || {}
+  const { tripTitle, destination, dayNumber, currentDay, people, model: requestedModel, instruction = '' } = req.body || {}
   if (!tripTitle || !dayNumber || !currentDay) {
     return res.status(400).json({ error: 'Hianyzo mezok: tripTitle, dayNumber, currentDay.' })
   }
@@ -82,6 +83,7 @@ ${dayNumber}. nap vazlata:
 Cim: ${currentDay.title}
 Osszefoglalo: ${currentDay.summary || ''}
 Programok: ${(currentDay.items || []).map(i => `${i.time || ''} ${i.title} (${i.type}) - ${i.note || ''}`).join('; ')}
+${instruction.trim() ? `\nKulon user instrukcio:\n${instruction.trim()}\n` : ''}
 
 Reszletezd ki ezt a napot!`
 

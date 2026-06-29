@@ -12,6 +12,8 @@ Always complete the phases in this order:
 4. 04-gemini-backend.md
 5. 05-ai-chat-ui.md
 6. 06-polish.md
+7. 07-git-hub-backup.md
+8. 08-inline-trip-editor.md
 
 ## Workflow
 
@@ -21,7 +23,7 @@ For every task:
 2. Read only the task file you are currently implementing.
 3. Implement only the requested TASK.
 4. Do not continue to the next TASK automatically.
-5. Run `npm run build`.
+5. Run `pnpm run build`.
 6. Fix build errors.
 7. Summarize changed files.
 8. Stop and wait for approval before continuing.

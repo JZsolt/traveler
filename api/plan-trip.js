@@ -1,3 +1,4 @@
+/* global process */
 import { GoogleGenAI } from '@google/genai'
 
 const DEFAULT_MODEL = 'gemini-3.1-flash-lite'
@@ -13,11 +14,16 @@ const DETAIL_LEVELS = {
   detailed: { maxItems: 6, maxTokens: 16000, label: 'reszletes' },
 }
 
-function buildPrompt(detailLevel) {
+function buildPrompt(detailLevel, instruction = '') {
   const { maxItems } = DETAIL_LEVELS[detailLevel] || DETAIL_LEVELS.quick
+  const extraInstruction = instruction.trim()
+    ? `\nEXTRA USER INSTRUKCIO A GENERÁLÁSHOZ:\n${instruction.trim()}\n`
+    : ''
+
   return `Te egy utazastervezo. Valaszolj KIZAROLAG valid JSON-nal. Semmi markdown, semmi magyarazat.
 Keszits kompakt utitervet a user kerése alapjan.
 Rovid magyar szoveget hasznalj. Max ${maxItems} item naponta. Minden note max 120 karakter. Tips max 5.
+${extraInstruction}
 
 PONTOS SCHEMA:
 {
@@ -84,7 +90,7 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'GEMINI_API_KEY nincs konfigurálva a szerveren.' })
   }
 
-  const { messages, detailLevel = 'quick', model: requestedModel } = req.body || {}
+  const { messages, detailLevel = 'quick', model: requestedModel, instruction = '' } = req.body || {}
   if (!messages || !Array.isArray(messages) || messages.length === 0) {
     return res.status(400).json({ error: 'Hianyzo vagy ures "messages" mezo.' })
   }
@@ -103,6 +109,7 @@ export default async function handler(req, res) {
     detailLevel: level,
     messageCount: messages.length,
     promptLength: totalLength,
+    hasInstruction: Boolean(instruction.trim()),
     maxOutputTokens: maxTokens,
   })
 
@@ -124,7 +131,7 @@ export default async function handler(req, res) {
     const response = await ai.models.generateContent({
       model,
       config: {
-        systemInstruction: buildPrompt(level),
+        systemInstruction: buildPrompt(level, instruction),
         temperature: 0.7,
         maxOutputTokens: maxTokens,
         responseMimeType: 'application/json',
