@@ -102,10 +102,16 @@ export default async function handler(req, res) {
     const ai = new GoogleGenAI({ apiKey })
     const trimmed = trimMessages(messages)
 
-    const contents = trimmed.map(m => ({
-      role: m.role === 'user' ? 'user' : 'model',
-      parts: [{ text: m.content }],
-    }))
+    const contents = [
+      ...trimmed.map(m => ({
+        role: m.role === 'user' ? 'user' : 'model',
+        parts: [{ text: m.content }],
+      })),
+      {
+        role: 'user',
+        parts: [{ text: 'A fenti beszelgetes alapjan generald a kompakt utitervet JSON-ben! A PONTOS SCHEMA-t kovesd, semmi mas szoveg, csak JSON.' }],
+      },
+    ]
 
     const response = await ai.models.generateContent({
       model: 'gemini-2.5-flash',
