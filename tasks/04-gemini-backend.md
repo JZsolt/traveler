@@ -1,4 +1,4 @@
-# 04 — Gemini backend endpoint
+# 04 — Gemini backend endpoint ✅ DONE
 
 This phase adds the serverless AI endpoint only.
 

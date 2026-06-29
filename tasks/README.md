@@ -6,14 +6,14 @@ This folder contains the implementation roadmap for the Traveler project.
 
 Always complete the phases in this order:
 
-1. 01-crud.md
-2. 02-safe-rendering.md
-3. 03-json-import-export.md
-4. 04-gemini-backend.md
-5. 05-ai-chat-ui.md
-6. 06-polish.md
-7. 07-git-hub-backup.md
-8. 08-inline-trip-editor.md
+1. ~~01-crud.md~~ ✅
+2. ~~02-safe-rendering.md~~ ✅
+3. ~~03-json-import-export.md~~ ✅
+4. ~~04-gemini-backend.md~~ ✅
+5. ~~05-ai-chat-ui.md~~ ✅
+6. ~~06-polish.md~~ ✅
+7. 07-git-hub-backup.md ← KOVETKEZO
+8. 08-inline-trip-editor.md (24 subtask)
 
 ## Workflow
 

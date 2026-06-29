@@ -1,4 +1,4 @@
-TASK 4 — Add Gemini serverless planning endpoint only
+TASK 4 — Add Gemini serverless planning endpoint only ✅ DONE
 
 Goal:
 Create backend endpoint, no UI integration yet.

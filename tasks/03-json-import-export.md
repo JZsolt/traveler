@@ -1,4 +1,4 @@
-TASK 3 — Add editable JSON preview for a new trip
+TASK 3 — Add editable JSON preview for a new trip ✅ DONE
 
 Goal:
 Before AI integration, allow creating a trip from pasted JSON.

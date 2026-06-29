@@ -1,4 +1,4 @@
-# 06 — Polish and product quality
+# 06 — Polish and product quality ✅ DONE
 
 This phase improves UX after the core features are complete.
 
