@@ -178,6 +178,31 @@ Olvasd be: `src/data/trips/_template.json` — ez a sablon MINDEN mezővel és m
 9. Gyerekek esetén: `badges` mezőben jelöld a GYEREKBARÁT programokat, éttermeknél gyerekmenü tipp
 10. Mentsd el Supabase-be a seed scripttel vagy az API-n keresztül
 
+## GitHub Backup
+
+A fooldal aljan talalhato "Export mentes Gitre" gombbal az osszes utazas kimentheto a GitHub repoba.
+
+### Szukseges env valtozok (szerver oldali, SOHA ne VITE_ prefix)
+
+```
+GITHUB_TOKEN=ghp_...          # GitHub Personal Access Token (Contents read & write)
+GITHUB_REPO=JZsolt/traveler   # owner/repo formatum
+GITHUB_BACKUP_BRANCH=main     # melyik branchre commitoljon
+```
+
+Vercel-en is be kell allitani (Settings → Environment Variables).
+
+### Mukodes
+
+1. `POST /api/backup-trips` — exportalja az osszes tripet Supabase-bol
+2. A backup JSON-t commitolja a `backups/trips-backup.json` fajlba a GitHub REST API-n keresztul
+3. Ha a fajl mar letezik, SHA-val frissiti; ha nem, letrehozza
+4. Commit message: `backup: export trips YYYY-MM-DD HH:mm`
+
+### Visszaallitas
+
+A backup JSON manualis visszaallitasra valo (recovery/debugging). Automatikus restore nincs — szukseg eseten a JSON-bol a seed scripttel vagy kezzel lehet visszatolteni.
+
 ## Fontos szabályok
 
 - A nyelv MAGYAR — minden szöveg, leírás, guide magyarul

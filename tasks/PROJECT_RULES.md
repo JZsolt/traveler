@@ -9,6 +9,7 @@ These rules apply to every implementation task.
 - Never continue to the next TASK automatically.
 - Stop when the current TASK is complete.
 - Prefer small, focused changes over large rewrites.
+- **Never commit or push unless the user explicitly asks for it.**
 
 ## Architecture
 

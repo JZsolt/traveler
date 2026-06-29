@@ -12,7 +12,7 @@ Always complete the phases in this order:
 4. ~~04-gemini-backend.md~~ ✅
 5. ~~05-ai-chat-ui.md~~ ✅
 6. ~~06-polish.md~~ ✅
-7. 07-git-hub-backup.md ← KOVETKEZO
+7. ~~07-git-hub-backup.md~~ ✅
 8. 08-inline-trip-editor.md (24 subtask)
 
 ## Workflow

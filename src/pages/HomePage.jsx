@@ -3,6 +3,7 @@ import { useTrips } from '@/context/TripsContext';
 import { DbError } from '@/components/DbError';
 import { Badge } from '@/components/ui/badge';
 import { sortTrips } from '@/lib/sortTrips';
+import { BackupButton } from '@/components/BackupButton';
 
 function getTripStatus(trip) {
   const now = new Date();
@@ -104,6 +105,10 @@ export function HomePage() {
               </Link>
             );
           })}
+        </div>
+
+        <div className="mt-10 pt-6 border-t border-gray-200">
+          <BackupButton />
         </div>
       </div>
     </main>
