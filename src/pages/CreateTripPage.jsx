@@ -297,11 +297,11 @@ export function CreateTripPage() {
                   value={form.destination}
                   onChange={e => update('destination', e.target.value)}
                   placeholder="pl. Roma, Praga, Horvatorszag"
-                  className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0f3460]"
+                  className="w-full rounded-xl border border-gray-300 px-3 py-3 text-base focus:outline-none focus:ring-2 focus:ring-[#0f3460]"
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Kezdes *</label>
                   <input
@@ -309,7 +309,7 @@ export function CreateTripPage() {
                     required
                     value={form.startDate}
                     onChange={e => update('startDate', e.target.value)}
-                    className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0f3460]"
+                    className="w-full rounded-xl border border-gray-300 px-3 py-3 text-base focus:outline-none focus:ring-2 focus:ring-[#0f3460]"
                   />
                 </div>
                 <div>
@@ -319,7 +319,7 @@ export function CreateTripPage() {
                     required
                     value={form.endDate}
                     onChange={e => update('endDate', e.target.value)}
-                    className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0f3460]"
+                    className="w-full rounded-xl border border-gray-300 px-3 py-3 text-base focus:outline-none focus:ring-2 focus:ring-[#0f3460]"
                   />
                 </div>
               </div>
@@ -331,7 +331,7 @@ export function CreateTripPage() {
                   value={form.people}
                   onChange={e => update('people', e.target.value)}
                   placeholder="pl. 4 felnott · 2 hazaspar"
-                  className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0f3460]"
+                  className="w-full rounded-xl border border-gray-300 px-3 py-3 text-base focus:outline-none focus:ring-2 focus:ring-[#0f3460]"
                 />
               </div>
 
@@ -390,7 +390,7 @@ export function CreateTripPage() {
 
               <button
                 type="submit"
-                className="w-full inline-flex items-center justify-center gap-2 bg-[#e94560] text-white font-semibold py-2.5 rounded-lg hover:bg-[#d63d56] transition-colors"
+                className="w-full inline-flex items-center justify-center gap-2 bg-[#e94560] text-white font-semibold py-3 rounded-xl hover:bg-[#d63d56] transition-colors text-base"
               >
                 <Sparkles className="w-4 h-4" />
                 Tervezes inditasa
@@ -489,12 +489,12 @@ export function CreateTripPage() {
                     rows={3}
                     placeholder="pl. Cseréld a múzeumokat gyerekbarát programokra, legyen több gasztro és kevesebb séta."
                     disabled={generating || chatLoading}
-                    className="w-full resize-y rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0f3460] disabled:opacity-50"
+                    className="w-full resize-y rounded-xl border border-gray-300 px-3 py-2.5 text-base focus:outline-none focus:ring-2 focus:ring-[#0f3460] disabled:opacity-50"
                   />
                 </div>
               </div>
 
-              <div className="bg-gray-50 rounded-2xl p-4 space-y-3 max-h-96 overflow-y-auto">
+              <div className="bg-gray-50 rounded-2xl p-3 space-y-3 max-h-[60vh] overflow-y-auto">
                 {messages.slice(1).map((msg, i) => (
                   <div
                     key={i}
@@ -527,17 +527,17 @@ export function CreateTripPage() {
                   value={chatInput}
                   onChange={e => setChatInput(e.target.value)}
                   onKeyDown={e => e.key === 'Enter' && !e.shiftKey && (e.preventDefault(), handleSendMessage())}
-                  placeholder="Kerdezz, pontosits, kerj valtoztatast..."
+                  placeholder="Kerdezz, pontosits..."
                   disabled={generating || chatLoading}
-                  className="flex-1 rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0f3460] disabled:opacity-50"
+                  className="flex-1 min-w-0 rounded-xl border border-gray-300 px-3 py-3 text-base focus:outline-none focus:ring-2 focus:ring-[#0f3460] disabled:opacity-50"
                 />
                 <button
                   type="button"
                   onClick={handleSendMessage}
                   disabled={!chatInput.trim() || generating || chatLoading}
-                  className="bg-[#0f3460] text-white p-2.5 rounded-lg hover:bg-[#1a1a2e] transition-colors disabled:opacity-50"
+                  className="bg-[#0f3460] text-white p-3 rounded-xl hover:bg-[#1a1a2e] transition-colors disabled:opacity-50 shrink-0"
                 >
-                  <Send className="w-4 h-4" />
+                  <Send className="w-5 h-5" />
                 </button>
               </div>
 
@@ -545,7 +545,7 @@ export function CreateTripPage() {
                 type="button"
                 onClick={() => handleGenerate()}
                 disabled={generating || chatLoading}
-                className="w-full inline-flex items-center justify-center gap-2 bg-[#e94560] text-white font-semibold py-2.5 rounded-lg hover:bg-[#d63d56] transition-colors disabled:opacity-50"
+                className="w-full inline-flex items-center justify-center gap-2 bg-[#e94560] text-white font-semibold py-3 rounded-xl hover:bg-[#d63d56] transition-colors disabled:opacity-50"
               >
                 <Sparkles className="w-4 h-4" />
                 {generating ? 'Generalas...' : generatedTrip ? 'Terv ujrageneralasa' : 'Terv generalasa'}
@@ -612,7 +612,7 @@ export function CreateTripPage() {
                     type="button"
                     onClick={handleSaveAiTrip}
                     disabled={saving}
-                    className="w-full inline-flex items-center justify-center gap-2 bg-[#0f3460] text-white font-semibold py-2.5 rounded-lg hover:bg-[#1a1a2e] transition-colors disabled:opacity-50 mt-2"
+                    className="w-full inline-flex items-center justify-center gap-2 bg-[#0f3460] text-white font-semibold py-3 rounded-xl hover:bg-[#1a1a2e] transition-colors disabled:opacity-50 mt-2"
                   >
                     <Save className="w-4 h-4" />
                     {saving ? 'Mentes...' : 'Vazlat mentese'}
