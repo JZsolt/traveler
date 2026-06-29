@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useTrips } from '@/context/TripsContext';
 import { DbError } from '@/components/DbError';
 import { Badge } from '@/components/ui/badge';
+import { sortTrips } from '@/lib/sortTrips';
 
 function getTripStatus(trip) {
   const now = new Date();
@@ -20,7 +21,7 @@ function getTripStatus(trip) {
 
 export function HomePage() {
   const { trips, loading, error } = useTrips();
-  const sorted = [...trips].sort((a, b) => new Date(b.startDate) - new Date(a.startDate));
+  const sorted = sortTrips(trips);
 
   if (loading) return (
     <main
