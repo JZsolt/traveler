@@ -1,9 +1,9 @@
 import { GoogleGenAI } from '@google/genai'
 
 const DETAIL_LEVELS = {
-  quick: { maxItems: 3, maxTokens: 1200, label: 'gyors' },
-  normal: { maxItems: 4, maxTokens: 2000, label: 'normal' },
-  detailed: { maxItems: 6, maxTokens: 3000, label: 'reszletes' },
+  quick: { maxItems: 3, maxTokens: 4000, label: 'gyors' },
+  normal: { maxItems: 4, maxTokens: 6000, label: 'normal' },
+  detailed: { maxItems: 6, maxTokens: 8000, label: 'reszletes' },
 }
 
 function buildPrompt(detailLevel) {
@@ -113,17 +113,25 @@ export default async function handler(req, res) {
         systemInstruction: buildPrompt(level),
         temperature: 0.7,
         maxOutputTokens: maxTokens,
+        responseMimeType: 'application/json',
       },
       contents,
     })
 
-    const raw = response.text
+    const raw = response.text || ''
+    console.log('[plan-trip] Raw response length:', raw.length, 'first 200:', raw.slice(0, 200))
+
+    if (!raw) {
+      return res.status(502).json({ error: 'Ures valasz a Gemini-tol.' })
+    }
+
     const jsonStr = extractJson(raw)
 
     let parsed
     try {
       parsed = JSON.parse(jsonStr)
-    } catch {
+    } catch (parseErr) {
+      console.log('[plan-trip] JSON parse error:', parseErr.message, 'raw:', jsonStr.slice(0, 300))
       return res.status(502).json({ error: 'A Gemini nem adott valid JSON-t.', raw: jsonStr.slice(0, 500) })
     }
 
