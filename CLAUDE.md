@@ -178,9 +178,9 @@ Olvasd be: `src/data/trips/_template.json` — ez a sablon MINDEN mezővel és m
 9. Gyerekek esetén: `badges` mezőben jelöld a GYEREKBARÁT programokat, éttermeknél gyerekmenü tipp
 10. Mentsd el Supabase-be a seed scripttel vagy az API-n keresztül
 
-## GitHub Backup
+## GitHub Backup & Import
 
-A fooldal aljan talalhato "Export mentes Gitre" gombbal az osszes utazas kimentheto a GitHub repoba.
+A fooldal aljan talalhato "Export mentes Gitre" gombbal az osszes utazas kimentheto a GitHub repoba, trip-enkent kulon fajlba. Ugyanott importalhatok is backup fajlok.
 
 ### Szukseges env valtozok (szerver oldali, SOHA ne VITE_ prefix)
 
@@ -192,16 +192,34 @@ GITHUB_BACKUP_BRANCH=main     # melyik branchre commitoljon
 
 Vercel-en is be kell allitani (Settings → Environment Variables).
 
-### Mukodes
+### Backup fajl struktura
 
-1. `POST /api/backup-trips` — exportalja az osszes tripet Supabase-bol
-2. A backup JSON-t commitolja a `backups/trips-backup.json` fajlba a GitHub REST API-n keresztul
-3. Ha a fajl mar letezik, SHA-val frissiti; ha nem, letrehozza
-4. Commit message: `backup: export trips YYYY-MM-DD HH:mm`
+```
+backups/trips/manifest.json              # osszes trip listaja
+backups/trips/by-slug/<slug>.json        # trip-enkent kulon fajl
+```
+
+### Export mukodes
+
+1. `POST /api/backup-trips` — exportalja az osszes tripet Supabase-bol (paginalt fetch)
+2. Minden tripet kulon JSON fajlkent commitol a `backups/trips/by-slug/<slug>.json` utvonalra
+3. Frissiti a `manifest.json`-t az osszes trip listajaval
+4. Ha a fajl mar letezik, SHA-val frissiti; ha nem, letrehozza
+5. Commit message: `backup: export trip <slug> YYYY-MM-DD HH:mm`
+
+### Import mukodes
+
+Ket import mod tamogatott:
+- **Ujkent importalas** (`create`): mindig uj tripet hoz letre, slug utkozesnel suffixet ad (-2, -3)
+- **Frissites slug alapjan** (`upsert-by-slug`): ha letezik a slug, frissiti; ha nem, letrehozza
+
+Endpointok:
+- `POST /api/import-trip-backup` — egy trip importalasa (`{ mode, backup }`)
+- `POST /api/import-trip-backups` — tobb trip importalasa (`{ mode, backups: [...] }`)
 
 ### Visszaallitas
 
-A backup JSON manualis visszaallitasra valo (recovery/debugging). Automatikus restore nincs — szukseg eseten a JSON-bol a seed scripttel vagy kezzel lehet visszatolteni.
+Minden trip kulon visszaallithato a sajat backup fajljabol. Az import UI-ban valaszd ki a `.json` fajl(oka)t es valassz import modot.
 
 ## Fontos szabályok
 

@@ -1,4 +1,4 @@
-# 07 — Per-Trip Git Backup + Import
+# 07 — Per-Trip Git Backup + Import ✅ DONE
 
 This phase adds a user-triggered backup flow: the app shows an export button, the server exports trips from Supabase, and each trip is written to GitHub as its own JSON file. The same backup format must support single-trip import and bulk import later.
 
