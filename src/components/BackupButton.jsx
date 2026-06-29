@@ -15,9 +15,15 @@ export function BackupButton() {
       const res = await fetch('/api/backup-trips', { method: 'POST' })
       const data = await res.json()
 
-      if (!res.ok || !data.ok) {
+      if (data.error) {
         setState('error')
         setError(data.error?.message || 'Ismeretlen hiba tortent.')
+        return
+      }
+
+      if (data.failedFiles?.length > 0) {
+        setState('partial')
+        setResult(data)
         return
       }
 
@@ -29,6 +35,8 @@ export function BackupButton() {
       setError('Nincs internetkapcsolat vagy a szerver nem elerheto.')
     }
   }
+
+  const lastCommit = result?.commits?.at(-1)
 
   return (
     <div className="bg-white rounded-2xl shadow-md p-5">
@@ -49,29 +57,46 @@ export function BackupButton() {
         )}
       </Button>
 
-      {state === 'success' && result && (
-        <div className="mt-3 bg-green-50 border border-green-200 rounded-xl p-3 text-xs text-green-800 space-y-1">
-          <p className="font-semibold">Sikeres mentes!</p>
+      {(state === 'success' || state === 'partial') && result && (
+        <div className={`mt-3 rounded-xl p-3 text-xs space-y-1 border ${
+          state === 'success'
+            ? 'bg-green-50 border-green-200 text-green-800'
+            : 'bg-amber-50 border-amber-200 text-amber-800'
+        }`}>
+          <p className="font-semibold">
+            {state === 'success' ? 'Sikeres mentes!' : 'Reszleges mentes'}
+          </p>
           <p>Idopont: {new Date(result.exportedAt).toLocaleString('hu-HU')}</p>
           <p>Utazasok: {result.tripCount} db</p>
-          <p>Fajl: <code className="bg-green-100 px-1 rounded">{result.path}</code></p>
-          {result.commitSha && (
+          <p>Mentett fajlok: {result.fileCount} db</p>
+          <p>Manifest: <code className="bg-white/50 px-1 rounded">{result.manifestPath}</code></p>
+          {lastCommit?.commitSha && (
             <p>
-              Commit: <code className="bg-green-100 px-1 rounded">{result.commitSha.slice(0, 7)}</code>
-              {result.commitUrl && (
+              Utolso commit: <code className="bg-white/50 px-1 rounded">{lastCommit.commitSha.slice(0, 7)}</code>
+              {lastCommit.commitUrl && (
                 <>
                   {' '}
                   <a
-                    href={result.commitUrl}
+                    href={lastCommit.commitUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-green-700 underline"
+                    className="underline"
                   >
                     Megnyitas
                   </a>
                 </>
               )}
             </p>
+          )}
+          {result.failedFiles?.length > 0 && (
+            <div className="mt-2 pt-2 border-t border-amber-200">
+              <p className="font-semibold">Sikertelen fajlok:</p>
+              {result.failedFiles.map((f, i) => (
+                <p key={i}>
+                  <code className="bg-white/50 px-1 rounded">{f.path}</code> — {f.error}
+                </p>
+              ))}
+            </div>
           )}
         </div>
       )}

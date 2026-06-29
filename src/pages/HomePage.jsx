@@ -4,6 +4,7 @@ import { DbError } from '@/components/DbError';
 import { Badge } from '@/components/ui/badge';
 import { sortTrips } from '@/lib/sortTrips';
 import { BackupButton } from '@/components/BackupButton';
+import { ImportBackup } from '@/components/ImportBackup';
 
 function getTripStatus(trip) {
   const now = new Date();
@@ -107,8 +108,9 @@ export function HomePage() {
           })}
         </div>
 
-        <div className="mt-10 pt-6 border-t border-gray-200">
+        <div className="mt-10 pt-6 border-t border-gray-200 space-y-4">
           <BackupButton />
+          <ImportBackup />
         </div>
       </div>
     </main>

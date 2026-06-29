@@ -1,39 +1,102 @@
 /* global process */
 import { createClient } from '@supabase/supabase-js'
+import { buildBackupFiles } from './_backup-utils.js'
 
-const BACKUP_PATH = 'backups/trips-backup.json'
+const PAGE_SIZE = 500
 
-function ghError(code, message) {
+function err(code, message) {
   return { ok: false, error: { code, message } }
 }
 
 function mapGitHubError(status, body) {
   if (status === 401 || status === 403) {
-    return ghError('GITHUB_AUTH_FAILED', 'A GitHub token ervenytelen vagy nincs jogosultsaga.')
+    return 'A GitHub token ervenytelen vagy nincs jogosultsaga.'
   }
   if (status === 404) {
-    const msg = body?.message || ''
-    if (msg.includes('Not Found')) {
-      return ghError('GITHUB_REPO_NOT_FOUND', 'A GitHub repo vagy branch nem talalhato. Ellenorizd a GITHUB_REPO es GITHUB_BACKUP_BRANCH beallitasokat.')
-    }
-    return ghError('GITHUB_NOT_FOUND', 'A GitHub eroforras nem talalhato.')
+    return 'A GitHub repo vagy branch nem talalhato. Ellenorizd a GITHUB_REPO es GITHUB_BACKUP_BRANCH beallitasokat.'
   }
   if (status === 409) {
-    return ghError('GITHUB_CONFLICT', 'A fajl utkozest okozott. Probald ujra.')
+    return 'A fajl utkozest okozott. Probald ujra.'
   }
   if (status === 422) {
-    return ghError('GITHUB_VALIDATION', 'A GitHub elutasitotta a kerest. Ellenorizd a branch nevet es a fajl utvonalat.')
+    return 'A GitHub elutasitotta a kerest. Ellenorizd a branch nevet es a fajl utvonalat.'
   }
   if (status === 429) {
-    return ghError('GITHUB_RATE_LIMIT', 'Tullepted a GitHub API limitet. Probald ujra kesobb.')
+    return 'Tullepted a GitHub API limitet. Probald ujra kesobb.'
   }
-  return ghError('GITHUB_ERROR', `GitHub API hiba (${status}).`)
+  return `GitHub API hiba (${status}).`
+}
+
+async function fetchAllTrips(supabase) {
+  const rows = []
+  let from = 0
+
+  while (true) {
+    const { data, error } = await supabase
+      .from('trips')
+      .select('*')
+      .order('created_at', { ascending: true })
+      .range(from, from + PAGE_SIZE - 1)
+
+    if (error) {
+      throw new Error(error.message)
+    }
+
+    const page = data || []
+    rows.push(...page)
+
+    if (page.length < PAGE_SIZE) break
+    from += PAGE_SIZE
+  }
+
+  return rows
+}
+
+async function commitFile(path, content, message, { token, repo, branch, headers }) {
+  const apiUrl = `https://api.github.com/repos/${repo}/contents/${path}`
+
+  let existingSha = null
+  const getRes = await fetch(`${apiUrl}?ref=${branch}`, { headers })
+  if (getRes.ok) {
+    const existing = await getRes.json()
+    existingSha = existing.sha
+  } else if (getRes.status !== 404) {
+    const body = await getRes.json().catch(() => ({}))
+    return { ok: false, error: mapGitHubError(getRes.status, body) }
+  }
+
+  const putBody = {
+    message,
+    content: Buffer.from(content).toString('base64'),
+    branch,
+  }
+  if (existingSha) {
+    putBody.sha = existingSha
+  }
+
+  const putRes = await fetch(apiUrl, {
+    method: 'PUT',
+    headers,
+    body: JSON.stringify(putBody),
+  })
+
+  if (!putRes.ok) {
+    const body = await putRes.json().catch(() => ({}))
+    return { ok: false, error: mapGitHubError(putRes.status, body) }
+  }
+
+  const result = await putRes.json()
+  return {
+    ok: true,
+    commitSha: result.commit?.sha || null,
+    commitUrl: result.commit?.html_url || null,
+  }
 }
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json(
-      ghError('METHOD_NOT_ALLOWED', 'Csak POST keres engedelyezett.')
+      err('METHOD_NOT_ALLOWED', 'Csak POST keres engedelyezett.')
     )
   }
 
@@ -45,111 +108,82 @@ export default async function handler(req, res) {
 
   if (!supabaseUrl || !supabaseKey) {
     return res.status(500).json(
-      ghError('MISSING_SUPABASE_ENV', 'A Supabase konfiguracio hianyzik a szerveren.')
+      err('MISSING_SUPABASE_ENV', 'A Supabase konfiguracio hianyzik a szerveren.')
     )
   }
 
   if (!githubToken || !githubRepo) {
     return res.status(500).json(
-      ghError('MISSING_GITHUB_ENV', 'A GitHub konfiguracio hianyzik a szerveren (GITHUB_TOKEN, GITHUB_REPO).')
+      err('MISSING_GITHUB_ENV', 'A GitHub konfiguracio hianyzik a szerveren (GITHUB_TOKEN, GITHUB_REPO).')
     )
   }
 
   try {
     const supabase = createClient(supabaseUrl, supabaseKey)
-
-    const { data, error: fetchError } = await supabase
-      .from('trips')
-      .select('*')
-      .order('created_at', { ascending: true })
-
-    if (fetchError) {
-      console.error('[backup-trips] Supabase fetch error:', fetchError.message)
-      return res.status(502).json(
-        ghError('SUPABASE_FETCH_FAILED', 'Nem sikerult exportalni az utazasokat.')
-      )
-    }
-
+    const rows = await fetchAllTrips(supabase)
     const now = new Date()
-    const backup = {
-      version: 1,
-      application: 'Traveler',
-      schema: 1,
-      exportedAt: now.toISOString(),
-      tripCount: (data || []).length,
-      trips: (data || []).map(row => ({
-        id: row.id,
-        slug: row.slug,
-        trip_data: row.trip_data,
-        owner: row.owner,
-        created_at: row.created_at,
-        updated_at: row.updated_at,
-      })),
-    }
+    const exportedAt = now.toISOString()
+    const dateStr = exportedAt.slice(0, 16).replace('T', ' ')
+    const { files, manifest } = buildBackupFiles(rows, exportedAt)
 
-    const content = JSON.stringify(backup, null, 2)
-    const encoded = Buffer.from(content).toString('base64')
-
-    const apiBase = `https://api.github.com/repos/${githubRepo}/contents/${BACKUP_PATH}`
-    const headers = {
-      Authorization: `Bearer ${githubToken}`,
-      Accept: 'application/vnd.github.v3+json',
-      'Content-Type': 'application/json',
-    }
-
-    let existingSha = null
-    const getRes = await fetch(`${apiBase}?ref=${githubBranch}`, { headers })
-    if (getRes.ok) {
-      const existing = await getRes.json()
-      existingSha = existing.sha
-    } else if (getRes.status !== 404) {
-      const body = await getRes.json().catch(() => ({}))
-      console.error('[backup-trips] GitHub GET error:', getRes.status, body)
-      return res.status(getRes.status >= 500 ? 502 : getRes.status).json(
-        mapGitHubError(getRes.status, body)
-      )
-    }
-
-    const dateStr = now.toISOString().slice(0, 16).replace('T', ' ')
-    const putBody = {
-      message: `backup: export trips ${dateStr}`,
-      content: encoded,
+    const gh = {
+      token: githubToken,
+      repo: githubRepo,
       branch: githubBranch,
-    }
-    if (existingSha) {
-      putBody.sha = existingSha
+      headers: {
+        Authorization: `Bearer ${githubToken}`,
+        Accept: 'application/vnd.github.v3+json',
+        'Content-Type': 'application/json',
+      },
     }
 
-    const putRes = await fetch(apiBase, {
-      method: 'PUT',
-      headers,
-      body: JSON.stringify(putBody),
-    })
+    const commits = []
+    const failedFiles = []
 
-    if (!putRes.ok) {
-      const body = await putRes.json().catch(() => ({}))
-      console.error('[backup-trips] GitHub PUT error:', putRes.status, body)
-      return res.status(putRes.status >= 500 ? 502 : putRes.status).json(
-        mapGitHubError(putRes.status, body)
+    for (const file of files) {
+      const result = await commitFile(
+        file.path,
+        file.content,
+        `backup: export trip ${file.slug} ${dateStr}`,
+        gh
       )
+      if (result.ok) {
+        commits.push({ path: file.path, slug: file.slug, commitSha: result.commitSha, commitUrl: result.commitUrl })
+      } else {
+        console.error(`[backup-trips] Failed to commit ${file.path}:`, result.error)
+        failedFiles.push({ path: file.path, slug: file.slug, error: result.error })
+      }
     }
 
-    const result = await putRes.json()
-    const commitSha = result.commit?.sha || null
-    const commitUrl = result.commit?.html_url || null
+    const manifestResult = await commitFile(
+      manifest.path,
+      manifest.content,
+      `backup: update trips manifest ${dateStr}`,
+      gh
+    )
 
-    return res.status(200).json({
-      ok: true,
-      exportedAt: backup.exportedAt,
-      tripCount: backup.tripCount,
-      path: BACKUP_PATH,
-      commitSha,
-      commitUrl,
+    if (manifestResult.ok) {
+      commits.push({ path: manifest.path, commitSha: manifestResult.commitSha, commitUrl: manifestResult.commitUrl })
+    } else {
+      console.error('[backup-trips] Failed to commit manifest:', manifestResult.error)
+      failedFiles.push({ path: manifest.path, error: manifestResult.error })
+    }
+
+    const allOk = failedFiles.length === 0
+
+    return res.status(allOk ? 200 : 207).json({
+      ok: allOk,
+      exportedAt,
+      tripCount: rows.length,
+      fileCount: commits.length,
+      manifestPath: manifest.path,
+      commits,
+      failedFiles,
     })
-  } catch (err) {
-    console.error('[backup-trips] Unexpected error:', err.message)
-    return res.status(500).json(
-      ghError('INTERNAL_ERROR', 'Varatlan szerverhiba tortent.')
+  } catch (error) {
+    console.error('[backup-trips] Error:', error.message)
+    return res.status(502).json(
+      err('BACKUP_FAILED', 'Nem sikerult az exportalas. ' + (error.message || ''))
     )
   }
 }
