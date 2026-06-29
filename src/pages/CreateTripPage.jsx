@@ -216,7 +216,7 @@ export function CreateTripPage() {
 
       const data = await res.json()
 
-      if (res.status === 429) {
+      if (res.status === 429 || data.retryable) {
         setAiError(data.error)
         setIs429(true)
         return

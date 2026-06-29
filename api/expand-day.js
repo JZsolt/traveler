@@ -85,27 +85,37 @@ Reszletezd ki ezt a napot!`
       config: {
         systemInstruction: SYSTEM_PROMPT,
         temperature: 0.7,
-        maxOutputTokens: 6000,
+        maxOutputTokens: 10000,
         responseMimeType: 'application/json',
       },
       contents: [{ role: 'user', parts: [{ text: userPrompt }] }],
     })
 
     const raw = response.text || ''
-    console.log('[expand-day] Raw response length:', raw.length)
+    console.log('[expand-day] Raw response length:', raw.length, 'finishReason:', response.candidates?.[0]?.finishReason)
 
     if (!raw) {
       return res.status(502).json({ error: 'Ures valasz a Gemini-tol.' })
     }
 
-    const jsonStr = extractJson(raw)
-
     let parsed
     try {
-      parsed = JSON.parse(jsonStr)
-    } catch (parseErr) {
-      console.log('[expand-day] JSON parse error:', parseErr.message, 'raw:', jsonStr.slice(0, 300))
-      return res.status(502).json({ error: 'Nem sikerult ertelmezni a valaszt.', raw: jsonStr.slice(0, 500) })
+      parsed = JSON.parse(raw)
+    } catch {
+      const jsonStr = extractJson(raw)
+      try {
+        parsed = JSON.parse(jsonStr)
+      } catch (parseErr) {
+        const truncated = response.candidates?.[0]?.finishReason === 'MAX_TOKENS'
+        console.log('[expand-day] JSON parse error:', parseErr.message, 'truncated:', truncated)
+        return res.status(502).json({
+          error: truncated
+            ? 'A valasz tullepte a token limitet. Probald ujra.'
+            : 'Nem sikerult ertelmezni a valaszt.',
+          raw: raw.slice(0, 500),
+          retryable: true,
+        })
+      }
     }
 
     if (!parsed.schedule || !Array.isArray(parsed.schedule)) {

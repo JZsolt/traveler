@@ -1,9 +1,9 @@
 import { GoogleGenAI } from '@google/genai'
 
 const DETAIL_LEVELS = {
-  quick: { maxItems: 3, maxTokens: 4000, label: 'gyors' },
-  normal: { maxItems: 4, maxTokens: 6000, label: 'normal' },
-  detailed: { maxItems: 6, maxTokens: 8000, label: 'reszletes' },
+  quick: { maxItems: 3, maxTokens: 8000, label: 'gyors' },
+  normal: { maxItems: 4, maxTokens: 12000, label: 'normal' },
+  detailed: { maxItems: 6, maxTokens: 16000, label: 'reszletes' },
 }
 
 function buildPrompt(detailLevel) {
@@ -125,20 +125,30 @@ export default async function handler(req, res) {
     })
 
     const raw = response.text || ''
-    console.log('[plan-trip] Raw response length:', raw.length, 'first 200:', raw.slice(0, 200))
+    console.log('[plan-trip] Raw response length:', raw.length, 'finishReason:', response.candidates?.[0]?.finishReason)
 
     if (!raw) {
       return res.status(502).json({ error: 'Ures valasz a Gemini-tol.' })
     }
 
-    const jsonStr = extractJson(raw)
-
     let parsed
     try {
-      parsed = JSON.parse(jsonStr)
-    } catch (parseErr) {
-      console.log('[plan-trip] JSON parse error:', parseErr.message, 'raw:', jsonStr.slice(0, 300))
-      return res.status(502).json({ error: 'A Gemini nem adott valid JSON-t.', raw: jsonStr.slice(0, 500) })
+      parsed = JSON.parse(raw)
+    } catch {
+      const jsonStr = extractJson(raw)
+      try {
+        parsed = JSON.parse(jsonStr)
+      } catch (parseErr) {
+        const truncated = response.candidates?.[0]?.finishReason === 'MAX_TOKENS'
+        console.log('[plan-trip] JSON parse error:', parseErr.message, 'truncated:', truncated, 'raw tail:', raw.slice(-100))
+        return res.status(502).json({
+          error: truncated
+            ? 'A valasz tullepo a token limitet es csonka maradt. Probald Gyors modban.'
+            : 'A Gemini nem adott valid JSON-t.',
+          raw: raw.slice(0, 500),
+          retryable: true,
+        })
+      }
     }
 
     const { valid, errors } = validateDraft(parsed)
