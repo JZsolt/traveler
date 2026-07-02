@@ -1,9 +1,11 @@
-import { useState } from 'react'
-import { useParams, Navigate, Link, useNavigate } from 'react-router-dom'
-import { SquarePen, Trash2, Download, Wand2 } from 'lucide-react'
+import { useState, useRef } from 'react'
+import { useParams, Navigate, useNavigate } from 'react-router-dom'
+import { SquarePen, Trash2, Download, Wand2, Plus } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
 import { useTrips } from '@/context/TripsContext'
 import { friendlyError } from '@/lib/friendlyError'
+import { addDay } from '@/lib/tripSections'
+import { useTripUpdater } from '@/hooks/useTripUpdater'
 import { DbError } from '@/components/DbError'
 import { DaySection } from '@/components/DaySection'
 import { BookingChecklist } from '@/components/trip/BookingChecklist'
@@ -23,13 +25,16 @@ export function TripPage() {
   const { slug } = useParams()
   const navigate = useNavigate()
   const { trips, loading, error, refetch } = useTrips()
+  const trip = !loading && !error ? trips.find(t => t.slug === slug) : null
   const [showDeleteModal, setShowDeleteModal] = useState(false)
   const [deleting, setDeleting] = useState(false)
   const [deleteError, setDeleteError] = useState(null)
   const [expandingDay, setExpandingDay] = useState(null)
+  const heroRef = useRef(null)
   const [expandError, setExpandError] = useState(null)
   const [expandPrompts, setExpandPrompts] = useState({})
   const [expandModels, setExpandModels] = useState({})
+  const { saveTrip: saveTripDays, saving: savingDays } = useTripUpdater({ trip, slug, refetch })
 
   if (loading) return (
     <main className="pt-14" style={{ paddingTop: 'calc(3.5rem + env(safe-area-inset-top, 0px))' }}>
@@ -45,8 +50,6 @@ export function TripPage() {
       <DbError error={error} />
     </main>
   )
-
-  const trip = trips.find(t => t.slug === slug)
 
   if (!trip) return <Navigate to="/" replace />
 
@@ -125,12 +128,13 @@ export function TripPage() {
     <main className="pb-16" style={{ paddingTop: 'calc(3.5rem + env(safe-area-inset-top, 0px))' }}>
       <div className="relative">
         <div className="absolute top-3 right-3 z-10 flex gap-2">
-          <Link
-            to={`/trip/${slug}/edit`}
-            className="bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white p-2 rounded-full transition-all no-underline"
+          <button
+            onClick={() => heroRef.current?.edit()}
+            aria-label="Utazás szerkesztése"
+            className="bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white p-2 rounded-full transition-all"
           >
             <SquarePen className="w-4 h-4" />
-          </Link>
+          </button>
           <button
             onClick={() => {
               const json = JSON.stringify(trip, null, 2)
@@ -142,18 +146,20 @@ export function TripPage() {
               a.click()
               URL.revokeObjectURL(url)
             }}
+            aria-label="JSON exportálás"
             className="bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white p-2 rounded-full transition-all"
           >
             <Download className="w-4 h-4" />
           </button>
           <button
             onClick={() => setShowDeleteModal(true)}
+            aria-label="Utazás törlése"
             className="bg-white/20 hover:bg-red-500/80 backdrop-blur-sm text-white p-2 rounded-full transition-all"
           >
             <Trash2 className="w-4 h-4" />
           </button>
         </div>
-        <TripHero trip={trip} />
+        <TripHero trip={trip} slug={slug} refetch={refetch} editRef={heroRef} />
       </div>
 
       {showDeleteModal && (
@@ -207,7 +213,7 @@ export function TripPage() {
         </div>
       )}
 
-      <TripOverview trip={trip} />
+      <TripOverview trip={trip} slug={slug} refetch={refetch} />
 
       {expandError && (
         <div className="max-w-3xl mx-auto px-4 md:px-10 mt-4">
@@ -218,9 +224,9 @@ export function TripPage() {
       )}
 
       <div>
-        {(trip.days || []).map(day => (
+        {(trip.days || []).map((day, idx) => (
           <div key={day.dayNum}>
-            <DaySection day={day} />
+            <DaySection day={day} trip={trip} slug={slug} refetch={refetch} isFirst={idx === 0} isLast={idx === (trip.days || []).length - 1} />
             {isDraft && day._draft && !expandedDays.includes(day.dayNum) && (
               <div className="max-w-3xl mx-auto px-4 md:px-10 py-3 -mt-1">
                 <div className="rounded-2xl border border-slate-200 bg-white p-3 shadow-sm space-y-3">
@@ -274,14 +280,24 @@ export function TripPage() {
             )}
           </div>
         ))}
+        <div className="flex justify-center py-3">
+          <button
+            onClick={() => saveTripDays(t => addDay(t))}
+            disabled={savingDays}
+            className="inline-flex items-center gap-1.5 text-xs text-slate-400 hover:text-[#0f3460] hover:bg-slate-100 px-3 py-1.5 rounded-full transition-colors disabled:opacity-50"
+          >
+            <Plus className="w-3.5 h-3.5" />
+            Új nap
+          </button>
+        </div>
       </div>
 
       <div className="max-w-3xl mx-auto px-4 md:px-10 py-6 space-y-6">
-        <SavingTips tips={trip.savingTips || []} label={trip.savingTipsLabel} />
-        <PracticalInfo sections={trip.practicalInfo || []} />
-        <BookingChecklist items={trip.bookingChecklist || []} />
-        <UsefulLinks links={trip.usefulLinks || []} />
-        <PackingList items={trip.packingList || []} />
+        <SavingTips tips={trip.savingTips || []} label={trip.savingTipsLabel} trip={trip} slug={slug} refetch={refetch} />
+        <PracticalInfo sections={trip.practicalInfo || []} trip={trip} slug={slug} refetch={refetch} />
+        <BookingChecklist items={trip.bookingChecklist || []} trip={trip} slug={slug} refetch={refetch} />
+        <UsefulLinks links={trip.usefulLinks || []} trip={trip} slug={slug} refetch={refetch} />
+        <PackingList items={trip.packingList || []} trip={trip} slug={slug} refetch={refetch} />
 
         <p className="text-center text-[10px] text-gray-400 pt-6">
           Jó utat és sok szép élményt! 🧳✨ {trip.emoji}

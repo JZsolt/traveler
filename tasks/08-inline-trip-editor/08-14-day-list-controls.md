@@ -1,4 +1,4 @@
-# 08-14 — Day Add/Delete/Reorder Controls
+# 08-14 — Day Add/Delete/Reorder Controls ✅ DONE
 
 Read only:
 

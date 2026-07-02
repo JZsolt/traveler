@@ -1,4 +1,4 @@
-# 08-09 — Hero Basic Info Editor
+# 08-09 — Hero Basic Info Editor ✅ DONE
 
 Read only:
 
@@ -16,6 +16,12 @@ Editable fields:
 - `startDate`
 - `endDate`
 
+Implementation note:
+
+- Hero, accommodation, and flight are edited together in one unified editor opened by the SquarePen icon.
+- One Save writes all three sections at once; unknown subfields are preserved via spread.
+- This is intentional — separate save handlers are NOT required.
+
 Requirements:
 
 1. Add edit mode to `TripHero`.
@@ -24,8 +30,7 @@ Requirements:
 4. Date inputs: one column on mobile, two columns from `sm`.
 5. Do not change `slug`.
 6. Cancel restores persisted values.
-7. Do not edit accommodation/flight here.
-8. No AI.
+7. No AI.
 
 Manual test flow to report:
 

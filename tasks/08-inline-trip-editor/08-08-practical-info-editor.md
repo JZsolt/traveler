@@ -1,4 +1,4 @@
-# 08-08 — Practical Info Editor
+# 08-08 — Practical Info Editor ✅ DONE
 
 Read only:
 

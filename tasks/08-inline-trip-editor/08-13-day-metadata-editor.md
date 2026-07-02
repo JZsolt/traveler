@@ -1,4 +1,4 @@
-# 08-13 — Day Metadata Editor
+# 08-13 — Day Metadata Editor ✅ DONE
 
 Read only:
 

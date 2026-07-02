@@ -1,4 +1,4 @@
-# 08-24 — Polish, Validation And Docs
+# 08-24 — Polish, Validation And Docs ✅ DONE
 
 Read only:
 

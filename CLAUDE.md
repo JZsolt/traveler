@@ -64,18 +64,38 @@ pnpm run validate:trips  # trip JSON validáció
 
 ```
 src/
-  lib/supabase.js      # Supabase kliens (VITE_ env-ekből)
-  context/TripsContext.jsx  # Trip adat provider — Supabase-ből tölt
-  data/trips/_template.json # Trip sablon (generáláshoz)
-  components/          # UI komponensek (DaySection, ScheduleItem, GuideInfo, stb.)
-  components/DbError.jsx   # DB hiba megjelenítés debug checklist-tel
+  lib/supabase.js        # Supabase kliens (VITE_ env-ekből)
+  lib/tripSections.js    # Immutable trip data transform helperek
+  hooks/useTripUpdater.js # Supabase save hook (saveTrip, saving, error)
+  context/TripsContext.jsx   # Trip adat provider — Supabase-ből tölt
+  data/trips/_template.json  # Trip sablon (generáláshoz)
+  components/
+    editor/EditableSection.jsx  # Szekció edit shell (view/edit mód, dirty-state, AI gomb)
+    editor/AiSuggestionPanel.jsx # Újrahasználható AI javaslat panel (instruction, preview, apply/discard)
+    DaySection.jsx       # Nap megjelenítés + inline editor (meta, advanced, schedule)
+    ScheduleItem.jsx     # Program megjelenítés + inline editor (basic + details + AI guide)
+    GuideInfo.jsx        # Guide collapsible megjelenítés
+    DbError.jsx          # DB hiba megjelenítés debug checklist-tel
+    trip/                # Szekció komponensek (PackingList, UsefulLinks, SavingTips, stb.)
   pages/
-    HomePage.jsx       # Főoldal — trip kártyák listája (Supabase-ből)
-    TripPage.jsx       # Trip részletek oldal (/trip/:slug)
-api/                   # Vercel Serverless Functions (szerver oldali)
-supabase/migrations/   # SQL migrációk
-scripts/               # Seed + validáció scriptek
+    HomePage.jsx         # Főoldal — trip kártyák listája (Supabase-ből)
+    TripPage.jsx         # Trip részletek oldal (/trip/:slug)
+api/
+  suggest-trip-section.js  # AI szekció javaslat endpoint (Gemini)
+  plan-trip.js           # Trip tervezés AI endpoint
+  expand-day.js          # Nap részletezés AI endpoint
+supabase/migrations/     # SQL migrációk
+scripts/                 # Seed + validáció scriptek
 ```
+
+## Inline szerkesztés architektúra
+
+- **`useTripUpdater`** hook: `saveTrip(updater)` — updater fv megkapja a trip-et, visszaadja a módosítottat, Supabase-be menti
+- **`EditableSection`** shell: view/edit mód, SquarePen ikon, Mentés/Mégse, dirty-state figyelmeztetés, opcionális AI gomb
+- **`tripSections.js`** helperek: `replaceTripSection`, `updateTripDay`, `addDay`, `deleteDay`, `moveDayUp/Down`, `addScheduleItem`, `deleteScheduleItem`, `moveScheduleItem`, `updateScheduleItem`
+- AI javaslat flow: `AiSuggestionPanel` → fetch `/api/suggest-trip-section` → preview → apply (draft-ba, NEM auto-save!) → user kézi Mentés
+- AI hibák mindig UI-ban jelennek meg magyar szöveggel (429, token limit, invalid JSON, szerver hiba)
+- AI soha nem ment automatikusan — a user mindig kézzel menti
 
 ## Adatfolyam
 

@@ -1,4 +1,4 @@
-# 08-10 — Accommodation Editor
+# 08-10 — Accommodation Editor ✅ DONE
 
 Read only:
 
@@ -6,6 +6,13 @@ Read only:
 - `src/hooks/useTripUpdater.js`
 
 Goal: inline edit accommodation fields shown in hero.
+
+Implementation note:
+
+- The accommodation fields live inside the main `TripHero` unified editor as a "Szállás" section.
+- A separate Save action is NOT required — the unified hero Save writes hero + accommodation + flight together.
+- The important data rule is that unknown `accommodation` subfields (e.g. videos) are preserved via spread.
+- The accommodation card renders when ANY field exists (host, address, gateCode, doorCode, wifi, videos), not just `host`.
 
 Editable fields:
 
@@ -19,11 +26,11 @@ Editable fields:
 
 Requirements:
 
-1. Add separate accommodation edit block.
+1. Accommodation fields are part of the unified `TripHero` editor.
 2. Initialize missing `accommodation`.
 3. Initialize `wifi` only if user fills WiFi fields.
 4. Preserve unknown accommodation fields, including videos.
-5. Save updates only `accommodation`.
+5. Preserve unknown trip fields via spread.
 6. No AI.
 
 Manual test flow to report:

@@ -1,24 +1,276 @@
-export function PracticalInfo({ sections }) {
-  if (!sections) return null
+import { useState } from 'react'
+import { EditableSection } from '@/components/editor/EditableSection'
+import { AiSuggestionPanel } from '@/components/editor/AiSuggestionPanel'
+import { useTripUpdater } from '@/hooks/useTripUpdater'
+import { replaceTripSection } from '@/lib/tripSections'
+import { Button } from '@/components/ui/button'
+
+function ItemsEditor({ items, onChange }) {
+  const [newItem, setNewItem] = useState('')
+
+  function addItem() {
+    const text = newItem.trim()
+    if (!text) return
+    onChange([...items, text])
+    setNewItem('')
+  }
+
+  function removeItem(index) {
+    onChange(items.filter((_, i) => i !== index))
+  }
+
+  function updateItem(index, value) {
+    const updated = [...items]
+    updated[index] = value
+    onChange(updated)
+  }
+
+  function moveUp(index) {
+    if (index === 0) return
+    const updated = [...items]
+    ;[updated[index - 1], updated[index]] = [updated[index], updated[index - 1]]
+    onChange(updated)
+  }
+
+  function moveDown(index) {
+    if (index >= items.length - 1) return
+    const updated = [...items]
+    ;[updated[index], updated[index + 1]] = [updated[index + 1], updated[index]]
+    onChange(updated)
+  }
 
   return (
-    <div>
-      <h2 className="text-base md:text-lg font-bold border-b-2 border-[#e94560] pb-1 mb-3">ℹ️ Praktikus infók</h2>
-      <div className="space-y-3">
-        {sections.map((section, i) => (
-          <details key={i} className="group">
-            <summary className="flex items-center justify-between cursor-pointer bg-slate-100 hover:bg-slate-200 transition-colors px-3 py-2.5 rounded-lg text-[13px] md:text-[14px] font-medium text-slate-700 list-none">
-              <span>{section.title}</span>
-              <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
-            </summary>
-            <ul className="mt-1.5 space-y-1 pl-3">
-              {section.items.map((item, j) => (
-                <li key={j} className="text-[12px] md:text-[13px] text-slate-600 leading-[1.65] list-disc marker:text-slate-300 ml-2">{item}</li>
-              ))}
-            </ul>
-          </details>
-        ))}
+    <div className="space-y-1.5 pl-2">
+      {items.map((item, i) => (
+        <div key={i} className="flex items-center gap-1">
+          <input
+            type="text"
+            value={item}
+            onChange={e => updateItem(i, e.target.value)}
+            className="flex-1 min-w-0 border border-gray-200 rounded-lg px-2 py-1 text-sm"
+          />
+          <Button variant="ghost" size="icon-xs" onClick={() => moveUp(i)} disabled={i === 0} aria-label="Fel">
+            <span className="text-[10px]">▲</span>
+          </Button>
+          <Button variant="ghost" size="icon-xs" onClick={() => moveDown(i)} disabled={i >= items.length - 1} aria-label="Le">
+            <span className="text-[10px]">▼</span>
+          </Button>
+          <Button variant="ghost" size="icon-xs" onClick={() => removeItem(i)} className="text-red-400 hover:text-red-600" aria-label="Törlés">
+            <span className="text-[10px]">✕</span>
+          </Button>
+        </div>
+      ))}
+      <div className="flex items-center gap-1">
+        <input
+          type="text"
+          value={newItem}
+          onChange={e => setNewItem(e.target.value)}
+          onKeyDown={e => e.key === 'Enter' && addItem()}
+          placeholder="Új elem..."
+          className="flex-1 min-w-0 border border-gray-200 rounded-lg px-2 py-1 text-sm"
+        />
+        <Button variant="outline" size="xs" onClick={addItem}>
+          +
+        </Button>
       </div>
     </div>
+  )
+}
+
+let nextId = 1
+
+function withId(section) {
+  return section._eid ? section : { ...section, _eid: nextId++ }
+}
+
+function stripIds(sections) {
+  return sections.map(section => {
+    const clean = { ...section }
+    delete clean._eid
+    return clean
+  })
+}
+
+function PracticalInfoEditor({ sections, onChange, validationError }) {
+  function updateSection(index, field, value) {
+    const updated = [...sections]
+    updated[index] = { ...updated[index], [field]: value }
+    onChange(updated)
+  }
+
+  function updateSectionItems(index, items) {
+    const updated = [...sections]
+    updated[index] = { ...updated[index], items }
+    onChange(updated)
+  }
+
+  function addSection() {
+    onChange([...sections, withId({ title: '', items: [] })])
+  }
+
+  function removeSection(index) {
+    onChange(sections.filter((_, i) => i !== index))
+  }
+
+  function moveUp(index) {
+    if (index === 0) return
+    const updated = [...sections]
+    ;[updated[index - 1], updated[index]] = [updated[index], updated[index - 1]]
+    onChange(updated)
+  }
+
+  function moveDown(index) {
+    if (index >= sections.length - 1) return
+    const updated = [...sections]
+    ;[updated[index], updated[index + 1]] = [updated[index + 1], updated[index]]
+    onChange(updated)
+  }
+
+  return (
+    <div className="space-y-3">
+      {sections.map((section, i) => (
+        <div key={section._eid ?? i} className="border border-gray-200 rounded-xl p-2.5 space-y-2">
+          <div className="flex items-center gap-1.5">
+            <input
+              type="text"
+              value={section.title}
+              onChange={e => updateSection(i, 'title', e.target.value)}
+              placeholder="Szekció cím *"
+              className="flex-1 min-w-0 border border-gray-200 rounded-lg px-2 py-1.5 text-base font-medium"
+            />
+            <Button variant="ghost" size="icon-xs" onClick={() => moveUp(i)} disabled={i === 0} aria-label="Fel">
+              <span className="text-[10px]">▲</span>
+            </Button>
+            <Button variant="ghost" size="icon-xs" onClick={() => moveDown(i)} disabled={i >= sections.length - 1} aria-label="Le">
+              <span className="text-[10px]">▼</span>
+            </Button>
+            <Button variant="ghost" size="icon-xs" onClick={() => removeSection(i)} className="text-red-400 hover:text-red-600" aria-label="Törlés">
+              <span className="text-[10px]">✕</span>
+            </Button>
+          </div>
+          <ItemsEditor
+            items={section.items || []}
+            onChange={items => updateSectionItems(i, items)}
+          />
+        </div>
+      ))}
+      {validationError && (
+        <p className="text-xs text-red-600">{validationError}</p>
+      )}
+      <Button variant="outline" size="sm" onClick={addSection}>
+        + Új szekció
+      </Button>
+    </div>
+  )
+}
+
+export function PracticalInfo({ sections, trip, slug, refetch }) {
+  const [draft, setDraft] = useState(null)
+  const [showAi, setShowAi] = useState(false)
+  const [validationError, setValidationError] = useState(null)
+  const { saveTrip, saving, error } = useTripUpdater({ trip, slug, refetch })
+
+  const displaySections = sections || []
+
+  function handleCancel() {
+    setDraft(null)
+    setShowAi(false)
+    setValidationError(null)
+  }
+
+  async function handleSave() {
+    const nextSections = draft ?? startEditing(displaySections)
+    const emptyTitle = nextSections.find(s => !s.title?.trim())
+    if (emptyTitle) {
+      setValidationError('Minden szekciónak kell cím.')
+      return { ok: false }
+    }
+    setValidationError(null)
+    const result = await saveTrip(t => replaceTripSection(t, 'practicalInfo', stripIds(nextSections)))
+    if (result.ok) { setDraft(null); setShowAi(false) }
+    return result
+  }
+
+  function startEditing(sections) {
+    return sections.map(withId)
+  }
+
+  function handleApply(suggestion) {
+    const current = draft ?? startEditing(displaySections)
+    const existingTitles = new Set(current.map(s => s.title.toLowerCase().trim()))
+    const newSections = suggestion
+      .filter(s => !existingTitles.has(s.title.toLowerCase().trim()))
+      .map(s => withId({
+        title: s.title,
+        items: (s.items || []).map(i => `${i.label}: ${i.value}`),
+      }))
+    setDraft([...current, ...newSections])
+  }
+
+  const editSections = draft ?? startEditing(displaySections)
+
+  const editor = (
+    <>
+      <PracticalInfoEditor
+        sections={editSections}
+        onChange={setDraft}
+        validationError={validationError}
+      />
+      {showAi && (
+        <AiSuggestionPanel
+          section="practicalInfo"
+          trip={trip}
+          onApply={handleApply}
+          renderPreview={items => (
+            <div className="space-y-1.5">
+              {items.map((s, i) => (
+                <div key={i}>
+                  <p className="text-xs font-medium text-slate-700"><span className="text-purple-400">+</span> {s.title}</p>
+                  <ul className="ml-4 space-y-0">
+                    {(s.items || []).map((item, j) => (
+                      <li key={j} className="text-[11px] text-slate-500">{item.label}: {item.value}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          )}
+        />
+      )}
+    </>
+  )
+
+  return (
+    <EditableSection
+      title="ℹ️ Praktikus infók"
+      editor={editor}
+      onSave={handleSave}
+      onCancel={handleCancel}
+      saving={saving}
+      error={error}
+      isDirty={draft !== null}
+      canUseAi
+      onAi={() => setShowAi(s => !s)}
+    >
+      {displaySections.length === 0 ? (
+        <p className="text-xs text-gray-400">Nincs info.</p>
+      ) : (
+        <div className="space-y-3">
+          {displaySections.map((section, i) => (
+            <details key={i} className="group">
+              <summary className="flex items-center justify-between cursor-pointer bg-slate-100 hover:bg-slate-200 transition-colors px-3 py-2.5 rounded-lg text-[13px] md:text-[14px] font-medium text-slate-700 list-none">
+                <span>{section.title}</span>
+                <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+              </summary>
+              <ul className="mt-1.5 space-y-1 pl-3">
+                {(section.items || []).map((item, j) => (
+                  <li key={j} className="text-[12px] md:text-[13px] text-slate-600 leading-[1.65] list-disc marker:text-slate-300 ml-2">{item}</li>
+                ))}
+              </ul>
+            </details>
+          ))}
+        </div>
+      )}
+    </EditableSection>
   )
 }

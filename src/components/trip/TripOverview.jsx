@@ -21,7 +21,7 @@ function UrgentBookings({ bookings }) {
   )
 }
 
-export function TripOverview({ trip }) {
+export function TripOverview({ trip, slug, refetch }) {
   return (
     <div className="max-w-3xl mx-auto px-4 md:px-10 py-6">
       <h2 className="text-base md:text-lg font-bold border-b-2 border-[#e94560] pb-1 mb-3">Útvonal áttekintés</h2>
@@ -48,7 +48,7 @@ export function TripOverview({ trip }) {
         </table>
       </div>
 
-      <BudgetSummary budget={trip.budget} />
+      <BudgetSummary budget={trip.budget} trip={trip} slug={slug} refetch={refetch} />
       <UrgentBookings bookings={trip.urgentBookings} />
       <InsuranceLink insurance={trip.insurance} />
     </div>

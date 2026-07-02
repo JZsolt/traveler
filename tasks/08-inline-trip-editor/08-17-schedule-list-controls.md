@@ -1,4 +1,4 @@
-# 08-17 — Schedule Add/Delete/Reorder
+# 08-17 — Schedule Add/Delete/Reorder ✅ DONE
 
 Read only:
 
