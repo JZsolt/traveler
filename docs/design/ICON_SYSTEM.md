@@ -5,10 +5,12 @@
 Use Lucide icons only.
 
 Do not use:
-- emoji as UI icons
+- emoji as interactive UI icons (buttons, navigation)
 - mixed icon packs
 - filled icons mixed with outline icons
 - random SVGs unless they are part of branding
+
+Emoji is acceptable as decorative content (section titles, trip flags).
 
 ## Default icon sizes
 
@@ -53,7 +55,7 @@ Travel blocks:
 - ListChecks
 
 Editing:
-- Pencil
+- SquarePen (edit trigger)
 - Save
 - X
 - Plus

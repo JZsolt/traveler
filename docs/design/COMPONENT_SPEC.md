@@ -2,141 +2,74 @@
 
 ## Folder
 
-Create reusable UI primitives in:
+Reusable UI primitives live in `src/components/ui/`.
 
-src/components/ui/
+Editor components live in `src/components/editor/`.
 
-## Core primitives
+## Status legend
 
-### Page
+- **Exists** — implemented and in use
+- **Planned** — not yet implemented
 
-Purpose:
-- consistent mobile page wrapper
-- safe area
-- max width
-- background
+## Existing primitives
 
-Props:
-- children
-- className
+### Button — Exists
 
-### PageHeader
+Source: shadcn/ui (`src/components/ui/button.jsx`)
 
-Purpose:
-- top navigation area
-- back button, title, more/actions
+Variants: default, outline, secondary, ghost, destructive, link
 
-Use:
-- every main page
+Sizes: default, xs, sm, lg, icon, icon-xs, icon-sm, icon-lg
 
-### HeroTitle
+### Badge — Exists
 
-Purpose:
-- big trip/page title
-- metadata
-- optional flag/emoji as content, not icon system
+Source: shadcn/ui (`src/components/ui/badge.jsx`)
 
-### Section
+### Card — Exists
 
-Purpose:
-- vertical page section
+Source: shadcn/ui (`src/components/ui/card.jsx`)
 
-Props:
-- label
-- title
-- action
-- children
+### EditableSection — Exists
 
-### Timeline
+Source: `src/components/editor/EditableSection.jsx`
 
-Purpose:
-- display day schedule
+Purpose: Section edit shell with view/edit mode, dirty-state confirmation, optional AI button.
 
-Subcomponents:
-- Timeline
-- TimelineItem
+States: view, edit, saving, error, dirty-cancel-confirm
 
-TimelineItem props:
-- time
-- title
-- description
-- badges
-- highlight
-- actions
+### AiSuggestionPanel — Exists
 
-### Row
+Source: `src/components/editor/AiSuggestionPanel.jsx`
 
-Purpose:
-- simple clickable row for settings/trip blocks
+Purpose: Shared AI suggestion panel (instruction → fetch → preview → apply/discard).
 
-Props:
-- icon
-- title
-- subtitle
-- action
-- onClick
+Props: section, trip, onApply, renderPreview, applyLabel, extraBody
 
-### Card
+## Planned primitives
 
-Purpose:
-- grouped interactive content only
+### Page — Planned
 
-Do not use Card for every element.
+Purpose: consistent mobile page wrapper (safe area, max width, background).
 
-### Button
+### PageHeader — Planned
 
-Variants:
-- primary
-- secondary
-- ghost
-- danger
-- ai
+Purpose: top navigation area (back button, title, actions).
 
-Sizes:
-- sm
-- md
-- lg
+### HeroTitle — Planned
 
-### Badge
+Purpose: big trip/page title with metadata.
 
-Variants:
-- neutral
-- primary
-- warning
-- success
-- danger
-- ai
+### Section — Planned
 
-### EditableField
+Purpose: vertical page section with label, title, action, children.
 
-Purpose:
-- manual editing of one field
+### Timeline — Planned
 
-States:
-- view
-- edit
-- saving
-- error
+Purpose: display day schedule as a timeline (currently done inline in DaySection/ScheduleItem).
 
-### EditableBlock
+### Row — Planned
 
-Purpose:
-- edit larger JSON block
-
-Supports:
-- manual edit
-- AI assist
-- undo
-
-### AIAssistButton
-
-Purpose:
-- subtle AI edit entry point
-
-Label:
-- "AI segítség"
-- "AI módosítás"
-- not just "✨"
+Purpose: simple clickable row for settings/trip blocks.
 
 ## Component rules
 

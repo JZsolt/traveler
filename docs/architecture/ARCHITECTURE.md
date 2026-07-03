@@ -131,30 +131,51 @@ API keys must never be exposed to the frontend.
 
 ---
 
-# Suggested Folder Structure
+# Folder Structure
+
+## Current
 
 ```txt
 src/
   components/
-    ui/
-    trip/
-    planner/
-    day/
-    blocks/
-    admin/
+    ui/              # shadcn/ui primitives (Button, Badge, Card)
+    editor/          # EditableSection, AiSuggestionPanel
+    trip/            # Section components (PackingList, TripHero, BudgetSummary, etc.)
+    DaySection.jsx   # Day display + inline editor
+    ScheduleItem.jsx # Schedule item display + inline editor
+    GuideInfo.jsx    # Guide collapsible display
+    DbError.jsx      # DB error display
 
   pages/
+    HomePage.jsx
+    TripPage.jsx
 
   context/
+    TripsContext.jsx  # Trip data provider (Supabase)
 
   hooks/
+    useTripUpdater.js # Supabase save hook
 
   lib/
-    supabase/
-    ai/
-    trip/
-    validation/
-    utils/
+    supabase.js       # Supabase client
+    tripSections.js   # Immutable trip data transform helpers
+
+api/                  # Vercel serverless functions
+  suggest-trip-section.js
+  expand-day.js
+  plan-trip.js
+  backup-trips.js
+```
+
+## Future (when needed)
+
+```txt
+src/
+  components/
+    planner/         # Trip creation wizard
+    admin/           # Admin/settings components
+  lib/
+    validation/      # Shared validators
 ```
 
 # Development Principles

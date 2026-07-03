@@ -45,51 +45,11 @@ Users should always know where they are.
 
 ---
 
-# Trip First
+# Trip First, AI Second
 
-Trips are the center of the application.
+See [PRODUCT_VISION.md](PRODUCT_VISION.md) for the full philosophy.
 
-Everything belongs to a Trip.
-
-Examples:
-
-- Days
-- Budget
-- Packing
-- Notes
-- Flights
-- Hotels
-- Checklist
-
-Everything is attached to one trip.
-
----
-
-# AI First? No.
-
-AI is an assistant.
-
-Never the product.
-
-AI should appear only when it provides value.
-
-Examples:
-
-✓ Generate Trip
-
-✓ Improve Day
-
-✓ Rewrite Packing
-
-✓ Suggest Restaurant
-
-Not:
-
-✗ AI Home
-
-✗ AI Dashboard
-
-✗ AI Everywhere
+Trips are the center. Everything belongs to a Trip. AI appears only when it provides value — never as the primary interface.
 
 ---
 

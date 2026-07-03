@@ -215,44 +215,13 @@ Keeping the data model consistent simplifies both the UI and AI workflows.
 
 ---
 
-# AI Philosophy
+# AI and Editing
 
-AI never owns the data.
+See [AI_WORKFLOW.md](AI_WORKFLOW.md) for the full AI philosophy.
 
-The user owns the data.
+Key data principle: AI never writes directly to the database. Every AI result goes through preview → user accept → save.
 
-AI only proposes content.
-
-Workflow:
-
-User
-↓
-
-AI Suggestion
-
-↓
-
-Preview
-
-↓
-
-Accept
-
-↓
-
-Database Update
-
-AI should never write directly to persistent storage.
-
----
-
-# Manual Editing
-
-Every piece of generated content must remain editable.
-
-Users should never feel locked into AI-generated text.
-
-Manual edits always take priority over AI output.
+Every piece of stored content remains manually editable.
 
 ---
 

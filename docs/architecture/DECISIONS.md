@@ -74,37 +74,9 @@ Accepted
 
 **Decision**
 
-Traveler is **not** an AI application.
+AI is an assistant, not the product. AI never writes directly to the database — every result goes through preview → user accept → save. Every generated result remains manually editable.
 
-Traveler is a travel planner enhanced by AI.
-
-AI is an assistant.
-
-Never the product.
-
-**Reason**
-
-People come to Traveler to plan trips.
-
-AI simply helps them do it faster.
-
-**Status**
-
-Accepted
-
----
-
-## 2026-07-03
-
-### Editing Model
-
-**Decision**
-
-Every AI-generated result must remain editable.
-
-AI suggestions always require user approval before saving.
-
-Manual edits always take priority.
+See [AI_WORKFLOW.md](AI_WORKFLOW.md) for detailed rules.
 
 **Reason**
 
@@ -113,89 +85,6 @@ Users must always feel in control of their own travel plans.
 **Status**
 
 Accepted
-
----
-
-## 2026-07-03
-
-### AI Database Access
-
-**Decision**
-
-AI never writes directly to the database.
-
-Workflow:
-
-User
-
-↓
-
-AI Suggestion
-
-↓
-
-Preview
-
-↓
-
-User Accepts
-
-↓
-
-Database Update
-
-**Reason**
-
-Prevents accidental data loss.
-
-Makes AI predictable.
-
-Keeps the user in control.
-
-**Status**
-
-Accepted
-
----
-
-## 2026-07-03
-
-### Modular Data Model
-
-**Decision**
-
-Trips should evolve towards a modular structure.
-
-Instead of one large JSON document, independent sections should eventually become independent database records.
-
-Example:
-
-```
-Trip
-│
-├── Days
-├── Timeline Items
-├── Packing Items
-├── Budget Items
-├── Notes
-└── Collaborators
-```
-
-**Reason**
-
-Supports:
-
-- Collaboration
-- AI section updates
-- Offline synchronization
-- Smaller updates
-- Better scalability
-
-This migration does not need to happen immediately.
-
-**Status**
-
-Planned
 
 ---
 
@@ -344,6 +233,102 @@ Accepted
 
 ---
 
+## 2026-07-03
+
+### Migration Over Rewrite
+
+**Decision**
+
+Traveler should evolve through small, incremental migrations.
+
+Large rewrites should be avoided whenever possible.
+
+When improving existing features:
+
+- preserve existing behavior
+- preserve business logic
+- migrate one component at a time
+- keep changes small and reviewable
+- prefer many small commits over one large commit
+
+New features should reuse the existing architecture and design system whenever possible.
+
+**Reason**
+
+The project already has a solid foundation.
+
+Incremental migration:
+
+- reduces bugs
+- makes testing easier
+- keeps the application stable
+- allows continuous improvements
+- makes AI-assisted development more predictable
+
+This philosophy is especially important for a solo developer working with AI coding assistants.
+
+**Status**
+
+Accepted
+
+---
+
+## 2026-07-03
+
+### Modular Trip Data Model
+
+**Decision**
+
+Traveler will evolve towards a modular data model.
+
+Instead of storing an entire trip as one large JSON document, independent sections will gradually become independent database records.
+
+Examples:
+
+- trips
+
+- days
+
+- timeline_items
+
+- packing_items
+
+- budget_items
+
+- notes
+
+- hotels
+
+- flights
+
+**Reason**
+
+This architecture enables:
+
+- Smaller updates
+
+- AI editing only the affected section
+
+- Better collaboration
+
+- Easier synchronization
+
+- Better offline support
+
+- Improved scalability
+
+- Easier future mobile applications
+
+The current JSON structure remains valid during the MVP phase.
+
+Migration will happen only when it provides clear value.
+
+**Status**
+
+Planned
+
+---
+
 ## Rejected Decisions
 
 ### AI-first Interface
@@ -403,62 +388,6 @@ Examples:
 - AI provider changes
 - Database migrations
 - Authentication strategy
-
----
-
-## 2026-07-03
-
-### Modular Trip Data Model
-
-**Decision**
-
-Traveler will evolve towards a modular data model.
-
-Instead of storing an entire trip as one large JSON document, independent sections will gradually become independent database records.
-
-Examples:
-
-- trips
-
-- days
-
-- timeline_items
-
-- packing_items
-
-- budget_items
-
-- notes
-
-- hotels
-
-- flights
-
-**Reason**
-
-This architecture enables:
-
-- Smaller updates
-
-- AI editing only the affected section
-
-- Better collaboration
-
-- Easier synchronization
-
-- Better offline support
-
-- Improved scalability
-
-- Easier future mobile applications
-
-The current JSON structure remains valid during the MVP phase.
-
-Migration will happen only when it provides clear value.
-
-**Status**
-
-Planned
 
 # Guiding Principle
 

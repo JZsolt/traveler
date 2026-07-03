@@ -71,7 +71,7 @@ Feladatok:
 - Minden napnak van-e costs tábla
 - overview tábla egyezik-e a days-szel
 - Budget számítás konzisztencia
-- Build teszt: `npm run build`
+- Build teszt: `pnpm run build`
 
 ## Párhuzamosítás
 

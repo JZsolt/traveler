@@ -8,7 +8,7 @@ Avoid creating new top-level pages.
 
 ---
 
-# Screen 1 — Home
+# Screen 1 — Home (Exists)
 
 Purpose
 
@@ -39,7 +39,7 @@ Components
 
 ---
 
-# Screen 2 — Planner
+# Screen 2 — Planner (Planned)
 
 Purpose
 
@@ -85,7 +85,7 @@ They should always be able to edit before saving.
 
 ---
 
-# Screen 3 — Trip Overview
+# Screen 3 — Trip Overview (Exists — TripPage.jsx)
 
 Purpose
 
@@ -121,7 +121,7 @@ This page should feel like the table of contents of a travel journal.
 
 ---
 
-# Screen 4 — Day
+# Screen 4 — Day (Exists — inline in TripPage via DaySection)
 
 Purpose
 
@@ -155,7 +155,7 @@ Avoid using cards for every item.
 
 ---
 
-# Screen 5 — Block Detail
+# Screen 5 — Block Detail (Exists — inline via EditableSection)
 
 Purpose
 
@@ -189,7 +189,7 @@ Every block behaves identically.
 
 ---
 
-# Screen 6 — Map
+# Screen 6 — Map (Planned)
 
 Purpose
 
@@ -211,7 +211,7 @@ Offline maps.
 
 ---
 
-# Screen 7 — Settings
+# Screen 7 — Settings (Planned — Phase 09)
 
 Purpose
 
@@ -231,7 +231,7 @@ Keep simple.
 
 ---
 
-# Screen 8 — Admin
+# Screen 8 — Admin (Planned — Phase 09)
 
 Purpose
 
@@ -250,7 +250,7 @@ This page is hidden from normal users.
 
 ---
 
-# Screen 9 — Design System
+# Screen 9 — Design System (Planned)
 
 Purpose
 

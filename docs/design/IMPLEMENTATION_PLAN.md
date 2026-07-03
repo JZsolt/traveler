@@ -6,9 +6,9 @@ Implement the new Traveler visual language gradually without breaking the app.
 
 Do not redesign the entire app in one pass.
 
-## Phase 1 — Add documentation
+## Phase 1 — Add documentation ✅
 
-Create:
+Created:
 
 docs/design/
 - VISUAL_LANGUAGE.md
@@ -17,9 +17,7 @@ docs/design/
 - COMPONENT_SPEC.md
 - IMPLEMENTATION_PLAN.md
 
-Stop after adding docs.
-
-## Phase 2 — Add CSS tokens
+## Phase 2 — Add CSS tokens (Not started)
 
 Add or update global CSS variables:
 
@@ -45,25 +43,30 @@ Shadow:
 
 Do not redesign pages in this phase.
 
-## Phase 3 — Create primitives
+## Phase 3 — Create primitives (Partial)
 
 Create:
 
-src/components/ui/Page.jsx
-src/components/ui/PageHeader.jsx
-src/components/ui/Section.jsx
-src/components/ui/Button.jsx
-src/components/ui/Card.jsx
-src/components/ui/Row.jsx
-src/components/ui/Badge.jsx
-src/components/ui/Timeline.jsx
-src/components/ui/EditableField.jsx
-src/components/ui/AIAssistButton.jsx
+Existing (via shadcn/ui):
+- src/components/ui/button.jsx ✅
+- src/components/ui/card.jsx ✅
+- src/components/ui/badge.jsx ✅
+
+Existing (custom):
+- src/components/editor/EditableSection.jsx ✅
+- src/components/editor/AiSuggestionPanel.jsx ✅
+
+Not yet created:
+- src/components/ui/Page.jsx
+- src/components/ui/PageHeader.jsx
+- src/components/ui/Section.jsx
+- src/components/ui/Row.jsx
+- src/components/ui/Timeline.jsx
 
 Keep components simple.
 Do not add dependencies unless required.
 
-## Phase 4 — Create design system route
+## Phase 4 — Create design system route (Not started)
 
 Add route:
 
@@ -82,7 +85,7 @@ Show:
 
 This is a developer-only reference page.
 
-## Phase 5 — Migrate Trip overview first
+## Phase 5 — Migrate Trip overview first (Not started)
 
 Migrate only the main Trip overview page.
 
@@ -97,7 +100,7 @@ Requirements:
 
 Stop after this page.
 
-## Phase 6 — Migrate Day view
+## Phase 6 — Migrate Day view (Not started)
 
 Migrate day detail page to:
 - big day title
@@ -105,7 +108,7 @@ Migrate day detail page to:
 - inline edit actions
 - AI assist per section
 
-## Phase 7 — Migrate CreateTripPage
+## Phase 7 — Migrate CreateTripPage (Not started)
 
 Migrate AI trip creation page to:
 - calm form
@@ -113,7 +116,7 @@ Migrate AI trip creation page to:
 - compact preview
 - one main CTA
 
-## Phase 8 — Polish
+## Phase 8 — Polish (Not started)
 
 Add:
 - empty states
