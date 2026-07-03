@@ -1,8 +1,10 @@
 import { useState } from 'react'
 import { SquarePen } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { useAdmin } from '@/hooks/useAdmin'
 
 export function EditableSection({ title, children, editor, onSave, onCancel, saving, error, canUseAi, onAi, isDirty }) {
+  const { isAdminUnlocked } = useAdmin()
   const [editing, setEditing] = useState(false)
   const [confirmCancel, setConfirmCancel] = useState(false)
 
@@ -96,13 +98,15 @@ export function EditableSection({ title, children, editor, onSave, onCancel, sav
           )}
           {children}
         </div>
-        <button
-          onClick={handleEdit}
-          aria-label={`${title || 'Szekció'} szerkesztése`}
-          className="opacity-100 sm:opacity-0 sm:group-hover/section:opacity-100 focus:opacity-100 transition-opacity shrink-0 text-gray-400 hover:text-[#0f3460] p-1.5 rounded-full hover:bg-slate-100"
-        >
-          <SquarePen className="w-3.5 h-3.5" />
-        </button>
+        {isAdminUnlocked && (
+          <button
+            onClick={handleEdit}
+            aria-label={`${title || 'Szekció'} szerkesztése`}
+            className="opacity-100 sm:opacity-0 sm:group-hover/section:opacity-100 focus:opacity-100 transition-opacity shrink-0 text-gray-400 hover:text-[#0f3460] p-1.5 rounded-full hover:bg-slate-100"
+          >
+            <SquarePen className="w-3.5 h-3.5" />
+          </button>
+        )}
       </div>
     </div>
   )

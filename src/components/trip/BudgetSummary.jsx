@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react'
 import { SquarePen } from 'lucide-react'
 import { useTripUpdater } from '@/hooks/useTripUpdater'
+import { useAdmin } from '@/hooks/useAdmin'
 import { Button } from '@/components/ui/button'
 
 const FIELDS = [
@@ -40,6 +41,7 @@ function BudgetEditor({ draft, onChange }) {
 }
 
 export function BudgetSummary({ budget, trip, slug, refetch }) {
+  const { isAdminUnlocked } = useAdmin()
   const [editing, setEditing] = useState(false)
   const [draft, setDraft] = useState(null)
   const initialDraft = useRef(null)
@@ -99,7 +101,7 @@ export function BudgetSummary({ budget, trip, slug, refetch }) {
 
   return (
     <div className="bg-gradient-to-r from-[#1a1a2e] to-[#0f3460] text-white p-5 rounded-2xl mt-5 relative group/budget">
-      {!editing && (
+      {isAdminUnlocked && !editing && (
         <button
           onClick={handleEdit}
           className="absolute top-3 right-3 opacity-100 sm:opacity-0 sm:group-hover/budget:opacity-100 focus:opacity-100 transition-opacity text-white/40 hover:text-white p-1.5 rounded-full hover:bg-white/10"

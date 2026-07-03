@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Navigate } from 'react-router-dom'
+import { useAdmin } from '@/hooks/useAdmin'
 import { Upload, Send, Sparkles, Save, ArrowLeft } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
 import { useTrips } from '@/context/TripsContext'
@@ -81,6 +82,7 @@ const DETAIL_OPTIONS = [
 ]
 
 export function CreateTripPage() {
+  const { isAdminUnlocked } = useAdmin()
   const navigate = useNavigate()
   const { refetch } = useTrips()
   const fileInputRef = useRef(null)
@@ -105,6 +107,8 @@ export function CreateTripPage() {
   const [generatedTrip, setGeneratedTrip] = useState(null)
   const [aiError, setAiError] = useState(null)
   const [is429, setIs429] = useState(false)
+
+  if (!isAdminUnlocked) return <Navigate to="/settings" replace />
 
   function update(field, value) {
     setForm(prev => ({ ...prev, [field]: value }))

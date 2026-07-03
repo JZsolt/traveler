@@ -1,10 +1,9 @@
 import { Link } from 'react-router-dom';
 import { useTrips } from '@/context/TripsContext';
+import { useAdmin } from '@/hooks/useAdmin';
 import { DbError } from '@/components/DbError';
 import { Badge } from '@/components/ui/badge';
 import { sortTrips } from '@/lib/sortTrips';
-import { BackupButton } from '@/components/BackupButton';
-import { ImportBackup } from '@/components/ImportBackup';
 
 function getTripStatus(trip) {
   const now = new Date();
@@ -23,6 +22,7 @@ function getTripStatus(trip) {
 
 export function HomePage() {
   const { trips, loading, error } = useTrips();
+  const { isAdminUnlocked } = useAdmin();
   const sorted = sortTrips(trips);
 
   if (loading) return (
@@ -54,15 +54,17 @@ export function HomePage() {
       {error && <DbError error={error} />}
 
       <div className='max-w-4xl mx-auto px-4 -mt-5 pb-16'>
-        <div className='mb-5'>
-          <Link
-            to='/create-trip'
-            className='inline-flex items-center gap-2 bg-[#e94560] text-white font-semibold px-5 py-2.5 rounded-full shadow-md hover:shadow-lg hover:bg-[#d63d56] transition-all no-underline text-sm'
-          >
-            <span>+</span>
-            <span>Uj utazas</span>
-          </Link>
-        </div>
+        {isAdminUnlocked && (
+          <div className='mb-5'>
+            <Link
+              to='/create-trip'
+              className='inline-flex items-center gap-2 bg-[#e94560] text-white font-semibold px-5 py-2.5 rounded-full shadow-md hover:shadow-lg hover:bg-[#d63d56] transition-all no-underline text-sm'
+            >
+              <span>+</span>
+              <span>Uj utazas</span>
+            </Link>
+          </div>
+        )}
         <div className='grid grid-cols-1 md:grid-cols-2 gap-5'>
           {sorted.map((trip) => {
             const { status, label } = getTripStatus(trip);
@@ -108,10 +110,6 @@ export function HomePage() {
           })}
         </div>
 
-        <div className="mt-10 pt-6 border-t border-gray-200 space-y-4">
-          <BackupButton />
-          <ImportBackup />
-        </div>
       </div>
     </main>
   );

@@ -189,3 +189,54 @@ When implementing new features:
 5. Avoid premature abstractions.
 6. Every new feature should follow PRODUCT_VISION.md and UX_RULES.md.
 7. Keep the codebase understandable for a solo developer.
+
+---
+
+# Code Organization Rules
+
+These rules are mandatory for implementation and review work.
+
+## Ownership
+
+- Pages compose route-level views. They should not own complex workflow, persistence, AI, validation, or transformation logic.
+- Custom hooks own stateful workflow logic and async UI flows.
+- `lib/` modules own pure helpers, data transforms, validators, endpoint constants, and service utilities.
+- Shared UI belongs in `src/components/` or `src/components/ui/`.
+- Feature-specific UI belongs near its domain, for example `src/components/trip/`.
+
+## Extraction Rules
+
+- Anything used in 2+ places should become a shared component, hook, helper, or constant.
+- Repeated editor patterns should move toward shared editor components.
+- Repeated strings, section keys, endpoint paths, model ids, route paths, storage keys, and status labels should live outside JSX files.
+- Do not over-centralize one-off values that are only meaningful in a single component.
+
+## File Size
+
+- Target file size is about 200 lines.
+- Hard maximum is about 250 lines unless a task documents why the file must stay larger.
+- When a touched file is over the target, prefer extracting hooks, child components, constants, or helpers before adding more logic.
+- If a task cannot reduce an oversized file, document the remaining debt in the task summary or final review.
+
+## Styling And Theme
+
+- Use theme tokens and CSS variables where they exist.
+- Do not add new hard-coded color palettes inside components.
+- Avoid inline `style`; allow it only for platform/browser requirements such as safe-area values or runtime-calculated values.
+- Do not start design-system migration during architecture cleanup. Phase 10 prepares the code; Phase 11 handles visual primitives and migration.
+
+## Future TypeScript Rule
+
+- When TypeScript is introduced, component files should not contain large embedded type/interface definitions.
+- Shared types belong in dedicated `types` files near the feature or in a shared type module.
+
+## Review Checklist
+
+Every code review should check touched files for:
+
+- page-level business logic that should move to a hook or helper
+- repeated logic/UI used in 2+ places
+- files drifting above 200 lines or exceeding 250 lines
+- hard-coded constants, routes, endpoints, model ids, keys, or repeated copy
+- hard-coded styles where theme tokens exist
+- accidental mixing of architecture cleanup with visual redesign

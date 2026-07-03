@@ -15,6 +15,8 @@ Claude must not implement this whole phase at once. Open and implement exactly o
 - Preserve unknown fields in `trip_data`.
 - Keep Supabase as source of truth.
 - Never expose server secrets to frontend.
+- Editor controls must only render when admin is unlocked (`useAdmin().isAdminUnlocked`).
+- Future AI/edit mutation endpoints must validate admin access server-side when they write data.
 - AI output must be previewed/applied by the user before Save.
 - AI must never auto-save.
 - AI/token/rate-limit/invalid-JSON/network errors must be visible in the UI with useful Hungarian messages.

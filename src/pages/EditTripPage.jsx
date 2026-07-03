@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useParams, useNavigate, Navigate } from 'react-router-dom'
 import { supabase } from '@/lib/supabase'
 import { useTrips } from '@/context/TripsContext'
+import { useAdmin } from '@/hooks/useAdmin'
 import { formatDateRange } from '@/lib/dateUtils'
 import { friendlyError } from '@/lib/friendlyError'
 import { ensureUniqueSlug } from '@/lib/ensureUniqueSlug'
@@ -16,6 +17,7 @@ function toSlug(title) {
 }
 
 export function EditTripPage() {
+  const { isAdminUnlocked } = useAdmin()
   const { slug } = useParams()
   const navigate = useNavigate()
   const { trips, loading: tripsLoading, refetch } = useTrips()
@@ -38,6 +40,8 @@ export function EditTripPage() {
       })
     }
   }, [trip, form])
+
+  if (!isAdminUnlocked) return <Navigate to="/settings" replace />
 
   if (tripsLoading) return (
     <main className="pt-14" style={{ paddingTop: 'calc(3.5rem + env(safe-area-inset-top, 0px))' }}>

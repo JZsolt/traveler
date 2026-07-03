@@ -6,10 +6,12 @@ import { AlertBox } from './AlertBox'
 import { TransportOptions } from './TransportOptions'
 import { AiSuggestionPanel } from '@/components/editor/AiSuggestionPanel'
 import { useTripUpdater } from '@/hooks/useTripUpdater'
+import { useAdmin } from '@/hooks/useAdmin'
 import { updateTripDay, moveDayUp, moveDayDown, deleteDay, addScheduleItem, deleteScheduleItem, moveScheduleItem, updateScheduleItem } from '@/lib/tripSections'
 import { Button } from '@/components/ui/button'
 
 export function DaySection({ day, defaultOpen = false, trip, slug, refetch, isFirst, isLast }) {
+  const { isAdminUnlocked } = useAdmin()
   const [open, setOpen] = useState(defaultOpen)
   const [lightbox, setLightbox] = useState(null)
   const [editingMeta, setEditingMeta] = useState(false)
@@ -199,7 +201,7 @@ export function DaySection({ day, defaultOpen = false, trip, slug, refetch, isFi
             )}
             {!editingMeta && (
               <div className="flex items-center gap-0.5 opacity-100 sm:opacity-0 sm:group-hover/day:opacity-100 focus-within:opacity-100 transition-opacity">
-                {!pendingDayDraft && <>
+                {isAdminUnlocked && !pendingDayDraft && <>
                   <button onClick={handleEditMeta} aria-label="Nap szerkesztése" className="text-white/40 hover:text-white p-1.5 rounded-full hover:bg-white/10">
                     <SquarePen className="w-3.5 h-3.5" />
                   </button>
@@ -327,25 +329,27 @@ export function DaySection({ day, defaultOpen = false, trip, slug, refetch, isFi
                 onMoveUp={pendingDayDraft ? undefined : (() => saveTrip(t => moveScheduleItem(t, day.dayNum, i, -1)))}
                 onMoveDown={pendingDayDraft ? undefined : (() => saveTrip(t => moveScheduleItem(t, day.dayNum, i, 1)))}
                 onDelete={pendingDayDraft ? undefined : (() => saveTrip(t => deleteScheduleItem(t, day.dayNum, i)))}
-                readOnly={!!pendingDayDraft}
+                readOnly={!!pendingDayDraft || !isAdminUnlocked}
               />
             ))}
-            <div className="mt-2 flex items-center gap-2">
-              <button
-                onClick={() => saveTrip(t => addScheduleItem(t, day.dayNum))}
-                disabled={saving || !!pendingDayDraft}
-                className="text-xs text-slate-400 hover:text-[#0f3460] hover:bg-slate-100 px-2 py-1 rounded-full transition-colors disabled:opacity-50"
-              >
-                + Új program
-              </button>
-              <button
-                onClick={() => setShowScheduleAi(s => !s)}
-                disabled={!!pendingDayDraft}
-                className="text-xs text-purple-500 hover:text-purple-700 hover:bg-purple-50 px-2 py-1 rounded-full transition-colors disabled:opacity-50"
-              >
-                AI programterv
-              </button>
-            </div>
+            {isAdminUnlocked && (
+              <div className="mt-2 flex items-center gap-2">
+                <button
+                  onClick={() => saveTrip(t => addScheduleItem(t, day.dayNum))}
+                  disabled={saving || !!pendingDayDraft}
+                  className="text-xs text-slate-400 hover:text-[#0f3460] hover:bg-slate-100 px-2 py-1 rounded-full transition-colors disabled:opacity-50"
+                >
+                  + Új program
+                </button>
+                <button
+                  onClick={() => setShowScheduleAi(s => !s)}
+                  disabled={!!pendingDayDraft}
+                  className="text-xs text-purple-500 hover:text-purple-700 hover:bg-purple-50 px-2 py-1 rounded-full transition-colors disabled:opacity-50"
+                >
+                  AI programterv
+                </button>
+              </div>
+            )}
             {showScheduleAi && (
               <div className="mt-2 border border-purple-200 bg-purple-50/50 rounded-xl p-3 space-y-2">
                 {scheduleAiPreview ? (
@@ -397,7 +401,7 @@ export function DaySection({ day, defaultOpen = false, trip, slug, refetch, isFi
           </div>
 
           {/* Advanced day data editor */}
-          <details className="mt-4 mb-2">
+          {isAdminUnlocked && <details className="mt-4 mb-2">
             <summary className="text-[11px] text-slate-400 cursor-pointer hover:text-slate-600">Haladó nap adatok</summary>
             {editingAdvanced ? (
               <div className="mt-2 space-y-3">
@@ -467,7 +471,7 @@ export function DaySection({ day, defaultOpen = false, trip, slug, refetch, isFi
                 </button>
               </div>
             )}
-          </details>
+          </details>}
 
           {/* Costs */}
           {day.costs && <CostTable costs={day.costs} />}

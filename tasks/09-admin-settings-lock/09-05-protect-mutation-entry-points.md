@@ -1,4 +1,4 @@
-# 09-05 — Protect Create, Edit And Delete Entry Points
+# 09-05 — Protect Create, Edit And Delete Entry Points ✅ DONE
 
 Read only:
 

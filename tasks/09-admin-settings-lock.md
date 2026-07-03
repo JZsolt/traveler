@@ -33,12 +33,12 @@ Admin actions for this phase:
 ## Subtasks
 
 0. ~~`09-00-doc-cleanup.md`~~ ✅
-1. `09-01-admin-login-endpoint.md`
-2. `09-02-client-admin-session.md`
-3. `09-03-settings-page-password-gate.md`
-4. `09-04-move-backup-to-settings.md`
-5. `09-05-protect-mutation-entry-points.md`
-6. `09-06-admin-protection-checklist.md`
+1. ~~`09-01-admin-login-endpoint.md`~~ ✅
+2. ~~`09-02-client-admin-session.md`~~ ✅
+3. ~~`09-03-settings-page-password-gate.md`~~ ✅
+4. ~~`09-04-move-backup-to-settings.md`~~ ✅
+5. ~~`09-05-protect-mutation-entry-points.md`~~ ✅
+6. ~~`09-06-admin-protection-checklist.md`~~ ✅
 
 ## Workflow
 

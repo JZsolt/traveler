@@ -19,6 +19,15 @@ These rules apply to every implementation task.
 - Keep backward compatibility.
 - Keep the project Vercel-compatible.
 - Keep Supabase as the primary data source.
+- Pages compose views only; complex workflow, persistence, validation, AI flow, and state logic belong in custom hooks or `lib/` helpers.
+- Stateful reusable logic belongs in `src/hooks/use*.js`.
+- Shared UI belongs in `src/components/` or `src/components/ui/`.
+- Anything used in 2+ places must be extracted to a shared component, hook, helper, or constant.
+- Target file size is about 200 lines. Hard maximum is about 250 lines unless the task documents why the file must stay larger.
+- Constants, route paths, API endpoint paths, storage keys, model ids, section keys, and repeated UI copy should not be hard-coded inside JSX files.
+- Use theme tokens and CSS variables instead of hard-coded colors, spacing, and inline styles where a token exists.
+- Avoid inline `style` except for platform/browser requirements such as safe-area values or runtime-calculated values.
+- When TypeScript is introduced, keep types/interfaces in dedicated type files, not embedded inside component files.
 
 ## UI
 
@@ -33,6 +42,7 @@ These rules apply to every implementation task.
 - Avoid code duplication.
 - Handle loading and error states.
 - Prefer small reusable utilities over repeated logic.
+- During review, always check touched files against the architecture rules above: file size, logic/UI separation, duplication, constants, and theme token usage.
 
 ## Security
 

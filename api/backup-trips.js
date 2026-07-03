@@ -1,6 +1,7 @@
 /* global process */
 import { createClient } from '@supabase/supabase-js'
 import { buildBackupFiles } from './_backup-utils.js'
+import { validateAdmin } from './_admin-auth.js'
 
 const PAGE_SIZE = 500
 
@@ -99,6 +100,8 @@ export default async function handler(req, res) {
       err('METHOD_NOT_ALLOWED', 'Csak POST keres engedelyezett.')
     )
   }
+
+  if (!validateAdmin(req, res)) return
 
   const supabaseUrl = process.env.SUPABASE_URL
   const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY

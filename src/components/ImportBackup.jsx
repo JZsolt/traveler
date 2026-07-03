@@ -7,12 +7,14 @@ export function ImportBackup() {
   const [state, setState] = useState('idle')
   const [result, setResult] = useState(null)
   const [error, setError] = useState(null)
+  const [password, setPassword] = useState('')
   const fileRef = useRef(null)
   const { refetch } = useTrips()
 
   async function handleImport() {
     const files = fileRef.current?.files
     if (!files || files.length === 0) return
+    if (!password.trim()) return
 
     setState('loading')
     setResult(null)
@@ -37,7 +39,7 @@ export function ImportBackup() {
         res = await fetch('/api/import-trip-backup', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ mode, backup: parsed[0].data }),
+          body: JSON.stringify({ mode, backup: parsed[0].data, password }),
         })
         data = await res.json()
 
@@ -58,7 +60,7 @@ export function ImportBackup() {
         res = await fetch('/api/import-trip-backups', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ mode, backups: parsed.map(p => p.data) }),
+          body: JSON.stringify({ mode, backups: parsed.map(p => p.data), password }),
         })
         data = await res.json()
 
@@ -78,6 +80,7 @@ export function ImportBackup() {
       }
 
       refetch()
+      setPassword('')
       if (fileRef.current) fileRef.current.value = ''
     } catch (err) {
       console.error('[ImportBackup]', err)
@@ -124,9 +127,20 @@ export function ImportBackup() {
           className="block w-full text-xs text-gray-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-[#0f3460] file:text-white hover:file:bg-[#1a1a2e] file:cursor-pointer"
         />
 
+        <div>
+          <label className="block text-xs text-slate-500 mb-1">Admin jelszó az importhoz</label>
+          <input
+            type="password"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+            placeholder="Admin jelszó"
+            className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0f3460]/30 focus:border-[#0f3460]"
+          />
+        </div>
+
         <Button
           onClick={handleImport}
-          disabled={state === 'loading'}
+          disabled={state === 'loading' || !password.trim()}
           className="bg-[#0f3460] hover:bg-[#1a1a2e] text-white text-sm px-4 py-2"
         >
           {state === 'loading' ? (

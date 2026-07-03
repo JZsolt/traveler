@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react'
 import { useParams, Navigate, useNavigate } from 'react-router-dom'
+import { useAdmin } from '@/hooks/useAdmin'
 import { SquarePen, Trash2, Download, Wand2, Plus } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
 import { useTrips } from '@/context/TripsContext'
@@ -22,6 +23,7 @@ const AI_MODEL_OPTIONS = [
 ]
 
 export function TripPage() {
+  const { isAdminUnlocked } = useAdmin()
   const { slug } = useParams()
   const navigate = useNavigate()
   const { trips, loading, error, refetch } = useTrips()
@@ -127,38 +129,40 @@ export function TripPage() {
   return (
     <main className="pb-16" style={{ paddingTop: 'calc(3.5rem + env(safe-area-inset-top, 0px))' }}>
       <div className="relative">
-        <div className="absolute top-3 right-3 z-10 flex gap-2">
-          <button
-            onClick={() => heroRef.current?.edit()}
-            aria-label="Utazás szerkesztése"
-            className="bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white p-2 rounded-full transition-all"
-          >
-            <SquarePen className="w-4 h-4" />
-          </button>
-          <button
-            onClick={() => {
-              const json = JSON.stringify(trip, null, 2)
-              const blob = new Blob([json], { type: 'application/json' })
-              const url = URL.createObjectURL(blob)
-              const a = document.createElement('a')
-              a.href = url
-              a.download = `${trip.slug}.json`
-              a.click()
-              URL.revokeObjectURL(url)
-            }}
-            aria-label="JSON exportálás"
-            className="bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white p-2 rounded-full transition-all"
-          >
-            <Download className="w-4 h-4" />
-          </button>
-          <button
-            onClick={() => setShowDeleteModal(true)}
-            aria-label="Utazás törlése"
-            className="bg-white/20 hover:bg-red-500/80 backdrop-blur-sm text-white p-2 rounded-full transition-all"
-          >
-            <Trash2 className="w-4 h-4" />
-          </button>
-        </div>
+        {isAdminUnlocked && (
+          <div className="absolute top-3 right-3 z-10 flex gap-2">
+            <button
+              onClick={() => heroRef.current?.edit()}
+              aria-label="Utazás szerkesztése"
+              className="bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white p-2 rounded-full transition-all"
+            >
+              <SquarePen className="w-4 h-4" />
+            </button>
+            <button
+              onClick={() => {
+                const json = JSON.stringify(trip, null, 2)
+                const blob = new Blob([json], { type: 'application/json' })
+                const url = URL.createObjectURL(blob)
+                const a = document.createElement('a')
+                a.href = url
+                a.download = `${trip.slug}.json`
+                a.click()
+                URL.revokeObjectURL(url)
+              }}
+              aria-label="JSON exportálás"
+              className="bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white p-2 rounded-full transition-all"
+            >
+              <Download className="w-4 h-4" />
+            </button>
+            <button
+              onClick={() => setShowDeleteModal(true)}
+              aria-label="Utazás törlése"
+              className="bg-white/20 hover:bg-red-500/80 backdrop-blur-sm text-white p-2 rounded-full transition-all"
+            >
+              <Trash2 className="w-4 h-4" />
+            </button>
+          </div>
+        )}
         <TripHero trip={trip} slug={slug} refetch={refetch} editRef={heroRef} />
       </div>
 
@@ -227,7 +231,7 @@ export function TripPage() {
         {(trip.days || []).map((day, idx) => (
           <div key={day.dayNum}>
             <DaySection day={day} trip={trip} slug={slug} refetch={refetch} isFirst={idx === 0} isLast={idx === (trip.days || []).length - 1} />
-            {isDraft && day._draft && !expandedDays.includes(day.dayNum) && (
+            {isAdminUnlocked && isDraft && day._draft && !expandedDays.includes(day.dayNum) && (
               <div className="max-w-3xl mx-auto px-4 md:px-10 py-3 -mt-1">
                 <div className="rounded-2xl border border-slate-200 bg-white p-3 shadow-sm space-y-3">
                   <div className="grid grid-cols-2 gap-2">
@@ -280,16 +284,18 @@ export function TripPage() {
             )}
           </div>
         ))}
-        <div className="flex justify-center py-3">
-          <button
-            onClick={() => saveTripDays(t => addDay(t))}
-            disabled={savingDays}
-            className="inline-flex items-center gap-1.5 text-xs text-slate-400 hover:text-[#0f3460] hover:bg-slate-100 px-3 py-1.5 rounded-full transition-colors disabled:opacity-50"
-          >
-            <Plus className="w-3.5 h-3.5" />
-            Új nap
-          </button>
-        </div>
+        {isAdminUnlocked && (
+          <div className="flex justify-center py-3">
+            <button
+              onClick={() => saveTripDays(t => addDay(t))}
+              disabled={savingDays}
+              className="inline-flex items-center gap-1.5 text-xs text-slate-400 hover:text-[#0f3460] hover:bg-slate-100 px-3 py-1.5 rounded-full transition-colors disabled:opacity-50"
+            >
+              <Plus className="w-3.5 h-3.5" />
+              Új nap
+            </button>
+          </div>
+        )}
       </div>
 
       <div className="max-w-3xl mx-auto px-4 md:px-10 py-6 space-y-6">

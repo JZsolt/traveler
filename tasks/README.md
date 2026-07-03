@@ -15,7 +15,8 @@ Always complete the phases in this order:
 7. ~~07-git-hub-backup.md~~ ✅
 8. ~~08-inline-trip-editor.md~~ ✅ (24 subtask)
 9. 09-admin-settings-lock.md (6 subtask + cleanup)
-10. 10-design-system-foundation.md (12 subtask)
+10. 10-code-architecture-foundation.md (12 subtask)
+11. 11-design-system-foundation.md (12 subtask)
 
 ## Workflow
 
@@ -32,3 +33,12 @@ For every task:
 9. Stop and wait for approval before continuing.
 
 The goal is to keep every implementation small, reviewable, and easy to debug.
+
+## Standing Architecture Rules
+
+Phase 10 defines project-wide architecture rules that apply to all future implementation and review work:
+
+- `docs/architecture/ARCHITECTURE.md` is the canonical architecture reference.
+- `tasks/PROJECT_RULES.md` contains the mandatory short checklist every task must follow.
+- Reviews must check touched files for page thickness, hook/component extraction, 2+ duplication, hard-coded constants, file size, and token/theme usage.
+- These rules remain active after phase 10 is complete.

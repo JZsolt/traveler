@@ -1,4 +1,5 @@
 import { Link, useLocation } from 'react-router-dom'
+import { Settings } from 'lucide-react'
 import { useTrips } from '@/context/TripsContext'
 
 export function Header() {
@@ -20,13 +21,18 @@ export function Header() {
           <span className="text-xl">✈️</span>
           <span>Az Utazásaim</span>
         </Link>
-        {isTrip && trip && (
-          <div className="text-xs opacity-70 flex items-center gap-1.5 max-w-[60%] truncate">
-            <Link to="/" className="text-white no-underline hover:opacity-100">Utazásaim</Link>
-            <span className="opacity-40">›</span>
-            <span className="truncate">{trip.title}</span>
-          </div>
-        )}
+        <div className="flex items-center gap-3">
+          {isTrip && trip && (
+            <div className="text-xs opacity-70 flex items-center gap-1.5 max-w-[50vw] truncate">
+              <Link to="/" className="text-white no-underline hover:opacity-100">Utazásaim</Link>
+              <span className="opacity-40">›</span>
+              <span className="truncate">{trip.title}</span>
+            </div>
+          )}
+          <Link to="/settings" aria-label="Beállítások" className="text-white/60 hover:text-white transition-colors p-1">
+            <Settings className="w-4.5 h-4.5" />
+          </Link>
+        </div>
       </header>
     </>
   )

@@ -21,12 +21,14 @@ Ignore the rest of the codebase unless the provided content explicitly reference
 - Load the content to review strictly from provided input
 - If content is empty, or cannot be decoded as text, return `[{"location":"N/A","trigger_condition":"Input empty or undecodable","guard_snippet":"Provide valid content to review","potential_consequence":"Review skipped — no analysis performed"}]` and stop
 - Identify content type (diff, full file, or function) to determine scope rules
+- For code reviews in this repository, include architecture boundary risks from `CLAUDE.md`, `tasks/PROJECT_RULES.md`, and `docs/architecture/ARCHITECTURE.md` when they create reachable edge cases.
 
 ### Step 2: Exhaustive Path Analysis
 
 **Walk every branching path and boundary condition within scope — report only unhandled ones.**
 
 - If `also_consider` input was provided, incorporate those areas into the analysis
+- For implementation diffs, also trace boundaries created by pages owning workflow logic, duplicated editor logic, hard-coded endpoints/keys/model ids, oversized touched files, and inline styles that can break responsive/runtime behavior
 - Walk all branching paths: control flow (conditionals, loops, error handlers, early returns) and domain boundaries (where values, states, or conditions transition). Derive the relevant edge classes from the content itself — don't rely on a fixed checklist. Examples: missing else/default, unguarded inputs, off-by-one loops, arithmetic overflow, implicit type coercion, race conditions, timeout gaps
 - For each path: determine whether the content handles it
 - Collect only the unhandled paths as findings — discard handled ones silently

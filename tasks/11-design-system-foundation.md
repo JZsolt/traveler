@@ -1,4 +1,4 @@
-# 10 — Design System Foundation
+# 11 — Design System Foundation
 
 This phase turns the existing Traveler design documentation into a small, reusable UI foundation.
 
@@ -25,22 +25,22 @@ Design source of truth:
 
 ## Subtasks
 
-1. `10-01-design-token-audit.md`
-2. `10-02-css-design-tokens.md`
-3. `10-03-page-and-page-header-primitives.md`
-4. `10-04-section-and-row-primitives.md`
-5. `10-05-empty-loading-error-primitives.md`
-6. `10-06-timeline-primitives.md`
-7. `10-07-design-system-route.md`
-8. `10-08-home-page-shell-migration.md`
-9. `10-09-trip-overview-migration.md`
-10. `10-10-day-timeline-visual-migration.md`
-11. `10-11-create-trip-page-shell-migration.md`
-12. `10-12-mobile-accessibility-polish.md`
+1. `11-01-design-token-audit.md`
+2. `11-02-css-design-tokens.md`
+3. `11-03-page-and-page-header-primitives.md`
+4. `11-04-section-and-row-primitives.md`
+5. `11-05-empty-loading-error-primitives.md`
+6. `11-06-timeline-primitives.md`
+7. `11-07-design-system-route.md`
+8. `11-08-home-page-shell-migration.md`
+9. `11-09-trip-overview-migration.md`
+10. `11-10-day-timeline-visual-migration.md`
+11. `11-11-create-trip-page-shell-migration.md`
+12. `11-12-mobile-accessibility-polish.md`
 
 ## Workflow
 
-Open and implement exactly one task file from `tasks/10-design-system-foundation/`, then stop.
+Open and implement exactly one task file from `tasks/11-design-system-foundation/`, then stop.
 
 Do not continue to the next task automatically.
 

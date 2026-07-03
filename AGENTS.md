@@ -45,6 +45,21 @@ docs/
   trip-data-schema.md # csak átirányító; a teljes séma: src/data/trips/_template.json
 ```
 
+## Kötelező kódarchitektúra szabályok
+
+Ezek minden implementációra és review-ra érvényesek, nem csak a 10-es phase-re.
+
+- Pages csak route-szintű kompozíciót végezzenek; komplex workflow, adatmentés, AI flow, validáció és állapotlogika custom hookba vagy `lib/` helperbe kerüljön.
+- Állapotos, újrahasználható logika `src/hooks/use*.js` alatt legyen.
+- Megosztott UI `src/components/` vagy `src/components/ui/` alatt legyen.
+- Amit 2 vagy több helyen használunk, abból közös komponens, hook, helper vagy konstans legyen.
+- Cél fájlméret: körülbelül 200 sor. Kemény felső határ: körülbelül 250 sor, csak dokumentált indokkal léphető túl.
+- Konstansok, route pathok, API endpointok, storage key-ek, model id-k, section key-ek és ismételt UI szövegek ne JSX fájlokban legyenek hardcode-olva.
+- Theme tokeneket és CSS változókat használj hard-coded színek, spacingek és inline style helyett, amikor van megfelelő token.
+- Inline `style` csak platform/browser szükségletnél megengedett, például safe-area vagy dinamikus runtime érték esetén.
+- Ha TypeScript kerül be, type/interface definíciók külön `types` fájlba menjenek, ne komponensfájlba.
+- Review-nál minden érintett fájlnál ellenőrizd: méret, logika/UI szétválasztás, duplikáció, konstansok, theme token használat.
+
 ## BMAD Method Codex alatt
 
 A BMAD core a projektben `_bmad/` alatt van, de `.gitignore`-olt és külön telepíthető:
