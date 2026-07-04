@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react'
 import { Button } from '@/components/ui/button'
 import { useTrips } from '@/context/TripsContext'
+import { API } from '@/lib/constants'
 
 export function ImportBackup() {
   const [mode, setMode] = useState('create')
@@ -36,7 +37,7 @@ export function ImportBackup() {
       let res, data
 
       if (parsed.length === 1) {
-        res = await fetch('/api/import-trip-backup', {
+        res = await fetch(API.IMPORT_TRIP, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ mode, backup: parsed[0].data, password }),
@@ -57,7 +58,7 @@ export function ImportBackup() {
           errors: [],
         })
       } else {
-        res = await fetch('/api/import-trip-backups', {
+        res = await fetch(API.IMPORT_TRIPS, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ mode, backups: parsed.map(p => p.data), password }),

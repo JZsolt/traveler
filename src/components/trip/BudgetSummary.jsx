@@ -3,6 +3,7 @@ import { SquarePen } from 'lucide-react'
 import { useTripUpdater } from '@/hooks/useTripUpdater'
 import { useAdmin } from '@/hooks/useAdmin'
 import { Button } from '@/components/ui/button'
+import { DirtyCancelRow } from '@/components/editor/DirtyCancelRow'
 
 const FIELDS = [
   { amount: 'lowPerFamily', label: 'lowPerFamilyLabel', defaultLabel: 'Spórolós / 1 család (2 fő + gyerek)' },
@@ -120,11 +121,7 @@ export function BudgetSummary({ budget, trip, slug, refetch }) {
               {saving ? 'Mentés...' : 'Mentés'}
             </Button>
             {confirmCancel ? (
-              <>
-                <span className="text-xs text-yellow-300">Nem mentett módosítások elvesznek.</span>
-                <Button onClick={handleCancel} variant="ghost" size="sm" className="border border-red-400/50 text-red-300 hover:bg-red-500/20">Elvetés</Button>
-                <Button onClick={() => setConfirmCancel(false)} variant="ghost" size="sm" className="border border-white/30 text-white hover:bg-white/10">Vissza</Button>
-              </>
+              <DirtyCancelRow show onDiscard={handleCancel} onDismiss={() => setConfirmCancel(false)} dark />
             ) : (
               <Button onClick={handleCancel} disabled={saving} variant="ghost" size="sm" className="border border-white/30 text-white hover:bg-white/10">
                 Mégse

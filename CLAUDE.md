@@ -64,14 +64,28 @@ pnpm run validate:trips  # trip JSON validáció
 
 ```
 src/
+  lib/constants.js       # Centralizált konstansok (AI modellek, API utak, storage kulcsok)
   lib/supabase.js        # Supabase kliens (VITE_ env-ekből)
   lib/tripSections.js    # Immutable trip data transform helperek
-  hooks/useTripUpdater.js # Supabase save hook (saveTrip, saving, error)
+  lib/exportTripJson.js  # JSON blob export helper
+  lib/extractLocationName.js # Google Maps URL parser
+  lib/createTripHelpers.js   # Trip draft → trip data konverzió
+  hooks/useTripUpdater.js    # Supabase save hook (saveTrip, saving, error)
+  hooks/useDeleteTrip.js     # Trip törlés workflow (modal, supabase delete, navigate)
+  hooks/useExpandDay.js      # Nap részletezés AI workflow (TripPage expand)
+  hooks/useCreateTripChat.js # Trip létrehozás chat + generálás workflow
+  hooks/useDayMetaEditor.js  # Nap cím/alcím editor state
+  hooks/useDayAdvancedEditor.js # Nap haladó JSON editor state
+  hooks/useDayScheduleAi.js  # Nap AI programterv generálás + pending draft
+  hooks/useScheduleItemEditor.js # Program szerkesztés draft/dirty/validation
+  hooks/useAdmin.js          # Admin context hook
   context/TripsContext.jsx   # Trip adat provider — Supabase-ből tölt
+  context/AdminContext.jsx   # Admin session provider
   data/trips/_template.json  # Trip sablon (generáláshoz)
   components/
     editor/EditableSection.jsx  # Szekció edit shell (view/edit mód, dirty-state, AI gomb)
     editor/AiSuggestionPanel.jsx # Újrahasználható AI javaslat panel (instruction, preview, apply/discard)
+    editor/DirtyCancelRow.jsx    # Megosztott dirty-cancel figyelmeztetés (dark/light variáns)
     DaySection.jsx       # Nap megjelenítés + inline editor (meta, advanced, schedule)
     ScheduleItem.jsx     # Program megjelenítés + inline editor (basic + details + AI guide)
     GuideInfo.jsx        # Guide collapsible megjelenítés
@@ -81,6 +95,7 @@ src/
     HomePage.jsx         # Főoldal — trip kártyák listája (Supabase-ből)
     TripPage.jsx         # Trip részletek oldal (/trip/:slug)
 api/
+  _admin-auth.js           # Megosztott admin jelszó validáció
   suggest-trip-section.js  # AI szekció javaslat endpoint (Gemini)
   plan-trip.js           # Trip tervezés AI endpoint
   expand-day.js          # Nap részletezés AI endpoint

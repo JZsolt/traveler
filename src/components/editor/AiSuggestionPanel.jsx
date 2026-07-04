@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
+import { API } from '@/lib/constants'
 
 export function AiSuggestionPanel({ section, trip, onApply, renderPreview, applyLabel = 'Alkalmazás', extraBody }) {
   const [instruction, setInstruction] = useState('')
@@ -15,7 +16,7 @@ export function AiSuggestionPanel({ section, trip, onApply, renderPreview, apply
     setSummary(null)
 
     try {
-      const res = await fetch('/api/suggest-trip-section', {
+      const res = await fetch(API.SUGGEST_SECTION, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

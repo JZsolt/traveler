@@ -1,14 +1,13 @@
 import { useState, useCallback } from 'react'
 import { AdminContext } from './adminContextValue'
-
-const STORAGE_KEY = 'admin_unlocked'
+import { API, ADMIN_STORAGE_KEY } from '@/lib/constants'
 
 export function AdminProvider({ children }) {
-  const [unlocked, setUnlocked] = useState(() => sessionStorage.getItem(STORAGE_KEY) === '1')
+  const [unlocked, setUnlocked] = useState(() => sessionStorage.getItem(ADMIN_STORAGE_KEY) === '1')
 
   const unlockAdmin = useCallback(async (password) => {
     try {
-      const res = await fetch('/api/admin-login', {
+      const res = await fetch(API.ADMIN_LOGIN, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ password }),
@@ -19,7 +18,7 @@ export function AdminProvider({ children }) {
       }
       const data = await res.json()
       if (data.ok) {
-        sessionStorage.setItem(STORAGE_KEY, '1')
+        sessionStorage.setItem(ADMIN_STORAGE_KEY, '1')
         setUnlocked(true)
         return { ok: true }
       }
@@ -30,7 +29,7 @@ export function AdminProvider({ children }) {
   }, [])
 
   const lockAdmin = useCallback(() => {
-    sessionStorage.removeItem(STORAGE_KEY)
+    sessionStorage.removeItem(ADMIN_STORAGE_KEY)
     setUnlocked(false)
   }, [])
 

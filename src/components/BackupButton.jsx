@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
+import { API } from '@/lib/constants'
 
 export function BackupButton() {
   const [state, setState] = useState('idle')
@@ -14,7 +15,7 @@ export function BackupButton() {
     setError(null)
 
     try {
-      const res = await fetch('/api/backup-trips', {
+      const res = await fetch(API.BACKUP_TRIPS, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ password }),

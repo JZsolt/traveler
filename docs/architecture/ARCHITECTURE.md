@@ -240,3 +240,132 @@ Every code review should check touched files for:
 - hard-coded constants, routes, endpoints, model ids, keys, or repeated copy
 - hard-coded styles where theme tokens exist
 - accidental mixing of architecture cleanup with visual redesign
+
+---
+
+# File Size Audit
+
+Last updated: 2026-07-03
+
+## Remaining over 250 lines
+
+| File | Lines | Why it's over | Next extraction (Phase 11+) |
+|------|-------|---------------|----------------------------|
+| `TripHero.jsx` | 296 | Accommodation + flight inline editors are ~80 lines each of form JSX with no shared pattern | Extract `AccommodationEditor` and `FlightEditor` to `components/trip/` when design-system primitives (Phase 11) provide a shared form pattern |
+| `DaySection.jsx` | 291 | 3 hooks extracted; remainder is images/lightbox/tickets/alerts/transport JSX | Lightbox could become a shared component if used elsewhere; otherwise leave as-is |
+| `CreateTripPage.jsx` | 290 | Chat + generation hook extracted; remainder is form + chat UI template | Form step and chat step could split into child components when Phase 11 layout primitives exist |
+| `PracticalInfo.jsx` | 276 | Single render-heavy section with inline edit form | Extract section editor form to shared `EditableSection` pattern if Phase 11 unifies section editors |
+
+## Under 250 lines (OK)
+
+EditTripPage (227), ImportBackup (198), UsefulLinks (194), BookingChecklist (192), TripPage (189), SavingTips (180), PackingList (157), BudgetSummary (150), BackupButton (130), HomePage (116), EditableSection (110), AiSuggestionPanel (93), SettingsPage (91), tripSections (88), GuideInfo (83)
+
+---
+
+# Constants Inventory
+
+Last updated: 2026-07-03
+
+Repeated magic strings that should become shared constants during 10-09.
+
+## API Paths (10 occurrences across src/)
+
+`/api/backup-trips`, `/api/import-trip-backup`, `/api/import-trip-backups`, `/api/admin-login`, `/api/suggest-trip-section`, `/api/expand-day`, `/api/plan-trip`, `/api/chat`
+
+Target: `src/lib/apiPaths.js`
+
+## Route Paths
+
+`/`, `/trip/:slug`, `/trip/:slug/edit`, `/create-trip`, `/settings`
+
+Target: `src/lib/routes.js`
+
+## AI Model IDs (duplicated in TripPage + CreateTripPage)
+
+`gemini-3.1-flash-lite`, `gemini-2.5-flash` — model option arrays duplicated with labels.
+
+Target: `src/lib/aiModels.js`
+
+## Storage Keys
+
+`admin_unlocked` — only one, already in a const in AdminContext.
+
+Target: `src/lib/storageKeys.js` (when more are added)
+
+## Trip Section Keys (used with replaceTripSection)
+
+`packingList`, `usefulLinks`, `savingTips`, `bookingChecklist`, `practicalInfo`
+
+Target: already string args to `replaceTripSection`, low priority.
+
+## Theme Colors (89 occurrences of hard-coded hex)
+
+`#1a1a2e`, `#0f3460`, `#e94560`, `#16213e` — used throughout all components.
+
+Target: CSS variables / Tailwind theme tokens (Phase 11).
+
+## API Error Codes
+
+`METHOD_NOT_ALLOWED`, `MISSING_SUPABASE_ENV`, `INVALID_MODE`, `INVALID_ADMIN_PASSWORD`, etc. — repeated across API files with local `err()` helpers.
+
+Target: `api/_errors.js` shared error factory (low priority, already localized).
+
+---
+
+# Shared Editor Patterns Audit
+
+Last updated: 2026-07-03
+
+## Repeated Patterns
+
+### 1. Dirty cancel confirmation (6 instances)
+
+`EditableSection`, `ScheduleItem`, `TripHero`, `BudgetSummary`, `DaySection` (meta + advanced).
+Pattern: `confirmCancel` state + `initialDraft` useRef + JSON.stringify compare + Elvetés/Vissza buttons.
+
+Extraction: `useDirtyCancel(draft, initialDraft)` hook returning `{ isDirty, confirmCancel, requestCancel, forceCancel, dismissCancel }`.
+Safety: safe to extract — pure state logic, no side effects.
+
+### 2. Save/cancel button row (5+ instances)
+
+Mentés + Mégse/Elvetés/Vissza + optional AI button — in EditableSection, ScheduleItem editor, TripHero editor, BudgetSummary editor, DaySection meta/advanced editors.
+
+Extraction: `<EditorToolbar onSave onCancel saving confirmCancel onAi />` component.
+Safety: safe — pure presentational.
+
+### 3. ArrayEditor (1 definition, 4 usages)
+
+Defined inside `ScheduleItem.jsx` (line 19). Used for badges, links, transport, guide arrays.
+
+Extraction: move to `src/components/editor/ArrayEditor.jsx`.
+Safety: safe — self-contained, no external dependencies.
+
+### 4. AI suggestion panel
+
+`AiSuggestionPanel` already extracted to `src/components/editor/`. Used in EditableSection (via prop) and DaySection (inline schedule AI). The DaySection inline AI is a separate pattern (fetch + preview + apply to pendingDayDraft).
+
+Extraction: DaySection's inline schedule AI could use a `useScheduleAi` hook.
+Safety: moderate — interacts with pendingDayDraft state.
+
+### 5. List editor pattern (add/delete/reorder)
+
+PackingList, UsefulLinks, SavingTips, BookingChecklist — each has local add/delete/reorder logic with nearly identical structure.
+
+Extraction: `useListEditor(items, { onAdd, onDelete, onMove })` hook.
+Safety: safe after individual editor hooks are extracted.
+
+### 6. Validation error display
+
+Inline `<p className="text-xs text-red-600">` for validation errors — repeated in ScheduleItem, EditableSection, TripHero, BudgetSummary.
+
+Extraction: `<ValidationError message={...} />` component (trivial).
+Safety: safe — trivial.
+
+## Extraction Order (recommended for 10-08)
+
+1. `ArrayEditor` — move to own file (zero risk)
+2. `useDirtyCancel` hook — extract state logic (low risk)
+3. `EditorToolbar` — extract save/cancel/AI buttons (low risk)
+4. `ValidationError` — trivial extract
+5. `useScheduleAi` — DaySection schedule AI logic (moderate risk)
+6. `useListEditor` — after section hooks are done

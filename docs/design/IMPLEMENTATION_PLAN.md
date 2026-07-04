@@ -17,6 +17,48 @@ docs/design/
 - COMPONENT_SPEC.md
 - IMPLEMENTATION_PLAN.md
 
+## Pre-migration audit (Phase 10)
+
+### Inline styles
+
+All inline `style={{ }}` usages are safe-area-inset related (PWA notch handling). These must stay as inline styles because Tailwind cannot express `env(safe-area-inset-top)` or `calc()` with it.
+
+Locations (13 occurrences):
+- `Header.jsx` (2x) — safe area top padding
+- `TripPage.jsx` (3x) — main padding-top
+- `HomePage.jsx` (2x) — main padding-top
+- `EditTripPage.jsx` (2x) — main padding-top
+- `CreateTripPage.jsx` (1x) — main padding-top
+- `SettingsPage.jsx` (1x) — main padding-top
+- `DaySection.jsx` (2x) — image fade-in + lightbox close button
+
+No inline styles need removal. The safe-area pattern could be extracted to a CSS class in Phase 2.
+
+### Hard-coded colors
+
+| Color | Count | Usage |
+|-------|-------|-------|
+| `#0f3460` | 63 | Primary — buttons, links, accents |
+| `#1a1a2e` | 33 | Dark — headers, day bars, gradients |
+| `#e94560` | 16 | Accent red — CTA, day numbers, save |
+| `#d63d56` | 7 | Hover variant of accent red |
+| `#16213e` | 2 | Darker navy (footer) |
+
+These map cleanly to CSS custom properties in Phase 2:
+- `#0f3460` → `--color-primary`
+- `#1a1a2e` → `--color-dark` / gradient start
+- `#e94560` → `--color-accent`
+- `#d63d56` → `--color-accent-hover`
+
+### Repeated patterns
+
+- `rounded-2xl` used on cards, day bars, modals — consistent
+- `rounded-xl` used on inputs, sub-panels — consistent
+- `text-xs h-7` used on all action buttons — consistent
+- Shadow usage is minimal (only modals + toast)
+
+No low-risk fixes needed — patterns are already consistent.
+
 ## Phase 2 — Add CSS tokens (Not started)
 
 Add or update global CSS variables:

@@ -1,4 +1,4 @@
-# 10-09 — Centralize Constants And Contract Copy
+# 10-09 — Centralize Constants And Contract Copy ✅ DONE
 
 Read only:
 

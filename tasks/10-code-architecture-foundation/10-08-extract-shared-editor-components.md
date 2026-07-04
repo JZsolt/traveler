@@ -1,4 +1,4 @@
-# 10-08 — Extract Shared Editor Components
+# 10-08 — Extract Shared Editor Components ✅ DONE
 
 Read only:
 

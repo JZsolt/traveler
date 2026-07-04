@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { SquarePen } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { DirtyCancelRow } from '@/components/editor/DirtyCancelRow'
 import { useAdmin } from '@/hooks/useAdmin'
 
 export function EditableSection({ title, children, editor, onSave, onCancel, saving, error, canUseAi, onAi, isDirty }) {
@@ -54,15 +55,7 @@ export function EditableSection({ title, children, editor, onSave, onCancel, sav
             {saving ? 'Mentés...' : 'Mentés'}
           </Button>
           {confirmCancel ? (
-            <>
-              <span className="text-xs text-amber-600">Nem mentett módosítások elvesznek.</span>
-              <Button onClick={() => { setEditing(false); setConfirmCancel(false); onCancel?.() }} variant="outline" size="sm" className="text-red-600 border-red-300">
-                Elvetés
-              </Button>
-              <Button onClick={() => setConfirmCancel(false)} variant="outline" size="sm">
-                Vissza
-              </Button>
-            </>
+            <DirtyCancelRow show onDiscard={() => { setEditing(false); setConfirmCancel(false); onCancel?.() }} onDismiss={() => setConfirmCancel(false)} />
           ) : (
             <Button
               onClick={handleCancel}
