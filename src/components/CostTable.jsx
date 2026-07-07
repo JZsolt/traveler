@@ -1,11 +1,15 @@
-export function CostTable({ costs }) {
+import { getPersonCount } from '@/lib/personCount'
+
+export function CostTable({ costs, people }) {
+  const personCount = getPersonCount(people)
+
   return (
     <div className="overflow-x-auto mt-4">
       <table className="w-full text-[12px] md:text-[13px]">
         <thead>
           <tr>
             <th className="bg-[#1a1a2e] text-white p-2.5 text-left font-semibold rounded-tl-xl">Tétel</th>
-            <th className="bg-[#1a1a2e] text-white p-2.5 text-right font-semibold rounded-tr-xl whitespace-nowrap">Összesen (5 fő)</th>
+            <th className="bg-[#1a1a2e] text-white p-2.5 text-right font-semibold rounded-tr-xl whitespace-nowrap">Összesen ({personCount} fő)</th>
           </tr>
         </thead>
         <tbody>
@@ -17,7 +21,7 @@ export function CostTable({ costs }) {
           ))}
         </tbody>
       </table>
-      <p className="text-[10px] text-slate-400 mt-1.5 text-right">* Becsült költség az 5 fő (2 család + 1 gyerek) együttesen / nap</p>
+      <p className="text-[10px] text-slate-400 mt-1.5 text-right">* Becsült költség a {personCount} fő együttesen / nap</p>
     </div>
   )
 }

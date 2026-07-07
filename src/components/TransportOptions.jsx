@@ -1,9 +1,12 @@
-export function TransportOptions({ data }) {
+import { getPersonCount } from '@/lib/personCount'
+
+export function TransportOptions({ data, people }) {
+  const personCount = getPersonCount(people)
   const headers = data.headers || {
     option: 'Opció',
     time: 'Idő',
     pricePerPerson: 'Ár/fő retúr',
-    total: '5 fő retúr',
+    total: `${personCount} fő retúr`,
     link: 'Link',
   }
 

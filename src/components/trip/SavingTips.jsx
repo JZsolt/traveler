@@ -3,6 +3,7 @@ import { EditableSection } from '@/components/editor/EditableSection'
 import { AiSuggestionPanel } from '@/components/editor/AiSuggestionPanel'
 import { useTripUpdater } from '@/hooks/useTripUpdater'
 import { replaceTripSection } from '@/lib/tripSections'
+import { getPersonCount } from '@/lib/personCount'
 import { Button } from '@/components/ui/button'
 
 const EMPTY_TIP = { tip: '', saving: '' }
@@ -80,6 +81,7 @@ function SavingTipsEditor({ items, onChange, validationError }) {
 }
 
 export function SavingTips({ tips, label, trip, slug, refetch }) {
+  const personCount = getPersonCount(trip?.people)
   const [draft, setDraft] = useState(null)
   const [showAi, setShowAi] = useState(false)
   const [validationError, setValidationError] = useState(null)
@@ -160,7 +162,7 @@ export function SavingTips({ tips, label, trip, slug, refetch }) {
               <tr className="bg-slate-100">
                 <th className="p-2 text-left">#</th>
                 <th className="p-2 text-left">Tipp</th>
-                <th className="p-2 text-right">{label || 'Megtakarítás (5 fő)'}</th>
+                <th className="p-2 text-right">{label || `Megtakarítás (${personCount} fő)`}</th>
               </tr>
             </thead>
             <tbody>

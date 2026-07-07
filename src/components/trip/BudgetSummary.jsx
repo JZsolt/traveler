@@ -4,12 +4,13 @@ import { useTripUpdater } from '@/hooks/useTripUpdater'
 import { useAdmin } from '@/hooks/useAdmin'
 import { Button } from '@/components/ui/button'
 import { DirtyCancelRow } from '@/components/editor/DirtyCancelRow'
+import { DEFAULT_PERSON_COUNT, getPersonCount } from '@/lib/personCount'
 
 const FIELDS = [
   { amount: 'lowPerFamily', label: 'lowPerFamilyLabel', defaultLabel: 'Spórolós / 1 család (2 fő + gyerek)' },
   { amount: 'comfortPerFamily', label: 'comfortPerFamilyLabel', defaultLabel: 'Komfort / 1 család (2 fő + gyerek)' },
-  { amount: 'lowTotal', label: 'lowTotalLabel', defaultLabel: 'Spórolós / mind az 5 fő együtt' },
-  { amount: 'comfortTotal', label: 'comfortTotalLabel', defaultLabel: 'Komfort / mind az 5 fő együtt' },
+  { amount: 'lowTotal', label: 'lowTotalLabel', defaultLabel: `Spórolós / mind a ${DEFAULT_PERSON_COUNT} fő együtt` },
+  { amount: 'comfortTotal', label: 'comfortTotalLabel', defaultLabel: `Komfort / mind a ${DEFAULT_PERSON_COUNT} fő együtt` },
 ]
 
 function BudgetEditor({ draft, onChange }) {
@@ -43,6 +44,7 @@ function BudgetEditor({ draft, onChange }) {
 
 export function BudgetSummary({ budget, trip, slug, refetch }) {
   const { isAdminUnlocked } = useAdmin()
+  const personCount = getPersonCount(trip?.people)
   const [editing, setEditing] = useState(false)
   const [draft, setDraft] = useState(null)
   const initialDraft = useRef(null)
@@ -96,8 +98,8 @@ export function BudgetSummary({ budget, trip, slug, refetch }) {
   const rows = [
     { amount: b.lowPerFamily, label: b.lowPerFamilyLabel || 'Spórolós / 1 család (2 fő + gyerek)' },
     { amount: b.comfortPerFamily, label: b.comfortPerFamilyLabel || 'Komfort / 1 család (2 fő + gyerek)' },
-    { amount: b.lowTotal, label: b.lowTotalLabel || 'Spórolós / mind az 5 fő együtt' },
-    { amount: b.comfortTotal, label: b.comfortTotalLabel || 'Komfort / mind az 5 fő együtt' }
+    { amount: b.lowTotal, label: b.lowTotalLabel || `Spórolós / mind a ${personCount} fő együtt` },
+    { amount: b.comfortTotal, label: b.comfortTotalLabel || `Komfort / mind a ${personCount} fő együtt` }
   ]
 
   return (

@@ -158,7 +158,7 @@ export function DaySection({ day, trip, slug, refetch, isFirst, isLast }) {
 
           {day.alerts?.map((alert, i) => <AlertBox key={i} type={alert.type} text={alert.text} />)}
 
-          {day.transportOptions && <TransportOptions data={day.transportOptions} />}
+          {day.transportOptions && <TransportOptions data={day.transportOptions} people={trip.people} />}
 
           <div>
             {scheduleAi.pendingDraft && (
@@ -281,7 +281,7 @@ export function DaySection({ day, trip, slug, refetch, isFirst, isLast }) {
             )}
           </details>}
 
-          {day.costs && <CostTable costs={day.costs} />}
+          {day.costs && <CostTable costs={day.costs} people={trip.people} />}
 
           {day.endAlerts?.map((alert, i) => <AlertBox key={i} type={alert.type} text={alert.text} url={alert.url} />)}
         </div>
