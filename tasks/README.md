@@ -14,9 +14,10 @@ Always complete the phases in this order:
 6. ~~06-polish.md~~ ✅
 7. ~~07-git-hub-backup.md~~ ✅
 8. ~~08-inline-trip-editor.md~~ ✅ (24 subtask)
-9. 09-admin-settings-lock.md (6 subtask + cleanup)
-10. 10-code-architecture-foundation.md (12 subtask)
-11. 11-design-system-foundation.md (12 subtask)
+9. ~~09-admin-settings-lock.md~~ ✅ (6 subtask + cleanup)
+10. ~~10-code-architecture-foundation.md~~ ✅ (12 subtask)
+11. 11-typescript-migration.md (15 subtask)
+12. 11-design-system-foundation.md (12 subtask, deferred until TypeScript is complete)
 
 ## Workflow
 
@@ -42,3 +43,15 @@ Phase 10 defines project-wide architecture rules that apply to all future implem
 - `tasks/PROJECT_RULES.md` contains the mandatory short checklist every task must follow.
 - Reviews must check touched files for page thickness, hook/component extraction, 2+ duplication, hard-coded constants, file size, and token/theme usage.
 - These rules remain active after phase 10 is complete.
+
+## TypeScript Migration Rule
+
+Phase 11 must be completed before design-system work starts.
+
+- Use `tasks/11-typescript-migration.md` for the active next phase.
+- Keep shared TypeScript types in `src/types/`.
+- Do not place any `type` or `interface` declarations inside component, hook, page, lib, or API files.
+- Never use `any`: no explicit `any`, no `as any`, no `Record<string, any>`, no `any[]`.
+- Use `unknown` plus narrowing for external data.
+- `Trip`, `Day`, and `ScheduleItem` must be defined exactly once in `src/types/trip.ts`; do not create duplicate `TripData`, `TripDay`, or `Activity` types.
+- Every TypeScript migration task must run `pnpm run typecheck` once the script exists, plus `pnpm run build`.

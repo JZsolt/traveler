@@ -58,7 +58,13 @@ Ezek minden implementációra és review-ra érvényesek, nem csak a 10-es phase
 - Theme tokeneket és CSS változókat használj hard-coded színek, spacingek és inline style helyett, amikor van megfelelő token.
 - Inline `style` csak platform/browser szükségletnél megengedett, például safe-area vagy dinamikus runtime érték esetén.
 - Ha TypeScript kerül be, type/interface definíciók külön `types` fájlba menjenek, ne komponensfájlba.
-- Review-nál minden érintett fájlnál ellenőrizd: méret, logika/UI szétválasztás, duplikáció, konstansok, theme token használat.
+- TypeScript migráció a design-system migráció előtt kötelező.
+- Megosztott TypeScript domain/API/editor típusok `src/types/` alatt legyenek.
+- Tilos inline `type` vagy `interface` deklaráció komponensben, hookban, page-ben, libben vagy API fájlban.
+- Tilos az `any`: nincs explicit `any`, `as any`, `Record<string, any>` vagy `any[]`.
+- JSON, Supabase, browser storage és API boundary esetén `unknown` + narrowing legyen.
+- `Trip`, `Day`, `ScheduleItem` pontosan egyszer legyen definiálva: `src/types/trip.ts`. Ne legyen duplikált `TripData`, `TripDay`, `Activity` vagy ekvivalens domain type.
+- Review-nál minden érintett fájlnál ellenőrizd: méret, logika/UI szétválasztás, duplikáció, konstansok, theme token használat, TypeScript esetén broad cast, inline type/interface, duplikált domain type és bármilyen `any`.
 
 ## BMAD Method Codex alatt
 

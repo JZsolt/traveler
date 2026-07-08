@@ -28,6 +28,12 @@ These rules apply to every implementation task.
 - Use theme tokens and CSS variables instead of hard-coded colors, spacing, and inline styles where a token exists.
 - Avoid inline `style` except for platform/browser requirements such as safe-area values or runtime-calculated values.
 - When TypeScript is introduced, keep types/interfaces in dedicated type files, not embedded inside component files.
+- TypeScript migration must be completed before design-system migration starts.
+- During TypeScript migration, prefer `src/types/` for shared domain/API/editor types.
+- Do not declare inline `type` or `interface` in component, hook, page, lib, or API files.
+- Never use `any`: no explicit `any`, no `as any`, no `Record<string, any>`, no `any[]`.
+- Use `unknown` plus narrowing for JSON, Supabase, browser storage, and API responses.
+- `Trip`, `Day`, and `ScheduleItem` must be defined exactly once in `src/types/trip.ts`; do not create duplicate `TripData`, `TripDay`, `Activity`, or equivalent domain types.
 
 ## UI
 
@@ -43,6 +49,7 @@ These rules apply to every implementation task.
 - Handle loading and error states.
 - Prefer small reusable utilities over repeated logic.
 - During review, always check touched files against the architecture rules above: file size, logic/UI separation, duplication, constants, and theme token usage.
+- During TypeScript review, also check for broad casts, any inline type/interface declarations outside `src/types/`, missing prop types, duplicated domain types, and any use of `any`.
 
 ## Security
 
