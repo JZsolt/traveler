@@ -16,8 +16,8 @@ Always complete the phases in this order:
 8. ~~08-inline-trip-editor.md~~ ✅ (24 subtask)
 9. ~~09-admin-settings-lock.md~~ ✅ (6 subtask + cleanup)
 10. ~~10-code-architecture-foundation.md~~ ✅ (12 subtask)
-11. 11-typescript-migration.md (15 subtask)
-12. 11-design-system-foundation.md (12 subtask, deferred until TypeScript is complete)
+11. ~~11-typescript-migration.md~~ ✅ (15 subtask)
+12. 11-design-system-foundation.md (12 subtask — next phase)
 
 ## Workflow
 

@@ -123,7 +123,8 @@ export interface Budget {
 export interface UrgentBooking {
   name: string
   reason: string
-  url: string
+  url?: string
+  urls?: Link[]
   done: boolean
 }
 

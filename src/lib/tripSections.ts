@@ -1,8 +1,10 @@
-export function replaceTripSection(trip, key, value) {
+import type { Trip, Day, ScheduleItem } from '@/types/trip'
+
+export function replaceTripSection<K extends keyof Trip>(trip: Trip, key: K, value: Trip[K]): Trip {
   return { ...trip, [key]: value }
 }
 
-export function updateTripDay(trip, dayNum, updatedDay) {
+export function updateTripDay(trip: Trip, dayNum: number, updatedDay: Partial<Day>): Trip {
   const days = [...(trip.days || [])]
   const index = days.findIndex(d => d.dayNum === dayNum)
   if (index === -1) return trip
@@ -10,21 +12,21 @@ export function updateTripDay(trip, dayNum, updatedDay) {
   return { ...trip, days }
 }
 
-function normalizeDayNums(days) {
+function normalizeDayNums(days: Day[]): Day[] {
   return days.map((d, i) => ({ ...d, dayNum: i + 1 }))
 }
 
-export function addDay(trip) {
-  const days = [...(trip.days || []), { dayNum: 0, title: 'Új nap', subtitle: '', schedule: [] }]
+export function addDay(trip: Trip): Trip {
+  const days: Day[] = [...(trip.days || []), { dayNum: 0, title: 'Új nap', subtitle: '', schedule: [] }]
   return { ...trip, days: normalizeDayNums(days) }
 }
 
-export function deleteDay(trip, dayNum) {
+export function deleteDay(trip: Trip, dayNum: number): Trip {
   const days = (trip.days || []).filter(d => d.dayNum !== dayNum)
   return { ...trip, days: normalizeDayNums(days) }
 }
 
-export function moveDayUp(trip, dayNum) {
+export function moveDayUp(trip: Trip, dayNum: number): Trip {
   const days = [...(trip.days || [])]
   const idx = days.findIndex(d => d.dayNum === dayNum)
   if (idx <= 0) return trip
@@ -32,7 +34,7 @@ export function moveDayUp(trip, dayNum) {
   return { ...trip, days: normalizeDayNums(days) }
 }
 
-export function moveDayDown(trip, dayNum) {
+export function moveDayDown(trip: Trip, dayNum: number): Trip {
   const days = [...(trip.days || [])]
   const idx = days.findIndex(d => d.dayNum === dayNum)
   if (idx === -1 || idx >= days.length - 1) return trip
@@ -40,7 +42,7 @@ export function moveDayDown(trip, dayNum) {
   return { ...trip, days: normalizeDayNums(days) }
 }
 
-export function addScheduleItem(trip, dayNum) {
+export function addScheduleItem(trip: Trip, dayNum: number): Trip {
   const days = [...(trip.days || [])]
   const idx = days.findIndex(d => d.dayNum === dayNum)
   if (idx === -1) return trip
@@ -50,7 +52,7 @@ export function addScheduleItem(trip, dayNum) {
   return { ...trip, days }
 }
 
-export function deleteScheduleItem(trip, dayNum, itemIndex) {
+export function deleteScheduleItem(trip: Trip, dayNum: number, itemIndex: number): Trip {
   const days = [...(trip.days || [])]
   const idx = days.findIndex(d => d.dayNum === dayNum)
   if (idx === -1) return trip
@@ -60,7 +62,7 @@ export function deleteScheduleItem(trip, dayNum, itemIndex) {
   return { ...trip, days }
 }
 
-export function moveScheduleItem(trip, dayNum, itemIndex, direction) {
+export function moveScheduleItem(trip: Trip, dayNum: number, itemIndex: number, direction: number): Trip {
   const days = [...(trip.days || [])]
   const idx = days.findIndex(d => d.dayNum === dayNum)
   if (idx === -1) return trip
@@ -74,7 +76,7 @@ export function moveScheduleItem(trip, dayNum, itemIndex, direction) {
   return { ...trip, days }
 }
 
-export function updateScheduleItem(trip, dayNum, itemIndex, updatedItem) {
+export function updateScheduleItem(trip: Trip, dayNum: number, itemIndex: number, updatedItem: Partial<ScheduleItem>): Trip {
   const days = [...(trip.days || [])]
   const dayIdx = days.findIndex(d => d.dayNum === dayNum)
   if (dayIdx === -1) return trip

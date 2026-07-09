@@ -185,7 +185,10 @@ const files = fs.readdirSync(tripsDir)
   .filter(file => file.endsWith('.json') && file !== '_template.json')
   .sort()
 
-check(files.length > 0, 'No trip JSON files found')
+if (files.length === 0) {
+  console.log('0 local trip files found — nothing to validate (trip data lives in Supabase).')
+  process.exit(0)
+}
 
 files.forEach(file => {
   const filePath = path.join(tripsDir, file)

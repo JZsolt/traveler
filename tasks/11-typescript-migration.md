@@ -1,4 +1,4 @@
-# 11 — TypeScript Migration
+# 11 — TypeScript Migration ✅ DONE
 
 This phase migrates Traveler from JavaScript/JSX to TypeScript/TSX before the design-system migration starts.
 

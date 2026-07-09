@@ -13,8 +13,8 @@ export function useDeleteTrip({ slug, refetch }: DeleteTripProps): DeleteTripRet
   async function confirmDelete() {
     setDeleting(true)
     setError(null)
-    if (!supabase) {
-      setError('Supabase nincs konfigurálva.')
+    if (!supabase || !slug) {
+      setError(!supabase ? 'Supabase nincs konfigurálva.' : 'Nincs betöltve az utazás.')
       setDeleting(false)
       return
     }

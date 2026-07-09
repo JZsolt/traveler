@@ -14,6 +14,7 @@ export function useTripUpdater({ trip, slug, refetch }: TripUpdaterProps): TripU
 
     try {
       if (!supabase) throw new Error('Supabase nincs konfigurálva.')
+      if (!trip || !slug) throw new Error('Nincs betöltve az utazás.')
 
       const updated = typeof updater === 'function' ? updater(trip) : updater
       const tripData = { ...trip, ...updated }

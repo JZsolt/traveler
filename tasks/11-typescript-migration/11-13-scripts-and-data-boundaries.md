@@ -1,4 +1,4 @@
-# 11-13 — Scripts And Data Boundaries
+# 11-13 — Scripts And Data Boundaries ✅ DONE
 
 Read only:
 
@@ -28,3 +28,12 @@ Manual test flow to report:
 - `pnpm run build`
 
 Do not write automated tests.
+
+## Notes
+
+- `pnpm run validate:trips` exits successfully with "0 local trip files found" when
+  no JSON files are present in `src/data/trips/`, because trip data now lives in
+  Supabase. The script validates any `.json` files placed in that directory.
+- `src/data/trips.js` no longer exists; the `node -c` check is obsolete.
+- `src/data/update-trips-day3-4.cjs` is a dead one-off migration script (references
+  nonexistent `src/data/trips.js`); kept for history.

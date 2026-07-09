@@ -26,6 +26,7 @@ export function useExpandDay({ trip, slug, refetch }: ExpandDayProps): ExpandDay
   }
 
   async function expandDay(dayNum: number) {
+    if (!trip || !slug) return
     const day = trip.days.find(d => d.dayNum === dayNum)
     if (!day) return
 

@@ -4,6 +4,7 @@ export async function ensureUniqueSlug(baseSlug: string, currentSlug: string | n
   if (!baseSlug) return ''
 
   if (baseSlug === currentSlug) return baseSlug
+  if (!supabase) return baseSlug
 
   const { data } = await supabase
     .from('trips')

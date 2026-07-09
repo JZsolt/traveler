@@ -128,3 +128,19 @@ export interface ApiError {
   ok: false
   error: { code: string; message: string }
 }
+
+// --- Trip JSON validation ---
+
+export interface ValidationSuccess {
+  valid: true
+  errors: []
+  normalizedTrip: Trip
+}
+
+export interface ValidationFailure {
+  valid: false
+  errors: string[]
+  normalizedTrip: null
+}
+
+export type ValidationResult = ValidationSuccess | ValidationFailure

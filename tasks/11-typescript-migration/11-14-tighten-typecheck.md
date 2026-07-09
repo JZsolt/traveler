@@ -1,4 +1,4 @@
-# 11-14 — Tighten Typecheck
+# 11-14 — Tighten Typecheck ✅ DONE
 
 Read only:
 

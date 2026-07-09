@@ -117,7 +117,7 @@ export function BudgetSummary({ budget, trip, slug, refetch }: BudgetSummaryProp
       {editing ? (
         <>
           <h3 className="text-sm md:text-base font-bold mb-3">💰 Költségvetés szerkesztése</h3>
-          <BudgetEditor draft={draft} onChange={setDraft} />
+          {draft && <BudgetEditor draft={draft} onChange={setDraft} />}
           {error && <p className="text-xs text-red-300 mt-2">{error}</p>}
           <div className="flex items-center justify-center gap-2 mt-4">
             <Button onClick={handleSave} disabled={saving} size="sm" className="bg-[#e94560] hover:bg-[#d63d56] text-white">

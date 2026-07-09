@@ -64,10 +64,10 @@ export interface BackupFailedEntry {
 // --- Import ---
 
 export interface TripBackupBody {
-  application?: string
-  trip?: {
-    slug?: string
-    trip_data?: TripImportData
+  application: 'Traveler'
+  trip: {
+    slug: string
+    trip_data: TripImportData
     owner?: string | null
   }
 }

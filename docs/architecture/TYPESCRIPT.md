@@ -202,15 +202,15 @@ These are the points where data enters or leaves the typed world. All must use `
 ### JSON import/export
 
 - Backup format: `{ application: "Traveler", trip: { slug, trip_data, owner } }`
-- Import validation in `api/_import-utils.js` checks shape before insert
+- Import validation in `api/_import-utils.ts` checks shape before insert
 - Imported `trip_data` must be treated as `unknown` until validated
 
 ### AI endpoint responses
 
-- `api/suggest-trip-section.js` — returns partial trip sections (array or object)
-- `api/expand-day.js` — returns a `Day`-shaped object
-- `api/plan-trip.js` — returns a full `Trip`-shaped object
-- `api/chat.js` — returns streaming text
+- `api/suggest-trip-section.ts` — returns partial trip sections (array or object)
+- `api/expand-day.ts` — returns a `Day`-shaped object
+- `api/plan-trip.ts` — returns a full `Trip`-shaped object
+- `api/chat.ts` — returns streaming text
 - All AI JSON is parsed from free-text — must use `unknown` + validation
 - Pattern: `JSON.parse(extractJson(text))` → validate shape before use
 
@@ -220,6 +220,13 @@ These are the points where data enters or leaves the typed world. All must use `
 - No trip data in localStorage/sessionStorage
 
 ---
+
+## Compiler Strictness
+
+- `strict: true` — enabled, all app code in `src/` and `api/` passes
+- `allowJs: false` — no JS/JSX files remain in `src/` or `api/`
+- `noUncheckedIndexedAccess` — deferred, produces 58 errors mostly in array swap patterns and Record lookups across editor components; would require pervasive guards on array element access
+- Scripts (`scripts/*.mjs`) are standalone Node.js files outside the `include` path, not typechecked
 
 ## Migration Rules
 

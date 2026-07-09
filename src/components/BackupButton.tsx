@@ -36,7 +36,7 @@ export function BackupButton() {
         return
       }
 
-      if (data.failedFiles?.length > 0) {
+      if ((data.failedFiles?.length ?? 0) > 0) {
         setState('partial')
         setResult(data)
         return
@@ -113,10 +113,10 @@ export function BackupButton() {
               )}
             </p>
           )}
-          {result.failedFiles?.length > 0 && (
+          {(result.failedFiles?.length ?? 0) > 0 && (
             <div className="mt-2 pt-2 border-t border-amber-200">
               <p className="font-semibold">Sikertelen fájlok:</p>
-              {result.failedFiles.map((f, i) => (
+              {result.failedFiles?.map((f, i) => (
                 <p key={i}>
                   <code className="bg-white/50 px-1 rounded">{f.path}</code> — {f.error}
                 </p>
