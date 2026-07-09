@@ -1,4 +1,4 @@
-import type { Trip } from './trip'
+import type { Trip, TripImportData } from './trip'
 
 export type TripsRow = {
   id: string
@@ -16,7 +16,7 @@ export type Database = {
         Row: TripsRow
         Insert: {
           slug: string
-          trip_data: Trip
+          trip_data: Trip | TripImportData
           owner?: string | null
           id?: string
           created_at?: string
@@ -24,7 +24,7 @@ export type Database = {
         }
         Update: {
           slug?: string
-          trip_data?: Trip
+          trip_data?: Trip | TripImportData
           owner?: string | null
         }
         Relationships: []

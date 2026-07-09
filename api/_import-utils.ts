@@ -1,21 +1,24 @@
-function validateBackupShape(body) {
-  if (!body || typeof body !== 'object') return 'A JSON nem egy objektum.'
-  if (body.application !== 'Traveler') return 'Nem Traveler backup fajl.'
-  if (!body.trip || typeof body.trip !== 'object') return 'Hianyzo "trip" mezo.'
+import type { ImportSingleResult, SupabaseAdmin } from '../src/types/apiServer'
+import { isRecord, isTripBackupBody, isTripImportData } from './_narrowing'
 
-  const t = body.trip
+function validateBackupShape(body: unknown): string | null {
+  if (!isRecord(body)) return 'A JSON nem egy objektum.'
+  const b = body
+  if (b.application !== 'Traveler') return 'Nem Traveler backup fajl.'
+  if (!isRecord(b.trip)) return 'Hianyzo "trip" mezo.'
+
+  const t = b.trip
   if (!t.slug || typeof t.slug !== 'string') return 'Hianyzo vagy ervenytelen "trip.slug".'
-  if (!t.trip_data || typeof t.trip_data !== 'object') return 'Hianyzo vagy ervenytelen "trip.trip_data".'
-
-  const td = t.trip_data
-  if (!td.title || typeof td.title !== 'string') return 'Hianyzo "trip_data.title".'
-  if (!td.startDate) return 'Hianyzo "trip_data.startDate".'
-  if (!td.endDate) return 'Hianyzo "trip_data.endDate".'
+  if (!isRecord(t.trip_data)) return 'Hianyzo vagy ervenytelen "trip.trip_data".'
+  if (typeof t.trip_data.title !== 'string') return 'Hianyzo "trip_data.title".'
+  if (typeof t.trip_data.startDate !== 'string') return 'Hianyzo "trip_data.startDate".'
+  if (typeof t.trip_data.endDate !== 'string') return 'Hianyzo "trip_data.endDate".'
+  if (!isTripImportData(t.trip_data)) return 'A "trip.trip_data" szerkezete ervenytelen.'
 
   return null
 }
 
-async function findUniqueSlug(supabase, baseSlug) {
+async function findUniqueSlug(supabase: SupabaseAdmin, baseSlug: string): Promise<string> {
   const { data } = await supabase
     .from('trips')
     .select('slug')
@@ -23,7 +26,7 @@ async function findUniqueSlug(supabase, baseSlug) {
 
   if (!data || data.length === 0) return baseSlug
 
-  const existing = new Set(data.map(r => r.slug))
+  const existing = new Set(data.map((r: { slug: string }) => r.slug))
   if (!existing.has(baseSlug)) return baseSlug
 
   for (let i = 2; i <= 99; i++) {
@@ -34,10 +37,10 @@ async function findUniqueSlug(supabase, baseSlug) {
   return `${baseSlug}-${Date.now()}`
 }
 
-async function importSingleTrip(supabase, backup, mode) {
+async function importSingleTrip(supabase: SupabaseAdmin, backup: unknown, mode: string): Promise<ImportSingleResult> {
   const validationError = validateBackupShape(backup)
-  if (validationError) {
-    return { ok: false, error: validationError }
+  if (validationError || !isTripBackupBody(backup)) {
+    return { ok: false, error: validationError || 'A backup szerkezete ervenytelen.' }
   }
 
   const trip = backup.trip

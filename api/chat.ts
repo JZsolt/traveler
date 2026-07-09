@@ -1,8 +1,11 @@
+import type { VercelRequest, VercelResponse } from '@vercel/node'
 import { GoogleGenAI } from '@google/genai'
+import type { GeminiModels } from '../src/types/apiServer'
+import { isChatMessageArray, isRecord } from './_narrowing'
 
 const DEFAULT_MODEL = 'gemini-3.1-flash-lite'
 
-const MODELS = {
+const MODELS: GeminiModels = {
   'gemini-2.5-flash': true,
   'gemini-3.1-flash-lite': true,
 }
@@ -18,7 +21,7 @@ A felhasznalo utazast tervez es te segitesz neki brainstormolni. A celod:
 
 NE generalj JSON-t, NE irj strukturalt trip tervet. Csak beszelgess es segits az otletelesben.`
 
-export default async function handler(req, res) {
+export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' })
   }
@@ -28,18 +31,25 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'GEMINI_API_KEY nincs konfigurálva.' })
   }
 
-  const { messages, model: requestedModel } = req.body || {}
-  if (!messages || !Array.isArray(messages) || messages.length === 0) {
+  const body: unknown = req.body
+  if (!isRecord(body)) {
+    return res.status(400).json({ error: 'Hianyzo request body.' })
+  }
+
+  const messages = body.messages
+  const requestedModel = body.model
+
+  if (!isChatMessageArray(messages) || messages.length === 0) {
     return res.status(400).json({ error: 'Hianyzo "messages" mezo.' })
   }
 
-  const model = MODELS[requestedModel] ? requestedModel : DEFAULT_MODEL
+  const model = typeof requestedModel === 'string' && MODELS[requestedModel] ? requestedModel : DEFAULT_MODEL
 
   try {
     const ai = new GoogleGenAI({ apiKey })
 
     const contents = messages.map(m => ({
-      role: m.role === 'user' ? 'user' : 'model',
+      role: m.role === 'user' ? 'user' as const : 'model' as const,
       parts: [{ text: m.content }],
     }))
 
@@ -54,6 +64,7 @@ export default async function handler(req, res) {
 
     return res.status(200).json({ reply: response.text })
   } catch (err) {
-    return res.status(502).json({ error: 'Gemini API hiba.', details: err.message })
+    const message = err instanceof Error ? err.message : 'Unknown error'
+    return res.status(502).json({ error: 'Gemini API hiba.', details: message })
   }
 }

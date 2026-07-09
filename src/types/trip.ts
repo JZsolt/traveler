@@ -191,6 +191,8 @@ export interface Trip {
   expandedDays?: number[]
 }
 
+export type TripImportData = Partial<Trip> & Pick<Trip, 'title' | 'startDate' | 'endDate'>
+
 export interface TripStatus {
   status: 'upcoming' | 'current' | 'past'
   label: string

@@ -1,9 +1,11 @@
-/* global process */
+import type { VercelRequest, VercelResponse } from '@vercel/node'
 import { GoogleGenAI } from '@google/genai'
+import type { GeminiModels, ParsedRecord } from '../src/types/apiServer'
+import { asRecordArray, getFirstFinishReason, isRecord } from './_narrowing'
 
 const DEFAULT_MODEL = 'gemini-3.1-flash-lite'
 
-const MODELS = {
+const MODELS: GeminiModels = {
   'gemini-2.5-flash': true,
   'gemini-3.1-flash-lite': true,
 }
@@ -49,7 +51,7 @@ Szabalyok:
 - Tipografiai idezőjelek TILOSAK
 - Csak JSON, semmi mas!`
 
-function extractJson(text) {
+function extractJson(text: string): string {
   const fenced = text.match(/```(?:json)?\s*\n?([\s\S]*?)\n?\s*```/)
   if (fenced) return fenced[1].trim()
   const first = text.indexOf('{')
@@ -58,7 +60,7 @@ function extractJson(text) {
   return text.trim()
 }
 
-export default async function handler(req, res) {
+export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' })
   }
@@ -68,21 +70,37 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'GEMINI_API_KEY nincs konfigurálva.' })
   }
 
-  const { tripTitle, destination, dayNumber, currentDay, people, model: requestedModel, instruction = '' } = req.body || {}
-  if (!tripTitle || !dayNumber || !currentDay) {
+  const body: unknown = req.body || {}
+  if (!isRecord(body)) {
+    return res.status(400).json({ error: 'Hianyzo request body.' })
+  }
+
+  const tripTitle = body.tripTitle
+  const destination = body.destination
+  const dayNumber = body.dayNumber
+  const currentDay = body.currentDay
+  const people = body.people
+  const requestedModel = body.model
+  const instruction = typeof body.instruction === 'string' ? body.instruction : ''
+
+  if (typeof tripTitle !== 'string' || typeof dayNumber !== 'number' || !isRecord(currentDay)) {
     return res.status(400).json({ error: 'Hianyzo mezok: tripTitle, dayNumber, currentDay.' })
   }
 
-  const model = MODELS[requestedModel] ? requestedModel : DEFAULT_MODEL
+  const model = typeof requestedModel === 'string' && MODELS[requestedModel] ? requestedModel : DEFAULT_MODEL
   console.log('[expand-day]', { model, tripTitle, dayNumber, destination })
 
+  const dayItems = asRecordArray(currentDay.items)
+  const items = dayItems.map(i => `${i.time || ''} ${i.title || ''} (${i.type || ''}) - ${i.note || ''}`).join('; ')
+  const dest = typeof destination === 'string' ? destination : ''
+  const ppl = typeof people === 'string' ? people : ''
   const userPrompt = `Utazas: ${tripTitle}
-Cel: ${destination || ''}
-Utazok: ${people || ''}
+Cel: ${dest}
+Utazok: ${ppl}
 ${dayNumber}. nap vazlata:
-Cim: ${currentDay.title}
+Cim: ${currentDay.title || ''}
 Osszefoglalo: ${currentDay.summary || ''}
-Programok: ${(currentDay.items || []).map(i => `${i.time || ''} ${i.title} (${i.type}) - ${i.note || ''}`).join('; ')}
+Programok: ${items}
 ${instruction.trim() ? `\nKulon user instrukcio:\n${instruction.trim()}\n` : ''}
 
 Reszletezd ki ezt a napot!`
@@ -102,13 +120,14 @@ Reszletezd ki ezt a napot!`
     })
 
     const raw = response.text || ''
-    console.log('[expand-day] Raw response length:', raw.length, 'finishReason:', response.candidates?.[0]?.finishReason)
+    const finishReason = getFirstFinishReason(response.candidates)
+    console.log('[expand-day] Raw response length:', raw.length, 'finishReason:', finishReason)
 
     if (!raw) {
       return res.status(502).json({ error: 'Ures valasz a Gemini-tol.' })
     }
 
-    let parsed
+    let parsed: unknown
     try {
       parsed = JSON.parse(raw)
     } catch {
@@ -116,8 +135,9 @@ Reszletezd ki ezt a napot!`
       try {
         parsed = JSON.parse(jsonStr)
       } catch (parseErr) {
-        const truncated = response.candidates?.[0]?.finishReason === 'MAX_TOKENS'
-        console.log('[expand-day] JSON parse error:', parseErr.message, 'truncated:', truncated)
+        const truncated = finishReason === 'MAX_TOKENS'
+        const msg = parseErr instanceof Error ? parseErr.message : 'Unknown'
+        console.log('[expand-day] JSON parse error:', msg, 'truncated:', truncated)
         return res.status(502).json({
           error: truncated
             ? 'A valasz tullepte a token limitet. Probald ujra.'
@@ -128,16 +148,17 @@ Reszletezd ki ezt a napot!`
       }
     }
 
-    if (!parsed.schedule || !Array.isArray(parsed.schedule)) {
+    if (!isRecord(parsed) || !Array.isArray(parsed.schedule)) {
       return res.status(502).json({ error: 'Hianyzo "schedule" a valaszban.' })
     }
 
-    parsed.dayNum = dayNumber
+    const day = { ...parsed, dayNum: dayNumber }
 
-    return res.status(200).json({ day: parsed })
+    return res.status(200).json({ day })
   } catch (err) {
-    const is429 = err.message?.includes('429') || err.message?.includes('RESOURCE_EXHAUSTED')
-    console.log('[expand-day] Error', { is429, detail: err.message?.slice(0, 200) })
+    const message = err instanceof Error ? err.message : ''
+    const is429 = message.includes('429') || message.includes('RESOURCE_EXHAUSTED')
+    console.log('[expand-day] Error', { is429, detail: message.slice(0, 200) })
 
     if (is429) {
       return res.status(429).json({
@@ -145,6 +166,6 @@ Reszletezd ki ezt a napot!`
         retryable: true,
       })
     }
-    return res.status(502).json({ error: 'Gemini API hiba.', details: err.message })
+    return res.status(502).json({ error: 'Gemini API hiba.', details: message })
   }
 }

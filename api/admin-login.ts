@@ -1,6 +1,7 @@
-import { validateAdmin } from './_admin-auth.js'
+import type { VercelRequest, VercelResponse } from '@vercel/node'
+import { validateAdmin } from './_admin-auth'
 
-export default function handler(req, res) {
+export default function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') {
     return res.status(405).json({ ok: false, error: { code: 'METHOD_NOT_ALLOWED', message: 'Csak POST kérés engedélyezett.' } })
   }
