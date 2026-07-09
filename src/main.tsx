@@ -1,14 +1,11 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import App from './App.jsx'
+import App from './App'
 
-// iOS PWA standalone: force text selection
-// The contentEditable trick is the most reliable way on iOS standalone
-const isStandalone = window.navigator.standalone || window.matchMedia('(display-mode: standalone)').matches
+const isStandalone = navigator.standalone || window.matchMedia('(display-mode: standalone)').matches
 if (isStandalone) {
   document.addEventListener('DOMContentLoaded', () => {
-    // Mark root as contentEditable=false — paradoxically this enables selection on iOS
     const root = document.getElementById('root')
     if (root) {
       root.setAttribute('contentEditable', 'false')
@@ -21,7 +18,7 @@ if (isStandalone) {
   })
 }
 
-createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <App />
   </StrictMode>,

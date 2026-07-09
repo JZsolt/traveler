@@ -2,7 +2,7 @@ import { useRef } from 'react'
 import { useParams, Navigate } from 'react-router-dom'
 import { useAdmin } from '@/hooks/useAdmin'
 import { SquarePen, Trash2, Download, Wand2, Plus } from 'lucide-react'
-import { useTrips } from '@/context/TripsContext'
+import { useTrips } from '@/hooks/useTrips'
 import { addDay } from '@/lib/tripSections'
 import { exportTripJson } from '@/lib/exportTripJson'
 import { useTripUpdater } from '@/hooks/useTripUpdater'
@@ -21,10 +21,10 @@ import { UsefulLinks } from '@/components/trip/UsefulLinks'
 
 export function TripPage() {
   const { isAdminUnlocked } = useAdmin()
-  const { slug } = useParams()
+  const { slug } = useParams<{ slug: string }>()
   const { trips, loading, error, refetch } = useTrips()
   const trip = !loading && !error ? trips.find(t => t.slug === slug) : null
-  const heroRef = useRef(null)
+  const heroRef = useRef<{ edit: () => void } | null>(null)
   const { saveTrip: saveTripDays, saving: savingDays } = useTripUpdater({ trip, slug, refetch })
   const del = useDeleteTrip({ slug, refetch })
   const expand = useExpandDay({ trip, slug, refetch })
@@ -44,7 +44,7 @@ export function TripPage() {
     </main>
   )
 
-  if (!trip) return <Navigate to="/" replace />
+  if (!trip || !slug) return <Navigate to="/" replace />
 
   const isDraft = trip.status === 'draft'
 

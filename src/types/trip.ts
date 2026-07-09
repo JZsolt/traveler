@@ -180,6 +180,7 @@ export interface Trip {
   usefulLinks: UsefulLink[]
   packingList: string[]
   savingTips: SavingTip[]
+  savingTipsLabel?: string
   practicalInfo: PracticalInfoSection[]
   bookingChecklist: BookingChecklistItem[]
   insurance?: Insurance
@@ -188,6 +189,11 @@ export interface Trip {
   status?: string
   aiModel?: string
   expandedDays?: number[]
+}
+
+export interface TripStatus {
+  status: 'upcoming' | 'current' | 'past'
+  label: string
 }
 
 export interface TripRowRaw {

@@ -1,105 +1,12 @@
-import { useState, useRef } from 'react'
+import { useRef } from 'react'
 import { Button } from '@/components/ui/button'
-import { useTrips } from '@/context/TripsContext'
-import { API } from '@/lib/constants'
-import { getApiErrorMessage, isImportBackupResult, isImportSingleBackupResponse } from '@/types/guards'
-import type { ImportBackupMode, ImportBackupResult, ImportBackupState, ParsedBackupFile } from '@/types/components'
+import { useTrips } from '@/hooks/useTrips'
+import { useImportBackup } from '@/hooks/useImportBackup'
 
 export function ImportBackup() {
-  const [mode, setMode] = useState<ImportBackupMode>('create')
-  const [state, setState] = useState<ImportBackupState>('idle')
-  const [result, setResult] = useState<ImportBackupResult | null>(null)
-  const [error, setError] = useState<string | null>(null)
-  const [password, setPassword] = useState('')
-  const fileRef = useRef<HTMLInputElement | null>(null)
   const { refetch } = useTrips()
-
-  async function handleImport() {
-    const files = fileRef.current?.files
-    if (!files || files.length === 0) return
-    if (!password.trim()) return
-
-    setState('loading')
-    setResult(null)
-    setError(null)
-
-    try {
-      const parsed: ParsedBackupFile[] = []
-      for (const file of files) {
-        const text = await file.text()
-        try {
-          parsed.push({ name: file.name, data: JSON.parse(text) })
-        } catch {
-          setState('error')
-          setError(`Ervenytelen JSON fajl: ${file.name}`)
-          return
-        }
-      }
-
-      if (parsed.length === 1) {
-        const res = await fetch(API.IMPORT_TRIP, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ mode, backup: parsed[0].data, password }),
-        })
-        const data: unknown = await res.json()
-
-        if (!isImportSingleBackupResponse(data)) {
-          setState('error')
-          setError('Hibás válasz a szervertől.')
-          return
-        }
-
-        if (!res.ok || !data.ok || !data.slug) {
-          setState('error')
-          setError(data.error?.message || 'Ismeretlen hiba tortent.')
-          return
-        }
-
-        setState('success')
-        setResult({
-          importedCount: 1,
-          failedCount: 0,
-          results: [{ slug: data.slug, created: data.created, updated: data.updated }],
-          errors: [],
-        })
-      } else {
-        const res = await fetch(API.IMPORT_TRIPS, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ mode, backups: parsed.map(p => p.data), password }),
-        })
-        const data: unknown = await res.json()
-
-        if (!res.ok) {
-          setState('error')
-          setError(getApiErrorMessage(data, 'Ismeretlen hiba tortent.'))
-          return
-        }
-
-        if (!isImportBackupResult(data)) {
-          setState('error')
-          setError('Hibás válasz a szervertől.')
-          return
-        }
-
-        if (data.failedCount > 0) {
-          setState('partial')
-          setResult({ ...data, fileNames: parsed.map(p => p.name) })
-        } else {
-          setState('success')
-          setResult(data)
-        }
-      }
-
-      refetch()
-      setPassword('')
-      if (fileRef.current) fileRef.current.value = ''
-    } catch {
-      setState('error')
-      setError('Nincs internetkapcsolat vagy a szerver nem elerheto.')
-    }
-  }
+  const fileRef = useRef<HTMLInputElement | null>(null)
+  const imp = useImportBackup({ refetch, fileRef })
 
   return (
     <div className="bg-white rounded-2xl shadow-md p-5">
@@ -109,9 +16,9 @@ export function ImportBackup() {
         <div className="flex gap-2">
           <button
             type="button"
-            onClick={() => setMode('create')}
+            onClick={() => imp.setMode('create')}
             className={`text-xs px-3 py-1.5 rounded-full border transition-colors ${
-              mode === 'create'
+              imp.mode === 'create'
                 ? 'bg-[#0f3460] text-white border-[#0f3460]'
                 : 'bg-white text-[#0f3460] border-gray-300'
             }`}
@@ -120,9 +27,9 @@ export function ImportBackup() {
           </button>
           <button
             type="button"
-            onClick={() => setMode('upsert-by-slug')}
+            onClick={() => imp.setMode('upsert-by-slug')}
             className={`text-xs px-3 py-1.5 rounded-full border transition-colors ${
-              mode === 'upsert-by-slug'
+              imp.mode === 'upsert-by-slug'
                 ? 'bg-[#0f3460] text-white border-[#0f3460]'
                 : 'bg-white text-[#0f3460] border-gray-300'
             }`}
@@ -143,19 +50,19 @@ export function ImportBackup() {
           <label className="block text-xs text-slate-500 mb-1">Admin jelszó az importhoz</label>
           <input
             type="password"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
+            value={imp.password}
+            onChange={e => imp.setPassword(e.target.value)}
             placeholder="Admin jelszó"
             className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0f3460]/30 focus:border-[#0f3460]"
           />
         </div>
 
         <Button
-          onClick={handleImport}
-          disabled={state === 'loading' || !password.trim()}
+          onClick={imp.handleImport}
+          disabled={imp.state === 'loading' || !imp.password.trim()}
           className="bg-[#0f3460] hover:bg-[#1a1a2e] text-white text-sm px-4 py-2"
         >
-          {state === 'loading' ? (
+          {imp.state === 'loading' ? (
             <span className="flex items-center gap-2">
               <span className="animate-spin">⏳</span>
               Importalas...
@@ -166,29 +73,29 @@ export function ImportBackup() {
         </Button>
       </div>
 
-      {(state === 'success' || state === 'partial') && result && (
+      {(imp.state === 'success' || imp.state === 'partial') && imp.result && (
         <div className={`mt-3 rounded-xl p-3 text-xs space-y-1 border ${
-          state === 'success'
+          imp.state === 'success'
             ? 'bg-green-50 border-green-200 text-green-800'
             : 'bg-amber-50 border-amber-200 text-amber-800'
         }`}>
           <p className="font-semibold">
-            {state === 'success' ? 'Sikeres import!' : 'Reszleges import'}
+            {imp.state === 'success' ? 'Sikeres import!' : 'Reszleges import'}
           </p>
-          <p>Importalva: {result.importedCount} db</p>
-          {result.results?.map((r, i) => (
+          <p>Importalva: {imp.result.importedCount} db</p>
+          {imp.result.results?.map((r, i) => (
             <p key={i}>
               <code className="bg-white/50 px-1 rounded">{r.slug}</code>
               {' '}{r.created ? '(letrehozva)' : '(frissitve)'}
             </p>
           ))}
-          {result.errors?.length > 0 && (
+          {imp.result.errors?.length > 0 && (
             <div className="mt-2 pt-2 border-t border-amber-200">
-              <p className="font-semibold">Sikertelen ({result.failedCount} db):</p>
-              {result.errors.map((e, i) => (
+              <p className="font-semibold">Sikertelen ({imp.result.failedCount} db):</p>
+              {imp.result.errors.map((e, i) => (
                 <p key={i}>
                   <code className="bg-white/50 px-1 rounded">
-                    {e.index !== undefined ? result.fileNames?.[e.index] : e.slug}
+                    {e.index !== undefined ? imp.result?.fileNames?.[e.index] : e.slug}
                   </code>
                   {' '} — {e.error}
                 </p>
@@ -198,10 +105,10 @@ export function ImportBackup() {
         </div>
       )}
 
-      {state === 'error' && error && (
+      {imp.state === 'error' && imp.error && (
         <div className="mt-3 bg-red-50 border border-red-200 rounded-xl p-3 text-xs text-red-800">
           <p className="font-semibold">Hiba tortent</p>
-          <p>{error}</p>
+          <p>{imp.error}</p>
         </div>
       )}
     </div>

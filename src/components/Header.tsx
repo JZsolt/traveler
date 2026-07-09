@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom'
 import { Settings } from 'lucide-react'
-import { useTrips } from '@/context/TripsContext'
+import { useTrips } from '@/hooks/useTrips'
 
 export function Header() {
   const location = useLocation()

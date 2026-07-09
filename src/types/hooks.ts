@@ -1,5 +1,6 @@
 import type { RefObject } from 'react'
 import type { Trip, Day, ScheduleItem, Cost, Link, TransportLink, Guide } from './trip'
+import type { ImportBackupMode, ImportBackupState, ImportBackupResult } from './componentsAdmin'
 import type { DetailLevel, ChatMessage } from './api'
 import type { CreateTripForm, Draft } from './createTrip'
 
@@ -184,4 +185,74 @@ export interface ScheduleItemEditorReturn {
   startEdit: () => void
   cancel: () => void
   save: () => Promise<void>
+}
+
+// --- Edit trip hook ---
+
+export interface EditTripProps {
+  trip: Trip
+  slug: string
+  refetch: () => Promise<void> | void
+  navigate: (path: string) => void
+}
+
+export interface EditTripForm {
+  title: string
+  startDate: string
+  endDate: string
+  emoji: string
+  people: string
+}
+
+export interface EditTripReturn {
+  form: EditTripForm
+  update: (field: keyof EditTripForm, value: string) => void
+  saving: boolean
+  error: string | null
+  handleSubmit: (e: React.FormEvent) => Promise<void>
+}
+
+// --- Import trip JSON hook ---
+
+export interface ImportTripJsonProps {
+  refetch: () => Promise<void> | void
+  navigate: (path: string) => void
+}
+
+export interface ImportTripJsonReturn {
+  importing: boolean
+  error: string | null
+  handleImport: (e: React.ChangeEvent<HTMLInputElement>) => void
+}
+
+// --- Admin unlock hook ---
+
+export interface AdminUnlockProps {
+  unlockAdmin: (password: string) => Promise<{ ok: boolean; error?: string }>
+}
+
+export interface AdminUnlockReturn {
+  password: string
+  setPassword: (value: string) => void
+  loading: boolean
+  error: string | null
+  handleUnlock: (e: React.FormEvent) => Promise<void>
+}
+
+// --- Import backup hook ---
+
+export interface ImportBackupProps {
+  refetch: () => Promise<void> | void
+  fileRef: React.RefObject<HTMLInputElement | null>
+}
+
+export interface ImportBackupReturn {
+  mode: ImportBackupMode
+  setMode: (mode: ImportBackupMode) => void
+  state: ImportBackupState
+  result: ImportBackupResult | null
+  error: string | null
+  password: string
+  setPassword: (value: string) => void
+  handleImport: () => Promise<void>
 }

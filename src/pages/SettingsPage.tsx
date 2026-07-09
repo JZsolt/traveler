@@ -1,5 +1,5 @@
-import { useState } from 'react'
 import { useAdmin } from '@/hooks/useAdmin'
+import { useAdminUnlock } from '@/hooks/useAdminUnlock'
 import { Button } from '@/components/ui/button'
 import { BackupButton } from '@/components/BackupButton'
 import { ImportBackup } from '@/components/ImportBackup'
@@ -7,26 +7,7 @@ import { Lock, Unlock, LogOut, Database } from 'lucide-react'
 
 export function SettingsPage() {
   const { isAdminUnlocked, unlockAdmin, lockAdmin } = useAdmin()
-  const [password, setPassword] = useState('')
-  const [error, setError] = useState(null)
-  const [loading, setLoading] = useState(false)
-
-  async function handleUnlock(e) {
-    e.preventDefault()
-    if (!password.trim()) return
-    setLoading(true)
-    setError(null)
-    try {
-      const result = await unlockAdmin(password)
-      if (!result.ok) {
-        setError(result.error)
-      } else {
-        setPassword('')
-      }
-    } finally {
-      setLoading(false)
-    }
-  }
+  const unlock = useAdminUnlock({ unlockAdmin })
 
   return (
     <main className="pb-16 px-4" style={{ paddingTop: 'calc(3.5rem + env(safe-area-inset-top, 0px) + 1.5rem)' }}>
@@ -59,7 +40,7 @@ export function SettingsPage() {
             </div>
           </div>
         ) : (
-          <form onSubmit={handleUnlock} className="space-y-4">
+          <form onSubmit={unlock.handleUnlock} className="space-y-4">
             <div className="flex items-center gap-3 p-4 bg-slate-50 border border-slate-200 rounded-xl">
               <Lock className="w-5 h-5 text-slate-400 shrink-0" />
               <p className="text-sm text-slate-600">Az admin funkciók zárolva vannak. Add meg a jelszót a feloldáshoz.</p>
@@ -68,20 +49,20 @@ export function SettingsPage() {
             <div>
               <input
                 type="password"
-                value={password}
-                onChange={e => setPassword(e.target.value)}
+                value={unlock.password}
+                onChange={e => unlock.setPassword(e.target.value)}
                 placeholder="Admin jelszó"
                 autoFocus
                 className="w-full border border-slate-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0f3460]/30 focus:border-[#0f3460]"
               />
             </div>
 
-            {error && (
-              <p className="text-sm text-red-600">{error}</p>
+            {unlock.error && (
+              <p className="text-sm text-red-600">{unlock.error}</p>
             )}
 
-            <Button type="submit" disabled={loading || !password.trim()} className="w-full bg-[#0f3460] hover:bg-[#1a1a2e] text-white">
-              {loading ? 'Ellenőrzés...' : 'Feloldás'}
+            <Button type="submit" disabled={unlock.loading || !unlock.password.trim()} className="w-full bg-[#0f3460] hover:bg-[#1a1a2e] text-white">
+              {unlock.loading ? 'Ellenőrzés...' : 'Feloldás'}
             </Button>
           </form>
         )}
