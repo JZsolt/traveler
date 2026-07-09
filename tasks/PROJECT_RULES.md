@@ -35,6 +35,19 @@ These rules apply to every implementation task.
 - Use `unknown` plus narrowing for JSON, Supabase, browser storage, and API responses.
 - `Trip`, `Day`, and `ScheduleItem` must be defined exactly once in `src/types/trip.ts`; do not create duplicate `TripData`, `TripDay`, `Activity`, or equivalent domain types.
 
+## Runtime Validation
+
+- Every external input starts as `unknown`.
+- Validate every external boundary with Zod before domain code receives data.
+- Never expose raw AI, Supabase, browser storage, URL parameter, imported JSON, backup, or external API data to the domain layer.
+- Runtime schemas live under `src/schemas/`.
+- Schemas are the single source of truth for runtime data shapes.
+- Infer TypeScript types from schemas whenever the schema owns the shape.
+- Keep stable public type exports under `src/types/` where needed; do not maintain duplicate manual schema and type definitions.
+- Parsing failure must produce a controlled error or documented safe fallback.
+- Do not use `as` to bypass boundary validation. Remaining assertions require a concrete library or language limitation and already validated input.
+- Do not log secrets, full prompts, raw personal trip data, or imported file contents.
+
 ## UI
 
 - Do not redesign the UI unless explicitly requested.
@@ -50,6 +63,7 @@ These rules apply to every implementation task.
 - Prefer small reusable utilities over repeated logic.
 - During review, always check touched files against the architecture rules above: file size, logic/UI separation, duplication, constants, and theme token usage.
 - During TypeScript review, also check for broad casts, any inline type/interface declarations outside `src/types/`, missing prop types, duplicated domain types, and any use of `any`.
+- During runtime validation review, map every touched external boundary to its Zod schema and confirm raw input cannot reach domain code.
 
 ## Security
 

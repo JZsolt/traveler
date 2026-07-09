@@ -124,6 +124,16 @@ Ezek minden implementációra és review-ra érvényesek, nem csak a 10-es phase
 - `Trip`, `Day`, `ScheduleItem` pontosan egyszer legyen definiálva: `src/types/trip.ts`. Ne legyen duplikált `TripData`, `TripDay`, `Activity` vagy ekvivalens domain type.
 - Review-nál minden érintett fájlnál ellenőrizd: méret, logika/UI szétválasztás, duplikáció, konstansok, theme token használat, TypeScript esetén broad cast, inline type/interface, duplikált domain type és bármilyen `any`.
 
+## Runtime validáció
+
+- Minden külső input `unknown` típusként indul.
+- AI, Supabase, browser storage, URL paraméter, importált JSON, backup és külső API adat csak Zod validáció után kerülhet domain kódba.
+- A runtime sémák a `src/schemas/` alatt élnek, és ezek a runtime adatstruktúrák single source of truth definíciói.
+- A sémákból `z.infer` típust használj, amikor a séma birtokolja az adatstruktúrát; ne tarts fenn kézi duplikált schema/type definíciót.
+- A `src/types/` maradjon stabil publikus type export réteg, ahol erre az importkompatibilitás miatt szükség van.
+- `as` casttal tilos boundary validációt megkerülni.
+- Review-nál minden érintett külső boundary-hoz azonosítsd a Zod sémát és ellenőrizd, hogy raw adat nem jut domain kódba.
+
 ## Inline szerkesztés architektúra
 
 - **`useTripUpdater`** hook: `saveTrip(updater)` — updater fv megkapja a trip-et, visszaadja a módosítottat, Supabase-be menti

@@ -17,7 +17,8 @@ Always complete the phases in this order:
 9. ~~09-admin-settings-lock.md~~ ✅ (6 subtask + cleanup)
 10. ~~10-code-architecture-foundation.md~~ ✅ (12 subtask)
 11. ~~11-typescript-migration.md~~ ✅ (15 subtask)
-12. 11-design-system-foundation.md (12 subtask — next phase)
+12. 12-runtime-validation.md (10 subtask — next phase)
+13. 11-design-system-foundation.md (12 subtask — deferred until runtime validation is complete; legacy filename)
 
 ## Workflow
 
@@ -53,3 +54,11 @@ Phase 10 defines project-wide architecture rules that apply to all future implem
 - Use `unknown` plus narrowing for external data (Supabase, JSON, AI responses).
 - `Trip`, `Day`, and `ScheduleItem` defined exactly once in `src/types/trip.ts`; no duplicate aliases.
 - `pnpm run typecheck` must pass before every commit.
+
+## Runtime Validation Rules (Phase 12)
+
+- Zod is the single source of truth for runtime data shapes.
+- External data starts as `unknown` and is parsed at the boundary.
+- Schemas live under `src/schemas/`; public inferred types remain available through `src/types/`.
+- Raw AI, Supabase, storage, URL, import, backup, or external API data must not reach domain code.
+- Phase 12 must finish before design-system implementation starts.

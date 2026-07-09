@@ -164,7 +164,9 @@ A `Trip`, `Day` és `ScheduleItem` kanonikus definíciója:
 ## Kódolási szabályok
 
 - TypeScript strict mód; explicit `any` tilos.
-- Külső adat `unknown`, majd runtime narrowing/normalizálás.
+- Külső adat `unknown`, majd Zod validáció a boundary rétegben.
+- A runtime sémák a `src/schemas/` alatt élnek, és ahol lehetséges, ezekből
+  következtetjük a TypeScript típusokat.
 - Domain típusok kizárólag a `src/types/` alatt.
 - Oldalak csak route-szintű kompozíciót végeznek.
 - Workflow és állapotlogika custom hookba kerül.
@@ -233,5 +235,6 @@ A SPA fallback beállítása a [vercel.json](vercel.json) fájlban található.
 ## Projektállapot
 
 A TypeScript migráció elkészült. A következő tervezett fejlesztési fázis a
-design-system foundation; az aktuális sorrendet a [tasks/README.md](tasks/README.md)
-tartalmazza.
+[Runtime Validation & Data Boundaries](tasks/12-runtime-validation.md); a
+design-system implementáció ezután indulhat. Az aktuális sorrendet a
+[tasks/README.md](tasks/README.md) tartalmazza.
