@@ -27,11 +27,12 @@ For every task:
 2. Read only the task file you are currently implementing.
 3. Implement only the requested TASK.
 4. Do not continue to the next TASK automatically.
-5. Run `pnpm run build`.
-6. Fix build errors.
-7. Summarize changed files.
-8. **Mark the task as ✅ DONE in the .md file header!**
-9. Stop and wait for approval before continuing.
+5. Run `pnpm run typecheck`.
+6. Run `pnpm run build`.
+7. Fix errors.
+8. Summarize changed files.
+9. **Mark the task as ✅ DONE in the .md file header!**
+10. Stop and wait for approval before continuing.
 
 The goal is to keep every implementation small, reviewable, and easy to debug.
 
@@ -44,14 +45,11 @@ Phase 10 defines project-wide architecture rules that apply to all future implem
 - Reviews must check touched files for page thickness, hook/component extraction, 2+ duplication, hard-coded constants, file size, and token/theme usage.
 - These rules remain active after phase 10 is complete.
 
-## TypeScript Migration Rule
+## TypeScript Rules (Phase 11 — complete)
 
-Phase 11 must be completed before design-system work starts.
-
-- Use `tasks/11-typescript-migration.md` for the active next phase.
-- Keep shared TypeScript types in `src/types/`.
-- Do not place any `type` or `interface` declarations inside component, hook, page, lib, or API files.
-- Never use `any`: no explicit `any`, no `as any`, no `Record<string, any>`, no `any[]`.
-- Use `unknown` plus narrowing for external data.
-- `Trip`, `Day`, and `ScheduleItem` must be defined exactly once in `src/types/trip.ts`; do not create duplicate `TripData`, `TripDay`, or `Activity` types.
-- Every TypeScript migration task must run `pnpm run typecheck` once the script exists, plus `pnpm run build`.
+- `strict: true` in `tsconfig.json`. All app code is TypeScript.
+- Shared types live in `src/types/`. No inline `type` or `interface` in component, hook, page, lib, or API files.
+- No `any`: no explicit `any`, no `as any`, no `Record<string, any>`, no `any[]`.
+- Use `unknown` plus narrowing for external data (Supabase, JSON, AI responses).
+- `Trip`, `Day`, and `ScheduleItem` defined exactly once in `src/types/trip.ts`; no duplicate aliases.
+- `pnpm run typecheck` must pass before every commit.
