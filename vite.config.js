@@ -67,4 +67,18 @@ export default defineConfig({
       '@': path.resolve(projectRoot, './src'),
     },
   },
+  build: {
+    rolldownOptions: {
+      output: {
+        manualChunks(id) {
+          if (!id.includes('node_modules')) return undefined
+          if (id.includes('/react/') || id.includes('/react-dom/') || id.includes('/react-router-dom/')) return 'react'
+          if (id.includes('/@supabase/')) return 'supabase'
+          if (id.includes('/@base-ui/') || id.includes('/lucide-react/')) return 'ui'
+          if (id.includes('/zod/')) return 'validation'
+          return undefined
+        },
+      },
+    },
+  },
 })

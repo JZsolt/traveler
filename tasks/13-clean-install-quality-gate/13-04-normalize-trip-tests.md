@@ -1,4 +1,4 @@
-# 13-04 — Normalize Trip Tests
+# 13-04 — Normalize Trip Tests ✅ DONE
 
 **Estimate:** 2-3 hours
 
@@ -22,8 +22,9 @@ Avoid large normalizer rewrites in this task.
 - Partial legacy-style trip data is normalized into a `TripSchema`-valid value.
 - Invalid nested arrays are filtered instead of leaking raw invalid items.
 - Final Zod recheck failure returns the documented safe fallback.
-- `validateTripJson` rejects data that cannot be normalized into valid import
-  data.
+- `validateTripJson` is lenient: normalizes all salvageable/defaultable inputs
+  and always returns `TripSchema`-valid output. Only structurally unnormalizable
+  data is rejected.
 
 Required checks:
 

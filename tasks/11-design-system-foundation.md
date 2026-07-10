@@ -1,9 +1,9 @@
 # 11 — Design System Foundation
 
-Status: deferred until `13-clean-install-quality-gate.md` is complete.
+Status: deferred until `14-build-log-cleanup.md` is complete.
 
-Do not start these tasks while runtime validation or clean-install quality gate
-tasks are still open. This is the next design phase after Phase 13, even though
+Do not start these tasks while runtime validation, clean-install quality gate,
+or build-log cleanup tasks are still open. This is the next design phase after Phase 14, even though
 the legacy file name still uses `11-*`.
 
 This phase turns the existing Traveler design documentation into a small, reusable UI foundation.

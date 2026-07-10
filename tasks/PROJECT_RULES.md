@@ -72,9 +72,26 @@ These rules apply to every implementation task.
 
 ## Before finishing
 
+- Run `pnpm run typecheck`.
+- Run `pnpm run lint`.
+- Run `pnpm run test:run`.
 - Run `pnpm run build`.
-- Fix all build errors.
+- Fix all errors.
 - Summarize every changed file.
 - Explain any important implementation decisions.
 - **Mark the task as ✅ DONE in the .md file header** (e.g. `# 06 — Polish ✅ DONE`).
 - Stop and wait for approval before continuing.
+
+## Quality Gate (Phase 13)
+
+- Before starting a major new phase, verify clean install: `rm -rf node_modules && pnpm install --frozen-lockfile`.
+- Schema and normalizer tests must pass (`pnpm run test:run`) — they guard runtime validation boundaries.
+- New schemas or normalizer changes should include corresponding tests in `src/schemas/__tests__/` or `src/lib/__tests__/`.
+- Design-system foundation (Phase 15, legacy `11-design-system-foundation.md`) is blocked until Phase 14 build-log cleanup is complete.
+
+## Build Log Hygiene
+
+- Treat production build warnings as review findings, not background noise.
+- Do not hide Vite chunk-size warnings by raising `chunkSizeWarningLimit` unless a task explicitly documents why splitting is not practical.
+- Prefer route-level or feature-level `React.lazy()` code splitting for large page, admin, AI, editor, or backup/import flows.
+- `pnpm run build` should be clean before starting visual/design-system work; any remaining warning needs a documented follow-up task.

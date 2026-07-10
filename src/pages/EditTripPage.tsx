@@ -4,7 +4,7 @@ import { useTrips } from '@/hooks/useTrips'
 import { useAdmin } from '@/hooks/useAdmin'
 import { EditTripFormPanel } from '@/components/EditTripFormPanel'
 
-export function EditTripPage() {
+export default function EditTripPage() {
   const { isAdminUnlocked } = useAdmin()
   const { slug: rawSlug } = useParams<{ slug: string }>()
   const slug = parseSlug(rawSlug)

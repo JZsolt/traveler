@@ -20,7 +20,7 @@ import { TripHero } from '@/components/trip/TripHero'
 import { TripOverview } from '@/components/trip/TripOverview'
 import { UsefulLinks } from '@/components/trip/UsefulLinks'
 
-export function TripPage() {
+export default function TripPage() {
   const { isAdminUnlocked } = useAdmin()
   const { slug: rawSlug } = useParams<{ slug: string }>()
   const slug = parseSlug(rawSlug)

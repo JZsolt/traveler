@@ -1,4 +1,4 @@
-# 13-01 — Clean Install Build Gate
+# 13-01 — Clean Install Build Gate ✅ DONE
 
 **Estimate:** 1 hour
 
@@ -40,3 +40,13 @@ pnpm run build
 - [ ] Build does not depend on undeclared packages.
 - [ ] No unrelated refactor or UI change was included.
 - [ ] Any warning is documented as warning, not hidden as success.
+
+## Result
+
+- `zod` is in `dependencies` (not devDependencies).
+- `rm -rf node_modules && pnpm install --frozen-lockfile` — success (2.6s).
+- `pnpm run typecheck` — pass.
+- `pnpm run lint` — pass.
+- `pnpm run build` — pass.
+- **Known warning**: Vite chunk-size warning — single JS bundle is 687 KB (> 500 KB limit). Code-splitting is a future task, not a blocker.
+- No source changes were required.

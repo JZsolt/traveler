@@ -18,8 +18,9 @@ Always complete the phases in this order:
 10. ~~10-code-architecture-foundation.md~~ ✅ (12 subtask)
 11. ~~11-typescript-migration.md~~ ✅ (15 subtask)
 12. ~~12-runtime-validation.md~~ ✅ (10 subtask)
-13. 13-clean-install-quality-gate.md (6 subtask — next phase)
-14. 11-design-system-foundation.md (12 subtask — after Phase 13; legacy filename)
+13. ~~13-clean-install-quality-gate.md~~ ✅ (6 subtask)
+14. 14-build-log-cleanup.md (1 subtask — next phase)
+15. 11-design-system-foundation.md (12 subtask — after Phase 14; legacy filename)
 
 ## Workflow
 
@@ -30,11 +31,13 @@ For every task:
 3. Implement only the requested TASK.
 4. Do not continue to the next TASK automatically.
 5. Run `pnpm run typecheck`.
-6. Run `pnpm run build`.
-7. Fix errors.
-8. Summarize changed files.
-9. **Mark the task as ✅ DONE in the .md file header!**
-10. Stop and wait for approval before continuing.
+6. Run `pnpm run lint`.
+7. Run `pnpm run test:run`.
+8. Run `pnpm run build`.
+9. Fix errors.
+10. Summarize changed files.
+11. **Mark the task as ✅ DONE in the .md file header!**
+12. Stop and wait for approval before continuing.
 
 The goal is to keep every implementation small, reviewable, and easy to debug.
 
@@ -62,5 +65,18 @@ Phase 10 defines project-wide architecture rules that apply to all future implem
 - External data starts as `unknown` and is parsed at the boundary.
 - Schemas live under `src/schemas/`; public inferred types remain available through `src/types/`.
 - Raw AI, Supabase, storage, URL, import, backup, or external API data must not reach domain code.
-- Design-system phase remains blocked until Phase 13 clean-install quality gate
-  is complete.
+
+## Quality Gate Rules (Phase 13 — complete)
+
+- Clean install (`pnpm install --frozen-lockfile`) must succeed before major phases.
+- `pnpm run test:run` must pass — schema and normalizer tests guard runtime boundaries.
+- New schemas or normalizer changes should include tests in `src/schemas/__tests__/` or `src/lib/__tests__/`.
+- `.passthrough()` in Zod schemas must have a code comment explaining why extra keys are allowed.
+- Design-system foundation may start only after Phase 14 build-log cleanup is complete.
+
+## Build Log Rules
+
+- Production build warnings must be reviewed and either fixed or documented.
+- Do not silence chunk-size warnings by increasing the warning limit unless a task explicitly justifies it.
+- Prefer route-level or feature-level lazy loading for large chunks.
+- Keep `pnpm run build` clean before starting design-system migration.

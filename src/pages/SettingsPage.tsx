@@ -5,7 +5,7 @@ import { BackupButton } from '@/components/BackupButton'
 import { ImportBackup } from '@/components/ImportBackup'
 import { Lock, Unlock, LogOut, Database } from 'lucide-react'
 
-export function SettingsPage() {
+export default function SettingsPage() {
   const { isAdminUnlocked, unlockAdmin, lockAdmin } = useAdmin()
   const unlock = useAdminUnlock({ unlockAdmin })
 

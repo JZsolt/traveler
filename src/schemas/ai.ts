@@ -35,8 +35,7 @@ export const PlanTripDraftSchema = z.object({
   tips: z.array(z.string()).optional(),
 })
 
-// --- expand-day.ts: expanded day with full schedule ---
-
+// passthrough: AI may return extra day-level fields beyond the known schema
 export const ExpandDayResponseSchema = z.object({
   dayNum: z.number().optional(),
   title: z.string().optional(),

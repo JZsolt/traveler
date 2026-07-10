@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge'
 import { sortTrips } from '@/lib/sortTrips'
 import { getTripStatus } from '@/lib/getTripStatus'
 
-export function HomePage() {
+export default function HomePage() {
   const { trips, loading, error } = useTrips()
   const { isAdminUnlocked } = useAdmin()
   const sorted = sortTrips(trips)

@@ -1,4 +1,4 @@
-# 13 — Clean Install & Runtime Validation Quality Gate
+# 13 — Clean Install & Runtime Validation Quality Gate ✅ DONE
 
 This phase proves that Phase 12 works from a clean checkout and adds a small
 test safety net before design-system work starts.

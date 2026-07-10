@@ -12,7 +12,7 @@ import type { CreateTripForm } from '@/types/createTrip'
 import type { ChatMessage, DetailLevel } from '@/types/api'
 import type { CreateTripStep } from '@/types/pages'
 
-export function CreateTripPage() {
+export default function CreateTripPage() {
   const { isAdminUnlocked } = useAdmin()
   const navigate = useNavigate()
   const { refetch } = useTrips()
