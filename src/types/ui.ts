@@ -41,3 +41,21 @@ export interface PageHeaderProps {
   trailing?: React.ReactNode
   className?: string
 }
+
+export interface SectionProps {
+  title: string
+  eyebrow?: string
+  action?: React.ReactNode
+  className?: string
+  children: React.ReactNode
+}
+
+export interface RowProps {
+  icon?: React.ReactNode
+  title: string
+  subtitle?: string
+  trailing?: React.ReactNode
+  onClick?: () => void
+  href?: string
+  className?: string
+}

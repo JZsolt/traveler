@@ -67,17 +67,25 @@ Props: title, subtitle, leading, trailing, className
 
 Purpose: big trip/page title with metadata.
 
-### Section — Planned
+### Section — Exists
 
-Purpose: vertical page section with label, title, action, children.
+Source: `src/components/ui/Section.tsx`
+
+Purpose: vertical page section with eyebrow label, title, action, children.
+
+Props: title, eyebrow, action, className, children
 
 ### Timeline — Planned
 
 Purpose: display day schedule as a timeline (currently done inline in DaySection/ScheduleItem).
 
-### Row — Planned
+### Row — Exists
 
-Purpose: simple clickable row for settings/trip blocks.
+Source: `src/components/ui/Row.tsx`
+
+Purpose: simple clickable/linkable row with icon, title, subtitle, trailing action.
+
+Props: icon, title, subtitle, trailing, onClick, href, className
 
 ## Component rules
 
