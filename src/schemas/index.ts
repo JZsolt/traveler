@@ -1,4 +1,4 @@
-export { formatZodError } from './errors'
+export { formatZodError } from './errors.js'
 export {
   ChatAiResponseSchema,
   PlanTripDraftSchema, PlanTripDraftDaySchema, PlanTripDraftItemSchema,
@@ -8,7 +8,7 @@ export {
   DayMetaResponseSchema, ScheduleItemGuideResponseSchema, ScheduleItemResponseSchema,
   ChatReplyEnvelopeSchema, ChatErrorEnvelopeSchema,
   PlanTripEnvelopeSchema, ExpandDayEnvelopeSchema, SuggestSectionEnvelopeSchema,
-} from './ai'
-export { TripBackupEnvelopeSchema } from './backup'
-export { AdminLoginResponseSchema } from './auth'
-export { AdminStorageSchema } from './storage'
+} from './ai.js'
+export { TripBackupEnvelopeSchema } from './backup.js'
+export { AdminLoginResponseSchema } from './auth.js'
+export { AdminStorageSchema } from './storage.js'

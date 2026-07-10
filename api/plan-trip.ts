@@ -5,9 +5,9 @@ import type {
   DetailLevelConfig,
   ChatMessage,
 } from '../src/types/apiServer';
-import { PlanTripDraftSchema } from '../src/schemas/ai';
-import { formatZodError } from '../src/schemas/errors';
-import { getFirstFinishReason, isChatMessageArray, isRecord } from './_narrowing';
+import { PlanTripDraftSchema } from '../src/schemas/ai.js';
+import { formatZodError } from '../src/schemas/errors.js';
+import { getFirstFinishReason, isChatMessageArray, isRecord } from './_narrowing.js';
 
 const DEFAULT_MODEL = 'gemini-3.1-flash-lite';
 

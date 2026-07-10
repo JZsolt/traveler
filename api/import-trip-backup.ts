@@ -1,8 +1,8 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { createClient } from '@supabase/supabase-js';
-import { importSingleTrip } from './_import-utils';
-import { validateAdmin } from './_admin-auth';
-import { isRecord } from './_narrowing';
+import { importSingleTrip } from './_import-utils.js';
+import { validateAdmin } from './_admin-auth.js';
+import { isRecord } from './_narrowing.js';
 import type { Database } from '../src/types/supabase';
 
 function err(code: string, message: string) {

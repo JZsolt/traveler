@@ -1,14 +1,14 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { createClient } from '@supabase/supabase-js';
-import { importSingleTrip } from './_import-utils';
-import { validateAdmin } from './_admin-auth';
+import { importSingleTrip } from './_import-utils.js';
+import { validateAdmin } from './_admin-auth.js';
 import type { Database } from '../src/types/supabase';
 import type {
   ImportBatchError,
   ImportBatchResult,
   ImportSingleResult,
 } from '../src/types/apiServer';
-import { isRecord } from './_narrowing';
+import { isRecord } from './_narrowing.js';
 
 function err(code: string, message: string) {
   return { ok: false, error: { code, message } };

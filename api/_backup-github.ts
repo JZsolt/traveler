@@ -1,4 +1,4 @@
-import { GitHubContentSchema, GitHubCommitResultSchema } from '../src/schemas/apiResponses';
+import { GitHubContentSchema, GitHubCommitResultSchema } from '../src/schemas/apiResponses.js';
 import type { GitHubConfig, CommitResult } from '../src/types/apiServer';
 
 function mapGitHubError(status: number): string {

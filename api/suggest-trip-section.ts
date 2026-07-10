@@ -2,11 +2,11 @@ import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { GoogleGenAI } from '@google/genai';
 import type { SectionKey, SectionExtra } from '../src/types/apiServer';
 import type { Trip } from '../src/types/trip';
-import { TripSchema } from '../src/schemas/trip';
-import { SuggestSectionRequestSchema } from '../src/schemas/ai';
-import { VALID_SECTIONS, SECTION_CONFIG } from './_section-configs';
-import { errorResponse, extractJson } from './_suggest-helpers';
-import { getFirstFinishReason, isSectionKey } from './_narrowing';
+import { TripSchema } from '../src/schemas/trip.js';
+import { SuggestSectionRequestSchema } from '../src/schemas/ai.js';
+import { VALID_SECTIONS, SECTION_CONFIG } from './_section-configs.js';
+import { errorResponse, extractJson } from './_suggest-helpers.js';
+import { getFirstFinishReason, isSectionKey } from './_narrowing.js';
 
 const DEFAULT_MODEL = 'gemini-3.1-flash-lite';
 

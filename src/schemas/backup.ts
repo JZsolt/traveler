@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { TripImportDataSchema } from './trip'
+import { TripImportDataSchema } from './trip.js'
 
 export const TripBackupEnvelopeSchema = z.object({
   application: z.literal('Traveler'),

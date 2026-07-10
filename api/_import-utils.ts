@@ -1,6 +1,6 @@
-import type { ImportSingleResult, SupabaseAdmin } from '../src/types/apiServer';
-import { TripBackupEnvelopeSchema } from '../src/schemas/backup';
-import { formatZodError } from '../src/schemas/errors';
+import type { ImportSingleResult, SlugRow, SupabaseAdmin } from '../src/types/apiServer';
+import { TripBackupEnvelopeSchema } from '../src/schemas/backup.js';
+import { formatZodError } from '../src/schemas/errors.js';
 
 async function findUniqueSlug(
   supabase: SupabaseAdmin,
@@ -13,7 +13,8 @@ async function findUniqueSlug(
 
   if (!data || data.length === 0) return baseSlug;
 
-  const existing = new Set(data.map((r) => r.slug));
+  const rows: SlugRow[] = data;
+  const existing = new Set(rows.map((r) => r.slug));
   if (!existing.has(baseSlug)) return baseSlug;
 
   for (let i = 2; i <= 99; i++) {

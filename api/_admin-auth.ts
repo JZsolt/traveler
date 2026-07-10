@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { isRecord } from './_narrowing';
+import { isRecord } from './_narrowing.js';
 
 export function validateAdmin(req: VercelRequest, res: VercelResponse): boolean {
   const adminPassword = process.env.ADMIN_PASSWORD;

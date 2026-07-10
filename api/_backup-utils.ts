@@ -5,7 +5,7 @@ import type {
   BackupManifestFile,
   BackupFilesResult,
 } from '../src/types/apiServer';
-import { TripBackupEnvelopeSchema } from '../src/schemas/backup';
+import { TripBackupEnvelopeSchema } from '../src/schemas/backup.js';
 
 const BACKUP_BASE = 'backups/trips';
 const MANIFEST_PATH = `${BACKUP_BASE}/manifest.json`;

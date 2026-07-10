@@ -2,7 +2,7 @@ import { z } from 'zod'
 import {
   LinkSchema, GuideSchema, ScheduleItemSchema,
   CostSchema, UsefulLinkSchema, SavingTipSchema, BookingChecklistItemSchema,
-} from './trip'
+} from './trip.js'
 
 // --- chat.ts: plain text response ---
 

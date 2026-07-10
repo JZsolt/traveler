@@ -7,7 +7,7 @@ import {
   BookingChecklistResponseSchema,
   PracticalInfoResponseSchema,
 } from '../src/schemas/ai';
-import { tripContext, sectionConfig } from './_suggest-helpers';
+import { tripContext, sectionConfig } from './_suggest-helpers.js';
 
 export const listSectionConfigs: Record<ListSectionKey, SectionConfig> = {
   packingList: sectionConfig({

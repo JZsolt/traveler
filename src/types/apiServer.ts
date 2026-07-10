@@ -99,6 +99,10 @@ export interface ImportBatchError {
   error: string
 }
 
+export interface SlugRow {
+  slug: string
+}
+
 // --- Gemini ---
 
 export interface GeminiModels {

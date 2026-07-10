@@ -1,7 +1,7 @@
 import type { VercelResponse } from '@vercel/node'
 import type { Trip } from '../src/types/trip'
 import type { SectionConfig, SectionConfigOptions } from '../src/types/apiServer'
-import { formatZodError } from '../src/schemas/errors'
+import { formatZodError } from '../src/schemas/errors.js'
 
 export function errorResponse(res: VercelResponse, status: number, message: string, code: string, retryable = false) {
   return res.status(status).json({ error: message, code, retryable })

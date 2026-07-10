@@ -1,9 +1,9 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { GoogleGenAI } from '@google/genai';
 import type { GeminiModels } from '../src/types/apiServer';
-import { ExpandDayResponseSchema } from '../src/schemas/ai';
-import { formatZodError } from '../src/schemas/errors';
-import { asRecordArray, getFirstFinishReason, isRecord } from './_narrowing';
+import { ExpandDayResponseSchema } from '../src/schemas/ai.js';
+import { formatZodError } from '../src/schemas/errors.js';
+import { asRecordArray, getFirstFinishReason, isRecord } from './_narrowing.js';
 
 const DEFAULT_MODEL = 'gemini-3.1-flash-lite';
 

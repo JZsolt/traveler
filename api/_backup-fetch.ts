@@ -1,4 +1,4 @@
-import { SupabaseTripRowSchema } from '../src/schemas/apiResponses';
+import { SupabaseTripRowSchema } from '../src/schemas/apiResponses.js';
 import type { ValidatedTripRow, FetchTripsResult, SupabaseAdmin } from '../src/types/apiServer';
 
 const PAGE_SIZE = 500;
