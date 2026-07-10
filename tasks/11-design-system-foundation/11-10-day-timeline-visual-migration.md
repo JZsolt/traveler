@@ -4,10 +4,10 @@ Read only:
 
 - `docs/design/VISUAL_LANGUAGE.md`
 - `docs/design/ICON_SYSTEM.md`
-- `src/components/DaySection.jsx`
-- `src/components/ScheduleItem.jsx`
-- `src/components/GuideInfo.jsx`
-- `src/components/ui/Timeline.jsx`
+- `src/components/DaySection.tsx`
+- `src/components/ScheduleItem.tsx`
+- `src/components/GuideInfo.tsx`
+- `src/components/ui/Timeline.tsx`
 - `src/components/ui/`
 
 Goal: migrate day schedule visuals to the timeline primitive without changing schedule behavior.

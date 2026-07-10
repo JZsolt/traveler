@@ -4,16 +4,16 @@ Read only:
 
 - `docs/design/COMPONENT_SPEC.md`
 - `docs/design/VISUAL_LANGUAGE.md`
-- `src/components/ScheduleItem.jsx`
-- `src/components/DaySection.jsx`
+- `src/components/ScheduleItem.tsx`
+- `src/components/DaySection.tsx`
 - `src/components/ui/`
-- `src/lib/utils.js`
+- `src/lib/utils.ts`
 
 Goal: add reusable timeline display primitives while preserving current schedule behavior.
 
 Requirements:
 
-1. Add `src/components/ui/Timeline.jsx`.
+1. Add `src/components/ui/Timeline.tsx`.
 2. Export `Timeline` and `TimelineItem` from that file.
 3. Support:
    - time

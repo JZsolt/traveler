@@ -1,18 +1,18 @@
-# 11-03 — Page And PageHeader Primitives
+# 11-03 — Page And PageHeader Primitives ✅ DONE
 
 Read only:
 
 - `docs/design/COMPONENT_SPEC.md`
 - `docs/design/VISUAL_LANGUAGE.md`
 - `src/components/ui/`
-- `src/lib/utils.js`
+- `src/lib/utils.ts`
 
 Goal: add small layout primitives for consistent page shells.
 
 Requirements:
 
-1. Add `src/components/ui/Page.jsx`.
-2. Add `src/components/ui/PageHeader.jsx`.
+1. Add `src/components/ui/Page.tsx`.
+2. Add `src/components/ui/PageHeader.tsx`.
 3. `Page` should handle:
    - mobile-safe top padding
    - page background

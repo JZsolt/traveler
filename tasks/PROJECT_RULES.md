@@ -53,6 +53,16 @@ These rules apply to every implementation task.
 - Keep styling consistent with the existing application.
 - Prefer incremental improvements instead of rewrites.
 
+## Design System
+
+- Design-system primitives must be `.tsx` files and presentational only.
+- Add or adjust tokens before migrating product pages.
+- Keep `@fontsource-variable/geist` as the single font source unless a task explicitly changes the typography decision.
+- Use `--font-sans` as the canonical font token.
+- Use semantic CSS variables for color, radius, shadow, and spacing before adding one-off Tailwind values.
+- Preserve shadcn semantic tokens, but do not add contradictory parallel token systems.
+- Do not add new design dependencies unless the current task explicitly allows it.
+
 ## Code Quality
 
 - Write clean, readable code.
@@ -87,7 +97,7 @@ These rules apply to every implementation task.
 - Before starting a major new phase, verify clean install: `rm -rf node_modules && pnpm install --frozen-lockfile`.
 - Schema and normalizer tests must pass (`pnpm run test:run`) — they guard runtime validation boundaries.
 - New schemas or normalizer changes should include corresponding tests in `src/schemas/__tests__/` or `src/lib/__tests__/`.
-- Design-system foundation (Phase 15, legacy `11-design-system-foundation.md`) is blocked until Phase 14 build-log cleanup is complete.
+- Design-system foundation (Phase 15, legacy `11-design-system-foundation.md`) is now unblocked and is the current phase.
 
 ## Build Log Hygiene
 

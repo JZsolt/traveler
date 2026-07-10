@@ -1,4 +1,4 @@
-# 11-02 — CSS Design Tokens
+# 11-02 — CSS Design Tokens ✅ DONE
 
 Read only:
 

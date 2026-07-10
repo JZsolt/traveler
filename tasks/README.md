@@ -19,8 +19,8 @@ Always complete the phases in this order:
 11. ~~11-typescript-migration.md~~ ✅ (15 subtask)
 12. ~~12-runtime-validation.md~~ ✅ (10 subtask)
 13. ~~13-clean-install-quality-gate.md~~ ✅ (6 subtask)
-14. 14-build-log-cleanup.md (1 subtask — next phase)
-15. 11-design-system-foundation.md (12 subtask — after Phase 14; legacy filename)
+14. ~~14-build-log-cleanup.md~~ ✅ (1 subtask)
+15. 11-design-system-foundation.md (12 subtask — next phase; legacy filename)
 
 ## Workflow
 
@@ -72,7 +72,7 @@ Phase 10 defines project-wide architecture rules that apply to all future implem
 - `pnpm run test:run` must pass — schema and normalizer tests guard runtime boundaries.
 - New schemas or normalizer changes should include tests in `src/schemas/__tests__/` or `src/lib/__tests__/`.
 - `.passthrough()` in Zod schemas must have a code comment explaining why extra keys are allowed.
-- Design-system foundation may start only after Phase 14 build-log cleanup is complete.
+- Design-system foundation is now unblocked and is the current phase.
 
 ## Build Log Rules
 

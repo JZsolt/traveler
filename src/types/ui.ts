@@ -27,3 +27,17 @@ export type CardSubProps = React.HTMLAttributes<HTMLDivElement>
 export type CollapsibleProps = CollapsiblePrimitive.Root.Props
 export type CollapsibleTriggerProps = CollapsiblePrimitive.Trigger.Props
 export type CollapsibleContentProps = CollapsiblePrimitive.Panel.Props
+
+export interface PageProps {
+  constrained?: boolean
+  className?: string
+  children: React.ReactNode
+}
+
+export interface PageHeaderProps {
+  title: string
+  subtitle?: string
+  leading?: React.ReactNode
+  trailing?: React.ReactNode
+  className?: string
+}

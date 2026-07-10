@@ -4,7 +4,7 @@ Read only:
 
 - `docs/design/VISUAL_LANGUAGE.md`
 - `docs/product/SCREEN_LIBRARY.md`
-- `src/pages/CreateTripPage.jsx`
+- `src/pages/CreateTripPage.tsx`
 - `src/components/ui/`
 
 Goal: migrate the Create Trip page shell to a calmer design-system layout.

@@ -59,7 +59,21 @@ These map cleanly to CSS custom properties in Phase 2:
 
 No low-risk fixes needed — patterns are already consistent.
 
-## Phase 2 — Add CSS tokens (Not started)
+## Phase 2 — Add CSS tokens ✅
+
+### Design token audit note
+
+Global CSS variables live in `src/index.css`; there is no `src/App.css` or
+`tailwind.config.*` file. The audit found three overlapping token layers: an
+early `@theme` block with legacy hex colors and Inter, `@theme inline` mappings
+for Tailwind/shadcn tokens, and `:root`/`.dark` shadcn OKLCH semantic variables.
+`package.json` already included `@fontsource-variable/geist`, while
+`src/index.css` still imported Google Fonts Inter and later overrode
+`--font-sans` with Geist. Phase 2 consolidated this by keeping Geist as the
+single font source, keeping shadcn semantic tokens, and adding
+Traveler-specific semantic aliases only where future primitives need them.
+Existing shadcn radius tokens remain derived from `--radius`; Traveler-specific
+radius and shadow aliases were added separately to avoid shifting existing UI.
 
 Add or update global CSS variables:
 
@@ -84,6 +98,11 @@ Shadow:
 - --shadow-card: 0 1px 3px rgba(17, 24, 39, 0.06)
 
 Do not redesign pages in this phase.
+
+Status: complete. `src/index.css` now uses Geist as the single font source,
+keeps shadcn semantic tokens, and exposes minimal Traveler aliases for paper,
+ink, body, line, primary, accent/AI, radius, and soft/card shadows for future
+primitives.
 
 ## Phase 3 — Create primitives (Partial)
 

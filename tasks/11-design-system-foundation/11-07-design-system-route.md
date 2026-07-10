@@ -3,7 +3,7 @@
 Read only:
 
 - `docs/design/`
-- `src/App.jsx`
+- `src/App.tsx`
 - `src/pages/`
 - `src/components/ui/`
 - `src/components/editor/`
@@ -13,7 +13,7 @@ Goal: add a developer reference page for the design system.
 Requirements:
 
 1. Add route `/design-system`.
-2. Add `src/pages/DesignSystemPage.jsx`.
+2. Add `src/pages/DesignSystemPage.tsx`.
 3. Show examples of:
    - colors/tokens
    - typography

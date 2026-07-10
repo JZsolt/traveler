@@ -5,14 +5,14 @@ Read only:
 - `docs/design/COMPONENT_SPEC.md`
 - `docs/design/VISUAL_LANGUAGE.md`
 - `src/components/ui/`
-- `src/lib/utils.js`
+- `src/lib/utils.ts`
 
 Goal: add reusable content layout primitives.
 
 Requirements:
 
-1. Add `src/components/ui/Section.jsx`.
-2. Add `src/components/ui/Row.jsx`.
+1. Add `src/components/ui/Section.tsx`.
+2. Add `src/components/ui/Row.tsx`.
 3. `Section` should support:
    - title
    - optional eyebrow/label

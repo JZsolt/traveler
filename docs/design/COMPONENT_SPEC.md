@@ -15,7 +15,7 @@ Editor components live in `src/components/editor/`.
 
 ### Button — Exists
 
-Source: shadcn/ui (`src/components/ui/button.jsx`)
+Source: shadcn/ui (`src/components/ui/button.tsx`)
 
 Variants: default, outline, secondary, ghost, destructive, link
 
@@ -23,15 +23,15 @@ Sizes: default, xs, sm, lg, icon, icon-xs, icon-sm, icon-lg
 
 ### Badge — Exists
 
-Source: shadcn/ui (`src/components/ui/badge.jsx`)
+Source: shadcn/ui (`src/components/ui/badge.tsx`)
 
 ### Card — Exists
 
-Source: shadcn/ui (`src/components/ui/card.jsx`)
+Source: shadcn/ui (`src/components/ui/card.tsx`)
 
 ### EditableSection — Exists
 
-Source: `src/components/editor/EditableSection.jsx`
+Source: `src/components/editor/EditableSection.tsx`
 
 Purpose: Section edit shell with view/edit mode, dirty-state confirmation, optional AI button.
 
@@ -39,7 +39,7 @@ States: view, edit, saving, error, dirty-cancel-confirm
 
 ### AiSuggestionPanel — Exists
 
-Source: `src/components/editor/AiSuggestionPanel.jsx`
+Source: `src/components/editor/AiSuggestionPanel.tsx`
 
 Purpose: Shared AI suggestion panel (instruction → fetch → preview → apply/discard).
 
@@ -47,13 +47,21 @@ Props: section, trip, onApply, renderPreview, applyLabel, extraBody
 
 ## Planned primitives
 
-### Page — Planned
+### Page — Exists
+
+Source: `src/components/ui/Page.tsx`
 
 Purpose: consistent mobile page wrapper (safe area, max width, background).
 
-### PageHeader — Planned
+Props: constrained, className, children
+
+### PageHeader — Exists
+
+Source: `src/components/ui/PageHeader.tsx`
 
 Purpose: top navigation area (back button, title, actions).
+
+Props: title, subtitle, leading, trailing, className
 
 ### HeroTitle — Planned
 

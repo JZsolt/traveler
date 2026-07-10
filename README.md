@@ -96,6 +96,7 @@ lokális JSON fájlok opcionális seed/validációs források.
 | `pnpm preview` | A production build lokális előnézete |
 | `pnpm run typecheck` | TypeScript ellenőrzés a `src/` és `api/` mappákon |
 | `pnpm run lint` | ESLint |
+| `pnpm run test:run` | Vitest séma- és normalizer tesztek |
 | `pnpm run validate:trips` | Lokális trip JSON fájlok alapellenőrzése |
 | `pnpm run validate:trips:strict` | Szigorú tartalmi trip audit |
 | `pnpm run seed` | Lokális trip JSON fájlok upsertje Supabase-be |
@@ -105,6 +106,7 @@ Ajánlott ellenőrzés commit előtt:
 ```bash
 pnpm run typecheck
 pnpm run lint
+pnpm run test:run
 pnpm run build
 pnpm run validate:trips
 ```
@@ -234,7 +236,9 @@ A SPA fallback beállítása a [vercel.json](vercel.json) fájlban található.
 
 ## Projektállapot
 
-A TypeScript migráció elkészült. A következő tervezett fejlesztési fázis a
-[Runtime Validation & Data Boundaries](tasks/12-runtime-validation.md); a
-design-system implementáció ezután indulhat. Az aktuális sorrendet a
-[tasks/README.md](tasks/README.md) tartalmazza.
+A TypeScript migráció, a runtime validation, a clean-install quality gate és a
+build-log cleanup fázis elkészült.
+
+Az aktuális fejlesztési fázis a
+[Design System Foundation](tasks/11-design-system-foundation.md). Az aktuális
+sorrendet a [tasks/README.md](tasks/README.md) tartalmazza.

@@ -4,10 +4,10 @@ Read only:
 
 - `docs/design/VISUAL_LANGUAGE.md`
 - `docs/product/SCREEN_LIBRARY.md`
-- `src/pages/TripPage.jsx`
-- `src/components/trip/TripOverview.jsx`
-- `src/components/trip/TripHero.jsx`
-- `src/components/trip/BudgetSummary.jsx`
+- `src/pages/TripPage.tsx`
+- `src/components/trip/TripOverview.tsx`
+- `src/components/trip/TripHero.tsx`
+- `src/components/trip/BudgetSummary.tsx`
 - `src/components/ui/`
 
 Goal: migrate only the trip overview shell toward the design system.
