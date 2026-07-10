@@ -1,7 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { GoogleGenAI } from '@google/genai';
 import type { GeminiModels } from '../src/types/apiServer';
-import { isChatMessageArray, isRecord } from './_narrowing.js';
+import { isChatMessageArray, isRecord } from './_narrowing';
 
 const DEFAULT_MODEL = 'gemini-3.1-flash-lite';
 

@@ -7,7 +7,7 @@ import type {
 } from '../src/types/apiServer';
 import { PlanTripDraftSchema } from '../src/schemas/ai';
 import { formatZodError } from '../src/schemas/errors';
-import { getFirstFinishReason, isChatMessageArray, isRecord } from './_narrowing.js';
+import { getFirstFinishReason, isChatMessageArray, isRecord } from './_narrowing';
 
 const DEFAULT_MODEL = 'gemini-3.1-flash-lite';
 

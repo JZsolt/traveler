@@ -1,4 +1,4 @@
-# 12 — Runtime Validation & Data Boundaries
+# 12 — Runtime Validation & Data Boundaries ✅ DONE
 
 This phase introduces runtime validation for every external data boundary.
 TypeScript migration is complete; this phase changes runtime safety, not UI.
@@ -27,16 +27,20 @@ the canonical runtime description of persisted and transported data.
 
 ```text
 src/schemas/
-  trip.ts       persisted Trip, Day, ScheduleItem and nested domain data
-  ai.ts         AI request/response payloads
-  auth.ts       admin/auth payloads and session state
-  route.ts      URL and route parameter schemas
-  storage.ts    browser storage and backup/import envelopes
+  trip.ts           persisted Trip, Day, ScheduleItem and nested domain data
+  ai.ts             AI request/response payloads + suggest section request schema
+  apiResponses.ts   backup/import/GitHub API response sémák, SupabaseTripRowSchema
+  backup.ts         TripBackupEnvelopeSchema (import/export envelope)
+  auth.ts           AdminLoginResponseSchema
+  storage.ts        AdminStorageSchema (localStorage)
+  route.ts          URL and route parameter schemas
+  errors.ts         formatZodError helper
 
 src/types/
-  trip.ts       inferred domain type exports
-  api.ts        inferred API type exports plus internal compile-time types
-  supabase.ts   database client types
+  trip.ts           inferred domain type exports (z.infer from trip.ts schemas)
+  apiServer.ts      server-side types (SectionConfig, GitHubConfig, ValidatedTripRow, stb.)
+  componentsAdmin.ts  backup/import result types (z.infer from apiResponses.ts)
+  supabase.ts       database client types
 ```
 
 Schemas own runtime shapes. `src/types/` remains the public type import layer

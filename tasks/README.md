@@ -18,7 +18,8 @@ Always complete the phases in this order:
 10. ~~10-code-architecture-foundation.md~~ ✅ (12 subtask)
 11. ~~11-typescript-migration.md~~ ✅ (15 subtask)
 12. ~~12-runtime-validation.md~~ ✅ (10 subtask)
-13. 11-design-system-foundation.md (12 subtask — next phase; legacy filename)
+13. 13-clean-install-quality-gate.md (6 subtask — next phase)
+14. 11-design-system-foundation.md (12 subtask — after Phase 13; legacy filename)
 
 ## Workflow
 
@@ -61,4 +62,5 @@ Phase 10 defines project-wide architecture rules that apply to all future implem
 - External data starts as `unknown` and is parsed at the boundary.
 - Schemas live under `src/schemas/`; public inferred types remain available through `src/types/`.
 - Raw AI, Supabase, storage, URL, import, backup, or external API data must not reach domain code.
-- Design-system phase is now unblocked.
+- Design-system phase remains blocked until Phase 13 clean-install quality gate
+  is complete.

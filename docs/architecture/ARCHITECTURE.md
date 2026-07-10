@@ -137,45 +137,58 @@ API keys must never be exposed to the frontend.
 
 ```txt
 src/
+  schemas/             # Zod runtime schemas (single source of truth)
+  types/               # TypeScript type definitions
   components/
     ui/              # shadcn/ui primitives (Button, Badge, Card)
-    editor/          # EditableSection, AiSuggestionPanel
+    editor/          # EditableSection, AiSuggestionPanel, DirtyCancelRow
     trip/            # Section components (PackingList, TripHero, BudgetSummary, etc.)
-    DaySection.jsx   # Day display + inline editor
-    ScheduleItem.jsx # Schedule item display + inline editor
-    GuideInfo.jsx    # Guide collapsible display
-    DbError.jsx      # DB error display
+    DaySection.tsx   # Day display + inline editor
+    ScheduleItem.tsx # Schedule item display + inline editor
+    GuideInfo.tsx    # Guide collapsible display
+    DbError.tsx      # DB error display
+    BackupButton.tsx # GitHub backup export
+    ImportBackup.tsx # Backup import UI
 
   pages/
-    HomePage.jsx
-    TripPage.jsx
+    HomePage.tsx
+    TripPage.tsx
+    CreateTripPage.tsx
+    EditTripPage.tsx
+    SettingsPage.tsx
 
   context/
-    TripsContext.jsx  # Trip data provider (Supabase)
+    TripsContext.tsx  # Trip data provider (Supabase)
+    AdminContext.tsx  # Admin session provider
 
   hooks/
-    useTripUpdater.js # Supabase save hook
+    useTripUpdater.ts # Supabase save hook
+    useEditTrip.ts    # Trip edit workflow
+    useExpandDay.ts   # AI day expansion
+    useAdmin.ts       # Admin context hook
+    ...               # + more editor/workflow hooks
 
   lib/
-    supabase.js       # Supabase client
-    tripSections.js   # Immutable trip data transform helpers
+    supabase.ts       # Supabase client
+    tripSections.ts   # Immutable trip data transform helpers
+    normalizeTrip.ts  # Trip normalization + Zod final gate
+    constants.ts      # Centralized constants
 
-api/                  # Vercel serverless functions
-  suggest-trip-section.js
-  expand-day.js
-  plan-trip.js
-  backup-trips.js
-```
-
-## Future (when needed)
-
-```txt
-src/
-  components/
-    planner/         # Trip creation wizard
-    admin/           # Admin/settings components
-  lib/
-    validation/      # Shared validators
+api/                  # Vercel serverless functions (TypeScript)
+  suggest-trip-section.ts
+  expand-day.ts
+  plan-trip.ts
+  backup-trips.ts
+  import-trip-backup.ts
+  import-trip-backups.ts
+  admin-login.ts
+  _suggest-helpers.ts   # sectionConfig factory
+  _section-configs.ts   # Section config registry
+  _backup-fetch.ts      # Supabase row fetch + validation
+  _backup-github.ts     # GitHub commit helper
+  _backup-utils.ts      # Backup file/manifest builder
+  _import-utils.ts      # Import helper
+  _admin-auth.ts        # Admin password validation
 ```
 
 # Development Principles
@@ -208,7 +221,7 @@ These rules are mandatory for implementation and review work.
 
 - Anything used in 2+ places should become a shared component, hook, helper, or constant.
 - Repeated editor patterns should move toward shared editor components.
-- Repeated strings, section keys, endpoint paths, model ids, route paths, storage keys, and status labels should live outside JSX files.
+- Repeated strings, section keys, endpoint paths, model ids, route paths, storage keys, and status labels should live outside component files.
 - Do not over-centralize one-off values that are only meaningful in a single component.
 
 ## File Size
@@ -223,12 +236,13 @@ These rules are mandatory for implementation and review work.
 - Use theme tokens and CSS variables where they exist.
 - Do not add new hard-coded color palettes inside components.
 - Avoid inline `style`; allow it only for platform/browser requirements such as safe-area values or runtime-calculated values.
-- Do not start design-system migration during architecture cleanup. Phase 10 prepares the code; Phase 11 handles visual primitives and migration.
+- Do not start design-system migration during architecture cleanup. Architecture and runtime validation phases prepare the code; the design-system phase handles visual primitives and migration.
 
-## Future TypeScript Rule
+## TypeScript Rules
 
-- When TypeScript is introduced, component files should not contain large embedded type/interface definitions.
-- Shared types belong in dedicated `types` files near the feature or in a shared type module.
+- Component, hook, page, lib, and API files must not contain inline `type` or `interface` definitions.
+- Shared types belong in `src/types/`. Runtime schemas belong in `src/schemas/`.
+- No `any`, `as any`, `Record<string, any>`, or `any[]`. Use `unknown` + narrowing at boundaries.
 
 ## Review Checklist
 
@@ -251,10 +265,10 @@ Last updated: 2026-07-03
 
 | File | Lines | Why it's over | Next extraction (Phase 11+) |
 |------|-------|---------------|----------------------------|
-| `TripHero.jsx` | 296 | Accommodation + flight inline editors are ~80 lines each of form JSX with no shared pattern | Extract `AccommodationEditor` and `FlightEditor` to `components/trip/` when design-system primitives (Phase 11) provide a shared form pattern |
-| `DaySection.jsx` | 291 | 3 hooks extracted; remainder is images/lightbox/tickets/alerts/transport JSX | Lightbox could become a shared component if used elsewhere; otherwise leave as-is |
-| `CreateTripPage.jsx` | 290 | Chat + generation hook extracted; remainder is form + chat UI template | Form step and chat step could split into child components when Phase 11 layout primitives exist |
-| `PracticalInfo.jsx` | 276 | Single render-heavy section with inline edit form | Extract section editor form to shared `EditableSection` pattern if Phase 11 unifies section editors |
+| `TripHero.tsx` | 296 | Accommodation + flight inline editors are ~80 lines each of form JSX with no shared pattern | Extract `AccommodationEditor` and `FlightEditor` to `components/trip/` when design-system primitives provide a shared form pattern |
+| `DaySection.tsx` | 291 | 3 hooks extracted; remainder is images/lightbox/tickets/alerts/transport JSX | Lightbox could become a shared component if used elsewhere; otherwise leave as-is |
+| `CreateTripPage.tsx` | 290 | Chat + generation hook extracted; remainder is form + chat UI template | Form step and chat step could split into child components when layout primitives exist |
+| `PracticalInfo.tsx` | 276 | Single render-heavy section with inline edit form | Extract section editor form to shared `EditableSection` pattern if design-system unifies section editors |
 
 ## Under 250 lines (OK)
 
@@ -272,25 +286,25 @@ Repeated magic strings that should become shared constants during 10-09.
 
 `/api/backup-trips`, `/api/import-trip-backup`, `/api/import-trip-backups`, `/api/admin-login`, `/api/suggest-trip-section`, `/api/expand-day`, `/api/plan-trip`, `/api/chat`
 
-Target: `src/lib/apiPaths.js`
+Target: `src/lib/constants.ts` (already centralized)
 
 ## Route Paths
 
 `/`, `/trip/:slug`, `/trip/:slug/edit`, `/create-trip`, `/settings`
 
-Target: `src/lib/routes.js`
+Target: `src/lib/constants.ts` (already centralized)
 
 ## AI Model IDs (duplicated in TripPage + CreateTripPage)
 
 `gemini-3.1-flash-lite`, `gemini-2.5-flash` — model option arrays duplicated with labels.
 
-Target: `src/lib/aiModels.js`
+Target: `src/lib/constants.ts` (already centralized)
 
 ## Storage Keys
 
 `admin_unlocked` — only one, already in a const in AdminContext.
 
-Target: `src/lib/storageKeys.js` (when more are added)
+Target: `src/lib/constants.ts` (already centralized)
 
 ## Trip Section Keys (used with replaceTripSection)
 
@@ -308,7 +322,7 @@ Target: CSS variables / Tailwind theme tokens (Phase 11).
 
 `METHOD_NOT_ALLOWED`, `MISSING_SUPABASE_ENV`, `INVALID_MODE`, `INVALID_ADMIN_PASSWORD`, etc. — repeated across API files with local `err()` helpers.
 
-Target: `api/_errors.js` shared error factory (low priority, already localized).
+Target: `api/_suggest-helpers.ts` already has `errorResponse`; other API files use inline error helpers.
 
 ---
 
@@ -335,9 +349,9 @@ Safety: safe — pure presentational.
 
 ### 3. ArrayEditor (1 definition, 4 usages)
 
-Defined inside `ScheduleItem.jsx` (line 19). Used for badges, links, transport, guide arrays.
+Originally defined inside ScheduleItem. Used for badges, links, transport, guide arrays.
 
-Extraction: move to `src/components/editor/ArrayEditor.jsx`.
+Extraction: moved to `src/components/editor/ArrayEditor.tsx`.
 Safety: safe — self-contained, no external dependencies.
 
 ### 4. AI suggestion panel

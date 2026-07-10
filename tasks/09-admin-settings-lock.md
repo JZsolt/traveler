@@ -1,4 +1,4 @@
-# 09 — Admin Settings + Password Lock
+# 09 — Admin Settings + Password Lock ✅ DONE
 
 This phase moves admin-only actions behind a password gate and creates a dedicated Settings page.
 

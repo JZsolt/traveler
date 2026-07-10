@@ -64,59 +64,91 @@ pnpm run validate:trips  # trip JSON validáció
 
 ```
 src/
-  lib/constants.js       # Centralizált konstansok (AI modellek, API utak, storage kulcsok)
-  lib/supabase.js        # Supabase kliens (VITE_ env-ekből)
-  lib/tripSections.js    # Immutable trip data transform helperek
-  lib/exportTripJson.js  # JSON blob export helper
-  lib/extractLocationName.js # Google Maps URL parser
-  lib/createTripHelpers.js   # Trip draft → trip data konverzió
-  hooks/useTripUpdater.js    # Supabase save hook (saveTrip, saving, error)
-  hooks/useDeleteTrip.js     # Trip törlés workflow (modal, supabase delete, navigate)
-  hooks/useExpandDay.js      # Nap részletezés AI workflow (TripPage expand)
-  hooks/useCreateTripChat.js # Trip létrehozás chat + generálás workflow
-  hooks/useDayMetaEditor.js  # Nap cím/alcím editor state
-  hooks/useDayAdvancedEditor.js # Nap haladó JSON editor state
-  hooks/useDayScheduleAi.js  # Nap AI programterv generálás + pending draft
-  hooks/useScheduleItemEditor.js # Program szerkesztés draft/dirty/validation
-  hooks/useAdmin.js          # Admin context hook
-  context/TripsContext.jsx   # Trip adat provider — Supabase-ből tölt
-  context/AdminContext.jsx   # Admin session provider
+  schemas/                   # Zod runtime sémák (single source of truth)
+  types/                     # TypeScript típusdefiníciók
+  lib/constants.ts           # Centralizált konstansok (AI modellek, API utak, storage kulcsok)
+  lib/supabase.ts            # Supabase kliens (VITE_ env-ekből)
+  lib/tripSections.ts        # Immutable trip data transform helperek
+  lib/normalizeTrip.ts       # Trip normalizáció + Zod végső kapu
+  lib/exportTripJson.ts      # JSON blob export helper
+  lib/extractLocationName.ts # Google Maps URL parser
+  lib/createTripHelpers.ts   # Trip draft → trip data konverzió
+  hooks/useTripUpdater.ts    # Supabase save hook (saveTrip, saving, error)
+  hooks/useDeleteTrip.ts     # Trip törlés workflow (modal, supabase delete, navigate)
+  hooks/useExpandDay.ts      # Nap részletezés AI workflow (TripPage expand)
+  hooks/useCreateTripChat.ts # Trip létrehozás chat + generálás workflow
+  hooks/useEditTrip.ts       # Trip szerkesztés workflow
+  hooks/useDayMetaEditor.ts  # Nap cím/alcím editor state
+  hooks/useDayAdvancedEditor.ts # Nap haladó JSON editor state
+  hooks/useDayScheduleAi.ts  # Nap AI programterv generálás + pending draft
+  hooks/useScheduleItemEditor.ts # Program szerkesztés draft/dirty/validation
+  hooks/useAdmin.ts          # Admin context hook
+  hooks/useAdminUnlock.ts    # Admin jelszó belépés workflow
+  hooks/useTrips.ts          # TripsContext consumer hook
+  hooks/useImportBackup.ts   # Backup import workflow
+  hooks/useImportTripJson.ts # JSON fájl import workflow
+  context/TripsContext.tsx       # Trip adat provider — Supabase-ből tölt
+  context/tripsContextValue.ts   # TripsContext createContext
+  context/AdminContext.tsx       # Admin session provider
+  context/adminContextValue.ts   # AdminContext createContext
   data/trips/_template.json  # Trip sablon (generáláshoz)
   components/
-    editor/EditableSection.jsx  # Szekció edit shell (view/edit mód, dirty-state, AI gomb)
-    editor/AiSuggestionPanel.jsx # Újrahasználható AI javaslat panel (instruction, preview, apply/discard)
-    editor/DirtyCancelRow.jsx    # Megosztott dirty-cancel figyelmeztetés (dark/light variáns)
-    DaySection.jsx       # Nap megjelenítés + inline editor (meta, advanced, schedule)
-    ScheduleItem.jsx     # Program megjelenítés + inline editor (basic + details + AI guide)
-    GuideInfo.jsx        # Guide collapsible megjelenítés
-    DbError.jsx          # DB hiba megjelenítés debug checklist-tel
+    editor/EditableSection.tsx  # Szekció edit shell (view/edit mód, dirty-state, AI gomb)
+    editor/AiSuggestionPanel.tsx # Újrahasználható AI javaslat panel (instruction, preview, apply/discard)
+    editor/DirtyCancelRow.tsx    # Megosztott dirty-cancel figyelmeztetés (dark/light variáns)
+    editor/ArrayEditor.tsx       # Generikus lista szerkesztő (add/remove/reorder)
+    editor/ScheduleEditor.tsx    # Program szerkesztő (schedule item draft UI)
+    DaySection.tsx       # Nap megjelenítés + inline editor (meta, advanced, schedule)
+    ScheduleItem.tsx     # Program megjelenítés + inline editor (basic + details + AI guide)
+    GuideInfo.tsx        # Guide collapsible megjelenítés
+    DbError.tsx          # DB hiba megjelenítés debug checklist-tel
+    BackupButton.tsx     # GitHub backup export gomb
+    ImportBackup.tsx     # Backup import UI
     trip/                # Szekció komponensek (PackingList, UsefulLinks, SavingTips, stb.)
+    ui/                  # shadcn/ui komponensek
   pages/
-    HomePage.jsx         # Főoldal — trip kártyák listája (Supabase-ből)
-    TripPage.jsx         # Trip részletek oldal (/trip/:slug)
+    HomePage.tsx         # Főoldal — trip kártyák listája (Supabase-ből)
+    TripPage.tsx         # Trip részletek oldal (/trip/:slug)
+    CreateTripPage.tsx       # Új trip létrehozás
+    CreateTripChatStep.tsx   # Trip létrehozás chat lépés (AI generálás)
+    EditTripPage.tsx         # Trip szerkesztés oldal
+    SettingsPage.tsx     # Beállítások oldal
 api/
-  _admin-auth.js           # Megosztott admin jelszó validáció
-  suggest-trip-section.js  # AI szekció javaslat endpoint (Gemini)
-  plan-trip.js           # Trip tervezés AI endpoint
-  expand-day.js          # Nap részletezés AI endpoint
+  _admin-auth.ts           # Megosztott admin jelszó validáció
+  _suggest-helpers.ts      # sectionConfig factory, extractJson, tripContext
+  _section-configs.ts      # SECTION_CONFIG registry (list + day egyesítés)
+  _section-configs-list.ts # Lista szekció konfigok (packingList, usefulLinks, stb.)
+  _section-configs-day.ts  # Nap szekció konfigok (day, scheduleItem, scheduleItemGuide)
+  _narrowing.ts            # Type guard helperek (isRecord, isSectionKey, stb.)
+  _backup-fetch.ts         # Supabase trip fetch + SupabaseTripRowSchema validáció
+  _backup-github.ts        # GitHub commit + error mapping
+  _backup-utils.ts         # Backup fájl/manifest builder
+  _import-utils.ts         # Import helper (envelope validáció, slug deduplikáció)
+  suggest-trip-section.ts  # AI szekció javaslat endpoint (Gemini)
+  plan-trip.ts             # Trip tervezés AI endpoint
+  expand-day.ts            # Nap részletezés AI endpoint
+  chat.ts                  # Chat endpoint
+  backup-trips.ts          # GitHub backup export endpoint
+  import-trip-backup.ts    # Egy trip import endpoint
+  import-trip-backups.ts   # Több trip import endpoint
+  admin-login.ts           # Admin bejelentkezés endpoint
 supabase/migrations/     # SQL migrációk
 scripts/                 # Seed + validáció scriptek
 ```
 
 ## Kötelező kódarchitektúra szabályok
 
-Ezek minden implementációra és review-ra érvényesek, nem csak a 10-es phase-re.
+Ezek minden implementációra és review-ra érvényesek.
 
 - Pages csak route-szintű kompozíciót végezzenek; komplex workflow, adatmentés, AI flow, validáció és állapotlogika custom hookba vagy `lib/` helperbe kerüljön.
-- Állapotos, újrahasználható logika `src/hooks/use*.js` alatt legyen.
+- Állapotos, újrahasználható logika `src/hooks/use*.ts` alatt legyen.
 - Megosztott UI `src/components/` vagy `src/components/ui/` alatt legyen.
 - Amit 2 vagy több helyen használunk, abból közös komponens, hook, helper vagy konstans legyen.
 - Cél fájlméret: körülbelül 200 sor. Kemény felső határ: körülbelül 250 sor, csak dokumentált indokkal léphető túl.
-- Konstansok, route pathok, API endpointok, storage key-ek, model id-k, section key-ek és ismételt UI szövegek ne JSX fájlokban legyenek hardcode-olva.
+- Konstansok, route pathok, API endpointok, storage key-ek, model id-k, section key-ek és ismételt UI szövegek ne komponens fájlokban legyenek hardcode-olva.
 - Theme tokeneket és CSS változókat használj hard-coded színek, spacingek és inline style helyett, amikor van megfelelő token.
 - Inline `style` csak platform/browser szükségletnél megengedett, például safe-area vagy dinamikus runtime érték esetén.
-- Ha TypeScript kerül be, type/interface definíciók külön `types` fájlba menjenek, ne komponensfájlba.
-- TypeScript migráció a design-system migráció előtt kötelező.
+- Type/interface definíciók külön `types` fájlba menjenek, ne komponensfájlba.
 - Megosztott TypeScript domain/API/editor típusok `src/types/` alatt legyenek.
 - Tilos inline `type` vagy `interface` deklaráció komponensben, hookban, page-ben, libben vagy API fájlban.
 - Tilos az `any`: nincs explicit `any`, `as any`, `Record<string, any>` vagy `any[]`.
@@ -138,7 +170,8 @@ Ezek minden implementációra és review-ra érvényesek, nem csak a 10-es phase
 
 - **`useTripUpdater`** hook: `saveTrip(updater)` — updater fv megkapja a trip-et, visszaadja a módosítottat, Supabase-be menti
 - **`EditableSection`** shell: view/edit mód, SquarePen ikon, Mentés/Mégse, dirty-state figyelmeztetés, opcionális AI gomb
-- **`tripSections.js`** helperek: `replaceTripSection`, `updateTripDay`, `addDay`, `deleteDay`, `moveDayUp/Down`, `addScheduleItem`, `deleteScheduleItem`, `moveScheduleItem`, `updateScheduleItem`
+- **`tripSections.ts`** helperek: `replaceTripSection`, `updateTripDay`, `addDay`, `deleteDay`, `moveDayUp/Down`, `addScheduleItem`, `deleteScheduleItem`, `moveScheduleItem`, `updateScheduleItem`
+- **`sectionConfig<T>()`** factory (`_suggest-helpers.ts`): `validate` visszaad `{ ok: true, data, format }` vagy `{ ok: false, error }` discriminated uniót. A `format` closure per-hívás — nincs modul-szintű állapot.
 - AI javaslat flow: `AiSuggestionPanel` → fetch `/api/suggest-trip-section` → preview → apply (draft-ba, NEM auto-save!) → user kézi Mentés
 - AI hibák mindig UI-ban jelennek meg magyar szöveggel (429, token limit, invalid JSON, szerver hiba)
 - AI soha nem ment automatikusan — a user mindig kézzel menti

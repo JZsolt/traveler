@@ -1,7 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import type { z } from 'zod'
-import type { Database, TripsRow } from './supabase'
+import type { Database } from './supabase'
 import type { Trip, TripImportData } from './trip'
 import type { SupabaseTripRowSchema } from '../schemas/apiResponses'
 
@@ -17,8 +17,6 @@ export interface AdminRequestBody {
 }
 
 // --- Backup ---
-
-export type SupabaseTripRow = TripsRow
 
 export type ValidatedTripRow = z.infer<typeof SupabaseTripRowSchema>
 
@@ -153,14 +151,6 @@ export interface SectionConfigOptions<T> {
   system: string
   schema: z.ZodType<T>
   format: (validated: T) => { suggestion: unknown; summary: string }
-}
-
-export interface SuggestRequestBody {
-  section?: string
-  trip?: unknown
-  instruction?: string
-  dayNum?: number
-  itemIndex?: number
 }
 
 // --- Expand day ---

@@ -20,16 +20,15 @@ These rules apply to every implementation task.
 - Keep the project Vercel-compatible.
 - Keep Supabase as the primary data source.
 - Pages compose views only; complex workflow, persistence, validation, AI flow, and state logic belong in custom hooks or `lib/` helpers.
-- Stateful reusable logic belongs in `src/hooks/use*.js`.
+- Stateful reusable logic belongs in `src/hooks/use*.ts`.
 - Shared UI belongs in `src/components/` or `src/components/ui/`.
 - Anything used in 2+ places must be extracted to a shared component, hook, helper, or constant.
 - Target file size is about 200 lines. Hard maximum is about 250 lines unless the task documents why the file must stay larger.
-- Constants, route paths, API endpoint paths, storage keys, model ids, section keys, and repeated UI copy should not be hard-coded inside JSX files.
+- Constants, route paths, API endpoint paths, storage keys, model ids, section keys, and repeated UI copy should not be hard-coded inside component files.
 - Use theme tokens and CSS variables instead of hard-coded colors, spacing, and inline styles where a token exists.
 - Avoid inline `style` except for platform/browser requirements such as safe-area values or runtime-calculated values.
-- When TypeScript is introduced, keep types/interfaces in dedicated type files, not embedded inside component files.
-- TypeScript migration must be completed before design-system migration starts.
-- During TypeScript migration, prefer `src/types/` for shared domain/API/editor types.
+- Keep types/interfaces in dedicated type files, not embedded inside component files.
+- Shared domain/API/editor types belong in `src/types/`.
 - Do not declare inline `type` or `interface` in component, hook, page, lib, or API files.
 - Never use `any`: no explicit `any`, no `as any`, no `Record<string, any>`, no `any[]`.
 - Use `unknown` plus narrowing for JSON, Supabase, browser storage, and API responses.

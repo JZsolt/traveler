@@ -1,9 +1,9 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { createClient } from '@supabase/supabase-js';
-import { buildBackupFiles } from './_backup-utils.js';
-import { fetchAllTrips } from './_backup-fetch.js';
-import { commitFile } from './_backup-github.js';
-import { validateAdmin } from './_admin-auth.js';
+import { buildBackupFiles } from './_backup-utils';
+import { fetchAllTrips } from './_backup-fetch';
+import { commitFile } from './_backup-github';
+import { validateAdmin } from './_admin-auth';
 import { TripSchema } from '../src/schemas/trip';
 import type { Database } from '../src/types/supabase';
 import type {

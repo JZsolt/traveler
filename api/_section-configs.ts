@@ -1,6 +1,6 @@
 import type { SectionConfig, SectionKey } from '../src/types/apiServer';
-import { listSectionConfigs } from './_section-configs-list.js';
-import { daySectionConfigs } from './_section-configs-day.js';
+import { listSectionConfigs } from './_section-configs-list';
+import { daySectionConfigs } from './_section-configs-day';
 
 export const VALID_SECTIONS: SectionKey[] = [
   'packingList',
