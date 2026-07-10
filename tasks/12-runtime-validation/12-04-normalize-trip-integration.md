@@ -1,4 +1,4 @@
-# 12-04 — Normalize Trip Integration
+# 12-04 — Normalize Trip Integration ✅ DONE
 
 **Estimate:** 2 hours
 

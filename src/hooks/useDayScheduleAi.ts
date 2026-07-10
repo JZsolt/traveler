@@ -1,12 +1,8 @@
 import { useState } from 'react'
 import { API } from '@/lib/constants'
+import { ExpandDayEnvelopeSchema, ChatErrorEnvelopeSchema } from '@/schemas/ai'
 import type { Day } from '@/types/trip'
-import type { ScheduleAiPreview, DayScheduleAiProps, DayScheduleAiReturn } from '@/types/hooks'
-import { isScheduleAiPreview } from '@/types/guards'
-
-function isObjectWithKey(val: unknown, key: string): val is Record<string, unknown> {
-  return typeof val === 'object' && val !== null && key in val
-}
+import type { DayScheduleAiProps, DayScheduleAiReturn, ScheduleAiPreview } from '@/types/hooks'
 
 export function useDayScheduleAi({ day, trip, saveTrip, updateTripDay }: DayScheduleAiProps): DayScheduleAiReturn {
   const [showPanel, setShowPanel] = useState(false)
@@ -45,14 +41,18 @@ export function useDayScheduleAi({ day, trip, saveTrip, updateTripDay }: DaySche
       })
       const data: unknown = await res.json()
       if (!res.ok) {
-        const errMsg = isObjectWithKey(data, 'error') && typeof data.error === 'string' ? data.error : 'Ismeretlen hiba.'
-        const retryable = isObjectWithKey(data, 'retryable') && data.retryable === true
-        const retryHint = retryable ? ' Próbáld újra.' : ''
+        const errEnv = ChatErrorEnvelopeSchema.safeParse(data)
+        const errMsg = errEnv.success ? errEnv.data.error : 'Ismeretlen hiba.'
+        const retryHint = errEnv.success && errEnv.data.retryable ? ' Próbáld újra.' : ''
         setError(errMsg + retryHint)
         return
       }
-      if (isObjectWithKey(data, 'day') && isScheduleAiPreview(data.day)) {
-        setPreview(data.day)
+      const envelope = ExpandDayEnvelopeSchema.safeParse(data)
+      if (envelope.success) {
+        const { title, subtitle, schedule, costs } = envelope.data.day
+        setPreview({ title, subtitle, schedule, costs })
+      } else {
+        setError('Hibas valasz a szervertol.')
       }
     } catch {
       setError('Hálózati hiba. Ellenőrizd az internet kapcsolatot.')

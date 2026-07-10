@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 import { useParams, Navigate } from 'react-router-dom'
+import { parseSlug } from '@/schemas/route'
 import { useAdmin } from '@/hooks/useAdmin'
 import { SquarePen, Trash2, Download, Wand2, Plus } from 'lucide-react'
 import { useTrips } from '@/hooks/useTrips'
@@ -21,7 +22,8 @@ import { UsefulLinks } from '@/components/trip/UsefulLinks'
 
 export function TripPage() {
   const { isAdminUnlocked } = useAdmin()
-  const { slug } = useParams<{ slug: string }>()
+  const { slug: rawSlug } = useParams<{ slug: string }>()
+  const slug = parseSlug(rawSlug)
   const { trips, loading, error, refetch } = useTrips()
   const trip = !loading && !error ? trips.find(t => t.slug === slug) : null
   const heroRef = useRef<{ edit: () => void } | null>(null)

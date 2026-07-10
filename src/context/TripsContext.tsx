@@ -38,7 +38,13 @@ export function TripsProvider({ children }: TripsProviderProps) {
 
       if (fetchError) throw fetchError
       if (isCurrentRequest()) {
-        setTrips((data || []).map(row => normalizeTrip(row.trip_data)))
+        const normalized = (data || []).map(row => normalizeTrip(row.trip_data))
+        const valid = normalized.filter(trip => trip.slug !== '')
+        const skipped = normalized.length - valid.length
+        if (skipped > 0) {
+          console.warn(`[TripsContext] ${skipped} invalid trip(s) skipped`)
+        }
+        setTrips(valid)
       }
     } catch (err) {
       if (isCurrentRequest()) {

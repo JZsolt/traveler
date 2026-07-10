@@ -2,12 +2,10 @@ import { useState } from 'react'
 import { supabase } from '@/lib/supabase'
 import { friendlyError } from '@/lib/friendlyError'
 import { DEFAULT_AI_MODEL, API } from '@/lib/constants'
+import { TripSchema } from '@/schemas/trip'
+import { formatZodError } from '@/schemas/errors'
+import { ExpandDayEnvelopeSchema, ChatErrorEnvelopeSchema } from '@/schemas/ai'
 import type { ExpandDayProps, ExpandDayReturn } from '@/types/hooks'
-import { isDay } from '@/types/guards'
-
-function isObjectWithKey(val: unknown, key: string): val is Record<string, unknown> {
-  return typeof val === 'object' && val !== null && key in val
-}
 
 export function useExpandDay({ trip, slug, refetch }: ExpandDayProps): ExpandDayReturn {
   const [expandingDay, setExpandingDay] = useState<number | null>(null)
@@ -59,23 +57,23 @@ export function useExpandDay({ trip, slug, refetch }: ExpandDayProps): ExpandDay
 
       const data: unknown = await res.json()
 
+      const errEnv = ChatErrorEnvelopeSchema.safeParse(data)
       if (res.status === 429) {
-        const errMsg = isObjectWithKey(data, 'error') && typeof data.error === 'string' ? data.error : '429'
-        setError(friendlyError(errMsg))
+        setError(friendlyError(errEnv.success ? errEnv.data.error : '429'))
         return
       }
       if (!res.ok) {
-        const errMsg = isObjectWithKey(data, 'error') && typeof data.error === 'string' ? data.error : ''
-        setError(friendlyError(errMsg))
+        setError(friendlyError(errEnv.success ? errEnv.data.error : ''))
         return
       }
 
-      if (!isObjectWithKey(data, 'day') || !isDay(data.day)) {
+      const envelope = ExpandDayEnvelopeSchema.safeParse(data)
+      if (!envelope.success) {
         setError('Hibas valasz a szervertol.')
         return
       }
 
-      const expandedDay = { ...data.day, _draft: false }
+      const expandedDay = { ...envelope.data.day, _draft: false }
       const updatedDays = trip.days.map(d =>
         d.dayNum === dayNum ? { ...d, ...expandedDay } : d
       )
@@ -93,9 +91,15 @@ export function useExpandDay({ trip, slug, refetch }: ExpandDayProps): ExpandDay
         return
       }
 
+      const validated = TripSchema.safeParse(updatedTripData)
+      if (!validated.success) {
+        setError(`Ervenytelen utazas adat: ${formatZodError(validated.error)}`)
+        return
+      }
+
       const { error: updateError } = await supabase
         .from('trips')
-        .update({ trip_data: updatedTripData })
+        .update({ trip_data: validated.data })
         .eq('slug', slug)
 
       if (updateError) {

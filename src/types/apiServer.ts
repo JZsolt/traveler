@@ -1,7 +1,9 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 import type { SupabaseClient } from '@supabase/supabase-js'
+import type { z } from 'zod'
 import type { Database, TripsRow } from './supabase'
 import type { Trip, TripImportData } from './trip'
+import type { SupabaseTripRowSchema } from '../schemas/apiResponses'
 
 export type { VercelRequest, VercelResponse }
 
@@ -17,6 +19,13 @@ export interface AdminRequestBody {
 // --- Backup ---
 
 export type SupabaseTripRow = TripsRow
+
+export type ValidatedTripRow = z.infer<typeof SupabaseTripRowSchema>
+
+export interface FetchTripsResult {
+  rows: ValidatedTripRow[]
+  malformedSlugs: string[]
+}
 
 export interface BackupFile {
   path: string
@@ -127,11 +136,23 @@ export interface SectionExtra {
   itemIndex?: number
 }
 
+export type SectionFormatFn = () => { suggestion: unknown; summary: string }
+
+export type SectionValidateResult =
+  | { ok: true; data: unknown; format: SectionFormatFn }
+  | { ok: false; error: string }
+
 export interface SectionConfig {
   buildPrompt: (trip: Trip, instruction: string | undefined, extra?: SectionExtra) => string
   system: string
-  validate: (parsed: unknown) => string | null
-  format: (parsed: unknown) => { suggestion: unknown; summary: string }
+  validate: (parsed: unknown) => SectionValidateResult
+}
+
+export interface SectionConfigOptions<T> {
+  buildPrompt: (trip: Trip, instruction: string | undefined, extra?: SectionExtra) => string
+  system: string
+  schema: z.ZodType<T>
+  format: (validated: T) => { suggestion: unknown; summary: string }
 }
 
 export interface SuggestRequestBody {

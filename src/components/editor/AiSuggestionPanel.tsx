@@ -1,11 +1,8 @@
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { API } from '@/lib/constants'
+import { SuggestSectionEnvelopeSchema, ChatErrorEnvelopeSchema } from '@/schemas/ai'
 import type { AiSuggestionPanelProps } from '@/types/editor'
-
-function isObjectWithKey(val: unknown, key: string): val is Record<string, unknown> {
-  return typeof val === 'object' && val !== null && key in val
-}
 
 export function AiSuggestionPanel<T>({ section, trip, onApply, renderPreview, validateSuggestion, applyLabel = 'Alkalmazás', extraBody }: AiSuggestionPanelProps<T>) {
   const [instruction, setInstruction] = useState('')
@@ -35,21 +32,21 @@ export function AiSuggestionPanel<T>({ section, trip, onApply, renderPreview, va
       const data: unknown = await res.json()
 
       if (!res.ok) {
-        const errMsg = isObjectWithKey(data, 'error') && typeof data.error === 'string' ? data.error : 'Ismeretlen hiba.'
-        const retryable = isObjectWithKey(data, 'retryable') && data.retryable === true
-        const retryHint = retryable ? ' Próbáld újra.' : ''
+        const errEnv = ChatErrorEnvelopeSchema.safeParse(data)
+        const errMsg = errEnv.success ? errEnv.data.error : 'Ismeretlen hiba.'
+        const retryHint = errEnv.success && errEnv.data.retryable ? ' Próbáld újra.' : ''
         setError(errMsg + retryHint)
         return
       }
 
-      if (isObjectWithKey(data, 'suggestion') && validateSuggestion(data.suggestion)) {
-        setSuggestion(data.suggestion)
+      const envelope = SuggestSectionEnvelopeSchema.safeParse(data)
+      if (envelope.success && validateSuggestion(envelope.data.suggestion)) {
+        setSuggestion(envelope.data.suggestion)
+        if (envelope.data.summary) {
+          setSummary(envelope.data.summary)
+        }
       } else {
         setError('Hibás válasz a szervertől.')
-        return
-      }
-      if (isObjectWithKey(data, 'summary') && typeof data.summary === 'string') {
-        setSummary(data.summary)
       }
     } catch {
       setError('Hálózati hiba. Ellenőrizd az internet kapcsolatot.')

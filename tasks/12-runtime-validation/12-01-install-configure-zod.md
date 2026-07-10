@@ -1,4 +1,4 @@
-# 12-01 — Install And Configure Zod
+# 12-01 — Install And Configure Zod ✅ DONE
 
 **Estimate:** 1 hour
 

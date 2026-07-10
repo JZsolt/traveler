@@ -11,25 +11,7 @@ import { useScheduleItemEditor } from '@/hooks/useScheduleItemEditor'
 import type { ScheduleItemProps } from '@/types/components'
 import type { Guide } from '@/types/trip'
 import type { ScheduleItemDraft } from '@/types/hooks'
-
-function isRecord(val: unknown): val is Record<string, unknown> {
-  return typeof val === 'object' && val !== null
-}
-
-function isGuide(val: unknown): val is Guide {
-  if (!isRecord(val)) return false
-  for (const key of ['history', 'mustSee', 'funFacts', 'tips'] as const) {
-    if (val[key] !== undefined && !Array.isArray(val[key])) return false
-  }
-  return true
-}
-
-function isScheduleItemSuggestion(val: unknown): val is Partial<ScheduleItemDraft> {
-  if (!isRecord(val)) return false
-  if (val.title !== undefined && typeof val.title !== 'string') return false
-  if (val.time !== undefined && typeof val.time !== 'string') return false
-  return true
-}
+import { isGuide, isScheduleItemSuggestion } from '@/types/guards'
 
 export function ScheduleItem({ item, onSave, saving, error, isFirst, isLast, onMoveUp, onMoveDown, onDelete, trip, dayNum, itemIndex, readOnly }: ScheduleItemProps) {
   const [copied, setCopied] = useState(false)

@@ -4,6 +4,8 @@ import { formatDateRange } from '@/lib/dateUtils'
 import { friendlyError } from '@/lib/friendlyError'
 import { ensureUniqueSlug } from '@/lib/ensureUniqueSlug'
 import { toSlug } from '@/lib/createTripHelpers'
+import { TripSchema } from '@/schemas/trip'
+import { formatZodError } from '@/schemas/errors'
 import type { EditTripProps, EditTripReturn, EditTripForm } from '@/types/hooks'
 
 export function useEditTrip({ trip, slug, refetch, navigate }: EditTripProps): EditTripReturn {
@@ -49,9 +51,15 @@ export function useEditTrip({ trip, slug, refetch, navigate }: EditTripProps): E
         people: form.people,
       }
 
+      const validated = TripSchema.safeParse(updatedTripData)
+      if (!validated.success) {
+        setError(`Ervenytelen utazas adat: ${formatZodError(validated.error)}`)
+        return
+      }
+
       const { error: updateError } = await supabase
         .from('trips')
-        .update({ slug: newSlug, trip_data: updatedTripData })
+        .update({ slug: newSlug, trip_data: validated.data })
         .eq('slug', slug)
 
       if (updateError) {

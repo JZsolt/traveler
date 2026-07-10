@@ -1,10 +1,19 @@
 import { useState, useCallback } from 'react'
 import { AdminContext } from './adminContextValue'
 import { API, ADMIN_STORAGE_KEY } from '@/lib/constants'
+import { AdminLoginResponseSchema } from '@/schemas/auth'
+import { AdminStorageSchema } from '@/schemas/storage'
 import type { AdminProviderProps } from '@/types/admin'
 
 export function AdminProvider({ children }: AdminProviderProps) {
-  const [unlocked, setUnlocked] = useState(() => sessionStorage.getItem(ADMIN_STORAGE_KEY) === '1')
+  const [unlocked, setUnlocked] = useState(() => {
+    const stored = sessionStorage.getItem(ADMIN_STORAGE_KEY)
+    const parsed = AdminStorageSchema.safeParse(stored)
+    if (!parsed.success && stored !== null) {
+      sessionStorage.removeItem(ADMIN_STORAGE_KEY)
+    }
+    return parsed.success && parsed.data === '1'
+  })
 
   const unlockAdmin = useCallback(async (password: string) => {
     try {
@@ -13,17 +22,15 @@ export function AdminProvider({ children }: AdminProviderProps) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ password }),
       })
-      if (!res.ok) {
-        const data: { error?: { message?: string } } | null = await res.json().catch(() => null)
-        return { ok: false as const, error: data?.error?.message || 'Szerverhiba. Probald ujra kesobb.' }
+      const raw: unknown = await res.json().catch(() => null)
+      const parsed = AdminLoginResponseSchema.safeParse(raw)
+      if (!res.ok || !parsed.success || !parsed.data.ok) {
+        const errMsg = parsed.success ? parsed.data.error?.message : undefined
+        return { ok: false as const, error: errMsg || 'Szerverhiba. Probald ujra kesobb.' }
       }
-      const data: { ok?: boolean; error?: { message?: string } } = await res.json()
-      if (data.ok) {
-        sessionStorage.setItem(ADMIN_STORAGE_KEY, '1')
-        setUnlocked(true)
-        return { ok: true as const }
-      }
-      return { ok: false as const, error: data.error?.message || 'Ismeretlen hiba.' }
+      sessionStorage.setItem(ADMIN_STORAGE_KEY, '1')
+      setUnlocked(true)
+      return { ok: true as const }
     } catch {
       return { ok: false as const, error: 'Nem sikerult kapcsolodni a szerverhez.' }
     }

@@ -1,8 +1,13 @@
+import { z } from 'zod'
+import {
+  TripSchema, DaySchema, AlertSchema, CostSchema, TicketSchema, ImageSchema,
+  TransportOptionsSchema, UsefulLinkSchema, SavingTipSchema,
+  PracticalInfoSectionSchema, BookingChecklistItemSchema, OverviewDaySchema,
+  InsuranceSchema,
+} from '@/schemas/trip'
 import type {
   Trip, Accommodation, Flight, Budget,
-  UrgentBooking, UsefulLink, SavingTip, PracticalInfoSection,
-  BookingChecklistItem, OverviewDay, Day, Insurance, Link,
-  TransportLink, Guide, ScheduleItem,
+  UrgentBooking, Link, TransportLink, Guide, ScheduleItem, Day,
 } from '@/types/trip'
 
 function str(value: unknown, fallback = ''): string {
@@ -17,6 +22,13 @@ function rec(value: unknown): Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value)
     ? (value as Record<string, unknown>)
     : {}
+}
+
+function filterValid<T>(schema: z.ZodType<T>, data: unknown): T[] {
+  return arr(data)
+    .map(v => schema.safeParse(v))
+    .filter((r): r is z.ZodSafeParseSuccess<T> => r.success)
+    .map(r => r.data)
 }
 
 function normalizeLink(v: unknown): Link | null {
@@ -38,34 +50,6 @@ function normalizeUrgentBooking(v: unknown): UrgentBooking | null {
   const urls = arr(o.urls).map(normalizeLink).filter((link): link is Link => link !== null)
   if (urls.length > 0) booking.urls = urls
   return booking
-}
-
-function isUsefulLink(v: unknown): v is UsefulLink {
-  const o = rec(v)
-  return typeof o.emoji === 'string' && typeof o.name === 'string'
-    && typeof o.desc === 'string' && typeof o.url === 'string'
-}
-
-function isSavingTip(v: unknown): v is SavingTip {
-  const o = rec(v)
-  return typeof o.tip === 'string' && typeof o.saving === 'string'
-}
-
-function isPracticalInfo(v: unknown): v is PracticalInfoSection {
-  const o = rec(v)
-  return typeof o.title === 'string' && Array.isArray(o.items)
-    && o.items.every((i: unknown) => typeof i === 'string')
-}
-
-function isChecklistItem(v: unknown): v is BookingChecklistItem {
-  const o = rec(v)
-  return typeof o.item === 'string'
-}
-
-function isOverviewDay(v: unknown): v is OverviewDay {
-  const o = rec(v)
-  return typeof o.day === 'number' && typeof o.date === 'string'
-    && typeof o.program === 'string' && typeof o.highlights === 'string'
 }
 
 function normalizeTransportLink(v: unknown): TransportLink | null {
@@ -117,16 +101,39 @@ function normalizeScheduleItem(v: unknown): ScheduleItem | null {
   return item
 }
 
-function isDay(v: unknown): v is Day {
-  const o = rec(v)
-  return typeof o.dayNum === 'number' && typeof o.title === 'string'
-    && Array.isArray(o.schedule)
-}
+function normalizeDay(v: unknown): Day | null {
+  const fast = DaySchema.safeParse(v)
+  if (fast.success) return fast.data
 
-function isInsurance(v: unknown): v is Insurance {
   const o = rec(v)
-  return typeof o.pdf === 'string' && typeof o.label === 'string'
-    && typeof o.desc === 'string'
+  if (typeof o.dayNum !== 'number' || typeof o.title !== 'string') return null
+  if (!Array.isArray(o.schedule)) return null
+
+  const day: Day = {
+    dayNum: o.dayNum,
+    title: o.title,
+    schedule: o.schedule
+      .map(normalizeScheduleItem)
+      .filter((item): item is ScheduleItem => item !== null),
+  }
+  if (typeof o.subtitle === 'string') day.subtitle = o.subtitle
+  if (typeof o._draft === 'boolean') day._draft = o._draft
+
+  const alerts = filterValid(AlertSchema, o.alerts)
+  if (alerts.length > 0) day.alerts = alerts
+  const endAlerts = filterValid(AlertSchema, o.endAlerts)
+  if (endAlerts.length > 0) day.endAlerts = endAlerts
+  const tickets = filterValid(TicketSchema, o.tickets)
+  if (tickets.length > 0) day.tickets = tickets
+  const images = filterValid(ImageSchema, o.images)
+  if (images.length > 0) day.images = images
+  const costs = filterValid(CostSchema, o.costs)
+  if (costs.length > 0) day.costs = costs
+
+  const tp = TransportOptionsSchema.safeParse(o.transportOptions)
+  if (tp.success) day.transportOptions = tp.data
+
+  return day
 }
 
 function normalizeAccommodation(raw: unknown): Accommodation {
@@ -149,7 +156,6 @@ function normalizeAccommodation(raw: unknown): Accommodation {
   }
   return result
 }
-
 function normalizeFlight(raw: unknown): Flight {
   const o = rec(raw)
   return {
@@ -196,8 +202,11 @@ const DEFAULTS: Trip = {
 }
 
 export function normalizeTrip(raw: unknown): Trip {
+  const fast = TripSchema.safeParse(raw)
+  if (fast.success) return fast.data
+
   if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return { ...DEFAULTS }
-  const s = raw as Record<string, unknown>
+  const s = rec(raw)
 
   const trip: Trip = {
     slug: str(s.slug),
@@ -214,30 +223,32 @@ export function normalizeTrip(raw: unknown): Trip {
     urgentBookings: arr(s.urgentBookings)
       .map(normalizeUrgentBooking)
       .filter((booking): booking is UrgentBooking => booking !== null),
-    usefulLinks: arr(s.usefulLinks).filter(isUsefulLink),
+    usefulLinks: filterValid(UsefulLinkSchema, s.usefulLinks),
     packingList: arr(s.packingList).filter((v): v is string => typeof v === 'string'),
-    savingTips: arr(s.savingTips).filter(isSavingTip),
-    practicalInfo: arr(s.practicalInfo).filter(isPracticalInfo),
-    bookingChecklist: arr(s.bookingChecklist).filter(isChecklistItem),
-    overview: arr(s.overview).filter(isOverviewDay),
+    savingTips: filterValid(SavingTipSchema, s.savingTips),
+    practicalInfo: filterValid(PracticalInfoSectionSchema, s.practicalInfo),
+    bookingChecklist: filterValid(BookingChecklistItemSchema, s.bookingChecklist),
+    overview: filterValid(OverviewDaySchema, s.overview),
     days: arr(s.days)
-      .filter(isDay)
-      .map(day => ({
-        ...day,
-        schedule: arr(day.schedule)
-          .map(normalizeScheduleItem)
-          .filter((item): item is ScheduleItem => item !== null),
-      })),
+      .map(normalizeDay)
+      .filter((day): day is Day => day !== null),
   }
 
   if (typeof s.destination === 'string') trip.destination = s.destination
   if (typeof s.savingTipsLabel === 'string') trip.savingTipsLabel = s.savingTipsLabel
   if (typeof s.status === 'string') trip.status = s.status
   if (typeof s.aiModel === 'string') trip.aiModel = s.aiModel
-  if (isInsurance(s.insurance)) trip.insurance = s.insurance
+
+  const ins = InsuranceSchema.safeParse(s.insurance)
+  if (ins.success) trip.insurance = ins.data
+
   if (Array.isArray(s.expandedDays)) {
     trip.expandedDays = s.expandedDays.filter((v): v is number => typeof v === 'number')
   }
 
-  return trip
+  const recheck = TripSchema.safeParse(trip)
+  if (recheck.success) return recheck.data
+
+  console.warn('[normalizeTrip] Normalized trip failed final validation, returning defaults')
+  return { ...DEFAULTS }
 }

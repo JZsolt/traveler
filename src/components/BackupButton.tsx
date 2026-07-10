@@ -36,7 +36,10 @@ export function BackupButton() {
         return
       }
 
-      if ((data.failedFiles?.length ?? 0) > 0) {
+      setPassword('')
+      const hasFailures = (data.failedFiles?.length ?? 0) > 0
+      const hasSkipped = (data.skippedCount ?? 0) > 0
+      if (hasFailures || hasSkipped) {
         setState('partial')
         setResult(data)
         return
@@ -44,7 +47,6 @@ export function BackupButton() {
 
       setState('success')
       setResult(data)
-      setPassword('')
     } catch {
       setState('error')
       setError('Nincs internetkapcsolat vagy a szerver nem elerheto.')
@@ -113,9 +115,17 @@ export function BackupButton() {
               )}
             </p>
           )}
+          {(result.skippedCount ?? 0) > 0 && (
+            <div className="mt-2 pt-2 border-t border-amber-200">
+              <p className="font-semibold">Kihagyott utazasok ({result.skippedCount} db — ervenytelen adat):</p>
+              {result.skippedSlugs?.map((slug, i) => (
+                <p key={i}><code className="bg-white/50 px-1 rounded">{slug}</code></p>
+              ))}
+            </div>
+          )}
           {(result.failedFiles?.length ?? 0) > 0 && (
             <div className="mt-2 pt-2 border-t border-amber-200">
-              <p className="font-semibold">Sikertelen fájlok:</p>
+              <p className="font-semibold">Sikertelen fajlok:</p>
               {result.failedFiles?.map((f, i) => (
                 <p key={i}>
                   <code className="bg-white/50 px-1 rounded">{f.path}</code> — {f.error}

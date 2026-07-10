@@ -5,14 +5,14 @@ import { friendlyError } from '@/lib/friendlyError'
 import { ensureUniqueSlug } from '@/lib/ensureUniqueSlug'
 import { draftToTripData } from '@/lib/createTripHelpers'
 import { API } from '@/lib/constants'
+import { TripImportDataSchema } from '@/schemas/trip'
+import { formatZodError } from '@/schemas/errors'
+import {
+  ChatReplyEnvelopeSchema, ChatErrorEnvelopeSchema, PlanTripEnvelopeSchema,
+} from '@/schemas/ai'
 import type { ChatMessage } from '@/types/api'
 import type { Draft } from '@/types/createTrip'
 import type { CreateTripChatProps, CreateTripChatReturn } from '@/types/hooks'
-import { isDraft } from '@/types/guards'
-
-function isObjectWithKey(val: unknown, key: string): val is Record<string, unknown> {
-  return typeof val === 'object' && val !== null && key in val
-}
 
 export function useCreateTripChat({ form, aiModel, refetch, chatEndRef }: CreateTripChatProps): CreateTripChatReturn {
   const navigate = useNavigate()
@@ -40,12 +40,12 @@ export function useCreateTripChat({ form, aiModel, refetch, chatEndRef }: Create
     })
       .then(res => res.json())
       .then((data: unknown) => {
-        if (isObjectWithKey(data, 'reply') && typeof data.reply === 'string') {
-          const reply = data.reply
-          setMessages(prev => [...prev, { role: 'assistant', content: reply }])
+        const reply = ChatReplyEnvelopeSchema.safeParse(data)
+        if (reply.success) {
+          setMessages(prev => [...prev, { role: 'assistant', content: reply.data.reply }])
         } else {
-          const errMsg = isObjectWithKey(data, 'error') && typeof data.error === 'string' ? data.error : ''
-          setAiError(friendlyError(errMsg))
+          const err = ChatErrorEnvelopeSchema.safeParse(data)
+          setAiError(friendlyError(err.success ? err.data.error : ''))
         }
       })
       .catch((err: unknown) => setAiError(friendlyError(err)))
@@ -74,11 +74,15 @@ export function useCreateTripChat({ form, aiModel, refetch, chatEndRef }: Create
       })
       const data: unknown = await res.json()
       if (!res.ok) {
-        const errMsg = isObjectWithKey(data, 'error') && typeof data.error === 'string' ? data.error : ''
-        setAiError(friendlyError(errMsg))
-      } else if (isObjectWithKey(data, 'reply') && typeof data.reply === 'string') {
-        const reply = data.reply
-        setMessages(prev => [...prev, { role: 'assistant', content: reply }])
+        const errEnv = ChatErrorEnvelopeSchema.safeParse(data)
+        setAiError(friendlyError(errEnv.success ? errEnv.data.error : ''))
+      } else {
+        const reply = ChatReplyEnvelopeSchema.safeParse(data)
+        if (reply.success) {
+          setMessages(prev => [...prev, { role: 'assistant', content: reply.data.reply }])
+        } else {
+          setAiError('Hibas valasz a szervertol.')
+        }
       }
     } catch (err) {
       setAiError(friendlyError(err))
@@ -109,26 +113,26 @@ export function useCreateTripChat({ form, aiModel, refetch, chatEndRef }: Create
       })
 
       const data: unknown = await res.json()
+      const errEnv = ChatErrorEnvelopeSchema.safeParse(data)
 
-      if (res.status === 429 || (isObjectWithKey(data, 'retryable') && data.retryable)) {
-        const errMsg = isObjectWithKey(data, 'error') && typeof data.error === 'string' ? data.error : ''
-        setAiError(friendlyError(errMsg))
+      if (res.status === 429 || (errEnv.success && errEnv.data.retryable)) {
+        setAiError(friendlyError(errEnv.success ? errEnv.data.error : ''))
         setIs429(true)
         return
       }
 
       if (!res.ok) {
-        const errMsg = isObjectWithKey(data, 'error') && typeof data.error === 'string' ? data.error : ''
-        setAiError(friendlyError(errMsg))
+        setAiError(friendlyError(errEnv.success ? errEnv.data.error : ''))
         return
       }
 
-      if (!isObjectWithKey(data, 'trip') || !isDraft(data.trip)) {
+      const envelope = PlanTripEnvelopeSchema.safeParse(data)
+      if (!envelope.success) {
         setAiError('Hibas valasz a szervertol.')
         return
       }
 
-      const tripResult = data.trip
+      const tripResult = envelope.data.trip
       setGeneratedTrip(tripResult)
       setMessages(prev => [...prev, {
         role: 'assistant',
@@ -160,9 +164,15 @@ export function useCreateTripChat({ form, aiModel, refetch, chatEndRef }: Create
       const slug = await ensureUniqueSlug(baseSlug)
       tripData.slug = slug
 
+      const validated = TripImportDataSchema.safeParse(tripData)
+      if (!validated.success) {
+        setAiError(`Ervenytelen utazas adat: ${formatZodError(validated.error)}`)
+        return
+      }
+
       const { error: insertError } = await supabase
         .from('trips')
-        .insert({ slug, trip_data: tripData, owner: null })
+        .insert({ slug, trip_data: validated.data, owner: null })
 
       if (insertError) {
         setAiError(friendlyError(insertError))

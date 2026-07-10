@@ -1,11 +1,13 @@
 import { useParams, Navigate } from 'react-router-dom'
+import { parseSlug } from '@/schemas/route'
 import { useTrips } from '@/hooks/useTrips'
 import { useAdmin } from '@/hooks/useAdmin'
 import { EditTripFormPanel } from '@/components/EditTripFormPanel'
 
 export function EditTripPage() {
   const { isAdminUnlocked } = useAdmin()
-  const { slug } = useParams<{ slug: string }>()
+  const { slug: rawSlug } = useParams<{ slug: string }>()
+  const slug = parseSlug(rawSlug)
   const { trips, loading: tripsLoading, refetch } = useTrips()
 
   if (!isAdminUnlocked) return <Navigate to="/settings" replace />

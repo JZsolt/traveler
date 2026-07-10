@@ -1,198 +1,39 @@
-export interface Link {
-  label: string
-  url: string
-}
+import type { z } from 'zod'
+import type {
+  LinkSchema, TransportLinkSchema, GuideSchema, ScheduleItemSchema,
+  AlertSchema, CostSchema, TicketSchema, ImageSchema,
+  TransportOptionSchema, TransportOptionsSchema, DaySchema,
+  WifiSchema, AccommodationVideoSchema, AccommodationSchema,
+  FlightSchema, BudgetSchema, UrgentBookingSchema, UsefulLinkSchema,
+  SavingTipSchema, PracticalInfoSectionSchema, BookingChecklistItemSchema,
+  InsuranceSchema, OverviewDaySchema, TripSchema, TripImportDataSchema,
+} from '@/schemas/trip'
 
-export interface TransportLink {
-  type: string
-  label: string
-  url: string
-}
-
-export interface Guide {
-  history?: string[]
-  mustSee?: string[]
-  funFacts?: string[]
-  tips?: string[]
-  [key: string]: unknown
-}
-
-export interface ScheduleItem {
-  time: string
-  title: string
-  desc?: string
-  highlight?: boolean
-  optional?: boolean
-  badges?: string[]
-  links?: Link[]
-  transport?: TransportLink[]
-  guide?: Guide
-}
-
-export interface Alert {
-  type: 'tip' | 'warning' | 'urgent'
-  text: string
-  url?: string
-}
-
-export interface Cost {
-  item: string
-  cost: string
-  total?: boolean
-}
-
-export interface Ticket {
-  label: string
-  desc: string
-  pdf?: string
-}
-
-export interface Image {
-  url: string
-  caption?: string
-}
-
-export interface TransportOption {
-  name: string
-  time?: string
-  pricePerPerson?: string
-  total?: string
-  url?: string
-  recommended?: boolean
-}
-
-export interface TransportOptions {
-  title: string
-  options: TransportOption[]
-}
-
-export interface Day {
-  dayNum: number
-  title: string
-  subtitle?: string
-  _draft?: boolean
-  alerts?: Alert[]
-  endAlerts?: Alert[]
-  tickets?: Ticket[]
-  images?: Image[]
-  transportOptions?: TransportOptions
-  schedule: ScheduleItem[]
-  costs?: Cost[]
-}
-
-export interface Wifi {
-  name: string
-  password: string
-}
-
-export interface AccommodationVideo {
-  url: string
-  label: string
-}
-
-export interface Accommodation {
-  address?: string
-  mapUrl?: string
-  host?: string
-  gateCode?: string
-  doorCode?: string
-  wifi?: Wifi
-  videos?: AccommodationVideo[]
-  [key: string]: unknown
-}
-
-export interface Flight {
-  airport?: string
-  arrival?: string
-  departure?: string
-}
-
-export interface Budget {
-  headline?: string
-  lowPerFamily?: string
-  comfortPerFamily?: string
-  lowTotal?: string
-  comfortTotal?: string
-  lowPerFamilyLabel?: string
-  comfortPerFamilyLabel?: string
-  lowTotalLabel?: string
-  comfortTotalLabel?: string
-  summaryLabel?: string
-}
-
-export interface UrgentBooking {
-  name: string
-  reason: string
-  url?: string
-  urls?: Link[]
-  done: boolean
-}
-
-export interface UsefulLink {
-  emoji: string
-  name: string
-  desc: string
-  url: string
-}
-
-export interface SavingTip {
-  tip: string
-  saving: string
-}
-
-export interface PracticalInfoSection {
-  title: string
-  items: string[]
-}
-
-export interface BookingChecklistItem {
-  item: string
-  url?: string
-  done?: boolean
-}
-
-export interface Insurance {
-  pdf: string
-  label: string
-  desc: string
-}
-
-export interface OverviewDay {
-  day: number
-  date: string
-  program: string
-  highlights: string
-}
-
-export interface Trip {
-  slug: string
-  title: string
-  subtitle: string
-  emoji: string
-  startDate: string
-  endDate: string
-  people: string
-  destination?: string
-  highlights: string[]
-  accommodation: Accommodation
-  flight: Flight
-  budget: Budget
-  urgentBookings: UrgentBooking[]
-  usefulLinks: UsefulLink[]
-  packingList: string[]
-  savingTips: SavingTip[]
-  savingTipsLabel?: string
-  practicalInfo: PracticalInfoSection[]
-  bookingChecklist: BookingChecklistItem[]
-  insurance?: Insurance
-  overview: OverviewDay[]
-  days: Day[]
-  status?: string
-  aiModel?: string
-  expandedDays?: number[]
-}
-
-export type TripImportData = Partial<Trip> & Pick<Trip, 'title' | 'startDate' | 'endDate'>
+export type Link = z.infer<typeof LinkSchema>
+export type TransportLink = z.infer<typeof TransportLinkSchema>
+export type Guide = z.infer<typeof GuideSchema>
+export type ScheduleItem = z.infer<typeof ScheduleItemSchema>
+export type Alert = z.infer<typeof AlertSchema>
+export type Cost = z.infer<typeof CostSchema>
+export type Ticket = z.infer<typeof TicketSchema>
+export type Image = z.infer<typeof ImageSchema>
+export type TransportOption = z.infer<typeof TransportOptionSchema>
+export type TransportOptions = z.infer<typeof TransportOptionsSchema>
+export type Day = z.infer<typeof DaySchema>
+export type Wifi = z.infer<typeof WifiSchema>
+export type AccommodationVideo = z.infer<typeof AccommodationVideoSchema>
+export type Accommodation = z.infer<typeof AccommodationSchema>
+export type Flight = z.infer<typeof FlightSchema>
+export type Budget = z.infer<typeof BudgetSchema>
+export type UrgentBooking = z.infer<typeof UrgentBookingSchema>
+export type UsefulLink = z.infer<typeof UsefulLinkSchema>
+export type SavingTip = z.infer<typeof SavingTipSchema>
+export type PracticalInfoSection = z.infer<typeof PracticalInfoSectionSchema>
+export type BookingChecklistItem = z.infer<typeof BookingChecklistItemSchema>
+export type Insurance = z.infer<typeof InsuranceSchema>
+export type OverviewDay = z.infer<typeof OverviewDaySchema>
+export type Trip = z.infer<typeof TripSchema>
+export type TripImportData = z.infer<typeof TripImportDataSchema>
 
 export interface TripStatus {
   status: 'upcoming' | 'current' | 'past'

@@ -1,6 +1,7 @@
-# 12-06 — Browser Storage Validation
+# 12-06 — Browser Storage Validation ✅ DONE
 
 **Estimate:** 1–2 hours
+**Note:** Minimal surface — only sessionStorage admin flag with strict `=== '1'` check, already fail-closed.
 
 ## Goal
 

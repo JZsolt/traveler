@@ -1,4 +1,4 @@
-# 12-02 — Shared Domain Schemas
+# 12-02 — Shared Domain Schemas ✅ DONE
 
 **Estimate:** 2–3 hours
 

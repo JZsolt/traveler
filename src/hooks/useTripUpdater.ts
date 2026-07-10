@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { supabase } from '@/lib/supabase'
 import { friendlyError } from '@/lib/friendlyError'
+import { TripSchema } from '@/schemas/trip'
+import { formatZodError } from '@/schemas/errors'
 import type { Trip } from '@/types/trip'
 import type { TripUpdaterProps, TripUpdaterReturn } from '@/types/hooks'
 
@@ -19,9 +21,14 @@ export function useTripUpdater({ trip, slug, refetch }: TripUpdaterProps): TripU
       const updated = typeof updater === 'function' ? updater(trip) : updater
       const tripData = { ...trip, ...updated }
 
+      const validated = TripSchema.safeParse(tripData)
+      if (!validated.success) {
+        throw new Error(`Ervenytelen utazas adat: ${formatZodError(validated.error)}`)
+      }
+
       const { error: dbError } = await supabase
         .from('trips')
-        .update({ trip_data: tripData })
+        .update({ trip_data: validated.data })
         .eq('slug', slug)
 
       if (dbError) throw dbError

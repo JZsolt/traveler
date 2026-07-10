@@ -1,9 +1,23 @@
 import { useState, useRef } from 'react'
+import { z } from 'zod'
+import {
+  AlertSchema, CostSchema, TicketSchema, ImageSchema, TransportOptionsSchema,
+} from '@/schemas/trip'
+import { formatZodError } from '@/schemas/errors'
 import type { Day } from '@/types/trip'
 import type {
   AdvancedFieldKey, AdvancedDraft, AdvancedErrors,
   DayAdvancedEditorProps, DayAdvancedEditorReturn,
 } from '@/types/hooks'
+
+const FIELD_SCHEMAS: Record<AdvancedFieldKey, z.ZodType> = {
+  images: z.array(ImageSchema),
+  tickets: z.array(TicketSchema),
+  alerts: z.array(AlertSchema),
+  transportOptions: TransportOptionsSchema,
+  costs: z.array(CostSchema),
+  endAlerts: z.array(AlertSchema),
+}
 
 const FIELDS: readonly AdvancedFieldKey[] = ['images', 'tickets', 'alerts', 'transportOptions', 'costs', 'endAlerts']
 
@@ -53,18 +67,17 @@ export function useDayAdvancedEditor({ day, saveTrip, updateTripDay }: DayAdvanc
     for (const field of FIELDS) {
       const val = draft[field].trim()
       if (!val) continue
-      try { values[field] = JSON.parse(val) } catch { errs[field] = 'Érvénytelen JSON' }
+      let raw: unknown
+      try { raw = JSON.parse(val) } catch { errs[field] = 'Ervenytelen JSON'; continue }
+      const result = FIELD_SCHEMAS[field].safeParse(raw)
+      if (!result.success) { errs[field] = formatZodError(result.error); continue }
+      values[field] = result.data
     }
     setErrors(errs)
     if (Object.keys(errs).length > 0) return
-    const parsed: Partial<Day> = {
-      images: values.images as Day['images'],
-      tickets: values.tickets as Day['tickets'],
-      alerts: values.alerts as Day['alerts'],
-      transportOptions: values.transportOptions as Day['transportOptions'],
-      costs: values.costs as Day['costs'],
-      endAlerts: values.endAlerts as Day['endAlerts'],
-    }
+    const parsed: Partial<Day> = Object.fromEntries(
+      FIELDS.filter(f => values[f] !== undefined).map(f => [f, values[f]])
+    )
     const result = await saveTrip(t => updateTripDay(t, day.dayNum, parsed))
     if (result.ok) { setDraft(null); setEditing(false) }
   }

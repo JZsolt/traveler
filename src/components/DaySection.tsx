@@ -21,17 +21,7 @@ import { DirtyCancelRow } from '@/components/editor/DirtyCancelRow'
 import type { DaySectionProps } from '@/types/components'
 import type { Image } from '@/types/trip'
 import type { DayMetaDraft } from '@/types/hooks'
-
-function isRecord(val: unknown): val is Record<string, unknown> {
-  return typeof val === 'object' && val !== null
-}
-
-function isDayMetaSuggestion(val: unknown): val is DayMetaDraft {
-  if (!isRecord(val)) return false
-  if (typeof val.title !== 'string') return false
-  if (typeof val.subtitle !== 'string') return false
-  return true
-}
+import { isDayMetaSuggestion } from '@/types/guards'
 
 export function DaySection({ day, trip, slug, refetch, isFirst, isLast }: DaySectionProps) {
   const { isAdminUnlocked } = useAdmin()
