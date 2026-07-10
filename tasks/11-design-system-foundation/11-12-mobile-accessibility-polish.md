@@ -1,4 +1,4 @@
-# 11-12 — Mobile And Accessibility Polish
+# 11-12 — Mobile And Accessibility Polish ✅ DONE
 
 Read only:
 

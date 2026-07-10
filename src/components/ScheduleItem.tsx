@@ -1,6 +1,7 @@
 import { useState } from 'react'
+import { cn } from '@/lib/utils'
 import { Badge } from '@/components/ui/badge'
-import { MapPin, Copy, Check, SquarePen } from 'lucide-react'
+import { MapPin, Copy, Check, SquarePen, ChevronUp, ChevronDown, X } from 'lucide-react'
 import { GuideInfo } from './GuideInfo'
 import { AiSuggestionPanel } from '@/components/editor/AiSuggestionPanel'
 import { ScheduleEditor } from '@/components/editor/ScheduleEditor'
@@ -131,8 +132,13 @@ export function ScheduleItem({ item, onSave, saving, error, isFirst, isLast, onM
   }
 
   return (
-    <div className={`group/sched flex gap-1 py-3 ${item.highlight ? 'bg-amber-50/60 px-4 -mx-4 border-l-3 border-amber-400' : 'border-b border-slate-100/80'}`}>
-      <span className="text-[11px] md:text-[12px] text-slate-400 font-semibold tabular-nums shrink-0 w-[42px] md:w-[48px] pt-0.5">{item.time}</span>
+    <div className={cn(
+      'group/sched flex gap-1 py-3',
+      item.highlight
+        ? 'bg-traveler-accent/10 px-4 -mx-4 border-l-[3px] border-traveler-accent'
+        : 'border-b border-border',
+    )}>
+      <span className="text-[11px] md:text-[12px] text-muted-foreground font-semibold tabular-nums shrink-0 w-[42px] md:w-[48px] pt-0.5">{item.time}</span>
 
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-1.5 flex-wrap">
@@ -203,10 +209,10 @@ export function ScheduleItem({ item, onSave, saving, error, isFirst, isLast, onM
           <SquarePen className="w-3 h-3" />
         </button>
         <button onClick={onMoveUp} disabled={isFirst} aria-label="Program fel" className="text-gray-400 hover:text-slate-700 p-0.5 disabled:opacity-20">
-          <span className="text-[9px]">▲</span>
+          <ChevronUp className="w-3 h-3" />
         </button>
         <button onClick={onMoveDown} disabled={isLast} aria-label="Program le" className="text-gray-400 hover:text-slate-700 p-0.5 disabled:opacity-20">
-          <span className="text-[9px]">▼</span>
+          <ChevronDown className="w-3 h-3" />
         </button>
         {confirmDelete ? (
           <div className="flex gap-1">
@@ -215,7 +221,7 @@ export function ScheduleItem({ item, onSave, saving, error, isFirst, isLast, onM
           </div>
         ) : (
           <button onClick={() => setConfirmDelete(true)} aria-label="Program törlése" className="text-red-400/60 hover:text-red-500 p-0.5">
-            <span className="text-[9px]">✕</span>
+            <X className="w-3 h-3" />
           </button>
         )}
       </div>}

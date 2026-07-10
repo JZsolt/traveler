@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button'
 import { withPracticalInfoEditorId } from '@/lib/practicalInfoEditor'
 import type { PracticalInfoSection } from '@/types/trip'
 import type { PracticalInfoEditorProps, PracticalInfoItemsEditorProps } from '@/types/components'
+import { ChevronDown, ChevronUp, X } from 'lucide-react'
 
 function ItemsEditor({ items, onChange }: PracticalInfoItemsEditorProps) {
   const [newItem, setNewItem] = useState('')
@@ -43,9 +44,9 @@ function ItemsEditor({ items, onChange }: PracticalInfoItemsEditorProps) {
       {items.map((item, i) => (
         <div key={i} className="flex items-center gap-1">
           <input type="text" value={item} onChange={e => updateItem(i, e.target.value)} className="flex-1 min-w-0 border border-gray-200 rounded-lg px-2 py-1 text-sm" />
-          <Button variant="ghost" size="icon-xs" onClick={() => moveUp(i)} disabled={i === 0} aria-label="Fel"><span className="text-[10px]">▲</span></Button>
-          <Button variant="ghost" size="icon-xs" onClick={() => moveDown(i)} disabled={i >= items.length - 1} aria-label="Le"><span className="text-[10px]">▼</span></Button>
-          <Button variant="ghost" size="icon-xs" onClick={() => removeItem(i)} className="text-red-400 hover:text-red-600" aria-label="Törlés"><span className="text-[10px]">✕</span></Button>
+          <Button variant="ghost" size="icon-xs" onClick={() => moveUp(i)} disabled={i === 0} aria-label="Fel"><ChevronUp className="w-3 h-3" /></Button>
+          <Button variant="ghost" size="icon-xs" onClick={() => moveDown(i)} disabled={i >= items.length - 1} aria-label="Le"><ChevronDown className="w-3 h-3" /></Button>
+          <Button variant="ghost" size="icon-xs" onClick={() => removeItem(i)} className="text-red-400 hover:text-red-600" aria-label="Törlés"><X className="w-3 h-3" /></Button>
         </div>
       ))}
       <div className="flex items-center gap-1">
@@ -97,9 +98,9 @@ export function PracticalInfoEditor({ sections, onChange, validationError }: Pra
         <div key={section._eid ?? i} className="border border-gray-200 rounded-xl p-2.5 space-y-2">
           <div className="flex items-center gap-1.5">
             <input type="text" value={section.title} onChange={e => updateSection(i, 'title', e.target.value)} placeholder="Szekció cím *" className="flex-1 min-w-0 border border-gray-200 rounded-lg px-2 py-1.5 text-base font-medium" />
-            <Button variant="ghost" size="icon-xs" onClick={() => moveUp(i)} disabled={i === 0} aria-label="Fel"><span className="text-[10px]">▲</span></Button>
-            <Button variant="ghost" size="icon-xs" onClick={() => moveDown(i)} disabled={i >= sections.length - 1} aria-label="Le"><span className="text-[10px]">▼</span></Button>
-            <Button variant="ghost" size="icon-xs" onClick={() => removeSection(i)} className="text-red-400 hover:text-red-600" aria-label="Törlés"><span className="text-[10px]">✕</span></Button>
+            <Button variant="ghost" size="icon-xs" onClick={() => moveUp(i)} disabled={i === 0} aria-label="Fel"><ChevronUp className="w-3 h-3" /></Button>
+            <Button variant="ghost" size="icon-xs" onClick={() => moveDown(i)} disabled={i >= sections.length - 1} aria-label="Le"><ChevronDown className="w-3 h-3" /></Button>
+            <Button variant="ghost" size="icon-xs" onClick={() => removeSection(i)} className="text-red-400 hover:text-red-600" aria-label="Törlés"><X className="w-3 h-3" /></Button>
           </div>
           <ItemsEditor items={section.items || []} onChange={items => updateSectionItems(i, items)} />
         </div>

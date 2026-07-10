@@ -1,4 +1,4 @@
-# 11-05 — Empty, Loading And Error Primitives
+# 11-05 — Empty, Loading And Error Primitives ✅ DONE
 
 Read only:
 

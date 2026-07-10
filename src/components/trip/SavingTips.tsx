@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button'
 import { isSavingTipArray } from '@/types/guards'
 import type { SavingTip } from '@/types/trip'
 import type { SavingTipsEditorProps, SavingTipsProps } from '@/types/components'
+import { ChevronDown, ChevronUp, X } from 'lucide-react'
 
 const EMPTY_TIP: SavingTip = { tip: '', saving: '' }
 
@@ -62,13 +63,13 @@ function SavingTipsEditor({ items, onChange, validationError }: SavingTipsEditor
           </div>
           <div className="flex flex-col gap-0.5 pt-1">
             <Button variant="ghost" size="icon-xs" onClick={() => moveUp(i)} disabled={i === 0} aria-label="Fel">
-              <span className="text-[10px]">▲</span>
+              <ChevronUp className="w-3 h-3" />
             </Button>
             <Button variant="ghost" size="icon-xs" onClick={() => moveDown(i)} disabled={i >= items.length - 1} aria-label="Le">
-              <span className="text-[10px]">▼</span>
+              <ChevronDown className="w-3 h-3" />
             </Button>
             <Button variant="ghost" size="icon-xs" onClick={() => removeItem(i)} className="text-red-400 hover:text-red-600" aria-label="Törlés">
-              <span className="text-[10px]">✕</span>
+              <X className="w-3 h-3" />
             </Button>
           </div>
         </div>

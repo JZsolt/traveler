@@ -8,6 +8,8 @@ import { DETAIL_OPTIONS } from '@/lib/createTripHelpers'
 import { useCreateTripChat } from '@/hooks/useCreateTripChat'
 import { useImportTripJson } from '@/hooks/useImportTripJson'
 import { CreateTripChatStep } from './CreateTripChatStep'
+import { Page } from '@/components/ui/Page'
+import { PageHeader } from '@/components/ui/PageHeader'
 import type { CreateTripForm } from '@/types/createTrip'
 import type { ChatMessage, DetailLevel } from '@/types/api'
 import type { CreateTripStep } from '@/types/pages'
@@ -50,12 +52,11 @@ export default function CreateTripPage() {
   }
 
   return (
-    <main className="pt-14" style={{ paddingTop: 'calc(3.5rem + env(safe-area-inset-top, 0px))' }}>
-      <div className="max-w-lg mx-auto px-4 py-10">
+    <Page constrained>
 
-        {step === 'form' && (
-          <>
-            <h1 className="text-2xl font-bold text-[#1a1a2e] mb-6">Uj utazas</h1>
+      {step === 'form' && (
+        <>
+          <PageHeader title="Új utazás" />
 
             <form onSubmit={handleStartChat} className="space-y-4">
               <div>
@@ -124,21 +125,20 @@ export default function CreateTripPage() {
           </>
         )}
 
-        {step === 'chat' && (
-          <CreateTripChatStep
-            form={form}
-            chat={chat}
-            chatEndRef={chatEndRef}
-            aiModel={aiModel}
-            setAiModel={setAiModel}
-            detailLevel={detailLevel}
-            setDetailLevel={setDetailLevel}
-            generationPrompt={generationPrompt}
-            setGenerationPrompt={setGenerationPrompt}
-            onBack={() => { setStep('form'); chat.reset() }}
-          />
-        )}
-      </div>
-    </main>
+      {step === 'chat' && (
+        <CreateTripChatStep
+          form={form}
+          chat={chat}
+          chatEndRef={chatEndRef}
+          aiModel={aiModel}
+          setAiModel={setAiModel}
+          detailLevel={detailLevel}
+          setDetailLevel={setDetailLevel}
+          generationPrompt={generationPrompt}
+          setGenerationPrompt={setGenerationPrompt}
+          onBack={() => { setStep('form'); chat.reset() }}
+        />
+      )}
+    </Page>
   )
 }

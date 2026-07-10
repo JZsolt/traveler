@@ -11,6 +11,7 @@ Do not redesign the entire app in one pass.
 Created:
 
 docs/design/
+
 - VISUAL_LANGUAGE.md
 - ICON_SYSTEM.md
 - TYPOGRAPHY.md
@@ -24,6 +25,7 @@ docs/design/
 All inline `style={{ }}` usages are safe-area-inset related (PWA notch handling). These must stay as inline styles because Tailwind cannot express `env(safe-area-inset-top)` or `calc()` with it.
 
 Locations (13 occurrences):
+
 - `Header.jsx` (2x) — safe area top padding
 - `TripPage.jsx` (3x) — main padding-top
 - `HomePage.jsx` (2x) — main padding-top
@@ -36,15 +38,16 @@ No inline styles need removal. The safe-area pattern could be extracted to a CSS
 
 ### Hard-coded colors
 
-| Color | Count | Usage |
-|-------|-------|-------|
-| `#0f3460` | 63 | Primary — buttons, links, accents |
-| `#1a1a2e` | 33 | Dark — headers, day bars, gradients |
-| `#e94560` | 16 | Accent red — CTA, day numbers, save |
-| `#d63d56` | 7 | Hover variant of accent red |
-| `#16213e` | 2 | Darker navy (footer) |
+| Color     | Count | Usage                               |
+| --------- | ----- | ----------------------------------- |
+| `#0f3460` | 63    | Primary — buttons, links, accents   |
+| `#1a1a2e` | 33    | Dark — headers, day bars, gradients |
+| `#e94560` | 16    | Accent red — CTA, day numbers, save |
+| `#d63d56` | 7     | Hover variant of accent red         |
+| `#16213e` | 2     | Darker navy (footer)                |
 
 These map cleanly to CSS custom properties in Phase 2:
+
 - `#0f3460` → `--color-primary`
 - `#1a1a2e` → `--color-dark` / gradient start
 - `#e94560` → `--color-accent`
@@ -78,6 +81,7 @@ radius and shadow aliases were added separately to avoid shifting existing UI.
 Add or update global CSS variables:
 
 Colors:
+
 - --color-paper: #FAFAF8
 - --color-ink: #111827
 - --color-body: #374151
@@ -87,6 +91,7 @@ Colors:
 - --color-accent: #F97316
 
 Radius:
+
 - --radius-sm: 10px
 - --radius-md: 16px
 - --radius-lg: 24px
@@ -94,6 +99,7 @@ Radius:
 - --radius-pill: 999px
 
 Shadow:
+
 - --shadow-soft: 0 18px 50px rgba(17, 24, 39, 0.08)
 - --shadow-card: 0 1px 3px rgba(17, 24, 39, 0.06)
 
@@ -104,36 +110,38 @@ keeps shadcn semantic tokens, and exposes minimal Traveler aliases for paper,
 ink, body, line, primary, accent/AI, radius, and soft/card shadows for future
 primitives.
 
-## Phase 3 — Create primitives (Partial)
-
-Create:
+## Phase 3 — Create primitives ✅
 
 Existing (via shadcn/ui):
-- src/components/ui/button.jsx ✅
-- src/components/ui/card.jsx ✅
-- src/components/ui/badge.jsx ✅
+
+- src/components/ui/button.tsx ✅
+- src/components/ui/card.tsx ✅
+- src/components/ui/badge.tsx ✅
 
 Existing (custom):
-- src/components/editor/EditableSection.jsx ✅
-- src/components/editor/AiSuggestionPanel.jsx ✅
 
-Not yet created:
-- src/components/ui/Page.jsx
-- src/components/ui/PageHeader.jsx
-- src/components/ui/Section.jsx
-- src/components/ui/Row.jsx
-- src/components/ui/Timeline.jsx
+- src/components/editor/EditableSection.tsx ✅
+- src/components/editor/AiSuggestionPanel.tsx ✅
 
-Keep components simple.
-Do not add dependencies unless required.
+Created (Phase 11):
 
-## Phase 4 — Create design system route (Not started)
+- src/components/ui/Page.tsx ✅
+- src/components/ui/PageHeader.tsx ✅
+- src/components/ui/Section.tsx ✅
+- src/components/ui/Row.tsx ✅
+- src/components/ui/Timeline.tsx ✅
+- src/components/ui/LoadingState.tsx ✅
+- src/components/ui/EmptyState.tsx ✅
+- src/components/ui/InlineError.tsx ✅
+
+## Phase 4 — Create design system route ✅
 
 Add route:
 
 /design-system
 
 Show:
+
 - colors
 - typography
 - buttons
@@ -146,11 +154,12 @@ Show:
 
 This is a developer-only reference page.
 
-## Phase 5 — Migrate Trip overview first (Not started)
+## Phase 5 — Migrate Trip overview first ✅
 
 Migrate only the main Trip overview page.
 
 Requirements:
+
 - editorial hero
 - timeline for today/current day
 - rows for trip blocks
@@ -161,25 +170,34 @@ Requirements:
 
 Stop after this page.
 
-## Phase 6 — Migrate Day view (Not started)
+## Phase 6 — Migrate Day view ✅
 
 Migrate day detail page to:
+
 - big day title
 - timeline schedule
 - inline edit actions
 - AI assist per section
 
-## Phase 7 — Migrate CreateTripPage (Not started)
+## Phase 7 — Migrate CreateTripPage ✅
 
 Migrate AI trip creation page to:
+
 - calm form
 - simple chat or preference block
 - compact preview
 - one main CTA
 
-## Phase 8 — Polish (Not started)
+## Phase 8 — Polish ✅
+
+### Known remaining design debt
+
+- Legacy product page colors (`#0f3460`, `#1a1a2e`, `#e94560`, `#d63d56`, `#16213e`) are still hard-coded in TripPage hero overlay buttons, DaySection header gradient, CreateTripPage form inputs focus ring, and expand-day AI panel. These should migrate to `--traveler-primary` / `--traveler-accent` tokens in a future pass.
+- `PracticalInfo.tsx` disclosure arrow (`▼` text) is not a Lucide icon — it's a CSS rotate trick on a text character. Low priority since it's a layout indicator, not an action button.
+- `ScheduleItem` and trip section editors still use `#0f3460` hard-coded for primary action buttons. Token migration is a future pass after all legacy colors are mapped.
 
 Add:
+
 - empty states
 - loading states
 - error states

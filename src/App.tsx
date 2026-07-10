@@ -9,6 +9,7 @@ const TripPage = lazy(() => import('@/pages/TripPage'))
 const CreateTripPage = lazy(() => import('@/pages/CreateTripPage'))
 const EditTripPage = lazy(() => import('@/pages/EditTripPage'))
 const SettingsPage = lazy(() => import('@/pages/SettingsPage'))
+const DesignSystemPage = lazy(() => import('@/pages/DesignSystemPage'))
 
 function PageLoader() {
   return <div className="flex items-center justify-center min-h-[60vh] text-slate-400 text-sm">Betöltés...</div>
@@ -27,6 +28,7 @@ export default function App() {
               <Route path="/create-trip" element={<CreateTripPage />} />
               <Route path="/trip/:slug/edit" element={<EditTripPage />} />
               <Route path="/settings" element={<SettingsPage />} />
+              <Route path="/design-system" element={<DesignSystemPage />} />
             </Routes>
           </Suspense>
         </TripsProvider>

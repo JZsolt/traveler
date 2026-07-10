@@ -10,6 +10,8 @@ import { useTripUpdater } from '@/hooks/useTripUpdater'
 import { useDeleteTrip } from '@/hooks/useDeleteTrip'
 import { useExpandDay } from '@/hooks/useExpandDay'
 import { AI_MODEL_OPTIONS, DEFAULT_AI_MODEL } from '@/lib/constants'
+import { Page } from '@/components/ui/Page'
+import { LoadingState } from '@/components/ui/LoadingState'
 import { DbError } from '@/components/DbError'
 import { DaySection } from '@/components/DaySection'
 import { BookingChecklist } from '@/components/trip/BookingChecklist'
@@ -32,18 +34,15 @@ export default function TripPage() {
   const expand = useExpandDay({ trip, slug, refetch })
 
   if (loading) return (
-    <main className="pt-14" style={{ paddingTop: 'calc(3.5rem + env(safe-area-inset-top, 0px))' }}>
-      <div className="text-center py-20 text-gray-400">
-        <p className="text-2xl mb-2 animate-pulse">✈️</p>
-        <p className="text-sm">Betoltes...</p>
-      </div>
-    </main>
+    <Page flushTop className="px-0">
+      <LoadingState label="Betoltes..." className="py-20" />
+    </Page>
   )
 
   if (error) return (
-    <main className="pt-14" style={{ paddingTop: 'calc(3.5rem + env(safe-area-inset-top, 0px))' }}>
+    <Page flushTop className="px-0">
       <DbError error={error} />
-    </main>
+    </Page>
   )
 
   if (!trip || !slug) return <Navigate to="/" replace />
@@ -51,7 +50,7 @@ export default function TripPage() {
   const isDraft = trip.status === 'draft'
 
   return (
-    <main className="pb-16" style={{ paddingTop: 'calc(3.5rem + env(safe-area-inset-top, 0px))' }}>
+    <Page flushTop className="px-0">
       <div className="relative">
         {isAdminUnlocked && (
           <div className="absolute top-3 right-3 z-10 flex gap-2">
@@ -186,6 +185,6 @@ export default function TripPage() {
           Jó utat és sok szép élményt! 🧳✨ {trip.emoji}
         </p>
       </div>
-    </main>
+    </Page>
   )
 }

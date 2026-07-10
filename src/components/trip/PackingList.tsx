@@ -6,6 +6,7 @@ import { replaceTripSection } from '@/lib/tripSections'
 import { Button } from '@/components/ui/button'
 import { isStringArray } from '@/types/guards'
 import type { PackingListEditorProps, PackingListProps } from '@/types/components'
+import { ChevronDown, ChevronUp, X } from 'lucide-react'
 
 function PackingListEditor({ items, onChange }: PackingListEditorProps) {
   const [newItem, setNewItem] = useState('')
@@ -52,13 +53,13 @@ function PackingListEditor({ items, onChange }: PackingListEditorProps) {
             className="flex-1 min-w-0 border border-gray-200 rounded-lg px-2 py-1.5 text-base"
           />
           <Button variant="ghost" size="icon-xs" onClick={() => moveUp(i)} disabled={i === 0} aria-label="Fel">
-            <span className="text-[10px]">▲</span>
+            <ChevronUp className="w-3 h-3" />
           </Button>
           <Button variant="ghost" size="icon-xs" onClick={() => moveDown(i)} disabled={i >= items.length - 1} aria-label="Le">
-            <span className="text-[10px]">▼</span>
+            <ChevronDown className="w-3 h-3" />
           </Button>
           <Button variant="ghost" size="icon-xs" onClick={() => removeItem(i)} className="text-red-400 hover:text-red-600" aria-label="Törlés">
-            <span className="text-[10px]">✕</span>
+            <X className="w-3 h-3" />
           </Button>
         </div>
       ))}

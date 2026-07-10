@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { ExternalLink } from 'lucide-react'
+import { ChevronDown, ChevronUp, ExternalLink, X } from 'lucide-react'
 import { EditableSection } from '@/components/editor/EditableSection'
 import { AiSuggestionPanel } from '@/components/editor/AiSuggestionPanel'
 import { useTripUpdater } from '@/hooks/useTripUpdater'
@@ -59,13 +59,13 @@ function UsefulLinksEditor({ items, onChange, validationError }: UsefulLinksEdit
               className="flex-1 min-w-0 border border-gray-200 rounded-lg px-2 py-1 text-base"
             />
             <Button variant="ghost" size="icon-xs" onClick={() => moveUp(i)} disabled={i === 0} aria-label="Fel">
-              <span className="text-[10px]">▲</span>
+              <ChevronUp className="w-3 h-3" />
             </Button>
             <Button variant="ghost" size="icon-xs" onClick={() => moveDown(i)} disabled={i >= items.length - 1} aria-label="Le">
-              <span className="text-[10px]">▼</span>
+              <ChevronDown className="w-3 h-3" />
             </Button>
             <Button variant="ghost" size="icon-xs" onClick={() => removeItem(i)} className="text-red-400 hover:text-red-600" aria-label="Törlés">
-              <span className="text-[10px]">✕</span>
+              <X className="w-3 h-3" />
             </Button>
           </div>
           <input

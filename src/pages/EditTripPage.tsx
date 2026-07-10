@@ -3,6 +3,8 @@ import { parseSlug } from '@/schemas/route'
 import { useTrips } from '@/hooks/useTrips'
 import { useAdmin } from '@/hooks/useAdmin'
 import { EditTripFormPanel } from '@/components/EditTripFormPanel'
+import { Page } from '@/components/ui/Page'
+import { LoadingState } from '@/components/ui/LoadingState'
 
 export default function EditTripPage() {
   const { isAdminUnlocked } = useAdmin()
@@ -13,20 +15,17 @@ export default function EditTripPage() {
   if (!isAdminUnlocked) return <Navigate to="/settings" replace />
 
   if (tripsLoading) return (
-    <main className="pt-14" style={{ paddingTop: 'calc(3.5rem + env(safe-area-inset-top, 0px))' }}>
-      <div className="text-center py-20 text-gray-400">
-        <p className="text-2xl mb-2 animate-pulse">✈️</p>
-        <p className="text-sm">Betoltes...</p>
-      </div>
-    </main>
+    <Page flushTop className="px-0">
+      <LoadingState label="Betoltes..." className="py-20" />
+    </Page>
   )
 
   const trip = trips.find(t => t.slug === slug)
   if (!trip || !slug) return <Navigate to="/" replace />
 
   return (
-    <main className="pt-14" style={{ paddingTop: 'calc(3.5rem + env(safe-area-inset-top, 0px))' }}>
+    <Page flushTop className="px-0">
       <EditTripFormPanel key={slug} trip={trip} slug={slug} refetch={refetch} />
-    </main>
+    </Page>
   )
 }

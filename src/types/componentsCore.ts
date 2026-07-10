@@ -1,5 +1,11 @@
 import type { Alert, Cost, Day, Guide, Image, ScheduleItem, Ticket, TransportOptions, Trip } from './trip'
-import type { DayScheduleAiReturn, OnSaveItemFn } from './hooks'
+import type {
+  DayAdvancedEditorReturn,
+  DayMetaEditorReturn,
+  DayScheduleAiReturn,
+  OnSaveItemFn,
+  SaveTripFn,
+} from './hooks'
 
 export interface AlertBoxProps {
   type: Alert['type']
@@ -50,6 +56,23 @@ export interface DaySectionProps {
   isLast?: boolean
 }
 
+export interface DayHeaderProps {
+  day: Day
+  trip: Trip
+  meta: DayMetaEditorReturn
+  saving: boolean
+  error: string | null
+  isAdminUnlocked: boolean
+  isFirst?: boolean
+  isLast?: boolean
+  hasPendingScheduleDraft: boolean
+  open: boolean
+  onToggleOpen: () => void
+  onMoveUp: () => void
+  onMoveDown: () => void
+  onDeleteRequest: () => void
+}
+
 export interface DayImagesProps {
   images: Image[] | undefined
   lightbox: Image | null
@@ -77,4 +100,21 @@ export interface DayScheduleActionsProps {
 
 export interface DayScheduleAiPanelProps {
   scheduleAi: DayScheduleAiReturn
+}
+
+export interface DayScheduleProps {
+  day: Day
+  trip: Trip
+  activeSchedule: ScheduleItem[]
+  scheduleAi: DayScheduleAiReturn
+  saveTrip: SaveTripFn
+  saving: boolean
+  error: string | null
+  isAdminUnlocked: boolean
+}
+
+export interface DayAdvancedDataEditorProps {
+  advanced: DayAdvancedEditorReturn
+  saving: boolean
+  error: string | null
 }

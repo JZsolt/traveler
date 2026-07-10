@@ -1,4 +1,4 @@
-# 11-06 — Timeline Primitives
+# 11-06 — Timeline Primitives ✅ DONE
 
 Read only:
 

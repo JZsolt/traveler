@@ -3,6 +3,8 @@ import { useTrips } from '@/hooks/useTrips'
 import { useAdmin } from '@/hooks/useAdmin'
 import { DbError } from '@/components/DbError'
 import { Badge } from '@/components/ui/badge'
+import { Page } from '@/components/ui/Page'
+import { LoadingState } from '@/components/ui/LoadingState'
 import { sortTrips } from '@/lib/sortTrips'
 import { getTripStatus } from '@/lib/getTripStatus'
 
@@ -12,22 +14,13 @@ export default function HomePage() {
   const sorted = sortTrips(trips)
 
   if (loading) return (
-    <main
-      className="pt-14"
-      style={{ paddingTop: 'calc(3.5rem + env(safe-area-inset-top, 0px))' }}
-    >
-      <div className="text-center py-20 text-gray-400">
-        <p className="text-2xl mb-2 animate-pulse">✈️</p>
-        <p className="text-sm">Betoltes...</p>
-      </div>
-    </main>
+    <Page flushTop className="px-0 pb-0">
+      <LoadingState label="Betoltes..." className="py-20" />
+    </Page>
   )
 
   return (
-    <main
-      className="pt-14"
-      style={{ paddingTop: 'calc(3.5rem + env(safe-area-inset-top, 0px))' }}
-    >
+    <Page flushTop className="px-0 pb-0">
       <div className="bg-gradient-to-br from-[#1a1a2e] via-[#16213e] to-[#0f3460] text-white text-center py-16 px-6 md:py-24">
         <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-2">
           ✈️ Az Utazásaim
@@ -96,6 +89,6 @@ export default function HomePage() {
           })}
         </div>
       </div>
-    </main>
+    </Page>
   )
 }

@@ -75,9 +75,13 @@ Purpose: vertical page section with eyebrow label, title, action, children.
 
 Props: title, eyebrow, action, className, children
 
-### Timeline — Planned
+### Timeline — Exists
+
+Source: `src/components/ui/Timeline.tsx`
 
 Purpose: display day schedule as a timeline (currently done inline in DaySection/ScheduleItem).
+
+Props: children, className (Timeline) | time, title, description, badges, highlight, actions, className (TimelineItem)
 
 ### Row — Exists
 
@@ -86,6 +90,30 @@ Source: `src/components/ui/Row.tsx`
 Purpose: simple clickable/linkable row with icon, title, subtitle, trailing action.
 
 Props: icon, title, subtitle, trailing, onClick, href, className
+
+### EmptyState — Exists
+
+Source: `src/components/ui/EmptyState.tsx`
+
+Purpose: centered empty/no-data placeholder with optional icon, description, action.
+
+Props: icon, title, description, action, className
+
+### LoadingState — Exists
+
+Source: `src/components/ui/LoadingState.tsx`
+
+Purpose: centered loading spinner with label.
+
+Props: label, className
+
+### InlineError — Exists
+
+Source: `src/components/ui/InlineError.tsx`
+
+Purpose: inline error banner with optional retry button.
+
+Props: message, onRetry, className
 
 ## Component rules
 

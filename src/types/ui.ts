@@ -30,6 +30,7 @@ export type CollapsibleContentProps = CollapsiblePrimitive.Panel.Props
 
 export interface PageProps {
   constrained?: boolean
+  flushTop?: boolean
   className?: string
   children: React.ReactNode
 }
@@ -57,5 +58,39 @@ export interface RowProps {
   trailing?: React.ReactNode
   onClick?: () => void
   href?: string
+  className?: string
+}
+
+export interface EmptyStateProps {
+  icon?: React.ReactNode
+  title: string
+  description?: string
+  action?: React.ReactNode
+  className?: string
+}
+
+export interface LoadingStateProps {
+  label?: string
+  className?: string
+}
+
+export interface InlineErrorProps {
+  message: string
+  onRetry?: () => void
+  className?: string
+}
+
+export interface TimelineItemProps {
+  time: string
+  title: string
+  description?: string
+  badges?: string[]
+  highlight?: boolean
+  actions?: React.ReactNode
+  className?: string
+}
+
+export interface TimelineProps {
+  children: React.ReactNode
   className?: string
 }
