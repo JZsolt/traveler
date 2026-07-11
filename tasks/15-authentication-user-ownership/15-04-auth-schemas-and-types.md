@@ -1,4 +1,4 @@
-# 15-04 — Auth Schemas And Types
+# 15-04 — Auth Schemas And Types ✅ DONE
 
 **Estimate:** 1-2 hours
 

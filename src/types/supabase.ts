@@ -1,6 +1,5 @@
 import type { Trip, TripImportData } from './trip'
-import type { z } from 'zod'
-import type { ProfileSchema } from '@/schemas/auth'
+import type { Profile } from './auth'
 
 export type TripsRow = {
   id: string
@@ -10,8 +9,6 @@ export type TripsRow = {
   created_at: string
   updated_at: string
 }
-
-export type Profile = z.infer<typeof ProfileSchema>
 
 export type Database = {
   public: {
