@@ -1,4 +1,4 @@
-# 15-01 — Auth Product And Security Specification
+# 15-01 — Auth Product And Security Specification ✅ DONE
 
 **Estimate:** 1-3 hours
 
