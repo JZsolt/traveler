@@ -36,3 +36,18 @@ export interface AuthContextValue {
 export interface AuthProviderProps {
   children: ReactNode
 }
+
+export interface AuthFormFieldProps {
+  id: string
+  label: string
+  type?: 'text' | 'email' | 'password'
+  autoComplete?: string
+  value: string
+  onChange: (value: string) => void
+  error?: string
+  disabled?: boolean
+}
+
+export type AuthFieldErrors = Record<string, string>
+
+export type AuthFormSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => void

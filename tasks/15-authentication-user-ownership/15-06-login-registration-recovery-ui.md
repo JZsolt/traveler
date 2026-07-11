@@ -1,4 +1,4 @@
-# 15-06 — Login, Registration And Recovery UI
+# 15-06 — Login, Registration And Recovery UI ✅ DONE
 
 **Estimate:** 2-3 hours
 
