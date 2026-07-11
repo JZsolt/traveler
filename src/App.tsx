@@ -1,5 +1,6 @@
 import { lazy, Suspense } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { AuthProvider } from '@/context/AuthContext'
 import { TripsProvider } from '@/context/TripsContext'
 import { AdminProvider } from '@/context/AdminContext'
 import { Header } from '@/components/Header'
@@ -18,21 +19,23 @@ function PageLoader() {
 export default function App() {
   return (
     <BrowserRouter>
-      <AdminProvider>
-        <TripsProvider>
-          <Header />
-          <Suspense fallback={<PageLoader />}>
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/trip/:slug" element={<TripPage />} />
-              <Route path="/create-trip" element={<CreateTripPage />} />
-              <Route path="/trip/:slug/edit" element={<EditTripPage />} />
-              <Route path="/settings" element={<SettingsPage />} />
-              <Route path="/design-system" element={<DesignSystemPage />} />
-            </Routes>
-          </Suspense>
-        </TripsProvider>
-      </AdminProvider>
+      <AuthProvider>
+        <AdminProvider>
+          <TripsProvider>
+            <Header />
+            <Suspense fallback={<PageLoader />}>
+              <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/trip/:slug" element={<TripPage />} />
+                <Route path="/create-trip" element={<CreateTripPage />} />
+                <Route path="/trip/:slug/edit" element={<EditTripPage />} />
+                <Route path="/settings" element={<SettingsPage />} />
+                <Route path="/design-system" element={<DesignSystemPage />} />
+              </Routes>
+            </Suspense>
+          </TripsProvider>
+        </AdminProvider>
+      </AuthProvider>
     </BrowserRouter>
   )
 }

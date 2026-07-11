@@ -1,4 +1,4 @@
-# 15-05 — AuthProvider And Session Lifecycle
+# 15-05 — AuthProvider And Session Lifecycle ✅ DONE
 
 **Estimate:** 2-3 hours
 
@@ -19,7 +19,7 @@ Introduce central authenticated session state.
 
 - Refresh restores an existing session.
 - Loading state prevents route flicker.
-- Logout clears auth state and trip cache hooks/contexts.
+- Logout clears auth state. Trip cache clearing deferred to 15-10 (TripsContext user scoping).
 - Auth subscription unsubscribes on cleanup.
 - AuthProvider does not own trip business logic.
 
