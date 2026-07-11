@@ -20,7 +20,10 @@ Always complete the phases in this order:
 12. ~~12-runtime-validation.md~~ ✅ (10 subtask)
 13. ~~13-clean-install-quality-gate.md~~ ✅ (6 subtask)
 14. ~~14-build-log-cleanup.md~~ ✅ (1 subtask)
-15. 11-design-system-foundation.md (12 subtask — next phase; legacy filename)
+15. ~~11-design-system-foundation.md~~ ✅ (12 subtask — legacy filename)
+16. 15-authentication-user-ownership.md (14 subtask — next phase)
+17. 16-read-only-trip-sharing.md (8 subtask)
+18. 17-public-landing-demo.md (4 subtask)
 
 ## Workflow
 
@@ -80,3 +83,11 @@ Phase 10 defines project-wide architecture rules that apply to all future implem
 - Do not silence chunk-size warnings by increasing the warning limit unless a task explicitly justifies it.
 - Prefer route-level or feature-level lazy loading for large chunks.
 - Keep `pnpm run build` clean before starting design-system migration.
+
+## Auth, Ownership, And Sharing Rules (Phase 15+)
+
+- Authenticated app routes live under `/app/*`; public routes must not load private trip data.
+- Trip privacy must be enforced by Supabase RLS and server-side endpoint checks, not by frontend filtering.
+- Every private trip must have an immutable authenticated `owner_id`.
+- Public sharing must use dedicated share tokens/projections; never re-open `trips` with public read policies.
+- Admin backup access is separate from normal trip ownership and must be server-verified.

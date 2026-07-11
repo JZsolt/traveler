@@ -80,6 +80,18 @@ These rules apply to every implementation task.
 - Read server secrets only from `process.env`.
 - Never use the `VITE_` prefix for server-side secrets.
 
+## Auth, Ownership, And Sharing
+
+- Public routes must not load private trip data.
+- Authenticated app functionality belongs under `/app/*`.
+- Normal users can only access trips they own.
+- Trip ownership must be enforced by Supabase RLS and server/API checks, not frontend filtering.
+- Every private trip must have an authenticated `owner_id`; do not trust client-provided owner values.
+- Public share links must use a separate share model and safe read-only projection.
+- Do not make `trips` publicly readable to implement sharing.
+- Hidden admin UI is only UX; admin backup/import must be verified server-side with authenticated admin identity.
+- Admin backup access must not grant normal "edit any user's trip" UI behavior.
+
 ## Before finishing
 
 - Run `pnpm run typecheck`.
