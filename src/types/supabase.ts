@@ -1,4 +1,6 @@
 import type { Trip, TripImportData } from './trip'
+import type { z } from 'zod'
+import type { ProfileSchema } from '@/schemas/auth'
 
 export type TripsRow = {
   id: string
@@ -8,6 +10,8 @@ export type TripsRow = {
   created_at: string
   updated_at: string
 }
+
+export type Profile = z.infer<typeof ProfileSchema>
 
 export type Database = {
   public: {
@@ -26,6 +30,19 @@ export type Database = {
           slug?: string
           trip_data?: Trip | TripImportData
           owner?: string | null
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: Profile
+        Insert: {
+          id: string
+          display_name?: string | null
+          avatar_url?: string | null
+        }
+        Update: {
+          display_name?: string | null
+          avatar_url?: string | null
         }
         Relationships: []
       }

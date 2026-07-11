@@ -1,4 +1,4 @@
-# 15-02 — Supabase Auth Configuration
+# 15-02 — Supabase Auth Configuration ✅ DONE
 
 **Estimate:** 1-2 hours
 
