@@ -1,5 +1,7 @@
 import { supabase } from '@/lib/supabase'
+import type { TripsRow } from '@/types/supabase'
 
+// Checks global slug uniqueness; after 15-09 RLS this query becomes owner-scoped automatically
 export async function ensureUniqueSlug(baseSlug: string, currentSlug: string | null = null): Promise<string> {
   if (!baseSlug) return ''
 
@@ -13,7 +15,7 @@ export async function ensureUniqueSlug(baseSlug: string, currentSlug: string | n
 
   if (!data || data.length === 0) return baseSlug
 
-  const existing = new Set(data.map((r: { slug: string }) => r.slug))
+  const existing = new Set(data.map((r: Pick<TripsRow, 'slug'>) => r.slug))
 
   if (!existing.has(baseSlug)) return baseSlug
 

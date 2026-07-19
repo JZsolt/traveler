@@ -1,7 +1,6 @@
 import { useState, useRef } from 'react'
 import { SquarePen } from 'lucide-react'
 import { useTripUpdater } from '@/hooks/useTripUpdater'
-import { useAdmin } from '@/hooks/useAdmin'
 import { Button } from '@/components/ui/button'
 import { DirtyCancelRow } from '@/components/editor/DirtyCancelRow'
 import { DEFAULT_PERSON_COUNT, getPersonCount } from '@/lib/personCount'
@@ -44,7 +43,6 @@ function BudgetEditor({ draft, onChange }: BudgetEditorProps) {
 }
 
 export function BudgetSummary({ budget, trip, slug, refetch }: BudgetSummaryProps) {
-  const { isAdminUnlocked } = useAdmin()
   const personCount = getPersonCount(trip?.people)
   const [editing, setEditing] = useState(false)
   const [draft, setDraft] = useState<BudgetDraft | null>(null)
@@ -105,7 +103,7 @@ export function BudgetSummary({ budget, trip, slug, refetch }: BudgetSummaryProp
 
   return (
     <div className="bg-gradient-to-r from-[#1a1a2e] to-[#0f3460] text-white p-5 rounded-2xl mt-5 relative group/budget">
-      {isAdminUnlocked && !editing && (
+      {!editing && (
         <button
           onClick={handleEdit}
           className="absolute top-3 right-3 opacity-100 sm:opacity-0 sm:group-hover/budget:opacity-100 focus:opacity-100 transition-opacity text-white/40 hover:text-white p-1.5 rounded-full hover:bg-white/10"

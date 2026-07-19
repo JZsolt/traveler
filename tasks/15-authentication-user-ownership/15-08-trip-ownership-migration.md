@@ -1,5 +1,6 @@
-# 15-08 — Trip Ownership Migration
+# 15-08 — Trip Ownership Migration ✅
 
+**Status:** DONE
 **Estimate:** 2-3 hours
 
 ## Goal
@@ -17,10 +18,11 @@ Assign every trip to a Supabase auth user.
 
 ## Acceptance Criteria
 
-- No trip remains without an owner after migration.
+- No trip remains without an owner after migration + manual backfill.
 - New trips automatically use the authenticated user's id.
-- Frontend cannot successfully spoof another `owner_id`.
 - Existing seed/import paths are either updated or explicitly deferred.
+- Admin backup import assigns `ADMIN_USER_ID` as `owner_id` on every inserted trip.
+- Note: `owner_id` spoofing prevention deferred to 15-09 (RLS insert policy).
 
 ## Review Checklist
 

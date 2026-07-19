@@ -23,7 +23,7 @@ export const LoginFormSchema = z.object({
 export const RegisterFormSchema = z.object({
   email: z.string().email(),
   password: z.string().min(6),
-  displayName: z.string().min(1).max(100).optional(),
+  displayName: z.string().max(100).optional(),
 })
 
 export const ForgotPasswordFormSchema = z.object({

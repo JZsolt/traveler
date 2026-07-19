@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Traveler - Utazásaim</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="assets/utazasaim-logo.svg">
+<link rel="stylesheet" href="css/app.css">
+<style>
+  .phone__screen{background:#fffdfa;}
+  .phone__screen::before{content:"";position:absolute;inset:0;opacity:.08;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cg fill='none' stroke='%23899aa8' stroke-width='1' opacity='.34'%3E%3Cpath d='M-20 42 C28 10 66 10 114 42 S200 74 248 42'/%3E%3Cpath d='M-20 82 C28 50 66 50 114 82 S200 114 248 82'/%3E%3Cpath d='M-20 122 C28 90 66 90 114 122 S200 154 248 122'/%3E%3Cpath d='M-20 162 C28 130 66 130 114 162 S200 194 248 162'/%3E%3C/g%3E%3C/svg%3E");mix-blend-mode:multiply;}
+  .phone__screen::after{content:none;}
+  .statusbar,.screen-body,.tabbar{position:relative;z-index:1;}
+  .head{padding:8px 20px 4px;display:flex;align-items:center;justify-content:space-between;}
+  .head .hello{font-size:26px;font-weight:800;letter-spacing:-.03em;}
+  .head .sub{font-size:13px;color:#8a98a8;margin-top:3px;font-weight:500;}
+  .head .avatar{display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;background:linear-gradient(145deg,#5a646d,#0F172A);border-color:rgba(255,255,255,.72);box-shadow:0 8px 18px rgb(17 24 39 / 12%);}
+
+  .searchrow{display:flex;gap:10px;align-items:center;padding:12px 20px 6px;}
+  .searchrow .input-wrap{flex:1;}
+  .searchrow .input{height:50px;background:rgba(255,255,255,.92);border-color:#e2e7eb;box-shadow:0 8px 20px rgb(31 41 55 / 5%);}
+  .searchrow .input:focus{background:#fff;border-color:rgba(255,255,255,.92);box-shadow:0 0 28px rgb(255 122 0 / 32%),0 0 10px rgb(255 122 0 / 18%);}
+  .filters{display:flex;gap:8px;overflow-x:auto;padding:10px 20px 25px;margin-bottom:-11px;scrollbar-width:none;}
+  .filters::-webkit-scrollbar{display:none;}
+
+  .list{padding:10px 20px 18px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;}
+
+  .trip-card{position:relative;display:flex;flex-direction:column;min-height:196px;min-width:0;border-radius:20px;background:var(--surface);border:0;box-shadow:0 12px 24px rgb(31 41 55 / 9%);text-decoration:none;color:#fff;transition:transform .14s var(--ease),box-shadow .14s;}
+  .trip-card__media{position:absolute;inset:0;overflow:hidden;border-radius:20px;}
+  .trip-card:active{transform:scale(.985);}
+  .trip-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+  .trip-card--expired img{filter:grayscale(1) saturate(.35) contrast(.96);}
+  .trip-card--expired .emoji{filter:grayscale(1) saturate(0);}
+  .trip-card--shared img{filter:saturate(.92) hue-rotate(8deg);}
+  .trip-card--draft .trip-card__media::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(135deg, rgb(255 255 255 / 40%) 0 10px, rgb(255 255 255 / 0%) 10px 20px);z-index:2;pointer-events:none;mix-blend-mode:overlay;}
+  .trip-card__media::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(16,24,32,.04) 0%,rgba(16,24,32,.16) 34%,rgba(2,6,12,.98) 100%);z-index:1;}
+  .trip-card::after{content:"";position:absolute;inset:0;background:radial-gradient(120% 70% at 18% 0%,rgba(255,255,255,.24),rgba(255,255,255,0) 58%);z-index:1;pointer-events:none;}
+  .trip-card__top{position:relative;z-index:2;width:100%;display:flex;align-items:center;justify-content:space-between;gap:8px;align-self:flex-start;padding:13px 9px 9px;}
+  .trip-card__top .trip-status:only-child{margin-left:auto;}
+  .trip-card__content{position:relative;z-index:2;margin-top:auto;padding:0 12px 14px;text-align:center;text-shadow:0 2px 18px rgb(0 0 0 / 42%);}
+  .trip-card h3{margin:0;font-size:18px;line-height:1.08;font-weight:800;letter-spacing:-.025em;display:flex;flex-direction:column-reverse;align-items:center;gap:14px;min-width:0;}
+  .trip-card h3 span:first-child{min-width:0;white-space:normal;overflow:visible;text-overflow:clip;color:rgba(255,250,242,.92);}
+  .trip-card .emoji{display:inline-flex;align-items:center;justify-content:center;gap:6px;font-size:15px;letter-spacing:0;white-space:nowrap;flex:0 0 auto;line-height:1;}
+  .trip-card__date{font-size:10.5px;line-height:1;font-weight:800;color:rgba(255,255,255,.95);text-shadow:0 2px 12px rgb(0 0 0 / 55%);white-space:nowrap;}
+  .trip-card__foot{display:none;}
+  .trip-status{display:inline-flex;align-items:center;gap:3px;min-width:0;height:18px;padding:0 6px;border-radius:999px;background:rgba(255,255,255,.9);color:#2f3a40;font:800 8.5px/1 var(--font);box-shadow:0 8px 18px rgb(0 0 0 / 14%);white-space:nowrap;}
+  .trip-status .dot{width:4px;height:4px;border-radius:50%;background:currentColor;flex:0 0 auto;}
+  .trip-status--soon{color:#ff7a00;}
+  .trip-status--now{color:#0f766e;}
+  .trip-status--done{color:#4b5563;}
+  .trip-status--shared{color:#7c3aed;}
+  .trip-status--draft{color:#be123c;}
+  .trip-card--shared{box-shadow:0 12px 24px rgb(31 41 55 / 9%),0 0 28px rgb(124 58 237 / 34%),0 0 10px rgb(124 58 237 / 22%);}
+  .trip-card--shared .trip-card__media::after{content:"";position:absolute;inset:0;background:rgba(124,58,237,.14);z-index:2;pointer-events:none;}
+  .trip-card--current{box-shadow:0 12px 24px rgb(31 41 55 / 9%),0 0 28px rgb(15 118 110 / 30%),0 0 10px rgb(15 118 110 / 18%);}
+  .shared-flag{position:absolute;z-index:4;left:-12px;top:-10px;width:25px;height:25px;border-radius:9px;background:#fff;color:#7c3aed;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 16px rgb(31 41 55 / 16%);}
+  .shared-flag svg{width:13px;height:13px;}
+  #noResults{grid-column:1/-1;}
+
+  /* Empty state */
+  .empty{display:none;min-height:560px;position:relative;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:18px 28px 52px;overflow:hidden;}
+  .empty::before{content:"";position:absolute;top:26px;left:50%;width:310px;height:310px;border-radius:50%;transform:translateX(-50%);background:radial-gradient(circle,rgba(255,122,0,.16),rgba(255,122,0,0) 68%);pointer-events:none;}
+  .empty::after{content:"";position:absolute;right:-80px;bottom:88px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(34,211,238,.18),rgba(34,211,238,0) 70%);pointer-events:none;}
+  body.is-empty .list, body.is-empty .filters{display:none;}
+  body.is-empty .searchrow{display:none;}
+  body.is-empty .empty{display:flex;}
+  .empty .art{position:relative;z-index:1;width:358px;height:262px;display:flex;align-items:center;justify-content:center;margin-bottom:6px;} .empty .art img{width:100%;height:100%;object-fit:contain;display:block;}
+  .empty h2{position:relative;z-index:1;font-size:25px;font-weight:800;letter-spacing:-.03em;margin:0 0 9px;color:var(--ink);}
+  .empty p{position:relative;z-index:1;color:#7f8b99;font-size:14.5px;line-height:1.55;max-width:286px;margin:0 0 24px;}
+  .empty .btn{width:90%;height:49px;font-size:15px;}
+
+  /* Floating create button (in scroll region) */
+  .create-cta{padding:6px 20px 4px;}
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="phone">
+    <div class="phone__screen" data-od-id="dashboard-screen">
+      <div class="island"></div>
+
+      <div class="statusbar">
+        <span>9:41</span>
+        <span class="st-icons">
+          <svg width="18" height="11" viewBox="0 0 18 11"><rect x="0" y="6" width="3" height="5" rx="1" fill="#0F172A"/><rect x="5" y="4" width="3" height="7" rx="1" fill="#0F172A"/><rect x="10" y="2" width="3" height="9" rx="1" fill="#0F172A"/><rect x="15" y="0" width="3" height="11" rx="1" fill="#0F172A"/></svg>
+          <svg width="16" height="11" viewBox="0 0 16 12"><path d="M8 2.6c2 0 3.8.8 5.1 2.1l1.2-1.3A9 9 0 0 0 8 .8 9 9 0 0 0 1.7 3.4l1.2 1.3A7.2 7.2 0 0 1 8 2.6Z" fill="#0F172A"/><path d="M8 6c1.1 0 2.1.4 2.8 1.2l1.2-1.3A6 6 0 0 0 8 4.2 6 6 0 0 0 4 5.9l1.2 1.3A4 4 0 0 1 8 6Z" fill="#0F172A"/><circle cx="8" cy="9.6" r="1.6" fill="#0F172A"/></svg>
+          <svg width="26" height="12" viewBox="0 0 26 12"><rect x=".5" y=".5" width="21" height="11" rx="3" stroke="#0F172A" opacity=".4"/><rect x="2" y="2" width="17" height="8" rx="1.6" fill="#0F172A"/><rect x="23" y="4" width="2" height="4" rx="1" fill="#0F172A" opacity=".5"/></svg>
+        </span>
+      </div>
+
+      <div class="screen-body">
+        <div class="head">
+          <div>
+            <div class="hello">Szia, Zsolt</div>
+            <div class="sub">Merre tovább?</div>
+          </div>
+          <div class="avatar" data-od-id="dashboard-avatar">ZI</div>
+        </div>
+
+        <div class="searchrow">
+          <div class="input-wrap">
+            <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8"/><path d="m20 20-3.2-3.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+            <input class="input" id="search" type="search" placeholder="Utazások keresése..." aria-label="Utazások keresése">
+          </div>
+        </div>
+
+        <div class="filters" role="tablist" data-od-id="dashboard-filters">
+          <button class="chip chip--active" data-cat="all">Összes</button>
+          <button class="chip" data-cat="upcoming">Következő</button>
+          <button class="chip" data-cat="current">Most</button>
+          <button class="chip" data-cat="draft">Folyamatban</button>
+          <button class="chip" data-cat="shared">Megosztott</button>
+          <button class="chip" data-cat="expired">Lejárt</button>
+        </div>
+
+        <div class="list" id="tripList">
+          <a href="trip-detail.html" class="trip-card" data-cat="upcoming" data-title="tokio japan 2024 kovetkezik ket nap mulva" data-od-id="trip-tokyo">
+            <div class="trip-card__media"><img src="assets/categories/city-escape.png" alt=""></div>
+            <div class="trip-card__top"><span class="trip-card__date">júl. 17-29</span><span class="trip-status trip-status--soon">2 nap múlva</span></div>
+            <div class="trip-card__content">
+              <h3><span>Tokió</span><span class="emoji"><span>🗼</span><span>🍜</span><span>🌸</span></span></h3>
+              <div class="trip-card__foot"><span class="trip-card__duration">12 nap</span></div>
+            </div>
+          </a>
+
+          <a href="#" onclick="return false" class="trip-card trip-card--draft" data-cat="draft" data-title="brusszel belgium in progress tervezes alatt" data-od-id="trip-brussels">
+            <div class="trip-card__media"><img src="assets/categories/surprise-me.png" alt=""></div>
+            <div class="trip-card__top"><span class="trip-status trip-status--draft">In progress</span></div>
+            <div class="trip-card__content">
+              <h3><span>Brüsszel</span><span class="emoji"><span>🧇</span><span>🏛️</span><span>🍫</span></span></h3>
+              <div class="trip-card__foot"><span class="trip-card__duration">4 nap</span></div>
+            </div>
+          </a>
+
+          <a href="#" onclick="return false" class="trip-card trip-card--expired" data-cat="expired" data-title="roma amalfi lejart done" data-od-id="trip-rome">
+            <div class="trip-card__media"><img src="assets/categories/city-escape.png" alt=""></div>
+            <div class="trip-card__top"><span class="trip-card__date">ápr. 2-9</span><span class="trip-status trip-status--done">Lejárt</span></div>
+            <div class="trip-card__content">
+              <h3><span>Róma</span><span class="emoji"><span>🏛️</span><span>🍝</span><span>☀️</span></span></h3>
+              <div class="trip-card__foot"><span class="trip-card__duration">7 nap</span></div>
+            </div>
+          </a>
+
+          <a href="#" onclick="return false" class="trip-card trip-card--shared" data-cat="shared upcoming" data-title="lisszabon sintra shared megosztva" data-od-id="trip-lisbon">
+            <span class="shared-flag" aria-label="Megosztva"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="18" cy="5" r="3" stroke="currentColor" stroke-width="2"/><circle cx="6" cy="12" r="3" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="19" r="3" stroke="currentColor" stroke-width="2"/><path d="m8.7 10.7 6.6-4.4M8.7 13.3l6.6 4.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+            <div class="trip-card__media"><img src="assets/categories/beach-relax.png" alt=""></div>
+            <div class="trip-card__top"><span class="trip-card__date">aug. 22-25</span><span class="trip-status trip-status--soon">5 hét múlva</span></div>
+            <div class="trip-card__content">
+              <h3><span>Lisszabon</span><span class="emoji"><span>🚋</span><span>🌊</span><span>🍊</span></span></h3>
+              <div class="trip-card__foot"><span class="trip-card__duration">3 nap</span></div>
+            </div>
+          </a>
+
+          <a href="#" onclick="return false" class="trip-card trip-card--current" data-cat="current" data-title="izland ring road most zajlik folyamatban" data-od-id="trip-iceland">
+            <div class="trip-card__media"><img src="assets/categories/nature-adventure.png" alt=""></div>
+            <div class="trip-card__top"><span class="trip-card__date">júl. 12-20</span><span class="trip-status trip-status--now">Most</span></div>
+            <div class="trip-card__content">
+              <h3><span>Izland</span><span class="emoji"><span>🏔️</span><span>🚙</span><span>❄️</span></span></h3>
+              <div class="trip-card__foot"><span class="trip-card__duration">8 nap</span></div>
+            </div>
+          </a>
+
+          <a href="#" onclick="return false" class="trip-card" data-cat="upcoming" data-title="barcelona girona kovetkezik egy het mulva" data-od-id="trip-barcelona">
+            <div class="trip-card__media"><img src="assets/categories/city-escape.png" alt=""></div>
+            <div class="trip-card__top"><span class="trip-card__date">júl. 24-28</span><span class="trip-status trip-status--soon">1 hét múlva</span></div>
+            <div class="trip-card__content">
+              <h3><span>Barcelona</span><span class="emoji"><span>🏖️</span><span>🎨</span><span>🥘</span></span></h3>
+              <div class="trip-card__foot"><span class="trip-card__duration">5 nap</span></div>
+            </div>
+          </a>
+
+          <a href="#" onclick="return false" class="trip-card trip-card--expired" data-cat="expired" data-title="becs advent lejart done" data-od-id="trip-vienna">
+            <div class="trip-card__media"><img src="assets/categories/road-trip.png" alt=""></div>
+            <div class="trip-card__top"><span class="trip-card__date">dec. 7-9</span><span class="trip-status trip-status--done">Lejárt</span></div>
+            <div class="trip-card__content">
+              <h3><span>Bécs</span><span class="emoji"><span>🎄</span><span>🎻</span><span>☕</span></span></h3>
+              <div class="trip-card__foot"><span class="trip-card__duration">3 nap</span></div>
+            </div>
+          </a>
+
+          <a href="#" onclick="return false" class="trip-card trip-card--shared" data-cat="shared upcoming" data-title="athen naxos shared megosztva" data-od-id="trip-athens">
+            <span class="shared-flag" aria-label="Megosztva"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="18" cy="5" r="3" stroke="currentColor" stroke-width="2"/><circle cx="6" cy="12" r="3" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="19" r="3" stroke="currentColor" stroke-width="2"/><path d="m8.7 10.7 6.6-4.4M8.7 13.3l6.6 4.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+            <div class="trip-card__media"><img src="assets/categories/explore-freely.png" alt=""></div>
+            <div class="trip-card__top"><span class="trip-card__date">szept. 3-11</span><span class="trip-status trip-status--soon">7 hét múlva</span></div>
+            <div class="trip-card__content">
+              <h3><span>Athén</span><span class="emoji"><span>🏺</span><span>⛵</span><span>🍋</span></span></h3>
+              <div class="trip-card__foot"><span class="trip-card__duration">9 nap</span></div>
+            </div>
+          </a>
+
+          <p class="small" id="noResults" style="display:none;text-align:center;padding:20px 0;">Nincs találat erre: “<span id="q"></span>”.</p>
+        </div>
+
+        <!-- Empty state -->
+        <div class="empty">
+          <div class="art">
+            <img src="assets/empty-trip-illustration-transparent.png" alt="">
+          </div>
+          <h2>Még nincs utazásod</h2>
+          <p>Itt jelennek majd meg a terveid. Kezdj egy új úttal, és a Traveler felépíti az első útitervedet.</p>
+          <a href="create-trip.html" class="btn btn--primary">Első utazás tervezése</a>
+        </div>
+      </div>
+
+      <!-- Bottom tab bar -->
+      <nav class="tabbar" data-od-id="dashboard-tabbar">
+        <a class="tab on"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 10.5 12 4l9 6.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 9.5V20h14V9.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Utak</a>
+        <a class="tab tab--fab" href="create-trip.html" data-od-id="tab-create"><span class="fabdot"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg></span>Új</a>
+        <a class="tab"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.6" stroke="currentColor" stroke-width="1.8"/><path d="M5 20c0-3.3 3.1-5.5 7-5.5s7 2.2 7 5.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>Profil</a>
+      </nav>
+
+      <div class="home-indicator"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // empty-state preview via ?empty=1
+  if (new URLSearchParams(location.search).get('empty') === '1') document.body.classList.add('is-empty');
+
+  const trips = [...document.querySelectorAll('.trip-card')];
+  const chips = [...document.querySelectorAll('.filters .chip')];
+  const search = document.getElementById('search');
+  const noRes = document.getElementById('noResults');
+  let activeCat = 'all';
+
+  function apply(){
+    const q = search.value.trim().toLowerCase();
+    let shown = 0;
+    trips.forEach(t=>{
+      const date = t.querySelector('.trip-card__date')?.textContent || '';
+      const text = `${t.dataset.title} ${t.querySelector('h3').textContent} ${date}`.toLowerCase();
+      const okCat = activeCat === 'all' || (t.dataset.cat || '').split(' ').includes(activeCat);
+      const okQ = !q || text.includes(q);
+      const vis = okCat && okQ;
+      t.style.display = vis ? 'flex' : 'none';
+      if(vis) shown++;
+    });
+    document.getElementById('q').textContent = search.value;
+    noRes.style.display = shown === 0 ? 'block' : 'none';
+  }
+  chips.forEach(c=>c.addEventListener('click', ()=>{
+    chips.forEach(x=>x.classList.remove('chip--active'));
+    c.classList.add('chip--active');
+    activeCat = c.dataset.cat;
+    apply();
+  }));
+  search.addEventListener('input', apply);
+</script>
+</body>
+</html>

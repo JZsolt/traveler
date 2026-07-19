@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import type { z } from 'zod'
+import type { UseFormRegisterReturn } from 'react-hook-form'
 import type {
   LoginFormSchema,
   RegisterFormSchema,
@@ -38,16 +39,18 @@ export interface AuthProviderProps {
 }
 
 export interface AuthFormFieldProps {
-  id: string
   label: string
   type?: 'text' | 'email' | 'password'
   autoComplete?: string
-  value: string
-  onChange: (value: string) => void
+  registration: UseFormRegisterReturn
   error?: string
   disabled?: boolean
 }
 
-export type AuthFieldErrors = Record<string, string>
+export interface AuthRouteGuardProps {
+  children: ReactNode
+}
 
-export type AuthFormSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => void
+export interface AuthLocationState {
+  from?: string
+}

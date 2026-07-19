@@ -1,5 +1,6 @@
-# 15-12 — Existing Admin Mode Separation
+# 15-12 — Existing Admin Mode Separation ✅
 
+**Status:** DONE
 **Estimate:** 2-3 hours
 
 ## Goal
@@ -19,7 +20,7 @@ Separate normal user trip CRUD from hidden admin backup/import capability.
 - Normal user can manage own trips without admin password.
 - Normal user cannot access backup/import.
 - Admin browser flag is not a substitute for ownership.
-- Backup/import is tied to authenticated admin identity plus server challenge.
+- Backup/import remains gated by admin password (server challenge upgrade to JWT + ADMIN_USER_ID is 15-13).
 
 ## Review Checklist
 

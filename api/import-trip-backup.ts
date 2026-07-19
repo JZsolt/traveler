@@ -16,15 +16,22 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       .json(err('METHOD_NOT_ALLOWED', 'Csak POST keres engedelyezett.'));
   }
 
-  if (!validateAdmin(req, res)) return;
+  if (!(await validateAdmin(req, res))) return;
 
   const supabaseUrl = process.env.SUPABASE_URL;
   const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const adminUserId = process.env.ADMIN_USER_ID;
 
   if (!supabaseUrl || !supabaseKey) {
     return res
       .status(500)
       .json(err('MISSING_SUPABASE_ENV', 'A Supabase konfiguracio hianyzik a szerveren.'));
+  }
+
+  if (!adminUserId) {
+    return res
+      .status(500)
+      .json(err('MISSING_ADMIN_USER_ID', 'ADMIN_USER_ID nincs konfigurálva a szerveren.'));
   }
 
   const body: unknown = req.body;
@@ -47,7 +54,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   try {
     const supabase = createClient<Database>(supabaseUrl, supabaseKey);
-    const result = await importSingleTrip(supabase, body.backup, mode);
+    const result = await importSingleTrip(supabase, body.backup, mode, adminUserId);
 
     if (!result.ok) {
       return res.status(400).json(err('IMPORT_FAILED', result.error || 'Unknown error'));

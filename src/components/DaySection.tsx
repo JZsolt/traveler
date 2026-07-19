@@ -9,7 +9,6 @@ import { DayTickets } from './day/DayTickets'
 import { DayDeleteConfirm } from './day/DayDeleteConfirm'
 import { DaySchedule } from './day/DaySchedule'
 import { useTripUpdater } from '@/hooks/useTripUpdater'
-import { useAdmin } from '@/hooks/useAdmin'
 import { useDayMetaEditor } from '@/hooks/useDayMetaEditor'
 import { useDayAdvancedEditor } from '@/hooks/useDayAdvancedEditor'
 import { useDayScheduleAi } from '@/hooks/useDayScheduleAi'
@@ -18,7 +17,6 @@ import type { DaySectionProps } from '@/types/components'
 import type { Image } from '@/types/trip'
 
 export function DaySection({ day, trip, slug, refetch, isFirst, isLast }: DaySectionProps) {
-  const { isAdminUnlocked } = useAdmin()
   const [open, setOpen] = useState(false)
   const [lightbox, setLightbox] = useState<Image | null>(null)
   const [confirmDelete, setConfirmDelete] = useState(false)
@@ -38,7 +36,6 @@ export function DaySection({ day, trip, slug, refetch, isFirst, isLast }: DaySec
         meta={meta}
         saving={saving}
         error={error}
-        isAdminUnlocked={isAdminUnlocked}
         isFirst={isFirst}
         isLast={isLast}
         hasPendingScheduleDraft={!!scheduleAi.pendingDraft}
@@ -75,10 +72,9 @@ export function DaySection({ day, trip, slug, refetch, isFirst, isLast }: DaySec
             saveTrip={saveTrip}
             saving={saving}
             error={error}
-            isAdminUnlocked={isAdminUnlocked}
           />
 
-          {isAdminUnlocked && <DayAdvancedDataEditor advanced={advanced} saving={saving} error={error} />}
+          <DayAdvancedDataEditor advanced={advanced} saving={saving} error={error} />
 
           {day.costs && <CostTable costs={day.costs} people={trip.people} />}
 

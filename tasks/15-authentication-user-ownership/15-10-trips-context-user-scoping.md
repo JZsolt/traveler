@@ -1,5 +1,6 @@
-# 15-10 — TripsContext User Scoping
+# 15-10 — TripsContext User Scoping ✅
 
+**Status:** DONE
 **Estimate:** 2-3 hours
 
 ## Goal

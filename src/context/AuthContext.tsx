@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { AuthContext } from './authContextValue'
 import { supabase } from '@/lib/supabase'
+import { queryClient } from '@/lib/queryClient'
 import { toAppUser, mapAuthError } from '@/lib/authErrors'
 import { ProfileSchema } from '@/schemas/auth'
 import type { AuthUser } from '@supabase/supabase-js'
@@ -112,10 +113,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
     return { ok: true }
   }, [])
 
-  // Trip cache clearing on signOut is handled in 15-10 (TripsContext user scoping)
   const signOutFn = useCallback(async () => {
     if (!supabase) return
     await supabase.auth.signOut()
+    queryClient.clear()
     clearAuthState()
   }, [clearAuthState])
 

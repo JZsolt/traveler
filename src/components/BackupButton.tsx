@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { API } from '@/lib/constants'
+import { getAuthHeaders } from '@/lib/supabase'
 import { getApiErrorMessage, isBackupResult } from '@/types/guards'
 import type { BackupResult, BackupState } from '@/types/components'
 
@@ -17,9 +18,10 @@ export function BackupButton() {
     setError(null)
 
     try {
+      const headers = await getAuthHeaders()
       const res = await fetch(API.BACKUP_TRIPS, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers,
         body: JSON.stringify({ password }),
       })
       const data: unknown = await res.json()

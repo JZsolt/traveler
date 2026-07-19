@@ -62,7 +62,6 @@ export interface DayHeaderProps {
   meta: DayMetaEditorReturn
   saving: boolean
   error: string | null
-  isAdminUnlocked: boolean
   isFirst?: boolean
   isLast?: boolean
   hasPendingScheduleDraft: boolean
@@ -110,7 +109,6 @@ export interface DayScheduleProps {
   saveTrip: SaveTripFn
   saving: boolean
   error: string | null
-  isAdminUnlocked: boolean
 }
 
 export interface DayAdvancedDataEditorProps {

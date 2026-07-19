@@ -11,4 +11,3 @@ export {
 } from './ai.js'
 export { TripBackupEnvelopeSchema } from './backup.js'
 export { AdminLoginResponseSchema } from './auth.js'
-export { AdminStorageSchema } from './storage.js'

@@ -21,7 +21,7 @@ Always complete the phases in this order:
 13. ~~13-clean-install-quality-gate.md~~ ✅ (6 subtask)
 14. ~~14-build-log-cleanup.md~~ ✅ (1 subtask)
 15. ~~11-design-system-foundation.md~~ ✅ (12 subtask — legacy filename)
-16. 15-authentication-user-ownership.md (14 subtask — next phase)
+16. 15-authentication-user-ownership.md (18 subtask — next phase)
 17. 16-read-only-trip-sharing.md (8 subtask)
 18. 17-public-landing-demo.md (4 subtask)
 
@@ -91,3 +91,12 @@ Phase 10 defines project-wide architecture rules that apply to all future implem
 - Every private trip must have an immutable authenticated `owner_id`.
 - Public sharing must use dedicated share tokens/projections; never re-open `trips` with public read policies.
 - Admin backup access is separate from normal trip ownership and must be server-verified.
+
+## Client Library Foundation Rules
+
+- React Hook Form is the standard for non-trivial forms.
+- Zod remains the validation source of truth; React Hook Form must use Zod resolvers.
+- Axios is the standard HTTP client for app-owned Vercel API endpoints.
+- Supabase database/auth calls still use the Supabase client directly.
+- TanStack Query is the standard cache/query layer for server state after auth is stable.
+- Do not migrate all data fetching in one pass; introduce query keys and migrate feature-by-feature.

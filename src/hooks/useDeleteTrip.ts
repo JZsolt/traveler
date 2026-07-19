@@ -25,7 +25,7 @@ export function useDeleteTrip({ slug, refetch }: DeleteTripProps): DeleteTripRet
       return
     }
     await refetch()
-    navigate('/')
+    navigate('/app/trips')
   }
 
   return {

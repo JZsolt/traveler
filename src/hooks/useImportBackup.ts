@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { API } from '@/lib/constants'
+import { getAuthHeaders } from '@/lib/supabase'
 import { getApiErrorMessage, isImportBackupResult, isImportSingleBackupResponse } from '@/types/guards'
 import type { ImportBackupMode, ImportBackupResult, ImportBackupState, ParsedBackupFile } from '@/types/components'
 import type { ImportBackupProps, ImportBackupReturn } from '@/types/hooks'
@@ -33,10 +34,12 @@ export function useImportBackup({ refetch, fileRef }: ImportBackupProps): Import
         }
       }
 
+      const headers = await getAuthHeaders()
+
       if (parsed.length === 1) {
         const res = await fetch(API.IMPORT_TRIP, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers,
           body: JSON.stringify({ mode, backup: parsed[0].data, password }),
         })
         const data: unknown = await res.json()
@@ -63,7 +66,7 @@ export function useImportBackup({ refetch, fileRef }: ImportBackupProps): Import
       } else {
         const res = await fetch(API.IMPORT_TRIPS, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers,
           body: JSON.stringify({ mode, backups: parsed.map(p => p.data), password }),
         })
         const data: unknown = await res.json()

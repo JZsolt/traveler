@@ -1,5 +1,6 @@
-# 15-14 — Auth Security And Regression Tests
+# 15-14 — Auth Security And Regression Tests ✅
 
+**Status:** DONE
 **Estimate:** 2-3 hours
 
 ## Goal

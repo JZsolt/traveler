@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { supabase } from '@/lib/supabase'
+import { useAuth } from '@/hooks/useAuth'
 import { validateTripJson } from '@/lib/validateTripJson'
 import { friendlyError } from '@/lib/friendlyError'
 import { ensureUniqueSlug } from '@/lib/ensureUniqueSlug'
@@ -7,6 +8,7 @@ import { toSlug } from '@/lib/createTripHelpers'
 import type { ImportTripJsonProps, ImportTripJsonReturn } from '@/types/hooks'
 
 export function useImportTripJson({ refetch, navigate }: ImportTripJsonProps): ImportTripJsonReturn {
+  const { user } = useAuth()
   const [importing, setImporting] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -31,7 +33,10 @@ export function useImportTripJson({ refetch, navigate }: ImportTripJsonProps): I
         setError(errors.join(' '))
         return
       }
-      if (!supabase) return
+      if (!supabase || !user) {
+        setError(!supabase ? 'Supabase nincs konfigurálva.' : 'Bejelentkezes szukseges.')
+        return
+      }
 
       setError(null)
       setImporting(true)
@@ -40,13 +45,13 @@ export function useImportTripJson({ refetch, navigate }: ImportTripJsonProps): I
         const slug = await ensureUniqueSlug(baseSlug)
         const { error: insertError } = await supabase
           .from('trips')
-          .insert({ slug, trip_data: { ...normalizedTrip, slug }, owner: null })
+          .insert({ slug, trip_data: { ...normalizedTrip, slug }, owner_id: user.id })
         if (insertError) {
           setError(friendlyError(insertError))
           return
         }
         await refetch()
-        navigate(`/trip/${slug}`)
+        navigate(`/app/trips/${slug}`)
       } catch (err) {
         setError(friendlyError(err))
       } finally {

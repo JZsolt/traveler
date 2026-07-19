@@ -63,6 +63,15 @@ These rules apply to every implementation task.
 - Preserve shadcn semantic tokens, but do not add contradictory parallel token systems.
 - Do not add new design dependencies unless the current task explicitly allows it.
 
+## Client Libraries
+
+- Use React Hook Form for auth and other non-trivial forms once the form foundation task is complete.
+- Form validation must still use Zod schemas via resolver integration.
+- Use Axios for app-owned Vercel API calls after the API client foundation task is complete.
+- Do not replace Supabase client calls with Axios.
+- Use TanStack Query for server-state caching after the query provider foundation task is complete.
+- Query keys, mutation invalidation, and cache clearing must be explicit and typed.
+
 ## Code Quality
 
 - Write clean, readable code.

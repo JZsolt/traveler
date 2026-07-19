@@ -2,7 +2,6 @@ import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { GoogleGenAI } from '@google/genai';
 import type { GeminiModels } from '../src/types/apiServer';
 import { ExpandDayResponseSchema } from '../src/schemas/ai.js';
-import { formatZodError } from '../src/schemas/errors.js';
 import { asRecordArray, getFirstFinishReason, isRecord } from './_narrowing.js';
 
 const DEFAULT_MODEL = 'gemini-3.1-flash-lite';
@@ -99,7 +98,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     typeof requestedModel === 'string' && MODELS[requestedModel]
       ? requestedModel
       : DEFAULT_MODEL;
-  console.log('[expand-day]', { model, tripTitle, dayNumber, destination });
 
   const dayItems = asRecordArray(currentDay.items);
   const items = dayItems
@@ -134,12 +132,6 @@ Reszletezd ki ezt a napot!`;
 
     const raw = response.text || '';
     const finishReason = getFirstFinishReason(response.candidates);
-    console.log(
-      '[expand-day] Raw response length:',
-      raw.length,
-      'finishReason:',
-      finishReason,
-    );
 
     if (!raw) {
       return res.status(502).json({ error: 'Ures valasz a Gemini-tol.' });
@@ -152,15 +144,13 @@ Reszletezd ki ezt a napot!`;
       const jsonStr = extractJson(raw);
       try {
         parsed = JSON.parse(jsonStr);
-      } catch (parseErr) {
+      } catch {
         const truncated = finishReason === 'MAX_TOKENS';
-        const msg = parseErr instanceof Error ? parseErr.message : 'Unknown';
-        console.log('[expand-day] JSON parse error:', msg, 'truncated:', truncated);
+        console.warn('[expand-day] JSON parse failed', { truncated });
         return res.status(502).json({
           error: truncated
             ? 'A valasz tullepte a token limitet. Probald ujra.'
             : 'Nem sikerult ertelmezni a valaszt.',
-          raw: raw.slice(0, 500),
           retryable: true,
         });
       }
@@ -168,7 +158,7 @@ Reszletezd ki ezt a napot!`;
 
     const validated = ExpandDayResponseSchema.safeParse(parsed);
     if (!validated.success) {
-      console.log('[expand-day] Validation failed:', formatZodError(validated.error));
+      console.warn('[expand-day] Validation failed');
       return res
         .status(502)
         .json({
@@ -183,7 +173,7 @@ Reszletezd ki ezt a napot!`;
   } catch (err) {
     const message = err instanceof Error ? err.message : '';
     const is429 = message.includes('429') || message.includes('RESOURCE_EXHAUSTED');
-    console.log('[expand-day] Error', { is429, detail: message.slice(0, 200) });
+    console.error('[expand-day] API error', { is429 });
 
     if (is429) {
       return res.status(429).json({
@@ -191,6 +181,6 @@ Reszletezd ki ezt a napot!`;
         retryable: true,
       });
     }
-    return res.status(502).json({ error: 'Gemini API hiba.', details: message });
+    return res.status(502).json({ error: 'Gemini API hiba.' });
   }
 }

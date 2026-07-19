@@ -68,7 +68,7 @@ export function useEditTrip({ trip, slug, refetch, navigate }: EditTripProps): E
       }
 
       await refetch()
-      navigate(`/trip/${newSlug}`)
+      navigate(`/app/trips/${newSlug}`)
     } catch (err) {
       setError(friendlyError(err))
     } finally {

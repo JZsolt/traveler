@@ -167,15 +167,12 @@ used on the `trips` table.
 
 ## RLS Policy Changes
 
-### Current Policies (BLOCKERS)
+The legacy public-read/write policies have been replaced by owner-scoped
+policies. The production rollout must still follow the documented migration
+order: create profiles, add nullable `owner_id`, backfill existing trips, then
+apply the final RLS migration that sets `owner_id` to `not null`.
 
-- `SELECT using (true)` — all trips publicly readable. This MUST be replaced
-  before private user trips exist.
-- `INSERT with check (true)` — anyone can insert. Must restrict to authenticated
-  owner.
-- `UPDATE/DELETE` — check `owner` text field, which is never actually set.
-
-### Target Policies
+### Active Policies
 
 ```sql
 -- Users can only read their own trips
@@ -222,18 +219,15 @@ existence is not a secret. Security comes from:
 4. **RLS** — even if someone discovers the admin route, RLS prevents data
    access without proper credentials.
 
-### Current admin system evolution
-
-The current `ADMIN_PASSWORD` + `sessionStorage` system evolves to:
+### Admin access flow
 
 1. User logs in with Supabase auth (email + password) — normal auth.
 2. Hidden gesture on profile footer/version area reveals admin entry
    (only when UID matches `ADMIN_USER_ID`).
 3. Admin challenge dialog prompts for the admin password.
-4. Server verifies both UID and password, returns a short-lived admin
-   session/token.
-5. Admin session expires automatically or can be manually cleared.
-6. `sessionStorage` admin flag is replaced by the short-lived token.
+4. Server verifies both UID and password.
+5. The client stores the unlocked state in memory only.
+6. Admin access expires on reload/tab close or can be manually locked.
 
 ### What admin can do
 

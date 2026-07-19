@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { supabase } from '@/lib/supabase'
+import { useAuth } from '@/hooks/useAuth'
 import { friendlyError } from '@/lib/friendlyError'
 import { ensureUniqueSlug } from '@/lib/ensureUniqueSlug'
 import { draftToTripData } from '@/lib/createTripHelpers'
@@ -16,6 +17,7 @@ import type { CreateTripChatProps, CreateTripChatReturn } from '@/types/hooks'
 
 export function useCreateTripChat({ form, aiModel, refetch, chatEndRef }: CreateTripChatProps): CreateTripChatReturn {
   const navigate = useNavigate()
+  const { user } = useAuth()
   const [messages, setMessages] = useState<ChatMessage[]>([])
   const [chatInput, setChatInput] = useState('')
   const [chatLoading, setChatLoading] = useState(false)
@@ -153,6 +155,7 @@ export function useCreateTripChat({ form, aiModel, refetch, chatEndRef }: Create
 
     try {
       if (!supabase) throw new Error('Supabase nincs konfigurálva.')
+      if (!user) throw new Error('Bejelentkezes szukseges.')
 
       const tripData = { ...draftToTripData(generatedTrip, form), aiModel }
       const baseSlug = tripData.slug
@@ -172,7 +175,7 @@ export function useCreateTripChat({ form, aiModel, refetch, chatEndRef }: Create
 
       const { error: insertError } = await supabase
         .from('trips')
-        .insert({ slug, trip_data: validated.data, owner: null })
+        .insert({ slug, trip_data: validated.data, owner_id: user.id })
 
       if (insertError) {
         setAiError(friendlyError(insertError))
@@ -180,7 +183,7 @@ export function useCreateTripChat({ form, aiModel, refetch, chatEndRef }: Create
       }
 
       await refetch()
-      navigate(`/trip/${slug}`)
+      navigate(`/app/trips/${slug}`)
     } catch (err) {
       setAiError(friendlyError(err))
     } finally {

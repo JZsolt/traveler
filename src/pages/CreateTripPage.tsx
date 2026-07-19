@@ -1,6 +1,5 @@
 import { useState, useRef } from 'react'
-import { useNavigate, Navigate } from 'react-router-dom'
-import { useAdmin } from '@/hooks/useAdmin'
+import { useNavigate } from 'react-router-dom'
 import { Upload, Sparkles } from 'lucide-react'
 import { AI_MODEL_OPTIONS, DEFAULT_AI_MODEL } from '@/lib/constants'
 import { useTrips } from '@/hooks/useTrips'
@@ -15,7 +14,6 @@ import type { ChatMessage, DetailLevel } from '@/types/api'
 import type { CreateTripStep } from '@/types/pages'
 
 export default function CreateTripPage() {
-  const { isAdminUnlocked } = useAdmin()
   const navigate = useNavigate()
   const { refetch } = useTrips()
   const chatEndRef = useRef<HTMLDivElement>(null)
@@ -33,8 +31,6 @@ export default function CreateTripPage() {
 
   const chat = useCreateTripChat({ form, aiModel, refetch, chatEndRef })
   const imp = useImportTripJson({ refetch, navigate })
-
-  if (!isAdminUnlocked) return <Navigate to="/settings" replace />
 
   function update(field: keyof CreateTripForm, value: string) {
     setForm(prev => ({ ...prev, [field]: value }))

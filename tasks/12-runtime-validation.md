@@ -32,7 +32,6 @@ src/schemas/
   apiResponses.ts   backup/import/GitHub API response sémák, SupabaseTripRowSchema
   backup.ts         TripBackupEnvelopeSchema (import/export envelope)
   auth.ts           AdminLoginResponseSchema
-  storage.ts        AdminStorageSchema (localStorage)
   route.ts          URL and route parameter schemas
   errors.ts         formatZodError helper
 
