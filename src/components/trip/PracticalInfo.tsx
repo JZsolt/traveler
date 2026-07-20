@@ -13,6 +13,27 @@ import type {
   PracticalInfoSuggestionSection,
 } from '@/types/components'
 
+const URL_PATTERN = /(https?:\/\/[^\s]+)/g
+
+function renderInfoItem(item: string) {
+  return item.split(URL_PATTERN).map((part, index) => {
+    if (!URL_PATTERN.test(part)) return part
+    URL_PATTERN.lastIndex = 0
+
+    return (
+      <a
+        key={`${part}-${index}`}
+        href={part}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-sky-700 underline underline-offset-2 hover:text-sky-900"
+      >
+        {part}
+      </a>
+    )
+  })
+}
+
 export function PracticalInfo({ sections, trip, slug, refetch }: PracticalInfoProps) {
   const [draft, setDraft] = useState<PracticalInfoEditableSection[] | null>(null)
   const [showAi, setShowAi] = useState(false)
@@ -114,7 +135,7 @@ export function PracticalInfo({ sections, trip, slug, refetch }: PracticalInfoPr
               </summary>
               <ul className="mt-1.5 space-y-1 pl-3">
                 {(section.items || []).map((item, j) => (
-                  <li key={j} className="text-[12px] md:text-[13px] text-slate-600 leading-[1.65] list-disc marker:text-slate-300 ml-2">{item}</li>
+                  <li key={j} className="text-[12px] md:text-[13px] text-slate-600 leading-[1.65] list-disc marker:text-slate-300 ml-2">{renderInfoItem(item)}</li>
                 ))}
               </ul>
             </details>
