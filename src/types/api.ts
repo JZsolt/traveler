@@ -1,4 +1,14 @@
 import type { Trip, Day } from './trip'
+import type { z } from 'zod'
+import type {
+  CreateTripShareRequestSchema,
+  CreateTripShareResponseSchema,
+  PublicTripSchema,
+  PublicDaySchema,
+  SharedTripRequestSchema,
+  PublicSharedTripResponseSchema,
+  ActiveShareSchema,
+} from '../schemas/sharing'
 
 // --- AI suggestion endpoint ---
 
@@ -110,6 +120,16 @@ export interface ImportResult {
   slug?: string
   error?: { code: string; message: string }
 }
+
+// --- Sharing ---
+
+export type CreateTripShareRequest = z.infer<typeof CreateTripShareRequestSchema>
+export type CreateTripShareResponse = z.infer<typeof CreateTripShareResponseSchema>
+export type PublicTrip = z.infer<typeof PublicTripSchema>
+export type PublicDay = z.infer<typeof PublicDaySchema>
+export type SharedTripRequest = z.infer<typeof SharedTripRequestSchema>
+export type PublicSharedTripResponse = z.infer<typeof PublicSharedTripResponseSchema>
+export type ActiveShare = z.infer<typeof ActiveShareSchema>
 
 // --- Admin ---
 

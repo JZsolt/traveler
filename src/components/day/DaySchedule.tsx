@@ -1,6 +1,7 @@
 import { ScheduleItem } from '@/components/ScheduleItem'
 import { Button } from '@/components/ui/button'
 import { Timeline } from '@/components/ui/Timeline'
+import { useReadOnly } from '@/hooks/useReadOnly'
 import { addScheduleItem, deleteScheduleItem, moveScheduleItem, updateScheduleItem } from '@/lib/tripSections'
 import type { DayScheduleProps } from '@/types/components'
 import { DayScheduleActions } from './DayScheduleActions'
@@ -15,6 +16,7 @@ export function DaySchedule({
   saving,
   error,
 }: DayScheduleProps) {
+  const readOnly = useReadOnly()
   return (
     <div>
       {scheduleAi.pendingDraft && (
@@ -46,17 +48,21 @@ export function DaySchedule({
             onMoveUp={scheduleAi.pendingDraft ? undefined : (() => saveTrip(t => moveScheduleItem(t, day.dayNum, i, -1)))}
             onMoveDown={scheduleAi.pendingDraft ? undefined : (() => saveTrip(t => moveScheduleItem(t, day.dayNum, i, 1)))}
             onDelete={scheduleAi.pendingDraft ? undefined : (() => saveTrip(t => deleteScheduleItem(t, day.dayNum, i)))}
-            readOnly={!!scheduleAi.pendingDraft}
+            readOnly={readOnly || !!scheduleAi.pendingDraft}
           />
         ))}
       </Timeline>
-      <DayScheduleActions
-        saving={saving}
-        pending={!!scheduleAi.pendingDraft}
-        onAdd={() => saveTrip(t => addScheduleItem(t, day.dayNum))}
-        onAi={scheduleAi.togglePanel}
-      />
-      <DayScheduleAiPanel scheduleAi={scheduleAi} />
+      {!readOnly && (
+        <>
+          <DayScheduleActions
+            saving={saving}
+            pending={!!scheduleAi.pendingDraft}
+            onAdd={() => saveTrip(t => addScheduleItem(t, day.dayNum))}
+            onAi={scheduleAi.togglePanel}
+          />
+          <DayScheduleAiPanel scheduleAi={scheduleAi} />
+        </>
+      )}
     </div>
   )
 }

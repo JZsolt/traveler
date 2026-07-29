@@ -1,4 +1,4 @@
-# 16-03 — Secure Share Creation Endpoint
+# 16-03 — Secure Share Creation Endpoint — DONE
 
 **Estimate:** 2-3 hours
 
@@ -25,7 +25,16 @@ Create a server endpoint that generates and stores secure share tokens.
 
 ## Review Checklist
 
-- [ ] No client-generated token.
-- [ ] No raw token logging.
-- [ ] Endpoint checks ownership server/database side.
-- [ ] Response does not include private trip data.
+- [x] No client-generated token.
+- [x] No raw token logging.
+- [x] Endpoint checks ownership server/database side.
+- [x] Response does not include private trip data.
+
+## Output
+
+- Added `POST /api/create-trip-share`.
+- Added server-side bearer-token validation with a Supabase service-role client.
+- Validated request and response payloads with Zod sharing schemas.
+- Generated the raw share token server-side with cryptographic randomness and stored only a SHA-256 hash.
+- Checked trip ownership on the server before creating a share row.
+- Used explicit `409 ACTIVE_SHARE_EXISTS` behavior when an active, unrevoked, unexpired share already exists.

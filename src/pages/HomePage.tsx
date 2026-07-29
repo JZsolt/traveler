@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
-import { Plus, MapPin } from 'lucide-react'
+import { Plus, MapPin, Share2 } from 'lucide-react'
 import { useTrips } from '@/hooks/useTrips'
+import { useSharedSlugs } from '@/hooks/useSharedSlugs'
 import { useAuth } from '@/hooks/useAuth'
 import { DbError } from '@/components/DbError'
 import { Badge } from '@/components/ui/badge'
@@ -14,6 +15,7 @@ import { ROUTES, tripRoute } from '@/lib/constants'
 
 export default function HomePage() {
   const { trips, loading, error } = useTrips()
+  const sharedSlugs = useSharedSlugs()
   const { user, profile } = useAuth()
   const sorted = sortTrips(trips)
 
@@ -70,6 +72,11 @@ export default function HomePage() {
               className="block bg-card rounded-2xl overflow-hidden shadow-md hover:shadow-xl hover:-translate-y-1 transition-all no-underline text-foreground"
             >
               <div className="h-44 bg-gradient-to-br from-[#1a1a2e] to-[#0f3460] flex flex-col items-center justify-center text-white relative">
+                {sharedSlugs.has(trip.slug) && (
+                  <Badge className="absolute top-3 left-3 text-[10px] uppercase tracking-wide bg-white/20 text-white flex items-center gap-1">
+                    <Share2 className="w-3 h-3" /> Megosztva
+                  </Badge>
+                )}
                 <Badge
                   className={`absolute top-3 right-3 text-[10px] uppercase tracking-wide ${
                     status === 'upcoming'

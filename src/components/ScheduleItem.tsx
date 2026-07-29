@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button'
 import { DirtyCancelRow } from '@/components/editor/DirtyCancelRow'
 import { extractLocationName } from '@/lib/extractLocationName'
 import { useScheduleItemEditor } from '@/hooks/useScheduleItemEditor'
+import { useReadOnly } from '@/hooks/useReadOnly'
 import type { ScheduleItemProps } from '@/types/components'
 import type { Guide } from '@/types/trip'
 import type { ScheduleItemDraft } from '@/types/hooks'
@@ -18,6 +19,9 @@ export function ScheduleItem({ item, onSave, saving, error, isFirst, isLast, onM
   const [copied, setCopied] = useState(false)
   const [confirmDelete, setConfirmDelete] = useState(false)
   const editor = useScheduleItemEditor({ item, onSave })
+  // A read-only propot ES a context-et is figyeljuk (public megosztott nezet).
+  const ctxReadOnly = useReadOnly()
+  const ro = readOnly || ctxReadOnly
 
   const mapLink = item.links?.find(l => l.label.includes('Térkép') || l.label.includes('📍'))
   const otherLinks = item.links?.filter(l => l !== mapLink)
@@ -30,7 +34,7 @@ export function ScheduleItem({ item, onSave, saving, error, isFirst, isLast, onM
     })
   }
 
-  if (editor.editing && !readOnly) {
+  if (editor.editing && !ro) {
     return (
       <div className="py-2 border-b border-slate-100/80">
         <ScheduleEditor draft={editor.draft!} onChange={(d) => editor.setDraft(d)} aiGuidePanel={
@@ -204,7 +208,7 @@ export function ScheduleItem({ item, onSave, saving, error, isFirst, isLast, onM
         {item.guide && <GuideInfo guide={item.guide} />}
       </div>
 
-      {!readOnly && <div className="flex flex-col items-center gap-0.5 opacity-100 sm:opacity-0 sm:group-hover/sched:opacity-100 focus-within:opacity-100 transition-opacity shrink-0">
+      {!ro && <div className="flex flex-col items-center gap-0.5 opacity-100 sm:opacity-0 sm:group-hover/sched:opacity-100 focus-within:opacity-100 transition-opacity shrink-0">
         <button onClick={editor.startEdit} aria-label="Program szerkesztése" className="text-gray-400 hover:text-[#0f3460] p-1 rounded hover:bg-slate-100">
           <SquarePen className="w-3 h-3" />
         </button>
