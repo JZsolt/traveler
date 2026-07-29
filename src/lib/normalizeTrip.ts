@@ -1,12 +1,11 @@
 import { z } from 'zod'
 import {
   TripSchema, DaySchema, AlertSchema, CostSchema, TicketSchema, ImageSchema,
-  TransportOptionsSchema, UsefulLinkSchema, SavingTipSchema,
-  PracticalInfoSectionSchema, BookingChecklistItemSchema, OverviewDaySchema,
-  InsuranceSchema,
+  TransportOptionsSchema, UsefulLinkSchema, SavingTipSchema, PracticalInfoSectionSchema,
+  BookingChecklistItemSchema, OverviewDaySchema, InsuranceSchema,
 } from '@/schemas/trip'
 import type {
-  Trip, Accommodation, Flight, Budget,
+  Trip, Accommodation, AccommodationTextField, Flight, Budget,
   UrgentBooking, Link, TransportLink, Guide, ScheduleItem, Day,
 } from '@/types/trip'
 
@@ -142,9 +141,10 @@ function normalizeAccommodation(raw: unknown): Accommodation {
     address: str(o.address),
     mapUrl: str(o.mapUrl),
   }
-  if (typeof o.host === 'string') result.host = o.host
-  if (typeof o.gateCode === 'string') result.gateCode = o.gateCode
-  if (typeof o.doorCode === 'string') result.doorCode = o.doorCode
+  const optionalTextFields: AccommodationTextField[] = ['host', 'gateCode', 'doorCode', 'reservationCode', 'checkIn', 'checkOut', 'accessNote', 'parking', 'contactEmail', 'contactPhone']
+  for (const key of optionalTextFields) {
+    if (typeof o[key] === 'string') result[key] = o[key]
+  }
   const w = rec(o.wifi)
   if (typeof w.name === 'string' && typeof w.password === 'string') {
     result.wifi = { name: w.name, password: w.password }
@@ -158,21 +158,13 @@ function normalizeAccommodation(raw: unknown): Accommodation {
 }
 function normalizeFlight(raw: unknown): Flight {
   const o = rec(raw)
-  return {
-    airport: str(o.airport),
-    arrival: str(o.arrival),
-    departure: str(o.departure),
-  }
+  return { airport: str(o.airport), arrival: str(o.arrival), departure: str(o.departure) }
 }
 
 function normalizeBudget(raw: unknown): Budget {
   const o = rec(raw)
   const result: Budget = { headline: str(o.headline) }
-  const optionals: (keyof Budget)[] = [
-    'lowPerFamily', 'comfortPerFamily', 'lowTotal', 'comfortTotal',
-    'lowPerFamilyLabel', 'comfortPerFamilyLabel', 'lowTotalLabel', 'comfortTotalLabel',
-    'summaryLabel',
-  ]
+  const optionals: (keyof Budget)[] = ['lowPerFamily', 'comfortPerFamily', 'lowTotal', 'comfortTotal', 'lowPerFamilyLabel', 'comfortPerFamilyLabel', 'lowTotalLabel', 'comfortTotalLabel', 'summaryLabel']
   for (const key of optionals) {
     if (typeof o[key] === 'string') result[key] = o[key] as string
   }

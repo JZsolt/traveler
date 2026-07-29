@@ -132,6 +132,9 @@ function checkTrip(trip, fileName) {
   if (trip.insurance?.pdf) {
     checkPublicFile(trip.insurance.pdf, `${fileName}.insurance.pdf`)
   }
+  trip.insurance?.documents?.forEach((document, index) => {
+    checkPublicFile(document.pdf, `${fileName}.insurance.documents[${index}].pdf`)
+  })
 
   check(Array.isArray(trip.usefulLinks), `${fileName}: usefulLinks must be an array`)
   trip.usefulLinks?.forEach((link, index) => {

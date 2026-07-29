@@ -6,7 +6,8 @@ import type {
   WifiSchema, AccommodationVideoSchema, AccommodationSchema,
   FlightSchema, BudgetSchema, UrgentBookingSchema, UsefulLinkSchema,
   SavingTipSchema, PracticalInfoSectionSchema, BookingChecklistItemSchema,
-  InsuranceSchema, OverviewDaySchema, TripSchema, TripImportDataSchema,
+  InsuranceDocumentSchema, InsuranceSchema, OverviewDaySchema, TripSchema,
+  TripImportDataSchema,
 } from '@/schemas/trip'
 
 export type Link = z.infer<typeof LinkSchema>
@@ -30,6 +31,7 @@ export type UsefulLink = z.infer<typeof UsefulLinkSchema>
 export type SavingTip = z.infer<typeof SavingTipSchema>
 export type PracticalInfoSection = z.infer<typeof PracticalInfoSectionSchema>
 export type BookingChecklistItem = z.infer<typeof BookingChecklistItemSchema>
+export type InsuranceDocument = z.infer<typeof InsuranceDocumentSchema>
 export type Insurance = z.infer<typeof InsuranceSchema>
 export type OverviewDay = z.infer<typeof OverviewDaySchema>
 export type Trip = z.infer<typeof TripSchema>
@@ -53,3 +55,15 @@ export interface TripRow {
   trip_data: Trip
   owner?: string | null
 }
+
+export type AccommodationTextField =
+  | 'host'
+  | 'gateCode'
+  | 'doorCode'
+  | 'reservationCode'
+  | 'checkIn'
+  | 'checkOut'
+  | 'accessNote'
+  | 'parking'
+  | 'contactEmail'
+  | 'contactPhone'

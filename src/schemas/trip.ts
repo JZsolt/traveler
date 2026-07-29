@@ -99,6 +99,13 @@ export const AccommodationSchema = z.object({
   host: z.string().optional(),
   gateCode: z.string().optional(),
   doorCode: z.string().optional(),
+  reservationCode: z.string().optional(),
+  checkIn: z.string().optional(),
+  checkOut: z.string().optional(),
+  accessNote: z.string().optional(),
+  parking: z.string().optional(),
+  contactEmail: z.string().optional(),
+  contactPhone: z.string().optional(),
   wifi: WifiSchema.optional(),
   videos: z.array(AccommodationVideoSchema).optional(),
 }).passthrough()
@@ -153,10 +160,14 @@ export const BookingChecklistItemSchema = z.object({
   done: z.boolean().optional(),
 })
 
-export const InsuranceSchema = z.object({
+export const InsuranceDocumentSchema = z.object({
   pdf: z.string(),
   label: z.string(),
   desc: z.string(),
+})
+
+export const InsuranceSchema = InsuranceDocumentSchema.extend({
+  documents: z.array(InsuranceDocumentSchema).optional(),
 })
 
 export const OverviewDaySchema = z.object({
