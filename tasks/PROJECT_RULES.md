@@ -118,7 +118,7 @@ These rules apply to every implementation task.
 - Before starting a major new phase, verify clean install: `rm -rf node_modules && pnpm install --frozen-lockfile`.
 - Schema and normalizer tests must pass (`pnpm run test:run`) — they guard runtime validation boundaries.
 - New schemas or normalizer changes should include corresponding tests in `src/schemas/__tests__/` or `src/lib/__tests__/`.
-- Design-system foundation (Phase 15, legacy `11-design-system-foundation.md`) is now unblocked and is the current phase.
+- Read-only trip sharing (Phase 16) is the next planned phase after completed auth ownership.
 
 ## Build Log Hygiene
 

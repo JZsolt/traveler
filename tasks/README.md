@@ -21,8 +21,8 @@ Always complete the phases in this order:
 13. ~~13-clean-install-quality-gate.md~~ ✅ (6 subtask)
 14. ~~14-build-log-cleanup.md~~ ✅ (1 subtask)
 15. ~~11-design-system-foundation.md~~ ✅ (12 subtask — legacy filename)
-16. 15-authentication-user-ownership.md (18 subtask — next phase)
-17. 16-read-only-trip-sharing.md (8 subtask)
+16. ~~15-authentication-user-ownership.md~~ ✅ (18 subtask)
+17. 16-read-only-trip-sharing.md (8 subtask — next phase)
 18. 17-public-landing-demo.md (4 subtask)
 
 ## Workflow
@@ -75,7 +75,7 @@ Phase 10 defines project-wide architecture rules that apply to all future implem
 - `pnpm run test:run` must pass — schema and normalizer tests guard runtime boundaries.
 - New schemas or normalizer changes should include tests in `src/schemas/__tests__/` or `src/lib/__tests__/`.
 - `.passthrough()` in Zod schemas must have a code comment explaining why extra keys are allowed.
-- Design-system foundation is now unblocked and is the current phase.
+- Read-only trip sharing is the next planned phase after completed auth ownership.
 
 ## Build Log Rules
 

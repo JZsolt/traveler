@@ -19,7 +19,6 @@ pnpm build
 
 ```bash
 pnpm run validate:trips
-node -c src/data/trips.js
 ```
 
 Szigorú adatminőségi auditként futtatható:
@@ -34,12 +33,11 @@ A strict mód a régi trip adatokon még várhatóan hiányokat jelezhet; új, t
 
 ```text
 src/
-  data/trips.js       # Összes utazás regisztrációja
-  data/trips/         # Trip JSON fájlok, _template.json sablonnal
+  data/trips/         # Trip sablon; a production trip adatok Supabase-ben élnek
   components/         # UI komponensek
   pages/
-    HomePage.jsx
-    TripPage.jsx
+    HomePage.tsx
+    TripPage.tsx
 docs/
   new-trip-workflow.md
   trip-data-schema.md # csak átirányító; a teljes séma: src/data/trips/_template.json
@@ -50,7 +48,7 @@ docs/
 Ezek minden implementációra és review-ra érvényesek, nem csak a 10-es phase-re.
 
 - Pages csak route-szintű kompozíciót végezzenek; komplex workflow, adatmentés, AI flow, validáció és állapotlogika custom hookba vagy `lib/` helperbe kerüljön.
-- Állapotos, újrahasználható logika `src/hooks/use*.js` alatt legyen.
+- Állapotos, újrahasználható logika `src/hooks/use*.ts` alatt legyen.
 - Megosztott UI `src/components/` vagy `src/components/ui/` alatt legyen.
 - Amit 2 vagy több helyen használunk, abból közös komponens, hook, helper vagy konstans legyen.
 - Cél fájlméret: körülbelül 200 sor. Kemény felső határ: körülbelül 250 sor, csak dokumentált indokkal léphető túl.
@@ -116,15 +114,15 @@ Amikor minden lényeges adat megvan, készíts rövid Trip Briefet, és kérj j�
 ## Trip generálás szabályai
 
 1. Olvasd be: `src/data/trips/_template.json`.
-2. Másold új fájlba: `src/data/trips/[slug].json`.
+2. Ha lokális trip JSON-t készítesz validáláshoz vagy backuphoz, használd a `src/data/trips/[slug].json` formátumot.
 3. Töltsd ki az alapadatokat: slug, title, dates, emoji.
 4. `people`: a csapat összetétele alapján.
 5. Hozz létre annyi `days[]` elemet, ahány napos az út.
 6. Minden naphoz legyen 4-8 schedule item.
 7. A `costs` mindig az összes utazóra vonatkozik, nem fejenként.
 8. Gyerekek esetén jelöld a gyerekbarát programokat badge-ben.
-9. Regisztráld az új tripet `src/data/trips.js`-ben.
-10. Ellenőrizd: `pnpm run validate:trips` és `node -c src/data/trips.js`.
+9. Production adatként Supabase-be mentsd, érvényes `owner_id` mellett.
+10. Ellenőrizd: `pnpm run validate:trips`, majd szükség szerint `pnpm run build`.
 
 ## Tartalmi szabályok
 
