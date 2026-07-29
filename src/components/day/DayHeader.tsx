@@ -2,6 +2,7 @@ import { ChevronDown, ChevronUp, SquarePen, X } from 'lucide-react'
 import { AiSuggestionPanel } from '@/components/editor/AiSuggestionPanel'
 import { DirtyCancelRow } from '@/components/editor/DirtyCancelRow'
 import { Button } from '@/components/ui/button'
+import { useReadOnly } from '@/hooks/useReadOnly'
 import { isDayMetaSuggestion } from '@/types/guards'
 import type { DayHeaderProps } from '@/types/components'
 import type { DayMetaDraft } from '@/types/hooks'
@@ -21,6 +22,7 @@ export function DayHeader({
   onMoveDown,
   onDeleteRequest,
 }: DayHeaderProps) {
+  const readOnly = useReadOnly()
   return (
     <div className="group/day">
       <div
@@ -85,7 +87,7 @@ export function DayHeader({
           )}
           {!meta.editing && (
             <div className="flex items-center gap-0.5 opacity-100 sm:opacity-0 sm:group-hover/day:opacity-100 focus-within:opacity-100 transition-opacity">
-              {!hasPendingScheduleDraft && <>
+              {!readOnly && !hasPendingScheduleDraft && <>
                 <button onClick={meta.startEdit} aria-label="Nap szerkesztése" className="text-white/40 hover:text-white p-1.5 rounded-full hover:bg-white/10">
                   <SquarePen className="w-3.5 h-3.5" />
                 </button>

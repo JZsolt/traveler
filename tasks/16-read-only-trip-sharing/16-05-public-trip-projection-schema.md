@@ -1,4 +1,4 @@
-# 16-05 — Public Trip Projection Schema
+# 16-05 — Public Trip Projection Schema — DONE
 
 **Estimate:** 1-2 hours
 
@@ -22,7 +22,27 @@ Define the exact public shape returned for shared trips.
 
 ## Review Checklist
 
-- [ ] No full trip database row is returned.
-- [ ] Projection is stable and testable.
-- [ ] Unknown/extra fields are intentionally handled.
-- [ ] Future private fields have a documented exclusion rule.
+- [x] No full trip database row is returned.
+- [x] Projection is stable and testable.
+- [x] Unknown/extra fields are intentionally handled.
+- [x] Future private fields have a documented exclusion rule.
+
+## Output
+
+- Added `PublicDaySchema` + `PublicTripSchema` to `src/schemas/sharing.ts` as a
+  **whitelist** (`TripSchema.pick` / `DaySchema.pick`), so any future Trip field
+  is excluded by default until deliberately added.
+- Added `projectPublicTrip(trip)` helper (parses through the whitelist schema,
+  Zod strips non-whitelisted keys) — API-bundler-safe relative imports.
+- Exported `PublicTrip` / `PublicDay` types from `src/types/api.ts` via `z.infer`.
+- Documented exclusion list in code: `days[].tickets` (jegyek), `insurance`
+  (uploaded PDFs), and internal fields (`status`, `aiModel`, `expandedDays`,
+  `days[]._draft`). Per owner decision the projection keeps full accommodation,
+  flight, and budget (link shared only with co-travelers).
+- Hardened nested leaks: `AccommodationSchema` and `GuideSchema` are
+  `.passthrough()`, so a top-level whitelist alone would let extra/future nested
+  keys (e.g. `accommodation.privateNote`) escape. Added `.strip()`-based
+  `PublicAccommodationSchema` / `PublicGuideSchema`, and built
+  `PublicScheduleItemSchema` / `PublicDaySchema` / `PublicTripSchema` from them.
+- Added 5 projection unit tests (strip, keep, self-validate, future top-level
+  drop, nested passthrough strip); 9 sharing tests pass, `pnpm build` green.

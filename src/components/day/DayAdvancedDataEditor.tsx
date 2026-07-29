@@ -1,8 +1,11 @@
 import { DirtyCancelRow } from '@/components/editor/DirtyCancelRow'
 import { Button } from '@/components/ui/button'
+import { useReadOnly } from '@/hooks/useReadOnly'
 import type { DayAdvancedDataEditorProps } from '@/types/components'
 
 export function DayAdvancedDataEditor({ advanced, saving, error }: DayAdvancedDataEditorProps) {
+  const readOnly = useReadOnly()
+  if (readOnly) return null
   return (
     <details className="mt-4 mb-2">
       <summary className="text-[11px] text-slate-400 cursor-pointer hover:text-slate-600">Haladó nap adatok</summary>

@@ -1,7 +1,7 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { useParams, Navigate } from 'react-router-dom'
 import { parseSlug } from '@/schemas/route'
-import { SquarePen, Trash2, Download, Wand2, Plus } from 'lucide-react'
+import { SquarePen, Trash2, Download, Wand2, Plus, Share2 } from 'lucide-react'
 import { useTrips } from '@/hooks/useTrips'
 import { addDay } from '@/lib/tripSections'
 import { exportTripJson } from '@/lib/exportTripJson'
@@ -20,6 +20,7 @@ import { SavingTips } from '@/components/trip/SavingTips'
 import { TripHero } from '@/components/trip/TripHero'
 import { TripOverview } from '@/components/trip/TripOverview'
 import { UsefulLinks } from '@/components/trip/UsefulLinks'
+import { ShareManager } from '@/components/trip/ShareManager'
 
 export default function TripPage() {
   const { slug: rawSlug } = useParams<{ slug: string }>()
@@ -27,6 +28,7 @@ export default function TripPage() {
   const { trips, loading, error, refetch } = useTrips()
   const trip = !loading && !error ? trips.find(t => t.slug === slug) : null
   const heroRef = useRef<{ edit: () => void } | null>(null)
+  const [shareOpen, setShareOpen] = useState(false)
   const { saveTrip: saveTripDays, saving: savingDays } = useTripUpdater({ trip, slug, refetch })
   const del = useDeleteTrip({ slug, refetch })
   const expand = useExpandDay({ trip, slug, refetch })
@@ -53,6 +55,9 @@ export default function TripPage() {
         <div className="absolute top-3 right-3 z-10 flex gap-2">
           <button onClick={() => heroRef.current?.edit()} aria-label="Utazás szerkesztése" className="bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white p-2 rounded-full transition-all">
             <SquarePen className="w-4 h-4" />
+          </button>
+          <button onClick={() => setShareOpen(true)} aria-label="Utazás megosztása" className="bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white p-2 rounded-full transition-all">
+            <Share2 className="w-4 h-4" />
           </button>
           <button onClick={() => exportTripJson(trip)} aria-label="JSON exportálás" className="bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white p-2 rounded-full transition-all">
             <Download className="w-4 h-4" />
@@ -88,6 +93,8 @@ export default function TripPage() {
           </div>
         </div>
       )}
+
+      {shareOpen && <ShareManager slug={slug} onClose={() => setShareOpen(false)} />}
 
       {isDraft && (
         <div className="bg-amber-50 border-b border-amber-200 px-4 py-3 text-center">

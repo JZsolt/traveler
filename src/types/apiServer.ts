@@ -1,5 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 import type { SupabaseClient } from '@supabase/supabase-js'
+import type { User } from '@supabase/supabase-js'
 import type { z } from 'zod'
 import type { Database } from './supabase'
 import type { Trip, TripImportData } from './trip'
@@ -9,6 +10,11 @@ export type { VercelRequest, VercelResponse }
 
 export type ApiHandler = (req: VercelRequest, res: VercelResponse) => Promise<VercelResponse | void> | VercelResponse | void
 export type SupabaseAdmin = SupabaseClient<Database>
+
+export interface AuthenticatedServerContext {
+  supabase: SupabaseAdmin
+  user: User
+}
 
 // --- Admin auth ---
 

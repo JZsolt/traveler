@@ -15,6 +15,7 @@ export const ROUTES = {
   ADMIN_BACKUP: '/app/internal/backup',
   LOGIN: '/login',
   REGISTER: '/register',
+  SHARE: '/share/:token',
 } as const
 
 export const API = {
@@ -26,6 +27,8 @@ export const API = {
   SUGGEST_SECTION: '/api/suggest-trip-section',
   CHAT: '/api/chat',
   PLAN_TRIP: '/api/plan-trip',
+  SHARED_TRIP: '/api/shared-trip',
+  CREATE_TRIP_SHARE: '/api/create-trip-share',
 } as const
 
 
@@ -35,4 +38,8 @@ export function tripRoute(slug: string): string {
 
 export function editTripRoute(slug: string): string {
   return `/app/trips/${slug}/edit`
+}
+
+export function shareLinkUrl(token: string): string {
+  return `${window.location.origin}/share/${token}`
 }
