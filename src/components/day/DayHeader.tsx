@@ -12,7 +12,6 @@ export function DayHeader({
   meta,
   saving,
   error,
-  isAdminUnlocked,
   isFirst,
   isLast,
   hasPendingScheduleDraft,
@@ -86,7 +85,7 @@ export function DayHeader({
           )}
           {!meta.editing && (
             <div className="flex items-center gap-0.5 opacity-100 sm:opacity-0 sm:group-hover/day:opacity-100 focus-within:opacity-100 transition-opacity">
-              {isAdminUnlocked && !hasPendingScheduleDraft && <>
+              {!hasPendingScheduleDraft && <>
                 <button onClick={meta.startEdit} aria-label="Nap szerkesztése" className="text-white/40 hover:text-white p-1.5 rounded-full hover:bg-white/10">
                   <SquarePen className="w-3.5 h-3.5" />
                 </button>

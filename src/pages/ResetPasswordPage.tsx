@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { Page } from '@/components/ui/Page'
 import { Button } from '@/components/ui/button'
 import { InlineError } from '@/components/ui/InlineError'
@@ -7,41 +9,25 @@ import { AuthFormField } from '@/components/auth/AuthFormField'
 import { supabase } from '@/lib/supabase'
 import { ResetPasswordFormSchema } from '@/schemas/auth'
 import { mapAuthError } from '@/lib/authErrors'
-import type { AuthFieldErrors, AuthFormSubmitHandler } from '@/types/auth'
+import type { ResetPasswordFormData } from '@/types/auth'
 
 export default function ResetPasswordPage() {
   const navigate = useNavigate()
-  const [password, setPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
-  const [errors, setErrors] = useState<AuthFieldErrors>({})
   const [serverError, setServerError] = useState<string | null>(null)
-  const [submitting, setSubmitting] = useState(false)
 
-  const handleSubmit: AuthFormSubmitHandler = async (e) => {
-    e.preventDefault()
-    setErrors({})
+  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<ResetPasswordFormData>({
+    resolver: zodResolver(ResetPasswordFormSchema),
+  })
+
+  async function onSubmit(data: ResetPasswordFormData) {
     setServerError(null)
-
-    const parsed = ResetPasswordFormSchema.safeParse({ password, confirmPassword })
-    if (!parsed.success) {
-      const fieldErrors: AuthFieldErrors = {}
-      for (const issue of parsed.error.issues) {
-        const key = String(issue.path[0])
-        if (!fieldErrors[key]) fieldErrors[key] = issue.message
-      }
-      setErrors(fieldErrors)
-      return
-    }
 
     if (!supabase) {
       setServerError('Supabase nincs konfigurálva.')
       return
     }
 
-    setSubmitting(true)
-    const { error } = await supabase.auth.updateUser({ password: parsed.data.password })
-    setSubmitting(false)
-
+    const { error } = await supabase.auth.updateUser({ password: data.password })
     if (error) {
       setServerError(mapAuthError(error))
       return
@@ -60,33 +46,29 @@ export default function ResetPasswordPage() {
 
         {serverError && <InlineError message={serverError} />}
 
-        <form onSubmit={handleSubmit} className="space-y-4" noValidate>
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" noValidate>
           <AuthFormField
-            id="password"
             label="Uj jelszo"
             type="password"
             autoComplete="new-password"
-            value={password}
-            onChange={setPassword}
-            error={errors.password}
-            disabled={submitting}
+            registration={register('password')}
+            error={errors.password?.message}
+            disabled={isSubmitting}
           />
           <AuthFormField
-            id="confirmPassword"
             label="Jelszo megerositese"
             type="password"
             autoComplete="new-password"
-            value={confirmPassword}
-            onChange={setConfirmPassword}
-            error={errors.confirmPassword}
-            disabled={submitting}
+            registration={register('confirmPassword')}
+            error={errors.confirmPassword?.message}
+            disabled={isSubmitting}
           />
           <Button
             type="submit"
-            disabled={submitting}
+            disabled={isSubmitting}
             className="w-full h-10"
           >
-            {submitting ? 'Mentes...' : 'Jelszo mentese'}
+            {isSubmitting ? 'Mentes...' : 'Jelszo mentese'}
           </Button>
         </form>
       </div>

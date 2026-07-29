@@ -6,7 +6,6 @@ import type {
   ChatMessage,
 } from '../src/types/apiServer';
 import { PlanTripDraftSchema } from '../src/schemas/ai.js';
-import { formatZodError } from '../src/schemas/errors.js';
 import { getFirstFinishReason, isChatMessageArray, isRecord } from './_narrowing.js';
 
 const DEFAULT_MODEL = 'gemini-3.1-flash-lite';
@@ -110,7 +109,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   const totalLength = messages.reduce((sum, m) => sum + m.content.length, 0);
   if (totalLength > 1500) {
-    console.log('[plan-trip] Request too long, trimming messages', { totalLength });
+    console.warn('[plan-trip] Trimming long request', { totalLength });
   }
 
   const level = DETAIL_LEVELS[detailLevel] ? detailLevel : 'quick';
@@ -119,15 +118,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     typeof requestedModel === 'string' && MODELS[requestedModel]
       ? requestedModel
       : DEFAULT_MODEL;
-
-  console.log('[plan-trip]', {
-    model,
-    detailLevel: level,
-    messageCount: messages.length,
-    promptLength: totalLength,
-    hasInstruction: Boolean(instruction.trim()),
-    maxOutputTokens: maxTokens,
-  });
 
   try {
     const ai = new GoogleGenAI({ apiKey });
@@ -161,12 +151,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     const raw = response.text || '';
     const finishReason = getFirstFinishReason(response.candidates);
-    console.log(
-      '[plan-trip] Raw response length:',
-      raw.length,
-      'finishReason:',
-      finishReason,
-    );
 
     if (!raw) {
       return res.status(502).json({ error: 'Ures valasz a Gemini-tol.' });
@@ -179,22 +163,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       const jsonStr = extractJson(raw);
       try {
         parsed = JSON.parse(jsonStr);
-      } catch (parseErr) {
+      } catch {
         const truncated = finishReason === 'MAX_TOKENS';
-        const msg = parseErr instanceof Error ? parseErr.message : 'Unknown';
-        console.log(
-          '[plan-trip] JSON parse error:',
-          msg,
-          'truncated:',
-          truncated,
-          'raw tail:',
-          raw.slice(-100),
-        );
+        console.warn('[plan-trip] JSON parse failed', { truncated });
         return res.status(502).json({
           error: truncated
             ? 'A valasz tullepo a token limitet es csonka maradt. Probald Gyors modban.'
             : 'A Gemini nem adott valid JSON-t.',
-          raw: raw.slice(0, 500),
           retryable: true,
         });
       }
@@ -202,7 +177,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     const validated = PlanTripDraftSchema.safeParse(parsed);
     if (!validated.success) {
-      console.log('[plan-trip] Validation failed:', formatZodError(validated.error));
+      console.warn('[plan-trip] Validation failed');
       return res
         .status(502)
         .json({ error: 'A generalt trip JSON nem valid.', retryable: true });
@@ -212,7 +187,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   } catch (err) {
     const message = err instanceof Error ? err.message : '';
     const is429 = message.includes('429') || message.includes('RESOURCE_EXHAUSTED');
-    console.log('[plan-trip] Error', { is429, detail: message.slice(0, 200) });
+    console.error('[plan-trip] API error', { is429 });
 
     if (is429) {
       return res.status(429).json({
@@ -221,6 +196,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         retryable: true,
       });
     }
-    return res.status(502).json({ error: 'Gemini API hiba.', details: message });
+    return res.status(502).json({ error: 'Gemini API hiba.' });
   }
 }

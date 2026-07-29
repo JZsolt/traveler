@@ -21,7 +21,7 @@ import type {
 } from './components'
 import type { ScheduleAiPreview, DayMetaDraft, ScheduleItemDraft } from './hooks'
 
-function isRecord(val: unknown): val is Record<string, unknown> {
+export function isRecord(val: unknown): val is Record<string, unknown> {
   return typeof val === 'object' && val !== null && !Array.isArray(val)
 }
 
@@ -79,6 +79,11 @@ export function isImportBackupResult(val: unknown): val is ImportBackupResult {
 
 export function isImportSingleBackupResponse(val: unknown): val is ImportSingleBackupResponse {
   return ImportSingleBackupResponseSchema.safeParse(val).success
+}
+
+export function getLocationFrom(state: unknown, fallback = '/app/trips'): string {
+  if (!isRecord(state)) return fallback
+  return typeof state.from === 'string' ? state.from : fallback
 }
 
 export function getApiErrorMessage(val: unknown, fallback: string): string {

@@ -5,8 +5,9 @@ import { useTrips } from '@/hooks/useTrips'
 export function Header() {
   const location = useLocation()
   const { trips } = useTrips()
-  const isTrip = location.pathname.startsWith('/trip/')
-  const slug = location.pathname.split('/trip/')[1]
+  const tripsPrefix = '/app/trips/'
+  const isTrip = location.pathname.startsWith(tripsPrefix) && location.pathname !== '/app/trips/new'
+  const slug = isTrip ? location.pathname.slice(tripsPrefix.length).split('/')[0] : null
   const trip = slug ? trips.find(t => t.slug === slug) : null
 
   return (
@@ -24,12 +25,12 @@ export function Header() {
         <div className="flex items-center gap-3">
           {isTrip && trip && (
             <div className="text-xs opacity-70 flex items-center gap-1.5 max-w-[50vw] truncate">
-              <Link to="/" className="text-white no-underline hover:opacity-100">Utazásaim</Link>
+              <Link to="/app/trips" className="text-white no-underline hover:opacity-100">Utazásaim</Link>
               <span className="opacity-40">›</span>
               <span className="truncate">{trip.title}</span>
             </div>
           )}
-          <Link to="/settings" aria-label="Beállítások" className="text-white/60 hover:text-white transition-colors p-1">
+          <Link to="/app/settings" aria-label="Beállítások" className="text-white/60 hover:text-white transition-colors p-1">
             <Settings className="w-4.5 h-4.5" />
           </Link>
         </div>

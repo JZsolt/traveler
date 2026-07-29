@@ -1,6 +1,6 @@
 # 15 — Authentication And User Ownership
 
-Status: planned.
+Status: done.
 
 ## Goal
 
@@ -17,56 +17,54 @@ server-verified hidden admin backup area.
 - Admin backup access is separate from normal trip ownership.
 - Admin must not automatically get an "edit any trip" UI path.
 
-## Known Current Incompatibilities
+## Final State
 
-- Current routes are `/`, `/create-trip`, `/trip/:slug`, `/trip/:slug/edit`;
-  target routes are `/app/trips`, `/app/trips/new`, `/app/trips/:tripId`,
-  `/app/trips/:tripId/edit`.
-- Current `TripsContext` loads all trips before auth and relies on the current
-  public-read RLS policy.
-- Current `trips` table has `owner text`; target model needs `owner_id uuid`
-  referencing `auth.users(id)`.
-- Current RLS has `SELECT using (true)`, which conflicts with private user
-  trips.
-- Current admin session is a browser `sessionStorage` flag plus password
-  endpoint; target admin must be tied to an authenticated Supabase user id and
-  server-checked challenge/session.
-- Current backup/import endpoints must remain admin-only, but normal create,
-  edit, delete, AI, export, and share must move out of admin lock.
-- Current slug-based lookup must not leak another user's trip after RLS is
-  introduced; route/id strategy must be explicitly decided before migration.
+- Routes: `/app/trips`, `/app/trips/new`, `/app/trips/:slug`,
+  `/app/trips/:slug/edit`, `/app/settings`, `/app/internal/backup`.
+  Legacy `/trip/:slug` and `/create-trip` redirect to new paths.
+- `TripsContext` loads trips scoped to `auth.uid()` via RLS.
+- `trips` table has `owner_id uuid NOT NULL` referencing `auth.users(id)`.
+- RLS: 4 owner-scoped policies (select, insert, update, delete) using
+  `auth.uid() = owner_id`. Service-role bypasses RLS for backup/import.
+- Admin session: React state only (no sessionStorage). Server validates
+  JWT + `ADMIN_USER_ID` + `ADMIN_PASSWORD` on every admin operation.
+- Trip CRUD, AI, and editor operations are available to all authenticated
+  users without admin unlock.
+- Auth forms use `react-hook-form` with `@hookform/resolvers/zod`.
+- Axios API client with auth token interceptor (`src/lib/apiClient.ts`).
+- TanStack Query provider installed; cache cleared on logout.
 
 ## Subtasks
 
-1. `15-01-auth-product-security-spec.md`
-2. `15-02-supabase-auth-configuration.md`
-3. `15-03-profiles-database-migration.md`
-4. `15-04-auth-schemas-and-types.md`
-5. `15-05-auth-provider-session-lifecycle.md`
-6. `15-06-login-registration-recovery-ui.md`
-7. `15-07-protected-application-routes.md`
-8. `15-08-trip-ownership-migration.md`
-9. `15-09-trip-rls-policies.md`
-10. `15-10-trips-context-user-scoping.md`
-11. `15-11-my-trips-dashboard.md`
-12. `15-12-existing-admin-mode-separation.md`
-13. `15-13-hidden-admin-access.md`
-14. `15-14-auth-security-regression-tests.md`
+1. `15-01-auth-product-security-spec.md` ✅
+2. `15-02-supabase-auth-configuration.md` ✅
+3. `15-03-profiles-database-migration.md` ✅
+4. `15-04-auth-schemas-and-types.md` ✅
+5. `15-05-auth-provider-session-lifecycle.md` ✅
+6. `15-06-login-registration-recovery-ui.md` ✅
+7. `15-06a-client-library-dependencies.md` ✅
+8. `15-06b-auth-forms-react-hook-form.md` ✅
+9. `15-06c-axios-api-client-foundation.md` ✅
+10. `15-06d-tanstack-query-provider.md` ✅
+11. `15-07-protected-application-routes.md` ✅
+12. `15-08-trip-ownership-migration.md` ✅
+13. `15-09-trip-rls-policies.md` ✅
+14. `15-10-trips-context-user-scoping.md` ✅
+15. `15-11-my-trips-dashboard.md` ✅
+16. `15-12-existing-admin-mode-separation.md` ✅
+17. `15-13-hidden-admin-access.md` ✅
+18. `15-14-auth-security-regression-tests.md` ✅
 
-## Workflow
+## Prod Rollout Checklist
 
-Implement exactly one task from `tasks/15-authentication-user-ownership/`.
+Supabase migration order (must run manually in SQL Editor):
 
-Do not continue automatically.
+1. `002_create_profiles.sql` — profiles table + auto-create trigger
+2. `003_trip_ownership.sql` — owner_id column + composite unique index
+3. Backfill: `UPDATE public.trips SET owner_id = '<admin-user-uuid>' WHERE owner_id IS NULL;`
+4. `004_trip_rls_owner_scoped.sql` — NOT NULL constraint + owner-scoped RLS
 
-Run:
-
-```bash
-pnpm run typecheck
-pnpm run lint
-pnpm run test:run
-pnpm run build
-```
+If backfill is incomplete, migration 004 aborts with a guard exception.
 
 ## Non-goals
 

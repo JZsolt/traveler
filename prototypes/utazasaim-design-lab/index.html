@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Utazasaim Design Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="assets/utazasaim-logo.svg">
+<link rel="stylesheet" href="css/app.css">
+<style>
+  body{background:radial-gradient(120% 80% at 50% -10%, #F7F9FB, #E9EDF1);}
+  .wrap{max-width:1180px;margin:0 auto;padding:48px 24px 80px;}
+  .top{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:8px;}
+  .brand{display:flex;align-items:center;gap:12px;}
+  .brand .glyph{width:46px;height:46px;border-radius:14px;background:var(--primary);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 20px rgba(255,122,0,.34);overflow:hidden;}
+  .brand .glyph img{width:34px;height:34px;object-fit:contain;filter:brightness(0) invert(1);}
+  .brand h1{font-size:30px;font-weight:800;letter-spacing:-.03em;margin:0;}
+  .brand p{margin:2px 0 0;color:var(--muted);font-size:15px;}
+  .pill-note{display:inline-flex;align-items:center;gap:8px;min-height:34px;padding:8px 14px;border-radius:999px;background:var(--surface);border:1px solid var(--line-2);font-size:13px;font-weight:600;color:var(--ink-2);}
+  .pill-note .dot{width:7px;height:7px;border-radius:50%;background:var(--success);}
+  .intro{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;margin:28px 0 26px;}
+  .intro-card{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:var(--shadow-sm);}
+  .intro-card h2{font-size:22px;letter-spacing:-.02em;margin:0 0 8px;}
+  .intro-card p{font-size:15px;line-height:1.55;color:var(--muted);margin:0;}
+  .intro-card ul{margin:10px 0 0;padding-left:18px;color:var(--muted);font-size:14px;line-height:1.7;}
+  .flow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 30px;padding:16px 18px;background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow-sm);}
+  .flow .node{display:flex;align-items:center;gap:9px;font-weight:700;font-size:14px;color:var(--ink);}
+  .flow .num{width:22px;height:22px;border-radius:50%;background:var(--primary-050);color:var(--primary);font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;}
+  .flow .arrow{color:var(--faint);}
+  .grid{display:grid;grid-template-columns:repeat(5,1fr);gap:18px;}
+  .card2{background:var(--surface);border:1px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:var(--shadow-sm);transition:transform .16s var(--ease), box-shadow .16s;display:flex;flex-direction:column;}
+  .card2:hover{transform:translateY(-4px);box-shadow:var(--shadow);}
+  .preview{position:relative;height:320px;background:radial-gradient(120% 90% at 50% 0%, #F4F7FA, #E7ECF1);overflow:hidden;border-bottom:1px solid var(--line);}
+  .preview .scaler{position:absolute;top:22px;left:50%;transform:translateX(-50%) scale(.57);transform-origin:top center;pointer-events:none;}
+  .preview iframe{width:412px;height:866px;border:0;background:transparent;}
+  .preview .hit{position:absolute;inset:0;z-index:3;}
+  .c-body{padding:15px 16px 18px;}
+  .c-body .k{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--primary);}
+  .c-body h3{font-size:18px;font-weight:800;letter-spacing:-.02em;margin:5px 0 5px;}
+  .c-body p{font-size:13.5px;color:var(--muted);line-height:1.5;margin:0 0 14px;}
+  .open{display:inline-flex;align-items:center;gap:6px;height:40px;padding:0 16px;border-radius:999px;background:var(--primary);color:#fff;font-weight:700;font-size:14px;text-decoration:none;}
+  .alt{font-size:13px;font-weight:600;color:var(--muted);text-decoration:none;margin-left:8px;}
+  .alt:hover{color:var(--primary);}
+  .foot{margin-top:34px;color:var(--faint);font-size:13px;text-align:center;}
+  @media(max-width:1120px){.grid{grid-template-columns:repeat(2,1fr);}.intro{grid-template-columns:1fr;}}
+  @media(max-width:560px){.grid{grid-template-columns:1fr;}.wrap{padding:28px 16px 56px;}.brand h1{font-size:25px;}.preview{height:340px;}.preview .scaler{transform:translateX(-50%) scale(.60);}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="brand">
+      <span class="glyph"><img src="assets/utazasaim-logo.svg" alt=""></span>
+      <div>
+        <h1>Utazasaim Design Lab</h1>
+        <p>Design system prototype, mobil workflow es screen pattern gyujtemeny.</p>
+      </div>
+    </div>
+    <span class="pill-note"><span class="dot"></span>Prototype: sunset orange, travel accents, iOS jellegu mobil UI</span>
+  </div>
+
+  <section class="intro">
+    <div class="intro-card">
+      <h2>Mire valo ez a mappa?</h2>
+      <p>Ez a statikus lab segit gyorsan donteni a vizualis iranyrol, mielott React komponensekre bontjuk. A design-system oldal adja a token es komponens referenciat, a screenek pedig a valos utazastervezo flowt mutatjak.</p>
+    </div>
+    <div class="intro-card">
+      <h2>Kovetkezo fejlesztesi fokusz</h2>
+      <ul>
+        <li>Magyar termekszoveg teljes screen szinten.</li>
+        <li>Trip detail, napi program es AI itinerary editor screen.</li>
+        <li>React/Tailwind token megfeleltetes a production apphoz.</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="flow">
+    <div class="node"><span class="num">0</span>Design system</div>
+    <span class="arrow">-&gt;</span>
+    <div class="node"><span class="num">1</span>Landing</div>
+    <span class="arrow">-&gt;</span>
+    <div class="node"><span class="num">2</span>Auth</div>
+    <span class="arrow">-&gt;</span>
+    <div class="node"><span class="num">3</span>Sajat utak</div>
+    <span class="arrow">-&gt;</span>
+    <div class="node"><span class="num">4</span>Uj utazas</div>
+    <span class="arrow">-&gt;</span>
+    <div class="node"><span class="num">5</span>Trip detail</div>
+  </div>
+
+  <div class="grid">
+    <div class="card2">
+      <div class="preview"><div class="scaler"><iframe src="design-system.html" title="Design system" scrolling="no" tabindex="-1"></iframe></div><a class="hit" href="design-system.html" aria-label="Design system megnyitasa"></a></div>
+      <div class="c-body">
+        <span class="k">Core</span><h3>Design system</h3>
+        <p>Tokenek, tipografia, akciok, inputok, trip mintak es atemelesi szabalyok.</p>
+        <a class="open" href="design-system.html">Megnyitas</a>
+      </div>
+    </div>
+
+    <div class="card2">
+      <div class="preview"><div class="scaler"><iframe src="landing.html" title="Landing" scrolling="no" tabindex="-1"></iframe></div><a class="hit" href="landing.html" aria-label="Landing megnyitasa"></a></div>
+      <div class="c-body">
+        <span class="k">Screen 1</span><h3>Landing</h3>
+        <p>Full-screen travel hero, primer CTA, login es demo ut link.</p>
+        <a class="open" href="landing.html">Megnyitas</a>
+      </div>
+    </div>
+
+    <div class="card2">
+      <div class="preview"><div class="scaler"><iframe src="login.html" title="Auth" scrolling="no" tabindex="-1"></iframe></div><a class="hit" href="login.html" aria-label="Auth megnyitasa"></a></div>
+      <div class="c-body">
+        <span class="k">Screen 2</span><h3>Auth</h3>
+        <p>Segmentalt login/register, social auth gombok, emailes belepes.</p>
+        <a class="open" href="login.html">Megnyitas</a>
+      </div>
+    </div>
+
+    <div class="card2">
+      <div class="preview"><div class="scaler"><iframe src="dashboard.html" title="Sajat utak" scrolling="no" tabindex="-1"></iframe></div><a class="hit" href="dashboard.html" aria-label="Dashboard megnyitasa"></a></div>
+      <div class="c-body">
+        <span class="k">Screen 3</span><h3>Sajat utak</h3>
+        <p>Kereses, filterek, trip kartyak, ures allapot es also navigacio.</p>
+        <a class="open" href="dashboard.html">Megnyitas</a><a class="alt" href="dashboard.html?empty=1">Ures allapot</a>
+      </div>
+    </div>
+
+    <div class="card2">
+      <div class="preview"><div class="scaler"><iframe src="create-trip.html" title="Uj utazas" scrolling="no" tabindex="-1"></iframe></div><a class="hit" href="create-trip.html" aria-label="Uj utazas megnyitasa"></a></div>
+      <div class="c-body">
+        <span class="k">Screen 4</span><h3>Uj utazas</h3>
+        <p>Ot lepeses wizard: cel, datum, utazok, budget, stilus.</p>
+        <a class="open" href="create-trip.html">Megnyitas</a>
+      </div>
+    </div>
+
+    <div class="card2">
+      <div class="preview"><div class="scaler"><iframe src="trip-detail.html" title="Trip detail" scrolling="no" tabindex="-1"></iframe></div><a class="hit" href="trip-detail.html" aria-label="Trip detail megnyitasa"></a></div>
+      <div class="c-body">
+        <span class="k">Screen 5</span><h3>Trip detail</h3>
+        <p>Hero, meta adatok, AI osszegzes, napi terv es itinerary timeline.</p>
+        <a class="open" href="trip-detail.html">Megnyitas</a>
+      </div>
+    </div>
+  </div>
+
+  <p class="foot">Statikus prototype. Production atemeles elott komponensenkenti React/Tailwind adaptacio kell.</p>
+</div>
+</body>
+</html>

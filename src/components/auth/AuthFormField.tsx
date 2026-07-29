@@ -2,15 +2,15 @@ import { cn } from '@/lib/utils'
 import type { AuthFormFieldProps } from '@/types/auth'
 
 export function AuthFormField({
-  id,
   label,
   type = 'text',
   autoComplete,
-  value,
-  onChange,
+  registration,
   error,
   disabled,
 }: AuthFormFieldProps) {
+  const id = registration.name
+
   return (
     <div className="space-y-1.5">
       <label htmlFor={id} className="block text-sm font-medium text-foreground">
@@ -18,14 +18,12 @@ export function AuthFormField({
       </label>
       <input
         id={id}
-        name={id}
         type={type}
         autoComplete={autoComplete}
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
         disabled={disabled}
         aria-invalid={!!error}
         aria-describedby={error ? `${id}-error` : undefined}
+        {...registration}
         className={cn(
           'w-full rounded-lg border px-3 py-2.5 text-sm text-foreground bg-background',
           'outline-none transition-colors placeholder:text-muted-foreground',

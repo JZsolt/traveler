@@ -216,7 +216,7 @@ These are the points where data enters or leaves the typed world. All must use `
 
 ### Browser storage
 
-- `sessionStorage` for admin token — string, not typed data
+- Admin unlock is in-memory React state only; it resets on reload/tab close
 - No trip data in localStorage/sessionStorage
 
 ---

@@ -15,6 +15,34 @@ const ERROR_MAP: Record<string, string> = {
 
 const FALLBACK_ERROR = 'Varatlan hiba tortent. Kerlek probald ujra.'
 
+const PROFILE_FALLBACK_ERROR = 'A profil betoltese sikertelen. Kerlek probald ujra.'
+const PROFILE_PERMISSION_ERROR = 'Nincs jogosultsag a profil eleresehez.'
+const PROFILE_SCHEMA_ERROR = 'A profil adatbazis sema hianyos. Kerlek ertesitsd az adminisztratort.'
+
+function getErrorCode(err: unknown): string | null {
+  if (err && typeof err === 'object' && 'code' in err) {
+    const code = (err as { code: unknown }).code
+    return typeof code === 'string' ? code : null
+  }
+  return null
+}
+
+// A profil hibakat kategoriaba soroljuk, hogy nyers (angol) PostgREST/Supabase
+// uzenet soha ne kerulhessen kozvetlenul user-facing state-be. A sajat dobott
+// Error-ok mar biztonsagos magyar szoveget hordoznak, azok atmennek.
+export function mapProfileError(err: unknown): string {
+  if (err instanceof Error) return err.message
+
+  const code = getErrorCode(err)
+  if (code === '42501' || code === 'PGRST301' || code === 'PGRST116') {
+    return PROFILE_PERMISSION_ERROR
+  }
+  if (code === '42P01' || code === '42703' || code === 'PGRST205') {
+    return PROFILE_SCHEMA_ERROR
+  }
+  return PROFILE_FALLBACK_ERROR
+}
+
 export function mapAuthError(err: unknown): string {
   const message = err instanceof Error
     ? err.message

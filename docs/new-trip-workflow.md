@@ -64,7 +64,7 @@ Kimenet: guide objektumok az étkezési schedule itemekhez
 
 Input: a teljes trip objektum
 Feladatok:
-- `node -c src/data/trips.js` szintaxis ellenőrzés
+- `pnpm run validate:trips` futtatása; ha nincs lokális trip JSON, a Supabase az adatforrás
 - Tipográfiai idézőjelek keresése és javítása (`„"` → `'`)
 - Linkek formátum ellenőrzése (maps.google.com, wikipedia.org)
 - Minden POI-nak van-e guide + links
@@ -95,4 +95,4 @@ Ha a user azt mondja: "tervezzünk egy új utazást [város]":
 2. Olvasd be a `src/data/trips/_template.json`-t a pontos struktúráért
 3. Indítsd el a tervező fázist
 4. A POI és étterem kutatást indítsd párhuzamos sub-agentekkel
-5. Szeresd össze, validáld, commitold
+5. Szeresd össze, validáld, majd csak explicit kérésre commitold

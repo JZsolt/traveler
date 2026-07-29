@@ -24,7 +24,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       .json(err('METHOD_NOT_ALLOWED', 'Csak POST keres engedelyezett.'));
   }
 
-  if (!validateAdmin(req, res)) return;
+  if (!(await validateAdmin(req, res))) return;
 
   const supabaseUrl = process.env.SUPABASE_URL;
   const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;

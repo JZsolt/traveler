@@ -29,6 +29,7 @@ async function importSingleTrip(
   supabase: SupabaseAdmin,
   backup: unknown,
   mode: string,
+  ownerId: string,
 ): Promise<ImportSingleResult> {
   const validated = TripBackupEnvelopeSchema.safeParse(backup);
   if (!validated.success) {
@@ -44,6 +45,7 @@ async function importSingleTrip(
     const { error: insertError } = await supabase.from('trips').insert({
       slug,
       trip_data: { ...trip.trip_data, slug },
+      owner_id: ownerId,
       owner: trip.owner || null,
     });
 
@@ -79,6 +81,7 @@ async function importSingleTrip(
   const { error: insertError } = await supabase.from('trips').insert({
     slug,
     trip_data: trip.trip_data,
+    owner_id: ownerId,
     owner: trip.owner || null,
   });
 

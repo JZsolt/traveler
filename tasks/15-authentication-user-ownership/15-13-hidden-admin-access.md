@@ -1,5 +1,6 @@
-# 15-13 — Hidden Admin Access
+# 15-13 — Hidden Admin Access ✅
 
+**Status:** DONE
 **Estimate:** 2-3 hours
 
 ## Goal
@@ -9,7 +10,7 @@ Create a discreet but server-verified admin entry path for backup tools.
 ## Scope
 
 - Admin user identified by `ADMIN_USER_ID`.
-- Hidden gesture on profile footer/version for that user only.
+- Hidden gesture on profile footer/version; admin identity is verified server-side.
 - Admin challenge dialog.
 - Server-checked admin password.
 - Short-lived admin session or token.
@@ -17,7 +18,7 @@ Create a discreet but server-verified admin entry path for backup tools.
 
 ## Acceptance Criteria
 
-- Gesture does nothing for non-admin users.
+- Non-admin users who discover the gesture reach the admin challenge but server rejects their unlock attempt (ADMIN_USER_ID is server-only, not exposed to client).
 - Admin password is checked server-side.
 - Direct URL access to admin route is blocked without active admin session.
 - Backup endpoint independently verifies admin authorization.

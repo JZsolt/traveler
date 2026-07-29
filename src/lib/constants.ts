@@ -7,10 +7,14 @@ export const AI_MODEL_OPTIONS = [
 
 export const ROUTES = {
   HOME: '/',
-  TRIP: '/trip/:slug',
-  CREATE_TRIP: '/create-trip',
-  EDIT_TRIP: '/trip/:slug/edit',
-  SETTINGS: '/settings',
+  TRIPS: '/app/trips',
+  TRIP: '/app/trips/:slug',
+  CREATE_TRIP: '/app/trips/new',
+  EDIT_TRIP: '/app/trips/:slug/edit',
+  SETTINGS: '/app/settings',
+  ADMIN_BACKUP: '/app/internal/backup',
+  LOGIN: '/login',
+  REGISTER: '/register',
 } as const
 
 export const API = {
@@ -24,4 +28,11 @@ export const API = {
   PLAN_TRIP: '/api/plan-trip',
 } as const
 
-export const ADMIN_STORAGE_KEY = 'admin_unlocked'
+
+export function tripRoute(slug: string): string {
+  return `/app/trips/${slug}`
+}
+
+export function editTripRoute(slug: string): string {
+  return `/app/trips/${slug}/edit`
+}

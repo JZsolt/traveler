@@ -1,15 +1,21 @@
 import { lazy, Suspense } from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate, useParams } from 'react-router-dom'
+import { QueryClientProvider } from '@tanstack/react-query'
+import { queryClient } from '@/lib/queryClient'
 import { AuthProvider } from '@/context/AuthContext'
 import { TripsProvider } from '@/context/TripsContext'
 import { AdminProvider } from '@/context/AdminContext'
+import { ProtectedRoute } from '@/components/auth/ProtectedRoute'
+import { PublicOnlyRoute } from '@/components/auth/PublicOnlyRoute'
 import { Header } from '@/components/Header'
+import type { LegacyTripRedirectProps } from '@/types/routes'
 
 const HomePage = lazy(() => import('@/pages/HomePage'))
 const TripPage = lazy(() => import('@/pages/TripPage'))
 const CreateTripPage = lazy(() => import('@/pages/CreateTripPage'))
 const EditTripPage = lazy(() => import('@/pages/EditTripPage'))
 const SettingsPage = lazy(() => import('@/pages/SettingsPage'))
+const AdminBackupPage = lazy(() => import('@/pages/AdminBackupPage'))
 const DesignSystemPage = lazy(() => import('@/pages/DesignSystemPage'))
 const LoginPage = lazy(() => import('@/pages/LoginPage'))
 const RegisterPage = lazy(() => import('@/pages/RegisterPage'))
@@ -18,34 +24,55 @@ const ResetPasswordPage = lazy(() => import('@/pages/ResetPasswordPage'))
 const AuthCallbackPage = lazy(() => import('@/pages/AuthCallbackPage'))
 
 function PageLoader() {
-  return <div className="flex items-center justify-center min-h-[60vh] text-slate-400 text-sm">Betöltés...</div>
+  return <div className="flex items-center justify-center min-h-[60vh] text-muted-foreground text-sm">Betöltés...</div>
+}
+
+function LegacyTripRedirect({ edit }: LegacyTripRedirectProps) {
+  const { slug } = useParams<{ slug: string }>()
+  const target = slug ? `/app/trips/${slug}${edit ? '/edit' : ''}` : '/app/trips'
+  return <Navigate to={target} replace />
 }
 
 export default function App() {
   return (
     <BrowserRouter>
-      <AuthProvider>
-        <AdminProvider>
-          <TripsProvider>
+      <QueryClientProvider client={queryClient}>
+        <AuthProvider>
+          <AdminProvider>
+            <TripsProvider>
             <Header />
             <Suspense fallback={<PageLoader />}>
               <Routes>
-                <Route path="/" element={<HomePage />} />
-                <Route path="/trip/:slug" element={<TripPage />} />
-                <Route path="/create-trip" element={<CreateTripPage />} />
-                <Route path="/trip/:slug/edit" element={<EditTripPage />} />
-                <Route path="/settings" element={<SettingsPage />} />
+                {/* Public routes */}
+                <Route path="/" element={<Navigate to="/app/trips" replace />} />
                 <Route path="/design-system" element={<DesignSystemPage />} />
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/register" element={<RegisterPage />} />
-                <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-                <Route path="/reset-password" element={<ResetPasswordPage />} />
                 <Route path="/auth/callback" element={<AuthCallbackPage />} />
+
+                {/* Public-only auth routes (redirect to app if logged in) */}
+                <Route path="/login" element={<PublicOnlyRoute><LoginPage /></PublicOnlyRoute>} />
+                <Route path="/register" element={<PublicOnlyRoute><RegisterPage /></PublicOnlyRoute>} />
+                <Route path="/forgot-password" element={<PublicOnlyRoute><ForgotPasswordPage /></PublicOnlyRoute>} />
+                <Route path="/reset-password" element={<ResetPasswordPage />} />
+
+                {/* Protected app routes (slug-based until 15-08 migrates to tripId) */}
+                <Route path="/app/trips" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
+                <Route path="/app/trips/new" element={<ProtectedRoute><CreateTripPage /></ProtectedRoute>} />
+                <Route path="/app/trips/:slug" element={<ProtectedRoute><TripPage /></ProtectedRoute>} />
+                <Route path="/app/trips/:slug/edit" element={<ProtectedRoute><EditTripPage /></ProtectedRoute>} />
+                <Route path="/app/settings" element={<ProtectedRoute><SettingsPage /></ProtectedRoute>} />
+                <Route path="/app/internal/backup" element={<ProtectedRoute><AdminBackupPage /></ProtectedRoute>} />
+
+                {/* Compatibility redirects from old routes */}
+                <Route path="/trip/:slug" element={<LegacyTripRedirect />} />
+                <Route path="/trip/:slug/edit" element={<LegacyTripRedirect edit />} />
+                <Route path="/create-trip" element={<Navigate to="/app/trips/new" replace />} />
+                <Route path="/settings" element={<Navigate to="/app/settings" replace />} />
               </Routes>
             </Suspense>
-          </TripsProvider>
-        </AdminProvider>
-      </AuthProvider>
+            </TripsProvider>
+          </AdminProvider>
+        </AuthProvider>
+      </QueryClientProvider>
     </BrowserRouter>
   )
 }

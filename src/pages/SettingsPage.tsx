@@ -1,71 +1,81 @@
-import { useAdmin } from '@/hooks/useAdmin'
-import { useAdminUnlock } from '@/hooks/useAdminUnlock'
+import { useRef, useCallback, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useAuth } from '@/hooks/useAuth'
 import { Button } from '@/components/ui/button'
-import { BackupButton } from '@/components/BackupButton'
-import { ImportBackup } from '@/components/ImportBackup'
-import { Lock, Unlock, LogOut, Database } from 'lucide-react'
+import { ROUTES } from '@/lib/constants'
+import { LogOut, User } from 'lucide-react'
+
+const TAP_THRESHOLD = 5
+const TAP_WINDOW_MS = 3000
 
 export default function SettingsPage() {
-  const { isAdminUnlocked, unlockAdmin, lockAdmin } = useAdmin()
-  const unlock = useAdminUnlock({ unlockAdmin })
+  const { user, profile, signOut } = useAuth()
+  const navigate = useNavigate()
+  const tapCountRef = useRef(0)
+  const tapTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  useEffect(() => {
+    return () => {
+      if (tapTimerRef.current) clearTimeout(tapTimerRef.current)
+    }
+  }, [])
+
+  const handleVersionTap = useCallback(() => {
+    tapCountRef.current += 1
+    if (tapTimerRef.current) clearTimeout(tapTimerRef.current)
+    if (tapCountRef.current >= TAP_THRESHOLD) {
+      tapCountRef.current = 0
+      navigate(ROUTES.ADMIN_BACKUP)
+      return
+    }
+    tapTimerRef.current = setTimeout(() => {
+      tapCountRef.current = 0
+    }, TAP_WINDOW_MS)
+  }, [navigate])
+
+  async function handleSignOut() {
+    await signOut()
+    navigate(ROUTES.LOGIN)
+  }
 
   return (
     <main className="pb-16 px-4" style={{ paddingTop: 'calc(3.5rem + env(safe-area-inset-top, 0px) + 1.5rem)' }}>
       <div className="max-w-lg mx-auto">
-        <h1 className="text-xl font-bold text-slate-800 mb-6">Beállítások</h1>
+        <h1 className="text-xl font-bold text-slate-800 mb-6">Beallitasok</h1>
 
-        {isAdminUnlocked ? (
-          <div className="space-y-6">
-            <div className="flex items-center gap-3 p-4 bg-emerald-50 border border-emerald-200 rounded-xl">
-              <Unlock className="w-5 h-5 text-emerald-600 shrink-0" />
-              <div className="flex-1">
-                <p className="text-sm font-medium text-emerald-800">Admin mód aktív</p>
-                <p className="text-xs text-emerald-600 mt-0.5">Szerkesztési és admin műveletek engedélyezve.</p>
+        <div className="space-y-6">
+          <div className="border border-slate-200 rounded-xl p-4">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                <User className="w-5 h-5 text-primary" />
               </div>
-              <Button onClick={lockAdmin} variant="outline" size="sm" className="shrink-0">
-                <LogOut className="w-3.5 h-3.5 mr-1.5" />
-                Zárolás
-              </Button>
-            </div>
-
-            <div className="border border-slate-200 rounded-xl p-4 space-y-4">
-              <div className="flex items-center gap-2 mb-1">
-                <Database className="w-4 h-4 text-slate-500" />
-                <h2 className="text-sm font-semibold text-slate-700">Biztonsági mentés</h2>
-              </div>
-              <BackupButton />
-              <div className="border-t border-slate-100 pt-4">
-                <ImportBackup />
+              <div className="flex-1 min-w-0">
+                {profile?.display_name && (
+                  <p className="text-sm font-medium text-slate-800 truncate">{profile.display_name}</p>
+                )}
+                <p className="text-xs text-muted-foreground truncate">{user?.email}</p>
               </div>
             </div>
           </div>
-        ) : (
-          <form onSubmit={unlock.handleUnlock} className="space-y-4">
-            <div className="flex items-center gap-3 p-4 bg-slate-50 border border-slate-200 rounded-xl">
-              <Lock className="w-5 h-5 text-slate-400 shrink-0" />
-              <p className="text-sm text-slate-600">Az admin funkciók zárolva vannak. Add meg a jelszót a feloldáshoz.</p>
-            </div>
 
-            <div>
-              <input
-                type="password"
-                value={unlock.password}
-                onChange={e => unlock.setPassword(e.target.value)}
-                placeholder="Admin jelszó"
-                autoFocus
-                className="w-full border border-slate-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0f3460]/30 focus:border-[#0f3460]"
-              />
-            </div>
+          <Button
+            onClick={handleSignOut}
+            variant="outline"
+            className="w-full"
+          >
+            <LogOut className="w-4 h-4 mr-2" />
+            Kijelentkezes
+          </Button>
+        </div>
 
-            {unlock.error && (
-              <p className="text-sm text-red-600">{unlock.error}</p>
-            )}
-
-            <Button type="submit" disabled={unlock.loading || !unlock.password.trim()} className="w-full bg-[#0f3460] hover:bg-[#1a1a2e] text-white">
-              {unlock.loading ? 'Ellenőrzés...' : 'Feloldás'}
-            </Button>
-          </form>
-        )}
+        <div className="mt-16 text-center">
+          <p
+            className="text-xs text-muted-foreground/50 select-none cursor-default"
+            onClick={handleVersionTap}
+          >
+            Az Utazasaim v1.0
+          </p>
+        </div>
       </div>
     </main>
   )

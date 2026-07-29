@@ -1,43 +1,32 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { Page } from '@/components/ui/Page'
 import { Button } from '@/components/ui/button'
 import { InlineError } from '@/components/ui/InlineError'
 import { AuthFormField } from '@/components/auth/AuthFormField'
 import { useAuth } from '@/hooks/useAuth'
 import { LoginFormSchema } from '@/schemas/auth'
-import type { AuthFieldErrors, AuthFormSubmitHandler } from '@/types/auth'
+import { getLocationFrom } from '@/types/guards'
+import type { LoginFormData } from '@/types/auth'
 
 export default function LoginPage() {
   const { signIn } = useAuth()
   const navigate = useNavigate()
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [errors, setErrors] = useState<AuthFieldErrors>({})
+  const location = useLocation()
+  const from = getLocationFrom(location.state)
   const [serverError, setServerError] = useState<string | null>(null)
-  const [submitting, setSubmitting] = useState(false)
 
-  const handleSubmit: AuthFormSubmitHandler = async (e) => {
-    e.preventDefault()
-    setErrors({})
+  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<LoginFormData>({
+    resolver: zodResolver(LoginFormSchema),
+  })
+
+  async function onSubmit(data: LoginFormData) {
     setServerError(null)
-
-    const parsed = LoginFormSchema.safeParse({ email, password })
-    if (!parsed.success) {
-      const fieldErrors: AuthFieldErrors = {}
-      for (const issue of parsed.error.issues) {
-        const key = String(issue.path[0])
-        if (!fieldErrors[key]) fieldErrors[key] = issue.message
-      }
-      setErrors(fieldErrors)
-      return
-    }
-
-    setSubmitting(true)
-    const result = await signIn(parsed.data.email, parsed.data.password)
-    setSubmitting(false)
+    const result = await signIn(data.email, data.password)
     if (result.ok) {
-      navigate('/app/trips', { replace: true })
+      navigate(from, { replace: true })
     } else {
       setServerError(result.error ?? 'Ismeretlen hiba.')
     }
@@ -53,33 +42,29 @@ export default function LoginPage() {
 
         {serverError && <InlineError message={serverError} />}
 
-        <form onSubmit={handleSubmit} className="space-y-4" noValidate>
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" noValidate>
           <AuthFormField
-            id="email"
             label="Email"
             type="email"
             autoComplete="email"
-            value={email}
-            onChange={setEmail}
-            error={errors.email}
-            disabled={submitting}
+            registration={register('email')}
+            error={errors.email?.message}
+            disabled={isSubmitting}
           />
           <AuthFormField
-            id="password"
             label="Jelszo"
             type="password"
             autoComplete="current-password"
-            value={password}
-            onChange={setPassword}
-            error={errors.password}
-            disabled={submitting}
+            registration={register('password')}
+            error={errors.password?.message}
+            disabled={isSubmitting}
           />
           <Button
             type="submit"
-            disabled={submitting}
+            disabled={isSubmitting}
             className="w-full h-10"
           >
-            {submitting ? 'Bejelentkezes...' : 'Bejelentkezes'}
+            {isSubmitting ? 'Bejelentkezes...' : 'Bejelentkezes'}
           </Button>
         </form>
 

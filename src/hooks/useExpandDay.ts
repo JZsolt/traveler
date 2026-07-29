@@ -5,9 +5,12 @@ import { DEFAULT_AI_MODEL, API } from '@/lib/constants'
 import { TripSchema } from '@/schemas/trip'
 import { formatZodError } from '@/schemas/errors'
 import { ExpandDayEnvelopeSchema, ChatErrorEnvelopeSchema } from '@/schemas/ai'
+import { useAuth } from '@/hooks/useAuth'
 import type { ExpandDayProps, ExpandDayReturn } from '@/types/hooks'
 
 export function useExpandDay({ trip, slug, refetch }: ExpandDayProps): ExpandDayReturn {
+  const { user } = useAuth()
+  const userId = user?.id ?? null
   const [expandingDay, setExpandingDay] = useState<number | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [prompts, setPrompts] = useState<Record<number, string>>({})
@@ -90,6 +93,10 @@ export function useExpandDay({ trip, slug, refetch }: ExpandDayProps): ExpandDay
         setError('Supabase nincs konfigurálva.')
         return
       }
+      if (!userId) {
+        setError('Bejelentkezes szukseges.')
+        return
+      }
 
       const validated = TripSchema.safeParse(updatedTripData)
       if (!validated.success) {
@@ -97,13 +104,20 @@ export function useExpandDay({ trip, slug, refetch }: ExpandDayProps): ExpandDay
         return
       }
 
-      const { error: updateError } = await supabase
+      const { data: updated, error: updateError } = await supabase
         .from('trips')
         .update({ trip_data: validated.data })
         .eq('slug', slug)
+        .eq('owner_id', userId)
+        .select('id')
+        .maybeSingle()
 
       if (updateError) {
         setError(friendlyError(updateError))
+        return
+      }
+      if (!updated) {
+        setError('Az utazas nem talalhato vagy nincs jogosultsagod modositani.')
         return
       }
 

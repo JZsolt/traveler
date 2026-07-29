@@ -6,9 +6,12 @@ import { ensureUniqueSlug } from '@/lib/ensureUniqueSlug'
 import { toSlug } from '@/lib/createTripHelpers'
 import { TripSchema } from '@/schemas/trip'
 import { formatZodError } from '@/schemas/errors'
+import { useAuth } from '@/hooks/useAuth'
 import type { EditTripProps, EditTripReturn, EditTripForm } from '@/types/hooks'
 
 export function useEditTrip({ trip, slug, refetch, navigate }: EditTripProps): EditTripReturn {
+  const { user } = useAuth()
+  const userId = user?.id ?? null
   const initialForm = useMemo<EditTripForm>(() => ({
     title: trip.title || '',
     startDate: trip.startDate || '',
@@ -38,7 +41,12 @@ export function useEditTrip({ trip, slug, refetch, navigate }: EditTripProps): E
         return
       }
 
-      const newSlug = await ensureUniqueSlug(baseSlug, slug)
+      if (!userId) {
+        setError('Bejelentkezes szukseges.')
+        return
+      }
+
+      const newSlug = await ensureUniqueSlug(baseSlug, slug, userId)
 
       const updatedTripData = {
         ...trip,
@@ -57,18 +65,25 @@ export function useEditTrip({ trip, slug, refetch, navigate }: EditTripProps): E
         return
       }
 
-      const { error: updateError } = await supabase
+      const { data, error: updateError } = await supabase
         .from('trips')
         .update({ slug: newSlug, trip_data: validated.data })
         .eq('slug', slug)
+        .eq('owner_id', userId)
+        .select('id')
+        .maybeSingle()
 
       if (updateError) {
         setError(friendlyError(updateError))
         return
       }
+      if (!data) {
+        setError('Az utazas nem talalhato vagy nincs jogosultsagod modositani.')
+        return
+      }
 
       await refetch()
-      navigate(`/trip/${newSlug}`)
+      navigate(`/app/trips/${newSlug}`)
     } catch (err) {
       setError(friendlyError(err))
     } finally {

@@ -63,6 +63,15 @@ These rules apply to every implementation task.
 - Preserve shadcn semantic tokens, but do not add contradictory parallel token systems.
 - Do not add new design dependencies unless the current task explicitly allows it.
 
+## Client Libraries
+
+- Use React Hook Form for auth and other non-trivial forms once the form foundation task is complete.
+- Form validation must still use Zod schemas via resolver integration.
+- Use Axios for app-owned Vercel API calls after the API client foundation task is complete.
+- Do not replace Supabase client calls with Axios.
+- Use TanStack Query for server-state caching after the query provider foundation task is complete.
+- Query keys, mutation invalidation, and cache clearing must be explicit and typed.
+
 ## Code Quality
 
 - Write clean, readable code.
@@ -109,7 +118,7 @@ These rules apply to every implementation task.
 - Before starting a major new phase, verify clean install: `rm -rf node_modules && pnpm install --frozen-lockfile`.
 - Schema and normalizer tests must pass (`pnpm run test:run`) — they guard runtime validation boundaries.
 - New schemas or normalizer changes should include corresponding tests in `src/schemas/__tests__/` or `src/lib/__tests__/`.
-- Design-system foundation (Phase 15, legacy `11-design-system-foundation.md`) is now unblocked and is the current phase.
+- Read-only trip sharing (Phase 16) is the next planned phase after completed auth ownership.
 
 ## Build Log Hygiene
 

@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Utazasaim Design Lab - Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="assets/utazasaim-logo.svg">
+<link rel="stylesheet" href="css/app.css">
+<style>
+  body{background:#f3f5f7;}
+  .lab-shell{max-width:1180px;margin:0 auto;padding:44px 24px 72px;}
+  .lab-nav{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:32px;}
+  .lab-brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink);}
+  .lab-brand__mark{width:42px;height:42px;border-radius:14px;background:var(--primary);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 20px rgba(255,122,0,.28);overflow:hidden;}
+  .lab-brand__mark img{width:32px;height:32px;object-fit:contain;filter:brightness(0) invert(1);}
+  .lab-brand__title{font-size:20px;font-weight:800;letter-spacing:-.02em;}
+  .lab-brand__sub{font-size:13px;color:var(--muted);margin-top:2px;}
+  .lab-links{display:flex;gap:10px;flex-wrap:wrap;}
+  .lab-link{height:38px;padding:0 14px;border-radius:999px;background:#fff;border:1px solid var(--line-2);display:inline-flex;align-items:center;color:var(--ink-2);font-weight:700;font-size:13px;text-decoration:none;}
+  .lab-link.on{background:var(--ink);color:#fff;border-color:var(--ink);}
+  .lab-hero{display:grid;grid-template-columns:1.1fr .9fr;gap:26px;align-items:end;margin-bottom:34px;}
+  .lab-hero h1{font-size:48px;line-height:1.02;letter-spacing:-.04em;margin:0;color:var(--ink);}
+  .lab-hero p{font-size:17px;line-height:1.55;color:var(--muted);margin:14px 0 0;max-width:620px;}
+  .lab-status{background:#fff;border:1px solid var(--line);border-radius:22px;padding:18px;box-shadow:var(--shadow-sm);}
+  .lab-status h2{font-size:16px;margin:0 0 12px;}
+  .lab-status ul{margin:0;padding-left:18px;color:var(--muted);font-size:14px;line-height:1.7;}
+  .lab-grid{display:grid;grid-template-columns:260px 1fr;gap:24px;align-items:start;}
+  .lab-toc{position:sticky;top:18px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:10px;box-shadow:var(--shadow-sm);}
+  .lab-toc a{display:block;padding:10px 12px;border-radius:12px;color:var(--ink-2);font-size:14px;font-weight:700;text-decoration:none;}
+  .lab-toc a:hover{background:var(--surface-2);}
+  .lab-sections{display:flex;flex-direction:column;gap:18px;}
+  .lab-section{background:#fff;border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:var(--shadow-sm);}
+  .lab-section__head{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:18px;}
+  .lab-section__head h2{font-size:22px;letter-spacing:-.02em;margin:0;}
+  .lab-section__head p{font-size:14px;color:var(--muted);margin:5px 0 0;}
+  .token-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+  .token{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--surface);}
+  .token__swatch{height:76px;}
+  .token__body{padding:12px;}
+  .token__name{font-weight:800;font-size:14px;}
+  .token__value{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted);font-size:12px;margin-top:3px;}
+  .type-stack{display:grid;gap:12px;}
+  .sample-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;}
+  .component-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+  .spec-card{border:1px solid var(--line);border-radius:18px;padding:16px;background:var(--surface);}
+  .spec-card h3{font-size:16px;margin:0 0 10px;}
+  .phone-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;}
+  .mini-phone{border:1px solid var(--line);border-radius:20px;overflow:hidden;background:var(--surface);}
+  .mini-phone iframe{width:100%;height:460px;border:0;display:block;background:#eef1f4;}
+  .do-dont{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+  .rule-list{margin:0;padding-left:18px;color:var(--muted);font-size:14px;line-height:1.7;}
+  @media(max-width:900px){
+    .lab-hero,.lab-grid{grid-template-columns:1fr;}
+    .lab-toc{position:static;}
+    .token-grid,.component-grid,.phone-row,.do-dont{grid-template-columns:1fr;}
+    .lab-hero h1{font-size:36px;}
+  }
+</style>
+</head>
+<body>
+<main class="lab-shell">
+  <nav class="lab-nav">
+    <a class="lab-brand" href="index.html">
+      <span class="lab-brand__mark"><img src="assets/utazasaim-logo.svg" alt=""></span>
+      <span><span class="lab-brand__title">Utazasaim Design Lab</span><span class="lab-brand__sub">Mobil app UI prototipus</span></span>
+    </a>
+    <div class="lab-links">
+      <a class="lab-link" href="index.html">Attekintes</a><a class="lab-link on" href="design-system.html">Design system</a><a class="lab-link" href="dashboard.html">Dashboard</a><a class="lab-link" href="create-trip.html">Uj utazas</a>
+    </div>
+  </nav>
+
+  <section class="lab-hero">
+    <div>
+      <p class="eyebrow">Prototype foundation</p>
+      <h1>Utazasra hangolt, mobil-first UI rendszer.</h1>
+      <p>Ez a lab a tokeneket, alapelemeket es kritikus utazastervezo mintakat egy helyen tartja, hogy a production React komponensekhez legyen vizualis referencia.</p>
+    </div>
+    <aside class="lab-status">
+      <h2>Aktualis irany</h2>
+      <ul>
+        <li>Primer szin: sunset orange, eros CTA-kon.</li>
+        <li>Feher feluletek, finom hatarvonal, keves dekoracio.</li>
+        <li>Mobil workflow: landing, auth, sajat utak, utazas letrehozasa.</li>
+      </ul>
+    </aside>
+  </section>
+
+  <div class="lab-grid">
+    <aside class="lab-toc">
+      <a href="#tokens">Tokenek</a>
+      <a href="#typography">Tipografia</a>
+      <a href="#actions">Akciok</a>
+      <a href="#inputs">Inputok</a>
+      <a href="#trip">Trip mintak</a>
+      <a href="#states">Allapotok</a>
+      <a href="#screens">Screen referencia</a>
+      <a href="#rules">Szabalyok</a>
+    </aside>
+
+    <div class="lab-sections">
+      <section class="lab-section" id="tokens">
+        <div class="lab-section__head">
+          <div><h2>Tokenek</h2><p>A statikus prototype tokenjei. React/Tailwind atemelesnel theme tokenkent erdemes kezelni oket.</p></div>
+        </div>
+        <div class="token-grid">
+          <div class="token"><div class="token__swatch" style="background:var(--primary);"></div><div class="token__body"><div class="token__name">primary</div><div class="token__value">#FF7A00</div></div></div>
+          <div class="token"><div class="token__swatch" style="background:var(--cyan);"></div><div class="token__body"><div class="token__name">cyan</div><div class="token__value">#22D3EE</div></div></div>
+          <div class="token"><div class="token__swatch" style="background:var(--green);"></div><div class="token__body"><div class="token__name">green</div><div class="token__value">#10B981</div></div></div>
+          <div class="token"><div class="token__swatch" style="background:var(--purple);"></div><div class="token__body"><div class="token__name">purple</div><div class="token__value">#8B5CF6</div></div></div>
+          <div class="token"><div class="token__swatch" style="background:var(--ink);"></div><div class="token__body"><div class="token__name">ink</div><div class="token__value">#0F172A</div></div></div>
+          <div class="token"><div class="token__swatch" style="background:var(--muted);"></div><div class="token__body"><div class="token__name">muted</div><div class="token__value">#64748B</div></div></div>
+          <div class="token"><div class="token__swatch" style="background:var(--surface-2);"></div><div class="token__body"><div class="token__name">surface-2</div><div class="token__value">#F5F7F9</div></div></div>
+          <div class="token"><div class="token__swatch" style="background:var(--line-2);"></div><div class="token__body"><div class="token__name">line-2</div><div class="token__value">#E3E7EB</div></div></div>
+        </div>
+      </section>
+
+      <section class="lab-section" id="typography">
+        <div class="lab-section__head">
+          <div><h2>Tipografia</h2><p>Hero meret csak teljes kepernyos marketing vagy onboarding helyzetben.</p></div>
+        </div>
+        <div class="type-stack">
+          <p class="h1">H1 - Utazastervezes csaladnak</p>
+          <p class="h2">H2 - Mai programok</p>
+          <p class="h3">H3 - Pragai varnegyed seta</p>
+          <p class="lead">Lead - Rovid, kontextust ado szoveg, amely nem magyarazza tul a feluletet.</p>
+          <p class="small">Small - masodlagos meta, idopont, tavolsag vagy foglalasi megjegyzes.</p>
+        </div>
+      </section>
+
+      <section class="lab-section" id="actions">
+        <div class="lab-section__head">
+          <div><h2>Akciok</h2><p>Primer akcio egy screenen csak ott legyen, ahol egyertelmu a kovetkezo lepes.</p></div>
+        </div>
+        <div class="sample-row">
+          <button class="btn btn--primary" style="width:auto;padding:0 22px;">Utazas tervezese</button>
+          <button class="btn btn--secondary" style="width:auto;padding:0 22px;">Megse</button>
+          <button class="btn btn--glass" style="width:auto;padding:0 22px;background:var(--ink);">Demo megnyitasa</button>
+          <button class="chip chip--active">Osszes</button>
+          <button class="chip">Kovetkezo</button>
+          <span class="status status--upcoming"><span class="dot"></span>Kovetkezo ut</span>
+        </div>
+      </section>
+
+      <section class="lab-section" id="inputs">
+        <div class="lab-section__head">
+          <div><h2>Inputok</h2><p>A wizard es auth feluletek inputjai nagy touch targettel dolgoznak.</p></div>
+        </div>
+        <div class="component-grid">
+          <div class="spec-card">
+            <h3>Kereses</h3>
+            <div class="input-wrap">
+              <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8"/><path d="m20 20-3.2-3.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+              <input class="input" type="search" placeholder="Keress utazast vagy varost">
+            </div>
+          </div>
+          <div class="spec-card">
+            <h3>Segment control</h3>
+            <div class="segment">
+              <button class="on">Kompakt</button>
+              <button>Reszletes</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="lab-section" id="trip">
+        <div class="lab-section__head">
+          <div><h2>Trip mintak</h2><p>Utazas-specifikus mintak, amelyeket kesobb React komponensekre kell bontani.</p></div>
+        </div>
+        <div class="component-grid">
+          <div class="spec-card">
+            <h3>Itinerary sor</h3>
+            <div class="row between" style="padding:12px 0;border-bottom:1px solid var(--line);">
+              <div><div style="font-weight:800;">09:30 Varnegyed</div><div class="small">Gyalogos seta, gyerekbarat tempo</div></div>
+              <span class="status status--done"><span class="dot"></span>Fix</span>
+            </div>
+            <div class="row between" style="padding:12px 0;">
+              <div><div style="font-weight:800;">12:15 Ebed</div><div class="small">Etterem ajanlas ratinggel</div></div>
+              <span class="status status--progress"><span class="dot"></span>Opcio</span>
+            </div>
+          </div>
+          <div class="spec-card">
+            <h3>Budget osszegzes</h3>
+            <div class="budget-val"><b>€1 240</b><span>osszesen</span></div>
+            <div class="row between"><span class="small">Szallas</span><b>€620</b></div>
+            <div class="row between mt8"><span class="small">Etkezes</span><b>€310</b></div>
+            <div class="row between mt8"><span class="small">Programok</span><b>€180</b></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="lab-section" id="states">
+        <div class="lab-section__head">
+          <div><h2>Allapotok</h2><p>Az ures, betoltesi es hibaallapotoknak hasznos kovetkezo lepest kell adniuk.</p></div>
+        </div>
+        <div class="do-dont">
+          <div class="spec-card">
+            <h3>Ures allapot</h3>
+            <p class="lead">Meg nincs utazasod.</p>
+            <button class="btn btn--primary mt16">Elso utazas letrehozasa</button>
+          </div>
+          <div class="spec-card">
+            <h3>Inline hiba</h3>
+            <p class="lead">Nem sikerult betolteni az utazast.</p>
+            <button class="btn btn--secondary mt16">Ujraprobalas</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="lab-section" id="screens">
+        <div class="lab-section__head">
+          <div><h2>Screen referencia</h2><p>A teljes workflow screenek tovabbra is kulon HTML fajlokban elnek.</p></div>
+        </div>
+        <div class="phone-row">
+          <div class="mini-phone"><iframe src="dashboard.html" title="Sajat utak"></iframe></div>
+          <div class="mini-phone"><iframe src="create-trip.html" title="Uj utazas"></iframe></div>
+        </div>
+      </section>
+
+      <section class="lab-section" id="rules">
+        <div class="lab-section__head">
+          <div><h2>Szabalyok</h2><p>Ezek alapjan erdemes a production design systembe atemelni.</p></div>
+        </div>
+        <div class="do-dont">
+          <div class="spec-card">
+            <h3>Legyen</h3>
+            <ul class="rule-list">
+              <li>Mobil workflowbol induljon a komponens.</li>
+              <li>CTA-k legyenek egyertelmuek es ritkak.</li>
+              <li>Trip kartyaknal legyen eros helyszin es statusz jel.</li>
+            </ul>
+          </div>
+          <div class="spec-card">
+            <h3>Keruld</h3>
+            <ul class="rule-list">
+              <li>Marketing jellegu kartyahalmazt operativ nezetekben.</li>
+              <li>Inline stilus atemeleset React komponensbe.</li>
+              <li>Angol termekszoveget a vegleges appban.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</main>
+</body>
+</html>
