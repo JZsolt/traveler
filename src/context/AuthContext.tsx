@@ -2,10 +2,39 @@ import { useState, useEffect, useCallback, useRef } from 'react'
 import { AuthContext } from './authContextValue'
 import { supabase } from '@/lib/supabase'
 import { queryClient } from '@/lib/queryClient'
-import { toAppUser, mapAuthError } from '@/lib/authErrors'
+import { toAppUser, mapAuthError, mapProfileError } from '@/lib/authErrors'
 import { ProfileSchema } from '@/schemas/auth'
 import type { AuthUser } from '@supabase/supabase-js'
 import type { AppUser, Profile, AuthResult, AuthProviderProps } from '@/types/auth'
+
+async function createMissingProfile(userId: string, displayName: string | null): Promise<Profile> {
+  if (!supabase) throw new Error('Supabase nincs konfigurálva.')
+
+  const { data, error } = await supabase
+    .from('profiles')
+    .insert({ id: userId, display_name: displayName })
+    .select('*')
+    .maybeSingle()
+
+  if (!error) {
+    const parsed = ProfileSchema.safeParse(data)
+    if (parsed.success) return parsed.data
+    throw new Error('A letrehozott profil adatok ervenytelenek.')
+  }
+
+  const { data: existing, error: readError } = await supabase
+    .from('profiles')
+    .select('*')
+    .eq('id', userId)
+    .maybeSingle()
+
+  const parsed = ProfileSchema.safeParse(existing)
+  if (parsed.success) return parsed.data
+
+  // A nyers PostgREST hiba objektumot dobjuk tovabb (code-ot hordoz) — a
+  // mapProfileError kategorizal, nyers angol uzenet nem jut user-facing state-be.
+  throw readError ?? error
+}
 
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<AppUser | null>(null)
@@ -13,48 +42,77 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [profileError, setProfileError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(!!supabase)
   const mountedRef = useRef(true)
+  const inFlightProfileRef = useRef<{ userId: string; promise: Promise<void> } | null>(null)
 
   const clearAuthState = useCallback(() => {
+    inFlightProfileRef.current = null
     setUser(null)
     setProfile(null)
     setProfileError(null)
   }, [])
 
-  const fetchProfile = useCallback(async (userId: string) => {
-    if (!supabase) return
-    const { data, error } = await supabase
-      .from('profiles')
-      .select('*')
-      .eq('id', userId)
-      .single()
-    if (!mountedRef.current) return
-    if (error) {
-      setProfileError('A profil betoltese sikertelen.')
-      setProfile(null)
-      return
-    }
-    const parsed = ProfileSchema.safeParse(data)
-    if (parsed.success) {
-      setProfile(parsed.data)
-      setProfileError(null)
-    } else {
-      setProfile(null)
-      setProfileError('A profil adatok ervenytelenek.')
-    }
+  // Idempotens: ha ugyanarra a userId-ra mar fut egy fetch (pl. az
+  // onAuthStateChange INITIAL_SESSION es a getSession fallback egyszerre indit),
+  // a mar futo promise-t adjuk vissza — nincs duplikalt profil request.
+  const fetchProfile = useCallback((authUser: AuthUser): Promise<void> => {
+    if (!supabase) return Promise.resolve()
+    const inFlight = inFlightProfileRef.current
+    if (inFlight && inFlight.userId === authUser.id) return inFlight.promise
+
+    const client = supabase
+    const displayName = typeof authUser.user_metadata.display_name === 'string'
+      ? authUser.user_metadata.display_name
+      : null
+
+    const promise = (async () => {
+      try {
+        const { data, error } = await client
+          .from('profiles')
+          .select('*')
+          .eq('id', authUser.id)
+          .maybeSingle()
+        if (!mountedRef.current) return
+        if (error) throw error
+
+        const profileData: unknown = data ?? await createMissingProfile(authUser.id, displayName)
+        if (!mountedRef.current) return
+
+        const parsed = ProfileSchema.safeParse(profileData)
+        if (!parsed.success) {
+          throw new Error('A profil adatok ervenytelenek.')
+        }
+
+        setProfile(parsed.data)
+        setProfileError(null)
+      } catch (err) {
+        if (!mountedRef.current) return
+        if (import.meta.env.DEV) console.error('Profil betoltesi hiba:', err)
+        setProfile(null)
+        setProfileError(mapProfileError(err))
+      } finally {
+        inFlightProfileRef.current = null
+      }
+    })()
+
+    inFlightProfileRef.current = { userId: authUser.id, promise }
+    return promise
   }, [])
 
   const refreshProfile = useCallback(async () => {
-    if (user) await fetchProfile(user.id)
+    if (!supabase || !user) return
+    const { data: { user: authUser } } = await supabase.auth.getUser()
+    if (authUser) await fetchProfile(authUser)
   }, [user, fetchProfile])
 
   const applySession = useCallback(async (authUser: AuthUser) => {
     const appUser = toAppUser(authUser)
     if (appUser) {
       setUser(appUser)
-      await fetchProfile(appUser.id)
+      await fetchProfile(authUser)
     } else {
       clearAuthState()
     }
+    setIsLoading(false)
   }, [fetchProfile, clearAuthState])
 
   useEffect(() => {
@@ -63,17 +121,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
     const client = supabase
 
-    const initSession = async () => {
-      const { data: { session } } = await client.auth.getSession()
-      if (!mountedRef.current) return
-      if (session?.user) {
-        await applySession(session.user)
-      }
-      setIsLoading(false)
-    }
-
-    void initSession()
-
     const { data: { subscription } } = client.auth.onAuthStateChange(
       async (_event, session) => {
         if (!mountedRef.current) return
@@ -81,9 +128,28 @@ export function AuthProvider({ children }: AuthProviderProps) {
           await applySession(session.user)
         } else {
           clearAuthState()
+          setIsLoading(false)
         }
       },
     )
+
+    // Fallback: nem minden runtime kuld initial session eventet az
+    // onAuthStateChange-en keresztul. A getSession garantalja, hogy az
+    // isLoading feloldodjon; a fetchProfile in-flight dedup miatt ez nem
+    // okoz duplikalt profil requestet az INITIAL_SESSION event mellett.
+    client.auth.getSession()
+      .then(({ data: { session } }) => {
+        if (!mountedRef.current) return
+        if (session?.user) {
+          void applySession(session.user)
+        } else {
+          clearAuthState()
+          setIsLoading(false)
+        }
+      })
+      .catch(() => {
+        if (mountedRef.current) setIsLoading(false)
+      })
 
     return () => {
       mountedRef.current = false

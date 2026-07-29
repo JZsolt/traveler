@@ -164,7 +164,7 @@ export function useCreateTripChat({ form, aiModel, refetch, chatEndRef }: Create
         return
       }
 
-      const slug = await ensureUniqueSlug(baseSlug)
+      const slug = await ensureUniqueSlug(baseSlug, null, user.id)
       tripData.slug = slug
 
       const validated = TripImportDataSchema.safeParse(tripData)

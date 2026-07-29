@@ -42,7 +42,7 @@ export function useImportTripJson({ refetch, navigate }: ImportTripJsonProps): I
       setImporting(true)
       try {
         const baseSlug = normalizedTrip.slug || toSlug(normalizedTrip.title)
-        const slug = await ensureUniqueSlug(baseSlug)
+        const slug = await ensureUniqueSlug(baseSlug, null, user.id)
         const { error: insertError } = await supabase
           .from('trips')
           .insert({ slug, trip_data: { ...normalizedTrip, slug }, owner_id: user.id })

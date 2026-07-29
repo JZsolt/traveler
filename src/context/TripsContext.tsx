@@ -52,6 +52,7 @@ export function TripsProvider({ children }: TripsProviderProps) {
       const { data, error: fetchError } = await supabase
         .from('trips')
         .select('trip_data')
+        .eq('owner_id', userId)
         .order('created_at', { ascending: false })
 
       if (fetchError) throw fetchError
