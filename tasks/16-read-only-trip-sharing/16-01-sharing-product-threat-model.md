@@ -1,4 +1,4 @@
-# 16-01 — Sharing Product And Threat Model
+# 16-01 — Sharing Product And Threat Model ✅ DONE
 
 **Estimate:** 1-2 hours
 
@@ -17,13 +17,17 @@ Document the public sharing behavior and security boundary before building it.
 
 ## Acceptance Criteria
 
-- Sharing spec exists under `docs/architecture/` or `docs/product/`.
+- Sharing spec exists under `docs/architecture/` or `docs/product/`. ✅
 - Threat model covers token guessing, revoked tokens, owner spoofing, and data
-  projection leaks.
-- Decision is explicit: no public `trips` table read policy.
+  projection leaks. ✅
+- Decision is explicit: no public `trips` table read policy. ✅
 
 ## Review Checklist
 
-- [ ] Public token possession grants only read-only view.
-- [ ] Share does not bypass ownership for management actions.
-- [ ] Projection fields are defined before endpoint work.
+- [x] Public token possession grants only read-only view.
+- [x] Share does not bypass ownership for management actions.
+- [x] Projection fields are defined before endpoint work.
+
+## Output
+
+- `docs/architecture/SHARING_SPEC.md`
