@@ -66,6 +66,9 @@ describe('ProfileSchema', () => {
     id: '550e8400-e29b-41d4-a716-446655440000',
     display_name: 'Test User',
     avatar_url: null,
+    public_share_id: null,
+    profile_share_enabled: false,
+    profile_share_rotated_at: null,
     created_at: '2026-01-01T00:00:00.000Z',
     updated_at: '2026-01-01T00:00:00.000Z',
   }
@@ -76,6 +79,22 @@ describe('ProfileSchema', () => {
 
   it('accepts null display_name', () => {
     expect(ProfileSchema.safeParse({ ...validProfile, display_name: null }).success).toBe(true)
+  })
+
+  it('defaults profile QR sharing fields for older profile rows', () => {
+    const {
+      public_share_id: _publicShareId,
+      profile_share_enabled: _enabled,
+      profile_share_rotated_at: _rotatedAt,
+      ...legacyProfile
+    } = validProfile
+    const result = ProfileSchema.safeParse(legacyProfile)
+    expect(result.success).toBe(true)
+    if (result.success) {
+      expect(result.data.public_share_id).toBe(null)
+      expect(result.data.profile_share_enabled).toBe(false)
+      expect(result.data.profile_share_rotated_at).toBe(null)
+    }
   })
 
   it('rejects invalid datetime', () => {

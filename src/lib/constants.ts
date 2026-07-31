@@ -11,6 +11,8 @@ export const ROUTES = {
   TRIP: '/app/trips/:slug',
   CREATE_TRIP: '/app/trips/new',
   EDIT_TRIP: '/app/trips/:slug/edit',
+  SHARED_TRIP: '/app/shared/:inviteId',
+  PROFILE_SHARE: '/app/profile-share/:publicShareId',
   SETTINGS: '/app/settings',
   ADMIN_BACKUP: '/app/internal/backup',
   LOGIN: '/login',
@@ -28,12 +30,24 @@ export const API = {
   CHAT: '/api/chat',
   PLAN_TRIP: '/api/plan-trip',
   SHARED_TRIP: '/api/shared-trip',
-  CREATE_TRIP_SHARE: '/api/create-trip-share',
+  TRIP_SHARE_MANAGEMENT: '/api/trip-share-management',
+  TRIP_RECIPIENTS: '/api/trip-recipients',
+  SHARED_WITH_ME: '/api/shared-with-me',
+  PROFILE_SHARE_MANAGEMENT: '/api/profile-share-management',
+  SEND_TRIP_INVITE_EMAIL: '/api/send-trip-invite-email',
 } as const
 
 
 export function tripRoute(slug: string): string {
   return `/app/trips/${slug}`
+}
+
+export function sharedTripRoute(inviteId: string): string {
+  return `/app/shared/${inviteId}`
+}
+
+export function profileShareRoute(publicShareId: string): string {
+  return `/app/profile-share/${publicShareId}`
 }
 
 export function editTripRoute(slug: string): string {
@@ -42,4 +56,8 @@ export function editTripRoute(slug: string): string {
 
 export function shareLinkUrl(token: string): string {
   return `${window.location.origin}/share/${token}`
+}
+
+export function profileShareUrl(publicShareId: string): string {
+  return `${window.location.origin}${profileShareRoute(publicShareId)}`
 }

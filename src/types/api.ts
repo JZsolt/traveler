@@ -1,13 +1,17 @@
 import type { Trip, Day } from './trip'
 import type { z } from 'zod'
 import type {
-  CreateTripShareRequestSchema,
-  CreateTripShareResponseSchema,
   PublicTripSchema,
   PublicDaySchema,
   SharedTripRequestSchema,
   PublicSharedTripResponseSchema,
   ActiveShareSchema,
+  TripShareManagementRequestSchema,
+  ManagedShareSchema,
+  TripShareManagementResponseSchema,
+  PendingInviteSchema,
+  SharedWithMeTripSchema,
+  SharedWithMeResponseSchema,
 } from '../schemas/sharing'
 
 // --- AI suggestion endpoint ---
@@ -123,13 +127,17 @@ export interface ImportResult {
 
 // --- Sharing ---
 
-export type CreateTripShareRequest = z.infer<typeof CreateTripShareRequestSchema>
-export type CreateTripShareResponse = z.infer<typeof CreateTripShareResponseSchema>
+export type TripShareManagementRequest = z.infer<typeof TripShareManagementRequestSchema>
+export type TripShareManagementResponse = z.infer<typeof TripShareManagementResponseSchema>
+export type ManagedShare = z.infer<typeof ManagedShareSchema>
 export type PublicTrip = z.infer<typeof PublicTripSchema>
 export type PublicDay = z.infer<typeof PublicDaySchema>
 export type SharedTripRequest = z.infer<typeof SharedTripRequestSchema>
 export type PublicSharedTripResponse = z.infer<typeof PublicSharedTripResponseSchema>
 export type ActiveShare = z.infer<typeof ActiveShareSchema>
+export type PendingInvite = z.infer<typeof PendingInviteSchema>
+export type SharedWithMeTrip = z.infer<typeof SharedWithMeTripSchema>
+export type SharedWithMeResponse = z.infer<typeof SharedWithMeResponseSchema>
 
 // --- Admin ---
 

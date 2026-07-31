@@ -8,22 +8,6 @@ import {
 } from './trip.js'
 import type { Trip } from '../types/trip'
 
-export const CreateTripShareRequestSchema = z.object({
-  tripId: z.string().uuid(),
-  expiresAt: z.string().datetime({ offset: true }).nullable().optional(),
-})
-
-export const CreateTripShareResponseSchema = z.object({
-  ok: z.literal(true),
-  share: z.object({
-    id: z.string().uuid(),
-    tripId: z.string().uuid(),
-    token: z.string().min(32),
-    createdAt: z.string().datetime({ offset: true }),
-    expiresAt: z.string().datetime({ offset: true }).nullable(),
-  }),
-})
-
 // --- Public trip projection ---
 //
 // A megosztott (anonim tokennel elerheto) trip publikus alakja. WHITELIST
@@ -106,9 +90,60 @@ export const PublicSharedTripResponseSchema = z.object({
   trip: PublicTripSchema,
 })
 
-// --- Owner-oldali share menedzsment (kliens boundary) ---
-// Az owner sajat (RLS-vedett) trip_shares soraibol CSAK metaadat jon vissza —
-// a nyers token soha (az kizarolag hash-kent letezik az adatbazisban).
+// --- Shared-with-me (recipient) ---
+// Fuggo meghivas minimal teaser-e: EPP annyi, hogy a recipient eldonthesse az
+// elfogadast (nincs teljes itinerary/schedule/szallas — az csak elfogadas utan,
+// PublicTrip-kent). Az inviteId az accept/decline-hoz kell.
+export const PendingInviteSchema = z.object({
+  inviteId: z.string().uuid(),
+  title: z.string(),
+  emoji: z.string(),
+  subtitle: z.string(),
+  destination: z.string().optional(),
+})
+
+export const SharedWithMeTripSchema = z.object({
+  inviteId: z.string().uuid(),
+  trip: PublicTripSchema,
+})
+
+export const SharedWithMeResponseSchema = z.object({
+  ok: z.literal(true),
+  sharedTrips: z.array(SharedWithMeTripSchema),
+  pendingInvites: z.array(PendingInviteSchema),
+  // Elfogadott/fuggo megosztasok, amelyek trip_data-ja ervenytelen/hianyzik es
+  // nem projektalhato. NEM nemitjuk el: a dashboard jelezheti, hogy N elem
+  // jelenleg nem elerheto (a hozzaferes a DB-ben tovabbra is fennall).
+  unavailableCount: z.number().int().nonnegative(),
+})
+
+// --- Owner-oldali share menedzsment endpoint ---
+// A kliens az owner-verified /api/trip-share-management endpointon at kezel
+// mindent (get/create/regenerate/revoke). Nincs tobbe kliens-oldali trip_shares
+// mutacio. A token DEKODOLASA kizarolag ezen a szerver-endpointon tortenik.
+export const TripShareManagementRequestSchema = z.object({
+  slug: z.string().min(1),
+  action: z.enum(['get', 'create', 'regenerate', 'revoke']),
+  expiresAt: z.string().datetime({ offset: true }).nullable().optional(),
+})
+
+// A "get" a visszafejtett tokent adja, ha a share re-displayelheto; legacy
+// (Phase-16, ciphertext nelkuli) share-nel token = null. Nincs token_hash / DB
+// belso a valaszban.
+export const ManagedShareSchema = z.object({
+  id: z.string().uuid(),
+  token: z.string().min(32).nullable(),
+  createdAt: z.string().datetime({ offset: true }),
+  expiresAt: z.string().datetime({ offset: true }).nullable(),
+})
+
+export const TripShareManagementResponseSchema = z.object({
+  ok: z.literal(true),
+  share: ManagedShareSchema.nullable(),
+  revoked: z.boolean().optional(),
+})
+
+// Az owner sajat (RLS-vedett) trip_shares soranak metaadata (kliens allapothoz).
 export const ActiveShareSchema = z.object({
   id: z.string().uuid(),
   created_at: z.string().datetime({ offset: true }),

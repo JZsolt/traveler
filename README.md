@@ -64,6 +64,10 @@ endpointokhoz Vercel runtime vagy deployolt környezet szükséges.
 | `SUPABASE_URL` | szerver/script | Supabase projekt URL |
 | `SUPABASE_SERVICE_ROLE_KEY` | szerver/script | Seed és szerveroldali admin műveletek |
 | `GEMINI_API_KEY` | szerver | Gemini API-hívások |
+| `SHARE_TOKEN_ENCRYPTION_KEY` | szerver | Public megosztási token AES-256-GCM kulcsa (base64, 32 byte: `openssl rand -base64 32`). Kell a link-létrehozáshoz; Vercel env-be is. |
+| `RESEND_API_KEY` | szerver | Resend API-kulcs email meghívók küldéséhez |
+| `INVITE_EMAIL_FROM` | szerver | Feladó cím email meghívókhoz, például `Az Utazasaim <noreply@example.com>` |
+| `APP_PUBLIC_URL` | szerver | Az éles app publikus originje email linkekhez, például `https://your-app.vercel.app` |
 | `ADMIN_PASSWORD` | szerver | Admin mód feloldása és backup/import védelem |
 | `GITHUB_TOKEN` | szerver | GitHub Contents API írás |
 | `GITHUB_REPO` | szerver | Backup célrepo, például `owner/repo` |
@@ -133,6 +137,7 @@ pnpm run validate:trips
 | `POST /api/backup-trips` | Supabase utazások mentése GitHubra |
 | `POST /api/import-trip-backup` | Egy backup importálása |
 | `POST /api/import-trip-backups` | Több backup importálása |
+| `POST /api/send-trip-invite-email` | Owner-ellenőrzött, rate-limitelt utazás meghívó email |
 
 Az AI és admin endpointok Vercel serverless funkciók.
 

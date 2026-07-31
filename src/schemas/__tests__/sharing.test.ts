@@ -1,72 +1,76 @@
 import { describe, expect, it } from 'vitest'
 import {
-  CreateTripShareRequestSchema,
-  CreateTripShareResponseSchema,
+  TripShareManagementRequestSchema,
+  TripShareManagementResponseSchema,
   PublicTripSchema,
   projectPublicTrip,
   SharedTripRequestSchema,
   PublicSharedTripResponseSchema,
+  SharedWithMeResponseSchema,
 } from '../sharing'
 import { TripSchema } from '../trip'
 import type { Trip } from '@/types/trip'
 
-const TRIP_ID = '550e8400-e29b-41d4-a716-446655440000'
 const SHARE_ID = '550e8400-e29b-41d4-a716-446655440001'
 const TOKEN = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
 
-describe('CreateTripShareRequestSchema', () => {
-  it('accepts a trip id with optional expiry', () => {
-    const result = CreateTripShareRequestSchema.safeParse({
-      tripId: TRIP_ID,
+describe('TripShareManagementRequestSchema', () => {
+  it('accepts a slug + action, with optional expiry', () => {
+    expect(TripShareManagementRequestSchema.safeParse({ slug: 'roma-2026', action: 'get' }).success).toBe(true)
+    expect(TripShareManagementRequestSchema.safeParse({
+      slug: 'roma-2026',
+      action: 'create',
       expiresAt: '2026-08-01T12:00:00.000Z',
-    })
-
-    expect(result.success).toBe(true)
+    }).success).toBe(true)
   })
 
-  it('rejects invalid ids and datetime values', () => {
-    expect(CreateTripShareRequestSchema.safeParse({ tripId: 'bad-id' }).success).toBe(false)
-    expect(CreateTripShareRequestSchema.safeParse({
-      tripId: TRIP_ID,
-      expiresAt: '2026-08-01',
-    }).success).toBe(false)
+  it('rejects an unknown action, empty slug, or bad datetime', () => {
+    expect(TripShareManagementRequestSchema.safeParse({ slug: 'x', action: 'delete' }).success).toBe(false)
+    expect(TripShareManagementRequestSchema.safeParse({ slug: '', action: 'get' }).success).toBe(false)
+    expect(TripShareManagementRequestSchema.safeParse({ slug: 'x', action: 'create', expiresAt: '2026-08-01' }).success).toBe(false)
   })
 })
 
-describe('CreateTripShareResponseSchema', () => {
-  it('accepts the one-time token response shape', () => {
-    const result = CreateTripShareResponseSchema.safeParse({
+describe('TripShareManagementResponseSchema', () => {
+  it('accepts an active re-displayable share (token present)', () => {
+    const result = TripShareManagementResponseSchema.safeParse({
       ok: true,
-      share: {
-        id: SHARE_ID,
-        tripId: TRIP_ID,
-        token: TOKEN,
-        createdAt: '2026-07-29T12:00:00+00:00',
-        expiresAt: null,
-      },
+      share: { id: SHARE_ID, token: TOKEN, createdAt: '2026-07-29T12:00:00+00:00', expiresAt: null },
     })
-
     expect(result.success).toBe(true)
   })
 
-  it('does not allow private trip fields in the response', () => {
-    const result = CreateTripShareResponseSchema.safeParse({
+  it('accepts a legacy active share with null token (not re-displayable)', () => {
+    const result = TripShareManagementResponseSchema.safeParse({
+      ok: true,
+      share: { id: SHARE_ID, token: null, createdAt: '2026-07-29T12:00:00+00:00', expiresAt: null },
+    })
+    expect(result.success).toBe(true)
+  })
+
+  it('accepts a revoke result (share null + revoked flag)', () => {
+    const result = TripShareManagementResponseSchema.safeParse({ ok: true, share: null, revoked: true })
+    expect(result.success).toBe(true)
+  })
+
+  it('strips DB internals and never exposes token_hash', () => {
+    const result = TripShareManagementResponseSchema.safeParse({
       ok: true,
       share: {
         id: SHARE_ID,
-        tripId: TRIP_ID,
         token: TOKEN,
         createdAt: '2026-07-29T12:00:00+00:00',
         expiresAt: null,
+        token_hash: 'deadbeef',
+        token_ciphertext: 'iv.tag.data',
         ownerId: '550e8400-e29b-41d4-a716-446655440002',
-        tripData: { title: 'Private' },
       },
     })
-
     expect(result.success).toBe(true)
-    if (result.success) {
+    if (result.success && result.data.share) {
+      expect('token_hash' in result.data.share).toBe(false)
+      expect('token_ciphertext' in result.data.share).toBe(false)
       expect('ownerId' in result.data.share).toBe(false)
-      expect('tripData' in result.data.share).toBe(false)
     }
   })
 })
@@ -194,5 +198,37 @@ describe('PublicSharedTripResponseSchema', () => {
       expect('insurance' in bad.data.trip).toBe(false)
       expect('tickets' in bad.data.trip.days[0]).toBe(false)
     }
+  })
+})
+
+describe('SharedWithMeResponseSchema', () => {
+  it('accepts accepted trips as invite-bound public trip wrappers', () => {
+    const publicTrip = projectPublicTrip(makeTrip())
+    const result = SharedWithMeResponseSchema.safeParse({
+      ok: true,
+      sharedTrips: [{ inviteId: SHARE_ID, trip: publicTrip }],
+      pendingInvites: [{
+        inviteId: '550e8400-e29b-41d4-a716-446655440099',
+        title: 'Fuggo Roma',
+        emoji: '🇮🇹',
+        subtitle: 'Meghivas',
+        destination: 'Roma',
+      }],
+      unavailableCount: 0,
+    })
+
+    expect(result.success).toBe(true)
+  })
+
+  it('rejects the old raw PublicTrip[] shape for accepted shared trips', () => {
+    const publicTrip = projectPublicTrip(makeTrip())
+    const result = SharedWithMeResponseSchema.safeParse({
+      ok: true,
+      sharedTrips: [publicTrip],
+      pendingInvites: [],
+      unavailableCount: 0,
+    })
+
+    expect(result.success).toBe(false)
   })
 })

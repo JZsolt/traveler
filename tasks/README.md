@@ -22,8 +22,9 @@ Always complete the phases in this order:
 14. ~~14-build-log-cleanup.md~~ ✅ (1 subtask)
 15. ~~11-design-system-foundation.md~~ ✅ (12 subtask — legacy filename)
 16. ~~15-authentication-user-ownership.md~~ ✅ (18 subtask)
-17. 16-read-only-trip-sharing.md (8 subtask — next phase)
+17. ~~16-read-only-trip-sharing.md~~ ✅ (8 subtask)
 18. 17-public-landing-demo.md (4 subtask)
+19. 18-sharing-v2-account-qr.md (11 subtask — planned)
 
 ## Workflow
 

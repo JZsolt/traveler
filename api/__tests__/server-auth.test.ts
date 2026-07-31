@@ -50,7 +50,7 @@ afterEach(() => {
   vi.restoreAllMocks()
 })
 
-// A megosztas owner-endpointjai (create-trip-share) ezen a kapun mennek at.
+// A megosztas owner-endpointjai (trip-share-management) ezen a kapun mennek at.
 // Ha ez elutasit, a hivo SOHA nem er el trip/ownership logikat — ez a hataroja
 // annak, hogy anonim/ervenytelen (es a puszta share-token birtokosa) nem kap
 // owner jogot.
