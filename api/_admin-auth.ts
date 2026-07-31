@@ -6,7 +6,7 @@ function getAuthToken(req: VercelRequest): string | null {
   const header = req.headers.authorization;
   if (typeof header !== 'string') return null;
   const parts = header.split(' ');
-  if (parts.length !== 2 || parts[0] !== 'Bearer') return null;
+  if (parts.length !== 2 || parts[0].toLowerCase() !== 'bearer') return null;
   return parts[1] || null;
 }
 

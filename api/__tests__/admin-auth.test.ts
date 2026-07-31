@@ -16,11 +16,12 @@ const ADMIN_TOKEN = 'valid-jwt-token'
 
 function mockReq(overrides: {
   token?: string | null
+  scheme?: string
   body?: unknown
 } = {}): VercelRequest {
   const headers: Record<string, string | undefined> = {}
   if (overrides.token !== null) {
-    headers.authorization = `Bearer ${overrides.token ?? ADMIN_TOKEN}`
+    headers.authorization = `${overrides.scheme ?? 'Bearer'} ${overrides.token ?? ADMIN_TOKEN}`
   }
   return { headers, body: overrides.body ?? { password: VALID_ENV.ADMIN_PASSWORD } } as unknown as VercelRequest
 }
@@ -128,6 +129,15 @@ describe('validateAdmin', () => {
       expect(result).toBe(false)
       expect(res._data.statusCode).toBe(401)
       expect(res._data.body).toMatchObject({ error: { code: 'INVALID_TOKEN' } })
+    })
+
+    it('accepts a case-insensitive bearer scheme', async () => {
+      setupEnv()
+      mockAuthUser({ id: VALID_ENV.ADMIN_USER_ID })
+      const res = mockRes()
+      const result = await validateAdmin(mockReq({ scheme: 'bearer' }), res)
+      expect(result).toBe(true)
+      expect(res._data.statusCode).toBe(0)
     })
   })
 
