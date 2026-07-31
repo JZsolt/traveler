@@ -3,6 +3,9 @@ import { Copy, Check, X, Link2, Ban, RefreshCw } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { InlineError } from '@/components/ui/InlineError'
 import { useTripSharing } from '@/hooks/useTripSharing'
+import { ShareQrCode } from './ShareQrCode'
+import { ProfileQrInviteForm } from './ProfileQrInviteForm'
+import { TripInviteEmailForm } from './TripInviteEmailForm'
 import type { ShareManagerProps } from '@/types/shared'
 
 export function ShareManager({ slug, onClose }: ShareManagerProps) {
@@ -54,8 +57,9 @@ export function ShareManager({ slug, onClose }: ShareManagerProps) {
             {shareUrl ? (
               <>
                 <p className="text-sm text-gray-600">
-                  Bárki, akinek elküldöd ezt a linket, megtekintheti az útitervet — szerkesztés nélkül.
+                  Bárki, akinek elküldöd ezt a linket vagy beszkenneli a QR-kódot, megtekintheti az útitervet — szerkesztés nélkül.
                 </p>
+                <ShareQrCode url={shareUrl} />
                 <div className="flex items-center gap-1.5">
                   <input
                     readOnly
@@ -100,6 +104,8 @@ export function ShareManager({ slug, onClose }: ShareManagerProps) {
                 </Button>
               </>
             )}
+            <TripInviteEmailForm slug={slug} />
+            <ProfileQrInviteForm slug={slug} />
           </div>
         )}
 

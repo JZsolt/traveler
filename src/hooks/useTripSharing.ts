@@ -1,138 +1,72 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
-import axios from 'axios'
-import { supabase } from '@/lib/supabase'
+import { useCallback, useEffect, useState } from 'react'
 import { apiClient, mapApiError } from '@/lib/apiClient'
 import { API, shareLinkUrl } from '@/lib/constants'
-import { friendlyError } from '@/lib/friendlyError'
-import { useAuth } from '@/hooks/useAuth'
-import { ActiveShareSchema, CreateTripShareResponseSchema } from '@/schemas/sharing'
-import type { ActiveShare } from '@/types/api'
+import { TripShareManagementResponseSchema } from '@/schemas/sharing'
+import type { ActiveShare, ManagedShare, TripShareManagementRequest } from '@/types/api'
 import type { TripSharingReturn, UseTripSharingParams } from '@/types/shared'
 
-function mapShareError(err: unknown): string {
-  return axios.isAxiosError(err) ? mapApiError(err) : friendlyError(err)
-}
+type ShareAction = TripShareManagementRequest['action']
 
 function isShareActive(share: ActiveShare | null): boolean {
   if (!share) return false
   return !share.expires_at || new Date(share.expires_at).getTime() > Date.now()
 }
 
+// Minden owner share-muvelet az /api/trip-share-management endpointon megy at
+// (owner-verified, szerver-oldali). Nincs kliens-oldali trip_shares mutacio, es a
+// token dekodolasa is szerver oldalon tortenik. A "get" a re-displayelheto aktiv
+// link tokenjet is visszaadja, igy a modal ujranyitaskor is mutatja a linket.
 export function useTripSharing({ slug }: UseTripSharingParams): TripSharingReturn {
-  const { user } = useAuth()
-  const userId = user?.id ?? null
-  const tripIdRef = useRef<string | null>(null)
   const [activeShare, setActiveShare] = useState<ActiveShare | null>(null)
-  const [createdToken, setCreatedToken] = useState<string | null>(null)
+  const [token, setToken] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const resolveTripId = useCallback(async (): Promise<string | null> => {
-    if (tripIdRef.current) return tripIdRef.current
-    if (!supabase || !userId) return null
-    const { data, error: queryError } = await supabase
-      .from('trips')
-      .select('id')
-      .eq('slug', slug)
-      .eq('owner_id', userId)
-      .maybeSingle()
-    // A valodi query hibat (permission/env/network/schema) tovabb dobjuk, hogy
-    // NE olvadjon ossze a "nincs sor" (nem talalhato) esettel.
-    if (queryError) throw queryError
-    const id = data && typeof data.id === 'string' ? data.id : null
-    tripIdRef.current = id
-    return id
-  }, [slug, userId])
-
-  const applyCreated = useCallback((token: string, share: ActiveShare) => {
-    setCreatedToken(token)
-    setActiveShare(share)
-  }, [])
-
-  const doCreate = useCallback(async (id: string) => {
-    const res = await apiClient.post(API.CREATE_TRIP_SHARE, { tripId: id })
-    const parsed = CreateTripShareResponseSchema.safeParse(res.data)
-    if (!parsed.success) throw new Error('Hibas valasz a szervertol.')
-    const { id: shareId, token, createdAt, expiresAt } = parsed.data.share
-    applyCreated(token, { id: shareId, created_at: createdAt, expires_at: expiresAt })
-  }, [applyCreated])
-
-  // Visszaadja, hogy tenylegesen visszavont-e egy aktiv sort. A unique index
-  // miatt legfeljebb 1 nem-visszavont sor van trip-enkent, igy maybeSingle biztos.
-  const doRevoke = useCallback(async (id: string): Promise<boolean> => {
-    if (!supabase) throw new Error('Supabase nincs konfiguralva.')
-    const { data, error: revokeError } = await supabase
-      .from('trip_shares')
-      .update({ revoked_at: new Date().toISOString() })
-      .eq('trip_id', id)
-      .is('revoked_at', null)
-      .select('id')
-      .maybeSingle()
-    if (revokeError) throw revokeError
-    return !!data
-  }, [])
-
-  const runAction = useCallback(async (fn: (id: string) => Promise<void>) => {
-    setBusy(true)
-    setError(null)
-    try {
-      const id = await resolveTripId()
-      if (!id) {
-        setError('Az utazas nem talalhato vagy nincs jogosultsagod megosztani.')
-        return
-      }
-      await fn(id)
-    } catch (err) {
-      setError(mapShareError(err))
-    } finally {
-      setBusy(false)
+  const applyShare = useCallback((share: ManagedShare | null) => {
+    if (share) {
+      setActiveShare({ id: share.id, created_at: share.createdAt, expires_at: share.expiresAt })
+      setToken(share.token)
+    } else {
+      setActiveShare(null)
+      setToken(null)
     }
-  }, [resolveTripId])
+  }, [])
+
+  const call = useCallback(async (action: ShareAction): Promise<ManagedShare | null> => {
+    const res = await apiClient.post(API.TRIP_SHARE_MANAGEMENT, { slug, action })
+    const parsed = TripShareManagementResponseSchema.safeParse(res.data)
+    if (!parsed.success) throw new Error('Hibas valasz a szervertol.')
+    return parsed.data.share
+  }, [slug])
 
   const refresh = useCallback(async () => {
     setLoading(true)
     setError(null)
     try {
-      const id = await resolveTripId()
-      if (!id || !supabase) {
-        setActiveShare(null)
-        return
-      }
-      const { data, error: queryError } = await supabase
-        .from('trip_shares')
-        .select('id, created_at, expires_at')
-        .eq('trip_id', id)
-        .is('revoked_at', null)
-        .maybeSingle()
-      if (queryError) throw queryError
-      const parsed = data ? ActiveShareSchema.safeParse(data) : null
-      setActiveShare(parsed?.success ? parsed.data : null)
+      applyShare(await call('get'))
     } catch (err) {
-      setError(mapShareError(err))
+      setError(mapApiError(err))
     } finally {
       setLoading(false)
     }
-  }, [resolveTripId])
+  }, [call, applyShare])
 
-  const createLink = useCallback(() => runAction(doCreate), [runAction, doCreate])
-
-  const disable = useCallback(() => runAction(async (id) => {
-    const revoked = await doRevoke(id)
-    setCreatedToken(null)
-    if (revoked) {
-      setActiveShare(null)
-    } else {
-      // Nem volt mit visszavonni (stale UI / mar visszavonva) — a valos DB
-      // allapotot toltjuk ujra, hogy ne tunjon hamis sikernek a "Kikapcsolas".
-      await refresh()
+  const runAction = useCallback(async (action: ShareAction) => {
+    setBusy(true)
+    setError(null)
+    try {
+      applyShare(await call(action))
+    } catch (err) {
+      setError(mapApiError(err))
+    } finally {
+      setBusy(false)
     }
-  }), [runAction, doRevoke, refresh])
+  }, [call, applyShare])
 
-  const regenerate = useCallback(() => runAction(async (id) => {
-    await doRevoke(id)
-    await doCreate(id)
-  }), [runAction, doRevoke, doCreate])
+  const createLink = useCallback(() => runAction('create'), [runAction])
+  const disable = useCallback(() => runAction('revoke'), [runAction])
+  const regenerate = useCallback(() => runAction('regenerate'), [runAction])
 
   useEffect(() => {
     let active = true
@@ -142,13 +76,17 @@ export function useTripSharing({ slug }: UseTripSharingParams): TripSharingRetur
     return () => { active = false }
   }, [refresh])
 
+  const active = isShareActive(activeShare)
   return {
     loading,
     busy,
     error,
     activeShare,
-    isActive: isShareActive(activeShare),
-    shareUrl: createdToken ? shareLinkUrl(createdToken) : null,
+    isActive: active,
+    // Vedelem: csak akkor mutassunk linket, ha a share tenylegesen aktiv (nem
+    // lejart) ES van (dekodolhato) token — igy nem tunhet elonek egy olyan link,
+    // amit a public lookup mar lejartkent elutasitana.
+    shareUrl: token && active ? shareLinkUrl(token) : null,
     refresh,
     createLink,
     disable,

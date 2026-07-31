@@ -2,6 +2,7 @@ import { useRef, useCallback, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '@/hooks/useAuth'
 import { Button } from '@/components/ui/button'
+import { ProfileShareSettings } from '@/components/settings/ProfileShareSettings'
 import { ROUTES } from '@/lib/constants'
 import { LogOut, User } from 'lucide-react'
 
@@ -57,6 +58,8 @@ export default function SettingsPage() {
               </div>
             </div>
           </div>
+
+          <ProfileShareSettings profileName={profile?.display_name ?? null} />
 
           <Button
             onClick={handleSignOut}

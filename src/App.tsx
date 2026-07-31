@@ -23,6 +23,8 @@ const ForgotPasswordPage = lazy(() => import('@/pages/ForgotPasswordPage'))
 const ResetPasswordPage = lazy(() => import('@/pages/ResetPasswordPage'))
 const AuthCallbackPage = lazy(() => import('@/pages/AuthCallbackPage'))
 const SharedTripPage = lazy(() => import('@/pages/SharedTripPage'))
+const SharedWithMeTripPage = lazy(() => import('@/pages/SharedWithMeTripPage'))
+const ProfileShareResolverPage = lazy(() => import('@/pages/ProfileShareResolverPage'))
 
 function PageLoader() {
   return <div className="flex items-center justify-center min-h-[60vh] text-muted-foreground text-sm">Betöltés...</div>
@@ -74,6 +76,8 @@ export default function App() {
                   <Route path="/app/trips/new" element={<ProtectedRoute><CreateTripPage /></ProtectedRoute>} />
                   <Route path="/app/trips/:slug" element={<ProtectedRoute><TripPage /></ProtectedRoute>} />
                   <Route path="/app/trips/:slug/edit" element={<ProtectedRoute><EditTripPage /></ProtectedRoute>} />
+                  <Route path="/app/shared/:inviteId" element={<ProtectedRoute><SharedWithMeTripPage /></ProtectedRoute>} />
+                  <Route path="/app/profile-share/:publicShareId" element={<ProtectedRoute><ProfileShareResolverPage /></ProtectedRoute>} />
                   <Route path="/app/settings" element={<ProtectedRoute><SettingsPage /></ProtectedRoute>} />
                   <Route path="/app/internal/backup" element={<ProtectedRoute><AdminBackupPage /></ProtectedRoute>} />
 

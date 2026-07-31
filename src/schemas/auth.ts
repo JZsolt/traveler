@@ -11,6 +11,9 @@ export const ProfileSchema = z.object({
   id: z.string().uuid(),
   display_name: z.string().nullable(),
   avatar_url: z.string().nullable(),
+  public_share_id: z.string().nullable().default(null),
+  profile_share_enabled: z.boolean().default(false),
+  profile_share_rotated_at: z.string().datetime({ offset: true }).nullable().default(null),
   created_at: z.string().datetime({ offset: true }),
   updated_at: z.string().datetime({ offset: true }),
 })
