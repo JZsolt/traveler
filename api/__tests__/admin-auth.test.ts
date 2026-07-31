@@ -3,11 +3,6 @@ import type { VercelRequest, VercelResponse } from '@vercel/node'
 import { getErrorCode } from './adminAuthTypes'
 import type { MockAdminEnv, MockResData } from './adminAuthTypes'
 
-vi.mock('@supabase/supabase-js', () => ({
-  createClient: vi.fn(),
-}))
-
-import { createClient } from '@supabase/supabase-js'
 import { validateAdmin } from '../_admin-auth.js'
 
 const VALID_ENV: MockAdminEnv = {
@@ -54,17 +49,11 @@ function setupEnv(env: Partial<MockAdminEnv> = {}) {
   process.env.ADMIN_PASSWORD = merged.ADMIN_PASSWORD
 }
 
-function mockSupabaseAuth(user: { id: string } | null, error: Error | null = null) {
-  const mockClient = {
-    auth: {
-      getUser: vi.fn().mockResolvedValue({
-        data: { user },
-        error,
-      }),
-    },
-  }
-  vi.mocked(createClient).mockReturnValue(mockClient as unknown as ReturnType<typeof createClient>)
-  return mockClient
+function mockAuthUser(user: { id: string; email?: string | null } | null) {
+  vi.stubGlobal('fetch', vi.fn().mockResolvedValue({
+    ok: !!user,
+    json: vi.fn().mockResolvedValue(user),
+  }))
 }
 
 const envBackup: Record<string, string | undefined> = {}
@@ -80,6 +69,7 @@ afterEach(() => {
     if (val === undefined) delete process.env[key]
     else process.env[key] = val
   }
+  vi.unstubAllGlobals()
   vi.restoreAllMocks()
 })
 
@@ -132,7 +122,7 @@ describe('validateAdmin', () => {
 
     it('returns 401 when JWT verification fails', async () => {
       setupEnv()
-      mockSupabaseAuth(null, new Error('invalid token'))
+      mockAuthUser(null)
       const res = mockRes()
       const result = await validateAdmin(mockReq({ token: 'bad-token' }), res)
       expect(result).toBe(false)
@@ -144,7 +134,7 @@ describe('validateAdmin', () => {
   describe('user identity check', () => {
     it('returns 403 when authenticated user is not the admin', async () => {
       setupEnv()
-      mockSupabaseAuth({ id: 'other-user-uuid' })
+      mockAuthUser({ id: 'other-user-uuid' })
       const res = mockRes()
       const result = await validateAdmin(mockReq(), res)
       expect(result).toBe(false)
@@ -156,7 +146,7 @@ describe('validateAdmin', () => {
   describe('password validation', () => {
     it('returns 401 when password is wrong', async () => {
       setupEnv()
-      mockSupabaseAuth({ id: VALID_ENV.ADMIN_USER_ID })
+      mockAuthUser({ id: VALID_ENV.ADMIN_USER_ID })
       const res = mockRes()
       const result = await validateAdmin(
         mockReq({ body: { password: 'wrong-password' } }),
@@ -169,7 +159,7 @@ describe('validateAdmin', () => {
 
     it('returns 401 when password is missing from body', async () => {
       setupEnv()
-      mockSupabaseAuth({ id: VALID_ENV.ADMIN_USER_ID })
+      mockAuthUser({ id: VALID_ENV.ADMIN_USER_ID })
       const res = mockRes()
       const result = await validateAdmin(mockReq({ body: {} }), res)
       expect(result).toBe(false)
@@ -178,7 +168,7 @@ describe('validateAdmin', () => {
 
     it('returns 401 when body is not an object', async () => {
       setupEnv()
-      mockSupabaseAuth({ id: VALID_ENV.ADMIN_USER_ID })
+      mockAuthUser({ id: VALID_ENV.ADMIN_USER_ID })
       const res = mockRes()
       const result = await validateAdmin(mockReq({ body: 'not-object' }), res)
       expect(result).toBe(false)
@@ -189,12 +179,17 @@ describe('validateAdmin', () => {
   describe('successful validation', () => {
     it('returns true when JWT, user ID, and password all match', async () => {
       setupEnv()
-      const client = mockSupabaseAuth({ id: VALID_ENV.ADMIN_USER_ID })
+      mockAuthUser({ id: VALID_ENV.ADMIN_USER_ID })
       const res = mockRes()
       const result = await validateAdmin(mockReq(), res)
       expect(result).toBe(true)
       expect(res._data.statusCode).toBe(0)
-      expect(client.auth.getUser).toHaveBeenCalledWith(ADMIN_TOKEN)
+      expect(fetch).toHaveBeenCalledWith('https://test.supabase.co/auth/v1/user', {
+        headers: {
+          apikey: VALID_ENV.SUPABASE_SERVICE_ROLE_KEY,
+          Authorization: `Bearer ${ADMIN_TOKEN}`,
+        },
+      })
     })
   })
 
@@ -217,17 +212,17 @@ describe('validateAdmin', () => {
       await validateAdmin(mockReq({ token: null }), res)
       codes.add(getErrorCode(res._data.body))
 
-      mockSupabaseAuth(null, new Error('bad'))
+      mockAuthUser(null)
       res = mockRes()
       await validateAdmin(mockReq(), res)
       codes.add(getErrorCode(res._data.body))
 
-      mockSupabaseAuth({ id: 'other' })
+      mockAuthUser({ id: 'other' })
       res = mockRes()
       await validateAdmin(mockReq(), res)
       codes.add(getErrorCode(res._data.body))
 
-      mockSupabaseAuth({ id: VALID_ENV.ADMIN_USER_ID })
+      mockAuthUser({ id: VALID_ENV.ADMIN_USER_ID })
       res = mockRes()
       await validateAdmin(mockReq({ body: { password: 'wrong' } }), res)
       codes.add(getErrorCode(res._data.body))

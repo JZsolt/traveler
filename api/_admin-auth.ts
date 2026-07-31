@@ -1,6 +1,6 @@
-import { createClient } from '@supabase/supabase-js';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { isRecord } from './_narrowing.js';
+import { fetchAuthenticatedUser } from './_auth-user.js';
 
 function getAuthToken(req: VercelRequest): string | null {
   const header = req.headers.authorization;
@@ -41,10 +41,9 @@ export async function validateAdmin(req: VercelRequest, res: VercelResponse): Pr
     return false;
   }
 
-  const supabase = createClient(supabaseUrl, supabaseKey);
-  const { data: { user }, error } = await supabase.auth.getUser(token);
+  const user = await fetchAuthenticatedUser(supabaseUrl, supabaseKey, token);
 
-  if (error || !user) {
+  if (!user) {
     res.status(401).json({
       ok: false,
       error: { code: 'INVALID_TOKEN', message: 'Érvénytelen munkamenet.' },
