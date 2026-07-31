@@ -6,7 +6,7 @@ import {
   SavingTipsResponseSchema,
   BookingChecklistResponseSchema,
   PracticalInfoResponseSchema,
-} from '../src/schemas/ai';
+} from '../src/schemas/ai.js';
 import { tripContext, sectionConfig } from './_suggest-helpers.js';
 
 export const listSectionConfigs: Record<ListSectionKey, SectionConfig> = {

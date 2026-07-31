@@ -7,6 +7,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:server": "tsc -p tsconfig.server.json",
+    "build:docker": "pnpm run build && pnpm run build:server",
+    "start": "node server-dist/server/index.js",
     "lint": "eslint .",
     "validate:trips": "node scripts/validate-trips.mjs",
     "validate:trips:strict": "node scripts/validate-trips.mjs --strict",

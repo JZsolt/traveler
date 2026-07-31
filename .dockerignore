@@ -1,0 +1,10 @@
+dist
+server-dist
+node_modules
+.git
+.env
+.env.*
+!.env.example
+.DS_Store
+coverage
+dev-dist

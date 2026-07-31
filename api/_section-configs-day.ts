@@ -4,7 +4,7 @@ import {
   DayMetaResponseSchema,
   ScheduleItemGuideResponseSchema,
   ScheduleItemResponseSchema,
-} from '../src/schemas/ai';
+} from '../src/schemas/ai.js';
 import { tripContext, sectionConfig } from './_suggest-helpers.js';
 
 export const daySectionConfigs: Record<DaySectionKey, SectionConfig> = {
