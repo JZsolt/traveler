@@ -5,7 +5,7 @@ import type { MockResData } from './adminAuthTypes'
 vi.mock('../_server-auth.js', () => ({ requireAuthenticatedUser: vi.fn() }))
 
 import { requireAuthenticatedUser } from '../_server-auth.js'
-import handler from '../profile-share-management.js'
+import handler from '../_profile-share-management-route.js'
 
 const USER = { id: '550e8400-e29b-41d4-a716-446655440001' }
 const SHARE_ID = 'abcdefghijklmnopqrstuvwxyzABCDEF'

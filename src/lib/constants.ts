@@ -29,12 +29,12 @@ export const API = {
   SUGGEST_SECTION: '/api/suggest-trip-section',
   CHAT: '/api/chat',
   PLAN_TRIP: '/api/plan-trip',
-  SHARED_TRIP: '/api/shared-trip',
-  TRIP_SHARE_MANAGEMENT: '/api/trip-share-management',
-  TRIP_RECIPIENTS: '/api/trip-recipients',
-  SHARED_WITH_ME: '/api/shared-with-me',
-  PROFILE_SHARE_MANAGEMENT: '/api/profile-share-management',
-  SEND_TRIP_INVITE_EMAIL: '/api/send-trip-invite-email',
+  SHARED_TRIP: '/api/sharing?route=shared-trip',
+  TRIP_SHARE_MANAGEMENT: '/api/sharing?route=trip-share-management',
+  TRIP_RECIPIENTS: '/api/sharing?route=trip-recipients',
+  SHARED_WITH_ME: '/api/sharing?route=shared-with-me',
+  PROFILE_SHARE_MANAGEMENT: '/api/sharing?route=profile-share-management',
+  SEND_TRIP_INVITE_EMAIL: '/api/sharing?route=send-trip-invite-email',
 } as const
 
 

@@ -8,7 +8,7 @@ import type { MockResData } from './adminAuthTypes'
 vi.mock('../_server-auth.js', () => ({ requireAuthenticatedUser: vi.fn() }))
 
 import { requireAuthenticatedUser } from '../_server-auth.js'
-import handler from '../trip-share-management.js'
+import handler from '../_trip-share-management-route.js'
 import { encryptShareToken } from '../_share-crypto.js'
 
 const TEST_KEY = Buffer.alloc(32, 5).toString('base64')

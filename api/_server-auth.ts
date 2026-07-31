@@ -2,6 +2,7 @@ import { createClient } from '@supabase/supabase-js'
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 import type { Database } from '../src/types/supabase'
 import type { AuthenticatedServerContext } from '../src/types/apiServer'
+import { fetchAuthenticatedUser } from './_auth-user.js'
 
 function getAuthToken(req: VercelRequest): string | null {
   const header = req.headers.authorization
@@ -36,9 +37,9 @@ export async function requireAuthenticatedUser(
   }
 
   const supabase = createClient<Database>(supabaseUrl, supabaseKey)
-  const { data: { user }, error } = await supabase.auth.getUser(token)
+  const user = await fetchAuthenticatedUser(supabaseUrl, supabaseKey, token)
 
-  if (error || !user) {
+  if (!user) {
     res.status(401).json({
       ok: false,
       error: { code: 'INVALID_TOKEN', message: 'Ervenytelen munkamenet.' },

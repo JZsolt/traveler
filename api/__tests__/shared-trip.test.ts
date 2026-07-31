@@ -6,7 +6,7 @@ import type { MockResData } from './adminAuthTypes'
 vi.mock('@supabase/supabase-js', () => ({ createClient: vi.fn() }))
 
 import { createClient } from '@supabase/supabase-js'
-import handler from '../shared-trip.js'
+import handler from '../_shared-trip-route.js'
 import { hashShareToken } from '../_share-token.js'
 
 const TOKEN = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'

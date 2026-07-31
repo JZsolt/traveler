@@ -8,6 +8,7 @@ import type {
   ResetPasswordFormSchema,
   AppUserSchema,
   ProfileSchema,
+  SupabaseAuthUserResponseSchema,
 } from '@/schemas/auth'
 
 export type LoginFormData = z.infer<typeof LoginFormSchema>
@@ -16,6 +17,7 @@ export type ForgotPasswordFormData = z.infer<typeof ForgotPasswordFormSchema>
 export type ResetPasswordFormData = z.infer<typeof ResetPasswordFormSchema>
 export type AppUser = z.infer<typeof AppUserSchema>
 export type Profile = z.infer<typeof ProfileSchema>
+export type ServerAuthUser = z.infer<typeof SupabaseAuthUserResponseSchema>
 
 export interface AuthResult {
   ok: boolean

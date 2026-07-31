@@ -46,3 +46,8 @@ export const AppUserSchema = z.object({
   email: z.string().email(),
   emailVerified: z.boolean(),
 })
+
+export const SupabaseAuthUserResponseSchema = z.object({
+  id: z.string().min(1),
+  email: z.string().email().nullable().optional(),
+}).passthrough()

@@ -26,10 +26,12 @@ function mockRes(): VercelResponse & { _data: MockResData } {
   return res as unknown as VercelResponse & { _data: MockResData }
 }
 
-function mockGetUser(user: { id: string } | null, error: Error | null = null) {
-  const client = { auth: { getUser: vi.fn().mockResolvedValue({ data: { user }, error }) } }
-  vi.mocked(createClient).mockReturnValue(client as unknown as ReturnType<typeof createClient>)
-  return client
+function mockAuthUser(user: { id: string; email?: string | null } | null) {
+  vi.mocked(createClient).mockReturnValue({} as ReturnType<typeof createClient>)
+  vi.stubGlobal('fetch', vi.fn().mockResolvedValue({
+    ok: !!user,
+    json: vi.fn().mockResolvedValue(user),
+  }))
 }
 
 const ENV_KEYS = ['SUPABASE_URL', 'VITE_SUPABASE_URL', 'SUPABASE_SERVICE_ROLE_KEY']
@@ -47,6 +49,7 @@ afterEach(() => {
     if (backup[key] === undefined) delete process.env[key]
     else process.env[key] = backup[key]
   }
+  vi.unstubAllGlobals()
   vi.restoreAllMocks()
 })
 
@@ -81,7 +84,7 @@ describe('requireAuthenticatedUser — auth gate before any trip logic', () => {
   })
 
   it('rejects an invalid/expired token with 401', async () => {
-    mockGetUser(null, new Error('invalid jwt'))
+    mockAuthUser(null)
     const res = mockRes()
     const ctx = await requireAuthenticatedUser(mockReq(`Bearer ${VALID_TOKEN}`), res)
     expect(ctx).toBeNull()
@@ -90,7 +93,7 @@ describe('requireAuthenticatedUser — auth gate before any trip logic', () => {
   })
 
   it('accepts a valid Bearer token and returns the authenticated context', async () => {
-    mockGetUser({ id: 'user-1' })
+    mockAuthUser({ id: 'user-1' })
     const res = mockRes()
     const ctx = await requireAuthenticatedUser(mockReq(`Bearer ${VALID_TOKEN}`), res)
     expect(ctx).not.toBeNull()
@@ -99,7 +102,7 @@ describe('requireAuthenticatedUser — auth gate before any trip logic', () => {
   })
 
   it('accepts a case-insensitive bearer scheme', async () => {
-    mockGetUser({ id: 'user-1' })
+    mockAuthUser({ id: 'user-1' })
     const res = mockRes()
     const ctx = await requireAuthenticatedUser(mockReq(`bearer ${VALID_TOKEN}`), res)
     expect(ctx).not.toBeNull()
