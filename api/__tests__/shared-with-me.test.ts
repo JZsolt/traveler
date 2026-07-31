@@ -5,7 +5,7 @@ import type { MockResData } from './adminAuthTypes'
 vi.mock('../_server-auth.js', () => ({ requireAuthenticatedUser: vi.fn() }))
 
 import { requireAuthenticatedUser } from '../_server-auth.js'
-import handler from '../shared-with-me.js'
+import handler from '../_shared-with-me-route.js'
 
 const USER = { id: 'recipient-1' }
 const ISO = '2026-07-30T10:00:00+00:00'

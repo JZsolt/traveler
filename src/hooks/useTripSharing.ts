@@ -12,7 +12,7 @@ function isShareActive(share: ActiveShare | null): boolean {
   return !share.expires_at || new Date(share.expires_at).getTime() > Date.now()
 }
 
-// Minden owner share-muvelet az /api/trip-share-management endpointon megy at
+// Minden owner share-muvelet az osszevont sharing API-n megy at
 // (owner-verified, szerver-oldali). Nincs kliens-oldali trip_shares mutacio, es a
 // token dekodolasa is szerver oldalon tortenik. A "get" a re-displayelheto aktiv
 // link tokenjet is visszaadja, igy a modal ujranyitaskor is mutatja a linket.

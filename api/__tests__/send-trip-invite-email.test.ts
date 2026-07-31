@@ -7,7 +7,7 @@ vi.mock('../_server-auth.js', () => ({ requireAuthenticatedUser: vi.fn() }))
 
 import { requireAuthenticatedUser } from '../_server-auth.js'
 import { encryptShareToken } from '../_share-crypto.js'
-import handler from '../send-trip-invite-email.js'
+import handler from '../_send-trip-invite-email-route.js'
 
 const TEST_KEY = Buffer.alloc(32, 7).toString('base64')
 const OWNER = { id: 'owner-1', email: 'owner@example.com' }

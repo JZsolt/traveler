@@ -118,7 +118,7 @@ export const SharedWithMeResponseSchema = z.object({
 })
 
 // --- Owner-oldali share menedzsment endpoint ---
-// A kliens az owner-verified /api/trip-share-management endpointon at kezel
+// A kliens az owner-verified sharing API route-on at kezel
 // mindent (get/create/regenerate/revoke). Nincs tobbe kliens-oldali trip_shares
 // mutacio. A token DEKODOLASA kizarolag ezen a szerver-endpointon tortenik.
 export const TripShareManagementRequestSchema = z.object({

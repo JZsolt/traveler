@@ -137,7 +137,7 @@ pnpm run validate:trips
 | `POST /api/backup-trips` | Supabase utazások mentése GitHubra |
 | `POST /api/import-trip-backup` | Egy backup importálása |
 | `POST /api/import-trip-backups` | Több backup importálása |
-| `POST /api/send-trip-invite-email` | Owner-ellenőrzött, rate-limitelt utazás meghívó email |
+| `/api/sharing?route=...` | Public link, QR, account recipient, shared-with-me és email invite sharing műveletek egy Vercel function alatt |
 
 Az AI és admin endpointok Vercel serverless funkciók.
 

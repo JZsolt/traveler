@@ -6,7 +6,7 @@ import type { MockResData } from './adminAuthTypes'
 vi.mock('../_server-auth.js', () => ({ requireAuthenticatedUser: vi.fn() }))
 
 import { requireAuthenticatedUser } from '../_server-auth.js'
-import handler from '../trip-recipients.js'
+import handler from '../_trip-recipients-route.js'
 
 const OWNER = { id: 'owner-1' }
 const INVITE_ID = '550e8400-e29b-41d4-a716-446655440042'
