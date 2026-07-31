@@ -52,8 +52,9 @@ pnpm dev
 
 Alapértelmezett cím: `http://localhost:5173`.
 
-A `pnpm dev` a Vite frontendet indítja el. A `api/` alatti Vercel serverless
-endpointokhoz Vercel runtime vagy deployolt környezet szükséges.
+A `pnpm dev` a Vite frontendet indítja el. A sharing API lokálisan is elérhető
+`/api/sharing?route=...` alatt; a többi `api/` alatti Vercel serverless
+endpointhoz Vercel runtime vagy deployolt környezet szükséges.
 
 ## Környezeti változók
 
