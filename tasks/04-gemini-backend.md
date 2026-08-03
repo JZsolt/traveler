@@ -1,13 +1,13 @@
 # 04 — Gemini backend endpoint ✅ DONE
 
-This phase adds the serverless AI endpoint only.
+This phase adds the backend AI endpoint only.
 
 Important:
 
 - No UI integration in this phase.
 - Never expose `GEMINI_API_KEY` to frontend code.
 - Do not use the `VITE_` prefix for the Gemini key.
-- Keep the app Vercel-compatible.
+- Keep the app deploy-platform agnostic.
 - Run `npm run build` after each task.
 - Stop after each task and summarize changed files.
 
@@ -23,7 +23,7 @@ Read only:
 - src/lib/validateTripJson.js (if it exists)
 
 Goal:
-Create a Vercel serverless endpoint that converts chat messages into a valid Traveler trip JSON.
+Create an API endpoint that converts chat messages into a valid Traveler trip JSON.
 
 Requirements:
 

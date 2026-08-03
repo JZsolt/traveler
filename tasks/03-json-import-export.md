@@ -30,7 +30,7 @@ Important:
 - Implement one task at a time.
 - Do not add AI in this phase.
 - Do not redesign unrelated UI.
-- Keep the app Vercel-compatible.
+- Keep the app deploy-platform agnostic.
 - Run `npm run build` after each task.
 - Stop after each task and summarize changed files.
 

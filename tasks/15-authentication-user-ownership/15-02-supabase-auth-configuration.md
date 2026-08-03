@@ -11,7 +11,7 @@ Configure Supabase email/password auth for local and production use.
 - Email/password auth
 - Email verification
 - Password reset redirect URLs
-- Localhost and Vercel production callback URLs
+- Localhost and production callback URLs
 - Required env/config documentation
 
 ## Acceptance Criteria

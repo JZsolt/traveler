@@ -58,4 +58,4 @@ Allow a trip owner to manage share links from the app.
   repo's `TripsContext` pattern.
 - Verified: `pnpm run lint` clean, `tsc --noEmit` 0, `pnpm build`, 140 tests,
   dev boots clean. NOTE: the live create/copy/revoke round-trip was not driven
-  end-to-end (needs Supabase + `vercel dev`); logic verified by compile + review.
+  end-to-end (needs Supabase + local API runtime); logic verified by compile + review.

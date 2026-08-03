@@ -1,10 +1,10 @@
 import { createClient } from '@supabase/supabase-js'
-import type { VercelRequest, VercelResponse } from '@vercel/node'
+import type { ApiRequest, ApiResponse } from '../src/types/http'
 import type { Database } from '../src/types/supabase'
 import type { AuthenticatedServerContext } from '../src/types/apiServer'
 import { fetchAuthenticatedUser } from './_auth-user.js'
 
-function getAuthToken(req: VercelRequest): string | null {
+function getAuthToken(req: ApiRequest): string | null {
   const header = req.headers.authorization
   if (typeof header !== 'string') return null
   const parts = header.split(' ')
@@ -13,8 +13,8 @@ function getAuthToken(req: VercelRequest): string | null {
 }
 
 export async function requireAuthenticatedUser(
-  req: VercelRequest,
-  res: VercelResponse,
+  req: ApiRequest,
+  res: ApiResponse,
 ): Promise<AuthenticatedServerContext | null> {
   const supabaseUrl = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL
   const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY

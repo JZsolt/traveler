@@ -97,7 +97,7 @@ Phase 10 defines project-wide architecture rules that apply to all future implem
 
 - React Hook Form is the standard for non-trivial forms.
 - Zod remains the validation source of truth; React Hook Form must use Zod resolvers.
-- Axios is the standard HTTP client for app-owned Vercel API endpoints.
+- Axios is the standard HTTP client for app-owned API endpoints.
 - Supabase database/auth calls still use the Supabase client directly.
 - TanStack Query is the standard cache/query layer for server state after auth is stable.
 - Do not migrate all data fetching in one pass; introduce query keys and migrate feature-by-feature.

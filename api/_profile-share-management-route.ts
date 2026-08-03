@@ -1,4 +1,4 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node'
+import type { ApiRequest, ApiResponse } from '../src/types/http'
 import { ProfileShareManagementRequestSchema, ProfileShareManagementResponseSchema } from '../src/schemas/profileShare.js'
 import { requireAuthenticatedUser } from './_server-auth.js'
 import {
@@ -8,11 +8,11 @@ import {
   rotateProfileShare,
 } from './_profile-share-management.js'
 
-function jsonError(res: VercelResponse, status: number, code: string, message: string) {
+function jsonError(res: ApiResponse, status: number, code: string, message: string) {
   return res.status(status).json({ ok: false, error: { code, message } })
 }
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+export default async function handler(req: ApiRequest, res: ApiResponse) {
   if (req.method !== 'POST') {
     return jsonError(res, 405, 'METHOD_NOT_ALLOWED', 'Nem tamogatott HTTP metodus.')
   }

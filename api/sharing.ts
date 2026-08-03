@@ -1,4 +1,4 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node'
+import type { ApiRequest, ApiResponse } from '../src/types/http'
 import profileShareManagement from './_profile-share-management-route.js'
 import sendTripInviteEmail from './_send-trip-invite-email-route.js'
 import sharedTrip from './_shared-trip-route.js'
@@ -15,13 +15,13 @@ const ROUTES = {
   'trip-share-management': tripShareManagement,
 } as const
 
-function getRoute(req: VercelRequest): keyof typeof ROUTES | null {
+function getRoute(req: ApiRequest): keyof typeof ROUTES | null {
   const value = req.query.route
   const route = Array.isArray(value) ? value[0] : value
   return typeof route === 'string' && route in ROUTES ? route as keyof typeof ROUTES : null
 }
 
-export default function handler(req: VercelRequest, res: VercelResponse) {
+export default function handler(req: ApiRequest, res: ApiResponse) {
   const route = getRoute(req)
   if (!route) {
     return res.status(404).json({

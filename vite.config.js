@@ -18,19 +18,19 @@ async function readJsonBody(req) {
   return JSON.parse(raw)
 }
 
-function createVercelLikeResponse(res) {
-  const vercelRes = Object.assign(res, {
+function createApiResponse(res) {
+  const apiRes = Object.assign(res, {
     status(code) {
       res.statusCode = code
-      return vercelRes
+      return apiRes
     },
     json(payload) {
       res.setHeader('Content-Type', 'application/json')
       res.end(JSON.stringify(payload))
-      return vercelRes
+      return apiRes
     },
   })
-  return vercelRes
+  return apiRes
 }
 
 function localSharingApiPlugin() {
@@ -43,11 +43,11 @@ function localSharingApiPlugin() {
           const url = new URL(req.url, 'http://localhost')
           const mod = await server.ssrLoadModule('/api/sharing.ts')
           const handler = mod.default
-          const vercelReq = Object.assign(req, {
+          const apiReq = Object.assign(req, {
             query: Object.fromEntries(url.searchParams),
             body: await readJsonBody(req),
           })
-          await handler(vercelReq, createVercelLikeResponse(res))
+          await handler(apiReq, createApiResponse(res))
         } catch (err) {
           console.error('[local-sharing-api] failed', err)
           res.statusCode = 500

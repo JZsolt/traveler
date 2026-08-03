@@ -20,7 +20,7 @@ segítséggel, Supabase adattárolással és GitHub backup lehetőséggel.
 - Vite 8
 - Tailwind CSS 4 + shadcn/ui + Base UI
 - Supabase PostgreSQL és JSONB
-- Vercel serverless API route-ok
+- Dockeres Node runtime az app API endpointokhoz
 - Google Gemini (`@google/genai`)
 - `vite-plugin-pwa`
 - pnpm
@@ -33,7 +33,7 @@ segítséggel, Supabase adattárolással és GitHub backup lehetőséggel.
 - pnpm
 - Supabase projekt
 - Gemini API-kulcs az AI funkciókhoz
-- Vercel projekt a serverless endpointok éles futtatásához
+- Coolify vagy Docker runtime az éles futtatáshoz
 
 ### Telepítés
 
@@ -53,8 +53,8 @@ pnpm dev
 Alapértelmezett cím: `http://localhost:5173`.
 
 A `pnpm dev` a Vite frontendet indítja el. A sharing API lokálisan is elérhető
-`/api/sharing?route=...` alatt; a többi `api/` alatti Vercel serverless
-endpointhoz Vercel runtime vagy deployolt környezet szükséges.
+`/api/sharing?route=...` alatt. A teljes production runtime Dockerben fut:
+`pnpm run build:docker`, majd `pnpm start`.
 
 ## Környezeti változók
 
@@ -65,10 +65,10 @@ endpointhoz Vercel runtime vagy deployolt környezet szükséges.
 | `SUPABASE_URL` | szerver/script | Supabase projekt URL |
 | `SUPABASE_SERVICE_ROLE_KEY` | szerver/script | Seed és szerveroldali admin műveletek |
 | `GEMINI_API_KEY` | szerver | Gemini API-hívások |
-| `SHARE_TOKEN_ENCRYPTION_KEY` | szerver | Public megosztási token AES-256-GCM kulcsa (base64, 32 byte: `openssl rand -base64 32`). Kell a link-létrehozáshoz; Vercel env-be is. |
+| `SHARE_TOKEN_ENCRYPTION_KEY` | szerver | Public megosztási token AES-256-GCM kulcsa (base64, 32 byte: `openssl rand -base64 32`). Kell a link-létrehozáshoz. |
 | `RESEND_API_KEY` | szerver | Resend API-kulcs email meghívók küldéséhez |
 | `INVITE_EMAIL_FROM` | szerver | Feladó cím email meghívókhoz, például `Az Utazasaim <noreply@example.com>` |
-| `APP_PUBLIC_URL` | szerver | Az éles app publikus originje email linkekhez, például `https://your-app.vercel.app` |
+| `APP_PUBLIC_URL` | szerver | Az éles app publikus originje email linkekhez, például `https://traveler.zsoltadel.go.ro` |
 | `ADMIN_PASSWORD` | szerver | Admin mód feloldása és backup/import védelem |
 | `GITHUB_TOKEN` | szerver | GitHub Contents API írás |
 | `GITHUB_REPO` | szerver | Backup célrepo, például `owner/repo` |
@@ -102,6 +102,8 @@ lokális JSON fájlok opcionális seed/validációs források.
 | `pnpm run typecheck` | TypeScript ellenőrzés a `src/` és `api/` mappákon |
 | `pnpm run lint` | ESLint |
 | `pnpm run test:run` | Vitest séma- és normalizer tesztek |
+| `pnpm run build:docker` | Frontend és Node server build Docker/self-host futtatáshoz |
+| `pnpm start` | Production Node server indítása a `server-dist/` buildből |
 | `pnpm run validate:trips` | Lokális trip JSON fájlok alapellenőrzése |
 | `pnpm run validate:trips:strict` | Szigorú tartalmi trip audit |
 | `pnpm run seed` | Lokális trip JSON fájlok upsertje Supabase-be |
@@ -138,9 +140,9 @@ pnpm run validate:trips
 | `POST /api/backup-trips` | Supabase utazások mentése GitHubra |
 | `POST /api/import-trip-backup` | Egy backup importálása |
 | `POST /api/import-trip-backups` | Több backup importálása |
-| `/api/sharing?route=...` | Public link, QR, account recipient, shared-with-me és email invite sharing műveletek egy Vercel function alatt |
+| `/api/sharing?route=...` | Public link, QR, account recipient, shared-with-me és email invite sharing műveletek |
 
-Az AI és admin endpointok Vercel serverless funkciók.
+Az AI, admin és sharing endpointokat a self-host Node szerver szolgálja ki.
 
 ## Architektúra
 
@@ -152,7 +154,8 @@ src/
   lib/              tiszta helperek, normalizálás, Supabase kliens
   pages/            route-szintű kompozíció
   types/            kanonikus domain, API és UI típusok
-api/                Vercel serverless endpointok
+api/                app API handlerek
+server/             Docker/self-host Node runtime és statikus kiszolgálás
 scripts/            seed és trip validáció
 supabase/           adatbázis-migrációk
 docs/               termék-, design- és architektúradokumentáció
@@ -198,15 +201,20 @@ A `SUPABASE_SERVICE_ROLE_KEY`, `GEMINI_API_KEY`, `ADMIN_PASSWORD` és
 
 ## Deploy
 
-A projekt Vercelre van előkészítve:
+A projekt Docker/self-host deployra van előkészítve. Productionben Coolify építi
+és futtatja a containert, a Supabase továbbra is managed szolgáltatás marad.
 
-1. Importáld a repót Vercelbe.
+1. Importáld a repót Coolifyba.
 2. Add meg az összes szükséges env változót.
-3. Build command: `pnpm run build`.
-4. Output directory: `dist`.
-5. Deploy után ellenőrizd a Supabase kapcsolatot és az `/api/*` endpointokat.
+3. Build pack: Dockerfile.
+4. A container belső portja: `8787`.
+5. aaPanel/nginx reverse proxy: `https://traveler.zsoltadel.go.ro` ->
+   `http://127.0.0.1:8787`.
+6. Deploy után ellenőrizd a `/healthz`, Supabase kapcsolat és `/api/*`
+   endpointokat.
 
-A SPA fallback beállítása a [vercel.json](vercel.json) fájlban található.
+A SPA fallbacket és a statikus `dist/` kiszolgálását a [server/static.ts](server/static.ts)
+kezeli.
 
 ## Dokumentáció
 

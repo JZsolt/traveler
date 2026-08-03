@@ -5,14 +5,14 @@ Read only:
 - `api/`
 - `src/types/api.ts`
 - `package.json`
-- `vercel.json` if present
-- Vercel build-related config files
+- platform build config if present
+- deploy build-related config files
 
-Goal: type serverless API endpoints while keeping Vercel behavior.
+Goal: type API endpoints while preserving runtime behavior.
 
 Requirements:
 
-1. Confirm Vercel supports the planned endpoint file extension before renaming.
+1. Confirm the deploy runtime supports the planned endpoint file extension before renaming.
 2. If safe, convert API files from `.js` to `.ts`.
 3. If endpoint `.ts` is risky for this project, keep runtime files `.js` and add JSDoc type boundaries instead; document why.
 4. Type request bodies and response payloads.

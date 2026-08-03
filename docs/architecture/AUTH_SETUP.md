@@ -13,12 +13,12 @@
 
 ### Authentication → URL Configuration
 
-1. **Site URL**: `https://your-vercel-domain.vercel.app`
+1. **Site URL**: `https://traveler.zsoltadel.go.ro`
 2. **Redirect URLs** (add all):
    - `http://localhost:5173` (local dev)
    - `http://localhost:5173/**` (local dev deep links)
-   - `https://your-vercel-domain.vercel.app` (production)
-   - `https://your-vercel-domain.vercel.app/**` (production deep links)
+   - `https://traveler.zsoltadel.go.ro` (production)
+   - `https://traveler.zsoltadel.go.ro/**` (production deep links)
 
 These redirect URLs are used for:
 - Email verification callback
@@ -64,9 +64,9 @@ ADMIN_USER_ID=uuid-of-admin-user
 ADMIN_PASSWORD=your-admin-challenge-password
 ```
 
-### Vercel Environment Variables
+### Production Environment Variables
 
-Set all of the above in Vercel → Settings → Environment Variables.
+Set all of the above in Coolify → Application → Environment Variables.
 Ensure server-side variables do NOT have the `VITE_` prefix.
 
 ## Email Verification Flow
@@ -75,7 +75,7 @@ Ensure server-side variables do NOT have the `VITE_` prefix.
 2. Supabase creates the user in `auth.users` with `email_confirmed_at = null`.
 3. Supabase sends a verification email with a confirmation link.
 4. The confirmation link points to:
-   `https://your-domain.vercel.app/auth/callback#access_token=...&type=signup`
+   `https://traveler.zsoltadel.go.ro/auth/callback#access_token=...&type=signup`
 5. The app handles the `/auth/callback` route, which calls
    `supabase.auth.exchangeCodeForSession()` or lets the JS client auto-handle
    the hash fragment.

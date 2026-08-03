@@ -8,7 +8,7 @@ Important:
 - Implement exactly one subtask at a time.
 - Read only the files listed in the current task.
 - Preserve runtime behavior and trip data shape.
-- Keep Supabase, Vercel, PWA, and AI endpoints working.
+- Keep Supabase, PWA, self-host runtime, and AI endpoints working.
 - Use `allowJs` during the migration; do not force a big-bang rename.
 - All explicit type aliases and interfaces live in `src/types/`.
 - Pages compose views; stateful logic still belongs in hooks.

@@ -64,5 +64,5 @@ Verify the sharing security boundary.
   read policy; no anon grant in-repo). A live check would run authenticated as
   user A and confirm user B's trips/shares are invisible and unmodifiable.
 - End-to-end token round-trip (create → fetch → revoke → 404) needs Supabase +
-  `vercel dev`; the server logic and Zod boundaries are unit/code verified but
+  local API runtime; the server logic and Zod boundaries are unit/code verified but
   the live path was not driven here.

@@ -329,7 +329,7 @@ Offer:
 
 Gemini API keys must never be exposed.
 
-All AI requests go through Vercel API routes.
+All AI requests go through server-side API handlers.
 
 Secrets remain server-side.
 

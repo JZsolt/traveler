@@ -1,11 +1,11 @@
-TASK 4 — Add Gemini serverless planning endpoint only ✅ DONE
+TASK 4 — Add Gemini backend planning endpoint only ✅ DONE
 
 Goal:
 Create backend endpoint, no UI integration yet.
 
 Requirements:
 
-1. Add Vercel serverless function: api/plan-trip.js
+1. Add backend API handler: api/plan-trip.js
 2. Read GEMINI_API_KEY from process.env.
 3. Accept POST JSON:
    { messages: [{ role: "user" | "assistant", content: string }] }
@@ -76,7 +76,7 @@ Read the existing code first, but only inspect:
 - api/plan-trip.js
 
 Goal:
-Generate trip JSON from chat messages using the serverless endpoint.
+Generate trip JSON from chat messages using the backend endpoint.
 
 Requirements:
 

@@ -1,4 +1,4 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node'
+import type { ApiRequest, ApiResponse } from '../src/types/http'
 import { TripShareManagementRequestSchema, TripShareManagementResponseSchema } from '../src/schemas/sharing.js'
 import { requireAuthenticatedUser } from './_server-auth.js'
 import { decryptShareToken } from './_share-crypto.js'
@@ -15,11 +15,11 @@ import type { ManagedShare } from '../src/types/api'
 
 const MIN_EXPIRY_OFFSET_MS = 5000
 
-function jsonError(res: VercelResponse, status: number, code: string, message: string) {
+function jsonError(res: ApiResponse, status: number, code: string, message: string) {
   return res.status(status).json({ ok: false, error: { code, message } })
 }
 
-function sendShare(res: VercelResponse, share: ManagedShare | null, revoked?: boolean) {
+function sendShare(res: ApiResponse, share: ManagedShare | null, revoked?: boolean) {
   const payload = revoked === undefined ? { ok: true, share } : { ok: true, share, revoked }
   const parsed = TripShareManagementResponseSchema.safeParse(payload)
   if (!parsed.success) {
@@ -47,7 +47,7 @@ function invalidExpiry(expiresAtValue: string | null): boolean {
   return !!expiresAtValue && new Date(expiresAtValue).getTime() <= Date.now() + MIN_EXPIRY_OFFSET_MS
 }
 
-function respondCreated(res: VercelResponse, outcome: CreateShareOutcome) {
+function respondCreated(res: ApiResponse, outcome: CreateShareOutcome) {
   if (!outcome.ok) return jsonError(res, outcome.status, outcome.code, outcome.message)
   return sendShare(res, {
     id: outcome.id,
@@ -57,7 +57,7 @@ function respondCreated(res: VercelResponse, outcome: CreateShareOutcome) {
   })
 }
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+export default async function handler(req: ApiRequest, res: ApiResponse) {
   if (req.method !== 'POST') {
     return jsonError(res, 405, 'METHOD_NOT_ALLOWED', 'Nem tamogatott HTTP metodus.')
   }

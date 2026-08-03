@@ -1,7 +1,6 @@
 import type { IncomingMessage, ServerResponse } from 'node:http'
-import type { VercelRequest, VercelResponse } from '@vercel/node'
 
-export type ApiHandler = (req: VercelRequest, res: VercelResponse) => Promise<unknown> | unknown
+export type { ApiHandler } from '../src/types/http.js'
 
 export type NodeApiRequest = IncomingMessage & {
   body?: unknown

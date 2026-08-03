@@ -5,7 +5,7 @@
 
 ## Goal
 
-Introduce a small typed Axios client for app-owned Vercel API endpoints.
+Introduce a small typed Axios client for app-owned API endpoints.
 
 ## Scope
 
@@ -13,7 +13,7 @@ Introduce a small typed Axios client for app-owned Vercel API endpoints.
 - Centralize base path and JSON response handling.
 - Add auth token attachment helper for future authenticated endpoints.
 - Add controlled error mapping for network/API failures.
-- Migrate only one low-risk existing Vercel API call if useful as a proof of
+- Migrate only one low-risk existing app API call if useful as a proof of
   pattern; otherwise document migration examples.
 
 Do not replace Supabase client reads/writes with Axios.

@@ -4,7 +4,7 @@
 
 React + Vite + Tailwind CSS + shadcn/ui + Supabase utazástervező app.
 Magyar nyelvű, mobile-first, PWA.
-Deploy: Vercel. Repo: github.com:JZsolt/traveler.git
+Deploy: Coolify + Docker self-host. Repo: github.com:JZsolt/traveler.git
 
 ## Klónozás után
 
@@ -289,7 +289,7 @@ GITHUB_REPO=JZsolt/traveler   # owner/repo formatum
 GITHUB_BACKUP_BRANCH=main     # melyik branchre commitoljon
 ```
 
-Vercel-en is be kell allitani (Settings → Environment Variables).
+Production deploynal ezeket a Coolify application Environment Variables reszeben kell beallitani.
 
 ### Backup fajl struktura
 

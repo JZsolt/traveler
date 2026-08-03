@@ -63,5 +63,5 @@ Create `/share/:token` as a public read-only trip view.
 - Verified: `pnpm run lint` clean, `tsc --noEmit` 0, `pnpm build` (incl. new
   lazy chunk), 140 tests, dev server boots clean and both `/share/:token` and
   `/app/trips` serve. NOTE: the full happy-path (a real shared trip rendered
-  read-only) was not driven end-to-end here — it needs Supabase + the Vercel API
-  running locally (`vercel dev`), which isn't configured in this environment.
+  read-only) was not driven end-to-end here — it needs Supabase + the local API
+  runtime, which wasn't configured in this environment.

@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-import type { VercelRequest, VercelResponse } from '@vercel/node'
+import type { ApiRequest, ApiResponse } from '../../src/types/http'
 import { getErrorCode } from './adminAuthTypes'
 import type { MockResData } from './adminAuthTypes'
 
@@ -10,20 +10,20 @@ import { requireAuthenticatedUser } from '../_server-auth.js'
 
 const VALID_TOKEN = 'valid-jwt-token'
 
-function mockReq(authHeader?: string | null): VercelRequest {
+function mockReq(authHeader?: string | null): ApiRequest {
   const headers: Record<string, string | undefined> = {}
   if (authHeader !== null && authHeader !== undefined) headers.authorization = authHeader
-  return { headers } as unknown as VercelRequest
+  return { headers } as unknown as ApiRequest
 }
 
-function mockRes(): VercelResponse & { _data: MockResData } {
+function mockRes(): ApiResponse & { _data: MockResData } {
   const data: MockResData = { statusCode: 0, body: null }
   const res = {
     _data: data,
     status(code: number) { data.statusCode = code; return this },
     json(body: unknown) { data.body = body; return this },
   }
-  return res as unknown as VercelResponse & { _data: MockResData }
+  return res as unknown as ApiResponse & { _data: MockResData }
 }
 
 function mockAuthUser(user: { id: string; email?: string | null } | null) {

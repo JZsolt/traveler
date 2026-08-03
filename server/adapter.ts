@@ -1,6 +1,5 @@
 import { Buffer } from 'node:buffer'
 import type { IncomingMessage, ServerResponse } from 'node:http'
-import type { VercelRequest, VercelResponse } from '@vercel/node'
 import type { ApiHandler, NodeApiRequest, NodeApiResponse } from './types.js'
 
 const MAX_BODY_BYTES = 1024 * 1024
@@ -59,7 +58,7 @@ export async function runApiHandler(
       body: await readBody(req),
       query: queryFromUrl(url),
     }) as NodeApiRequest
-    await handler(apiReq as unknown as VercelRequest, createResponse(res) as unknown as VercelResponse)
+    await handler(apiReq, createResponse(res))
   } catch (err) {
     const status = err instanceof Error && err.message === 'REQUEST_BODY_TOO_LARGE' ? 413 : 400
     res.statusCode = status

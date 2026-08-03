@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-import type { VercelRequest, VercelResponse } from '@vercel/node'
+import type { ApiRequest, ApiResponse } from '../../src/types/http'
 import { getErrorCode } from './adminAuthTypes'
 import type { MockAdminEnv, MockResData } from './adminAuthTypes'
 
@@ -18,15 +18,15 @@ function mockReq(overrides: {
   token?: string | null
   scheme?: string
   body?: unknown
-} = {}): VercelRequest {
+} = {}): ApiRequest {
   const headers: Record<string, string | undefined> = {}
   if (overrides.token !== null) {
     headers.authorization = `${overrides.scheme ?? 'Bearer'} ${overrides.token ?? ADMIN_TOKEN}`
   }
-  return { headers, body: overrides.body ?? { password: VALID_ENV.ADMIN_PASSWORD } } as unknown as VercelRequest
+  return { headers, body: overrides.body ?? { password: VALID_ENV.ADMIN_PASSWORD } } as unknown as ApiRequest
 }
 
-function mockRes(): VercelResponse & { _data: MockResData } {
+function mockRes(): ApiResponse & { _data: MockResData } {
   const data: MockResData = { statusCode: 0, body: null }
   const res = {
     _data: data,
@@ -39,7 +39,7 @@ function mockRes(): VercelResponse & { _data: MockResData } {
       return this
     },
   }
-  return res as unknown as VercelResponse & { _data: MockResData }
+  return res as unknown as ApiResponse & { _data: MockResData }
 }
 
 function setupEnv(env: Partial<MockAdminEnv> = {}) {

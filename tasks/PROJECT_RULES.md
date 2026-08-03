@@ -17,7 +17,9 @@ These rules apply to every implementation task.
 - Do not refactor unrelated files.
 - Preserve existing functionality.
 - Keep backward compatibility.
-- Keep the project Vercel-compatible.
+- Keep the project self-hostable via the Node server in `server/` (Coolify +
+  Docker); API handlers must use only the platform-neutral `ApiRequest` /
+  `ApiResponse` types, no deploy-platform-specific APIs.
 - Keep Supabase as the primary data source.
 - Pages compose views only; complex workflow, persistence, validation, AI flow, and state logic belong in custom hooks or `lib/` helpers.
 - Stateful reusable logic belongs in `src/hooks/use*.ts`.
@@ -67,7 +69,7 @@ These rules apply to every implementation task.
 
 - Use React Hook Form for auth and other non-trivial forms once the form foundation task is complete.
 - Form validation must still use Zod schemas via resolver integration.
-- Use Axios for app-owned Vercel API calls after the API client foundation task is complete.
+- Use Axios for app-owned API calls after the API client foundation task is complete.
 - Do not replace Supabase client calls with Axios.
 - Use TanStack Query for server-state caching after the query provider foundation task is complete.
 - Query keys, mutation invalidation, and cache clearing must be explicit and typed.

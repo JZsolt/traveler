@@ -59,9 +59,10 @@ preserving hash-based lookup and avoiding plaintext token storage.
 - **Legacy behavior:** Phase-16 shares have `token_ciphertext IS NULL` →
   re-displayable iff ciphertext present; the owner UI (18-04) offers regenerate.
 - **Ops:** `SHARE_TOKEN_ENCRYPTION_KEY` (base64 of 32 random bytes, e.g.
-  `openssl rand -base64 32`) must be set in `.env.local` and on Vercel, or share
-  creation fails safely with `SHARE_ENCRYPTION_FAILED`. Documented in
-  `.env.example` and the README env table (review fix).
+  `openssl rand -base64 32`) must be set in `.env.local` and in the deployment
+  environment (Coolify env vars), or share creation fails safely with
+  `SHARE_ENCRYPTION_FAILED`. Documented in `.env.example` and the README env table
+  (review fix).
 - Type hygiene (review fix): the `{ ciphertext, keyVersion }` shape is now the
   shared `ShareTokenEncryptionResult` type in `src/types/apiServer.ts` (no inline
   object type in API files).

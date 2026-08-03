@@ -9,7 +9,7 @@ Important:
 - Also store a small manifest file that lists every backed-up trip.
 - The UI must only trigger backup/import. GitHub and Supabase service credentials must stay server-side.
 - Admin protection belongs to phase 09; if phase 09 is already implemented, reuse its admin gate.
-- Keep the feature Vercel-compatible.
+- Keep the feature deploy-platform agnostic.
 - Implement one task at a time.
 - Run `pnpm run build` after every task.
 - Do not write automated tests for this phase.

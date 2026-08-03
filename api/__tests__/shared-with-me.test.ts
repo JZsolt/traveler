@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-import type { VercelRequest, VercelResponse } from '@vercel/node'
+import type { ApiRequest, ApiResponse } from '../../src/types/http'
 import type { MockResData } from './adminAuthTypes'
 
 vi.mock('../_server-auth.js', () => ({ requireAuthenticatedUser: vi.fn() }))
@@ -62,21 +62,21 @@ function makeSupabase() {
   }
 }
 
-function mockRes(): VercelResponse & { _data: MockResData } {
+function mockRes(): ApiResponse & { _data: MockResData } {
   const data: MockResData = { statusCode: 0, body: null }
   const res = {
     _data: data,
     status(code: number) { data.statusCode = code; return this },
     json(body: unknown) { data.body = body; return this },
   }
-  return res as unknown as VercelResponse & { _data: MockResData }
+  return res as unknown as ApiResponse & { _data: MockResData }
 }
 
-function getReq(): VercelRequest {
-  return { method: 'GET', headers: {} } as unknown as VercelRequest
+function getReq(): ApiRequest {
+  return { method: 'GET', headers: {} } as unknown as ApiRequest
 }
 
-function body(res: VercelResponse & { _data: MockResData }): Record<string, unknown> {
+function body(res: ApiResponse & { _data: MockResData }): Record<string, unknown> {
   return (res._data.body ?? {}) as Record<string, unknown>
 }
 
@@ -93,7 +93,7 @@ afterEach(() => vi.restoreAllMocks())
 describe('shared-with-me endpoint', () => {
   it('rejects non-GET methods', async () => {
     const res = mockRes()
-    await handler({ method: 'POST', headers: {} } as unknown as VercelRequest, res)
+    await handler({ method: 'POST', headers: {} } as unknown as ApiRequest, res)
     expect(res._data.statusCode).toBe(405)
   })
 

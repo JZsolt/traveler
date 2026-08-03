@@ -4,7 +4,7 @@
 
 React + Vite + Tailwind CSS + shadcn/ui utazástervező PWA.
 Magyar nyelvű, mobile-first alkalmazás offline támogatással.
-Deploy: Vercel. Repo: github.com:JZsolt/traveler.git
+Deploy: Coolify + Docker self-host. Repo: github.com:JZsolt/traveler.git
 
 ## Alap parancsok
 

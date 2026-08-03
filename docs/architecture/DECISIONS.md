@@ -145,7 +145,7 @@ Accepted
 
 **Decision**
 
-Vercel is the primary deployment platform.
+The primary deployment platform moved to Docker/Coolify self-hosting.
 
 **Reason**
 
@@ -158,6 +158,8 @@ Easy environment variable management.
 Serverless API routes for AI.
 
 **Status**
+
+Active.
 
 Accepted
 

@@ -1,4 +1,4 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node'
+import type { ApiRequest, ApiResponse } from '../src/types/http'
 import { RecipientRequestSchema, RecipientResponseSchema } from '../src/schemas/recipients.js'
 import { requireAuthenticatedUser } from './_server-auth.js'
 import { resolveOwnedTripId } from './_share-management.js'
@@ -12,11 +12,11 @@ import {
 } from './_recipient-management.js'
 import type { RecipientActionStatus } from '../src/types/recipients'
 
-function jsonError(res: VercelResponse, status: number, code: string, message: string) {
+function jsonError(res: ApiResponse, status: number, code: string, message: string) {
   return res.status(status).json({ ok: false, error: { code, message } })
 }
 
-function sendStatus(res: VercelResponse, status: RecipientActionStatus) {
+function sendStatus(res: ApiResponse, status: RecipientActionStatus) {
   const parsed = RecipientResponseSchema.safeParse({ ok: true, status })
   if (!parsed.success) {
     console.error('[trip-recipients] response validation failed')
@@ -25,7 +25,7 @@ function sendStatus(res: VercelResponse, status: RecipientActionStatus) {
   return res.status(200).json(parsed.data)
 }
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+export default async function handler(req: ApiRequest, res: ApiResponse) {
   if (req.method !== 'POST') {
     return jsonError(res, 405, 'METHOD_NOT_ALLOWED', 'Nem tamogatott HTTP metodus.')
   }

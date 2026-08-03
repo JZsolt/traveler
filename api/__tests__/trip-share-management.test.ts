@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-import type { VercelRequest, VercelResponse } from '@vercel/node'
+import type { ApiRequest, ApiResponse } from '../../src/types/http'
 import { getErrorCode } from './adminAuthTypes'
 import type { MockResData } from './adminAuthTypes'
 
@@ -38,24 +38,24 @@ function makeSupabase() {
   }
 }
 
-function mockReq(body: unknown): VercelRequest {
-  return { method: 'POST', headers: {}, body } as unknown as VercelRequest
+function mockReq(body: unknown): ApiRequest {
+  return { method: 'POST', headers: {}, body } as unknown as ApiRequest
 }
 
-function mockRes(): VercelResponse & { _data: MockResData } {
+function mockRes(): ApiResponse & { _data: MockResData } {
   const data: MockResData = { statusCode: 0, body: null }
   const res = {
     _data: data,
     status(code: number) { data.statusCode = code; return this },
     json(body: unknown) { data.body = body; return this },
   }
-  return res as unknown as VercelResponse & { _data: MockResData }
+  return res as unknown as ApiResponse & { _data: MockResData }
 }
 
-function bodyOf(res: VercelResponse & { _data: MockResData }): Record<string, unknown> {
+function bodyOf(res: ApiResponse & { _data: MockResData }): Record<string, unknown> {
   return (res._data.body ?? {}) as Record<string, unknown>
 }
-function shareOf(res: VercelResponse & { _data: MockResData }): Record<string, unknown> | null {
+function shareOf(res: ApiResponse & { _data: MockResData }): Record<string, unknown> | null {
   const share = bodyOf(res).share
   return share ? (share as Record<string, unknown>) : null
 }

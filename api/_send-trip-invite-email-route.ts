@@ -1,4 +1,4 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node'
+import type { ApiRequest, ApiResponse } from '../src/types/http'
 import { SendTripInviteEmailRequestSchema, SendTripInviteEmailResponseSchema } from '../src/schemas/emailInvites.js'
 import { requireAuthenticatedUser } from './_server-auth.js'
 import {
@@ -15,11 +15,11 @@ import {
   resolveUserIdByEmail,
 } from './_recipient-management.js'
 
-function jsonError(res: VercelResponse, status: number, code: string, message: string) {
+function jsonError(res: ApiResponse, status: number, code: string, message: string) {
   return res.status(status).json({ ok: false, error: { code, message } })
 }
 
-function jsonOk(res: VercelResponse, status: 'sent' | 'duplicate') {
+function jsonOk(res: ApiResponse, status: 'sent' | 'duplicate') {
   const parsed = SendTripInviteEmailResponseSchema.safeParse({ ok: true, status })
   if (!parsed.success) {
     console.error('[send-trip-invite-email] response validation failed')
@@ -35,7 +35,7 @@ function logPostSendFailure(step: 'audit' | 'account_invite', err: unknown) {
   })
 }
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+export default async function handler(req: ApiRequest, res: ApiResponse) {
   if (req.method !== 'POST') {
     return jsonError(res, 405, 'METHOD_NOT_ALLOWED', 'Nem tamogatott HTTP metodus.')
   }

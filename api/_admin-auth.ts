@@ -1,8 +1,8 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node';
+import type { ApiRequest, ApiResponse } from '../src/types/http';
 import { isRecord } from './_narrowing.js';
 import { fetchAuthenticatedUser } from './_auth-user.js';
 
-function getAuthToken(req: VercelRequest): string | null {
+function getAuthToken(req: ApiRequest): string | null {
   const header = req.headers.authorization;
   if (typeof header !== 'string') return null;
   const parts = header.split(' ');
@@ -10,7 +10,7 @@ function getAuthToken(req: VercelRequest): string | null {
   return parts[1] || null;
 }
 
-export async function validateAdmin(req: VercelRequest, res: VercelResponse): Promise<boolean> {
+export async function validateAdmin(req: ApiRequest, res: ApiResponse): Promise<boolean> {
   const supabaseUrl = process.env.SUPABASE_URL;
   const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
   const adminUserId = process.env.ADMIN_USER_ID;

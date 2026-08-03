@@ -20,7 +20,7 @@ Prefer Vitest because the app already uses Vite.
 - Test runner dependency is added as a dev dependency.
 - `package.json` has a deterministic CI-style script, for example
   `test:run`.
-- Test setup does not require browser, Supabase, Vercel, or network access.
+- Test setup does not require browser, Supabase, deploy runtime, or network access.
 - TypeScript test files are supported.
 - Existing app build behavior is unchanged.
 

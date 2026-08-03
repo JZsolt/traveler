@@ -1,4 +1,4 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node';
+import type { ApiRequest, ApiResponse } from '../src/types/http';
 import { GoogleGenAI } from '@google/genai';
 import type { SectionKey, SectionExtra } from '../src/types/apiServer';
 import type { Trip } from '../src/types/trip';
@@ -11,7 +11,7 @@ import { getFirstFinishReason, isSectionKey } from './_narrowing.js';
 const DEFAULT_MODEL = 'gemini-3.1-flash-lite';
 
 async function handleSection(
-  res: VercelResponse,
+  res: ApiResponse,
   section: SectionKey,
   trip: Trip,
   instruction: string | undefined,
@@ -100,7 +100,7 @@ async function handleSection(
   }
 }
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+export default async function handler(req: ApiRequest, res: ApiResponse) {
   if (req.method !== 'POST') {
     return errorResponse(
       res,

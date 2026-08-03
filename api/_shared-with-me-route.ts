@@ -1,15 +1,15 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node'
+import type { ApiRequest, ApiResponse } from '../src/types/http'
 import { SharedWithMeResponseSchema } from '../src/schemas/sharing.js'
 import { requireAuthenticatedUser } from './_server-auth.js'
 import { buildSharedWithMe } from './_shared-with-me.js'
 
-function jsonError(res: VercelResponse, status: number, code: string, message: string) {
+function jsonError(res: ApiResponse, status: number, code: string, message: string) {
   return res.status(status).json({ ok: false, error: { code, message } })
 }
 
 // Authenticated recipient nezet. A valasz KIZAROLAG PublicTrip projekcio (elfogadott)
 // + minimal teaser (fuggo) — nyers trips sor sosem jut a bongeszobe.
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+export default async function handler(req: ApiRequest, res: ApiResponse) {
   if (req.method !== 'GET') {
     return jsonError(res, 405, 'METHOD_NOT_ALLOWED', 'Nem tamogatott HTTP metodus.')
   }

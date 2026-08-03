@@ -19,7 +19,7 @@ Add an application profile table linked to `auth.users`.
 - Every new authenticated user can get a profile.
 - A user can read/update only their own profile.
 - Other users' private profile data cannot be queried.
-- Migration is Vercel/Supabase compatible.
+- Migration is Supabase and self-host runtime compatible.
 
 ## Review Checklist
 

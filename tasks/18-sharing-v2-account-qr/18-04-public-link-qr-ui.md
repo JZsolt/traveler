@@ -57,5 +57,5 @@ Make public link sharing easy from the owner share modal with QR code support.
   disable/revoke → back to the create state (no stale link shown).
 - Full gate: lint clean, `tsc` 0, build OK, **171 tests**.
 - NOTE: the live QR render / copy / download was not driven end-to-end here — it
-  needs an active share (Supabase + `vercel dev` + `SHARE_TOKEN_ENCRYPTION_KEY`).
+  needs an active share (Supabase + local API runtime + `SHARE_TOKEN_ENCRYPTION_KEY`).
   Component compiles and builds; `qrcode.react` is a trusted library.

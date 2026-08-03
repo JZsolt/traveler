@@ -18,8 +18,8 @@ The application uses:
 - Vite for development and build
 - Tailwind CSS for styling
 - Supabase for shared trip storage
-- Vercel for deployment
-- Vercel API routes for server-side AI calls
+- Docker/Coolify for self-hosted deployment
+- Node API handlers for server-side AI calls
 - Gemini API for AI-assisted planning and editing
 
 ---
@@ -28,13 +28,11 @@ The application uses:
 
 Traveler should stay as simple as possible.
 
-Do not introduce a backend server unless absolutely necessary.
-
 The preferred architecture is:
 
 Frontend
 ↓
-Vercel API routes
+Node API runtime
 ↓
 External services
 
@@ -118,7 +116,8 @@ Prefer small helper modules for:
 
 ## 5. API Layer
 
-Vercel API routes are used for secret or server-side operations.
+API handlers are used for secret or server-side operations and are served by the
+Docker self-host Node runtime.
 
 Examples:
 
@@ -174,7 +173,7 @@ src/
     normalizeTrip.ts  # Trip normalization + Zod final gate
     constants.ts      # Centralized constants
 
-api/                  # Vercel serverless functions (TypeScript)
+api/                  # API handlers (TypeScript)
   suggest-trip-section.ts
   expand-day.ts
   plan-trip.ts
@@ -189,6 +188,12 @@ api/                  # Vercel serverless functions (TypeScript)
   _backup-utils.ts      # Backup file/manifest builder
   _import-utils.ts      # Import helper
   _admin-auth.ts        # Admin password validation
+
+server/               # Docker/self-host runtime
+  index.ts             # Node HTTP server
+  apiRoutes.ts         # /api route registry
+  adapter.ts           # API handler adapter
+  static.ts            # dist/ static serving + SPA fallback
 ```
 
 # Development Principles
