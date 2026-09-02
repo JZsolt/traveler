@@ -1,4 +1,8 @@
-# 18-06 — Recipient Invite And Accept Endpoints — DONE (profile-QR path deferred to 18-09)
+# 18-06 — Recipient Invite And Accept Endpoints ✅ DONE
+
+> The profile-QR invite path was deferred here and has since been delivered in
+> `18-09`; it is covered by the `trip-recipients` tests for active, disabled,
+> and rotated profile QR ids.
 
 **Estimate:** 3-4 hours
 

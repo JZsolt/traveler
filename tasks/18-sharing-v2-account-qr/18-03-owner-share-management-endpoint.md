@@ -1,4 +1,4 @@
-# 18-03 — Owner Share Management Endpoint — DONE
+# 18-03 — Owner Share Management Endpoint ✅ DONE
 
 **Estimate:** 2-3 hours
 

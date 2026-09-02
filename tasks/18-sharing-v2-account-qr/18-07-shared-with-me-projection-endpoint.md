@@ -1,4 +1,4 @@
-# 18-07 — Shared-With-Me Projection Endpoint — DONE
+# 18-07 — Shared-With-Me Projection Endpoint ✅ DONE
 
 **Estimate:** 2-3 hours
 

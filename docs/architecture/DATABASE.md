@@ -227,17 +227,28 @@ Every piece of stored content remains manually editable.
 
 # Sharing
 
-A Trip can be shared with multiple users.
+A Trip can be shared with multiple people, but sharing never grants write
+access. There are exactly two roles:
 
-Possible roles:
+- **Owner** — the authenticated `owner_id` of the trip; the only role that can
+  edit or delete anything.
+- **Viewer** — read-only, and always through a projected copy of the trip, never
+  through the raw trip row.
 
-- Owner
-- Editor
-- Viewer
+Viewer access comes in two strictly separate modes:
 
-Permissions should be managed at the Trip level.
+- **Public link** — anyone holding the token/QR URL, anonymous included. Backed
+  by share tokens, not by a public read policy on the trip table.
+- **Account recipient** — a specific existing app user, who must accept the
+  invite before anything appears for them.
 
-Child objects inherit permissions.
+Permissions are managed at the Trip level and child objects inherit them, but
+inheritance only ever propagates read access.
+
+An **Editor / collaborator role is an explicit non-goal** — see
+[`SHARING_V2_SPEC.md`](./SHARING_V2_SPEC.md). If collaborative editing is ever
+introduced, it needs its own decision record; it cannot be assumed from this
+document.
 
 ---
 
