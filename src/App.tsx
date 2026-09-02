@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react'
 import { BrowserRouter, Routes, Route, Navigate, Outlet, useParams } from 'react-router-dom'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { queryClient } from '@/lib/queryClient'
+import { ROUTES } from '@/lib/constants'
 import { AuthProvider } from '@/context/AuthContext'
 import { TripsProvider } from '@/context/TripsContext'
 import { AdminProvider } from '@/context/AdminContext'
@@ -23,6 +24,8 @@ const ForgotPasswordPage = lazy(() => import('@/pages/ForgotPasswordPage'))
 const ResetPasswordPage = lazy(() => import('@/pages/ResetPasswordPage'))
 const AuthCallbackPage = lazy(() => import('@/pages/AuthCallbackPage'))
 const SharedTripPage = lazy(() => import('@/pages/SharedTripPage'))
+const DemoTripPage = lazy(() => import('@/pages/DemoTripPage'))
+const LandingPage = lazy(() => import('@/pages/LandingPage'))
 const SharedWithMeTripPage = lazy(() => import('@/pages/SharedWithMeTripPage'))
 const ProfileShareResolverPage = lazy(() => import('@/pages/ProfileShareResolverPage'))
 
@@ -59,9 +62,18 @@ export default function App() {
                     NO app Header (no owner/admin controls), own public header */}
                 <Route path="/share/:token" element={<SharedTripPage />} />
 
+                {/* Fully public demo view — static repo data, no Supabase call,
+                    no TripsProvider, no app Header. Not protected by design. */}
+                <Route path={ROUTES.DEMO} element={<DemoTripPage />} />
+
+                {/* Public landing for anonymous visitors. PublicOnlyRoute keeps
+                    auth loading gated, then redirects signed-in users to their
+                    dashboard. It stays outside AppShell, so no private trip
+                    fetch runs while deciding. */}
+                <Route path={ROUTES.HOME} element={<PublicOnlyRoute><LandingPage /></PublicOnlyRoute>} />
+
                 {/* App shell — TripsProvider + app Header run only here */}
                 <Route element={<AppShell />}>
-                  <Route path="/" element={<Navigate to="/app/trips" replace />} />
                   <Route path="/design-system" element={<DesignSystemPage />} />
                   <Route path="/auth/callback" element={<AuthCallbackPage />} />
 

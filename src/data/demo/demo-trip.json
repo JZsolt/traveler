@@ -1,0 +1,393 @@
+{
+  "slug": "demo",
+  "title": "Bécs · hosszú hétvége",
+  "subtitle": "Bemutató útiterv — 3 nap, 2 fő",
+  "emoji": "🇦🇹 🎻",
+  "startDate": "2026-05-15",
+  "endDate": "2026-05-17",
+  "people": "2 felnőtt",
+  "destination": "Bécs, Ausztria",
+  "highlights": [
+    "Schönbrunni kastély és park",
+    "Stephansdom és a belváros",
+    "Naschmarkt piac",
+    "Belvedere és a Klimt-képek",
+    "Prater és az óriáskerék"
+  ],
+
+  "accommodation": {
+    "address": "Belvárosi apartman a Mariahilfer Straße közelében",
+    "mapUrl": "https://maps.google.com/?q=Mariahilfer+Strasse+Wien",
+    "host": "Bemutató szállás",
+    "checkIn": "máj. 15. 15:00",
+    "checkOut": "máj. 17. 10:00",
+    "parking": "Utcai parkolás fizetős zónában, a metró közelebb visz"
+  },
+
+  "flight": {
+    "airport": "Vonattal — Railjet, Budapest-Keleti → Wien Hbf",
+    "arrival": "máj. 15. 11:20",
+    "departure": "máj. 17. 17:40"
+  },
+
+  "budget": {
+    "headline": "~€480-680 / 2 fő",
+    "lowTotal": "~€480",
+    "comfortTotal": "~€680",
+    "lowTotalLabel": "Spórolós összesen",
+    "comfortTotalLabel": "Kényelmesebb összesen",
+    "summaryLabel": "Teljes út becslése (2 fő, vonat + szállás nélkül)"
+  },
+
+  "urgentBookings": [
+    {
+      "name": "Schönbrunn belépő",
+      "reason": "Időpontos belépő, hétvégére hamar elfogy",
+      "url": "https://www.schoenbrunn.at",
+      "done": false
+    },
+    {
+      "name": "Railjet vonatjegy",
+      "reason": "Előfoglalással jóval olcsóbb a menetjegy",
+      "url": "https://www.oebb.at",
+      "done": false
+    }
+  ],
+
+  "usefulLinks": [
+    {
+      "emoji": "🏛",
+      "name": "Wien.info",
+      "desc": "Bécs hivatalos turisztikai oldala",
+      "url": "https://www.wien.info"
+    },
+    {
+      "emoji": "🚇",
+      "name": "Wiener Linien",
+      "desc": "Metró, villamos és busz menetrend",
+      "url": "https://www.wienerlinien.at"
+    },
+    {
+      "emoji": "🚄",
+      "name": "ÖBB",
+      "desc": "Osztrák vasút — jegyvásárlás és menetrend",
+      "url": "https://www.oebb.at"
+    },
+    {
+      "emoji": "📖",
+      "name": "Bécs — Wikipédia",
+      "desc": "Háttér a városról, ha útközben olvasnál",
+      "url": "https://hu.wikipedia.org/wiki/Bécs"
+    }
+  ],
+
+  "packingList": [
+    "Kényelmes cipő — sok a séta",
+    "Esőkabát vagy kis esernyő",
+    "Powerbank + töltő",
+    "Bankkártya és egy kevés készpénz",
+    "Újratölthető kulacs",
+    "Naptej és napszemüveg",
+    "Vékony réteg estére",
+    "Vonatjegy és belépők a telefonon"
+  ],
+
+  "savingTips": [
+    { "tip": "💡 Napijegy helyett 48/72 órás Wiener Linien bérlet", "saving": "~€10" },
+    { "tip": "💡 Ebéd a Naschmarkton, vacsora egyszerű helyen", "saving": "~€40" },
+    { "tip": "💡 A Schönbrunn parkja ingyenes, csak a kastély fizetős", "saving": "~€30" }
+  ],
+
+  "practicalInfo": [
+    {
+      "title": "💳 Fizetés és pénz",
+      "items": [
+        "Euró a fizetőeszköz, a kártya szinte mindenhol megy",
+        "Kis helyeken és a piacon jól jön néhány bankjegy",
+        "Borravaló: a végösszeg kerekítése vagy 5-10 százalék"
+      ]
+    },
+    {
+      "title": "🚇 Közlekedés",
+      "items": [
+        "A belváros gyalog is bejárható, a metró a hosszabb szakaszokra kell",
+        "A jegyet felszállás előtt kell érvényesíteni",
+        "A 48 vagy 72 órás bérlet éri meg a legjobban"
+      ]
+    }
+  ],
+
+  "bookingChecklist": [
+    { "item": "Vonatjegy megvásárlása", "url": "https://www.oebb.at" },
+    { "item": "Schönbrunn időpontos belépő", "url": "https://www.schoenbrunn.at" },
+    { "item": "Szállás foglalás visszaigazolása" },
+    { "item": "Wiener Linien bérlet megvétele az első nap" }
+  ],
+
+  "overview": [
+    { "day": 1, "date": "Máj. 15 (péntek)", "program": "🏛 Belváros és Stephansdom", "highlights": "Érkezés, séta a belvárosban, Naschmarkt" },
+    { "day": 2, "date": "Máj. 16 (szombat)", "program": "👑 Schönbrunn és Belvedere", "highlights": "Kastély, park, Klimt-képek" },
+    { "day": 3, "date": "Máj. 17 (vasárnap)", "program": "🎡 Prater és hazaút", "highlights": "Óriáskerék, Duna-part, indulás" }
+  ],
+
+  "days": [
+    {
+      "dayNum": 1,
+      "title": "Belváros és első benyomások",
+      "subtitle": "Május 15. péntek — érkezés és laza városnézés",
+      "alerts": [
+        { "type": "tip", "text": "💡 A Wiener Linien bérletet mindjárt a pályaudvaron vedd meg." }
+      ],
+      "transportOptions": {
+        "title": "Budapest → Bécs",
+        "options": [
+          {
+            "name": "🚄 Railjet",
+            "time": "~2 óra 40 perc",
+            "pricePerPerson": "€20-40",
+            "total": "~€40-80 / 2 fő",
+            "url": "https://www.oebb.at",
+            "recommended": true
+          },
+          {
+            "name": "🚌 Távolsági busz",
+            "time": "~3 óra 15 perc",
+            "pricePerPerson": "€12-25",
+            "total": "~€24-50 / 2 fő"
+          }
+        ]
+      },
+      "schedule": [
+        {
+          "time": "11:20",
+          "title": "🚉 Érkezés — Wien Hauptbahnhof",
+          "desc": "Megérkezés a főpályaudvarra, bérletvásárlás, majd metróval a szállásra.",
+          "links": [
+            { "label": "📍 Térkép", "url": "https://maps.google.com/?q=Wien+Hauptbahnhof" }
+          ],
+          "transport": [
+            { "type": "transit", "label": "🚇 Hauptbahnhof → belváros · ~12 perc", "url": "https://www.google.com/maps/dir/Wien+Hauptbahnhof/Stephansplatz+Wien" }
+          ]
+        },
+        {
+          "time": "13:00",
+          "title": "🍽 Ebéd a Naschmarkton",
+          "desc": "Bécs legismertebb piaca. Sok kis pult és bisztró, jó hely az első ebédhez.",
+          "highlight": true,
+          "links": [
+            { "label": "📍 Térkép", "url": "https://maps.google.com/?q=Naschmarkt+Wien" }
+          ],
+          "guide": {
+            "tips": [
+              "Hétvégén a piac zsúfolt, kicsit korábban érdemes odaérni.",
+              "A pultok között nézz körbe, mielőtt leülsz valahova."
+            ]
+          }
+        },
+        {
+          "time": "15:00",
+          "title": "⛪ Stephansdom",
+          "desc": "A város jelképe, a belváros közepén. A tér és a templombelső ingyen is megnézhető.",
+          "highlight": true,
+          "badges": ["INGYENES BELÉPÉS"],
+          "links": [
+            { "label": "📍 Térkép", "url": "https://maps.google.com/?q=Stephansdom+Wien" },
+            { "label": "Hivatalos oldal", "url": "https://www.stephanskirche.at" }
+          ],
+          "guide": {
+            "history": [
+              "A gótikus székesegyház a középkor óta a város központja.",
+              "A jellegzetes mintás cseréptető messziről felismerhető."
+            ],
+            "mustSee": [
+              "A déli torony kilátása a belvárosra.",
+              "A tetőminta a térről nézve."
+            ],
+            "tips": ["A toronyba sok lépcső vezet, szánj rá időt."]
+          }
+        },
+        {
+          "time": "17:00",
+          "title": "🚶 Séta a Grabenen és a Kärntner Straßén",
+          "desc": "Sétálóutcák, kávéházak, kirakatok. Jó módja, hogy ráérezz a városra.",
+          "links": [
+            { "label": "📍 Térkép", "url": "https://maps.google.com/?q=Graben+Wien" }
+          ]
+        },
+        {
+          "time": "19:30",
+          "title": "🍺 Vacsora a belvárosban",
+          "desc": "Egyszerű osztrák konyha: schnitzel, gulyás, helyi sör.",
+          "links": [
+            { "label": "📍 Térkép", "url": "https://maps.google.com/?q=restaurant+Innere+Stadt+Wien" }
+          ],
+          "guide": {
+            "tips": ["A belvárostól egy-két utcával arrébb barátságosabbak az árak."]
+          }
+        }
+      ],
+      "costs": [
+        { "item": "Wiener Linien 72 órás bérlet / 2 fő", "cost": "~€36" },
+        { "item": "Ebéd a piacon / 2 fő", "cost": "~€30" },
+        { "item": "Vacsora / 2 fő", "cost": "~€50" },
+        { "item": "1. nap összesen", "cost": "~€116", "total": true }
+      ],
+      "endAlerts": [
+        { "type": "warning", "text": "Holnap a Schönbrunnhoz időpontos belépő kell — nézd meg az órát rajta." }
+      ]
+    },
+    {
+      "dayNum": 2,
+      "title": "Schönbrunn és Belvedere",
+      "subtitle": "Május 16. szombat — kastélyok és kertek",
+      "alerts": [
+        { "type": "tip", "text": "💡 Reggel indulj Schönbrunnba, délelőtt sokkal kevesebben vannak." }
+      ],
+      "schedule": [
+        {
+          "time": "09:00",
+          "title": "👑 Schönbrunni kastély",
+          "desc": "A Habsburgok nyári rezidenciája. A kastélytúra időpontos, a park önmagában is megér egy hosszú sétát.",
+          "highlight": true,
+          "links": [
+            { "label": "📍 Térkép", "url": "https://maps.google.com/?q=Schloss+Schönbrunn+Wien" },
+            { "label": "Hivatalos oldal", "url": "https://www.schoenbrunn.at" },
+            { "label": "Wikipédia", "url": "https://hu.wikipedia.org/wiki/Schönbrunni_kastély" }
+          ],
+          "transport": [
+            { "type": "transit", "label": "🚇 Belváros → Schönbrunn · ~20 perc", "url": "https://www.google.com/maps/dir/Stephansplatz+Wien/Schloss+Schönbrunn" }
+          ],
+          "guide": {
+            "history": [
+              "A kastély mai formája a 18. században, Mária Terézia idején alakult ki.",
+              "A park a kastéllyal együtt épült ki, francia mintára."
+            ],
+            "mustSee": [
+              "A Gloriette és a kilátás a kastélyra.",
+              "A parkban a szökőkutak és a labirintus."
+            ],
+            "tips": ["A parkba a belépés ingyenes, csak a kastélybelső fizetős."]
+          }
+        },
+        {
+          "time": "12:30",
+          "title": "🍽 Ebéd a kastély környékén",
+          "desc": "Egyszerű ebéd a park melletti utcákban, mielőtt továbbmentek.",
+          "links": [
+            { "label": "📍 Térkép", "url": "https://maps.google.com/?q=restaurant+Schönbrunn+Wien" }
+          ]
+        },
+        {
+          "time": "14:30",
+          "title": "🎨 Belvedere",
+          "desc": "Barokk palotaegyüttes kerttel, benne Klimt legismertebb festményeivel.",
+          "highlight": true,
+          "links": [
+            { "label": "📍 Térkép", "url": "https://maps.google.com/?q=Schloss+Belvedere+Wien" },
+            { "label": "Hivatalos oldal", "url": "https://www.belvedere.at" }
+          ],
+          "guide": {
+            "mustSee": [
+              "Klimt: A csók.",
+              "A felső és alsó palota közötti kert."
+            ],
+            "tips": ["A kert ingyenesen bejárható, a kiállítás jegyes."]
+          }
+        },
+        {
+          "time": "17:00",
+          "title": "🖼 Kunsthistorisches Museum",
+          "desc": "Ha még van energia: a város nagy művészettörténeti múzeuma.",
+          "optional": true,
+          "links": [
+            { "label": "📍 Térkép", "url": "https://maps.google.com/?q=Kunsthistorisches+Museum+Wien" },
+            { "label": "Hivatalos oldal", "url": "https://www.khm.at" }
+          ]
+        },
+        {
+          "time": "19:30",
+          "title": "🍷 Vacsora egy heurigerben",
+          "desc": "Hagyományos bécsi borozó, egyszerű hideg tálakkal és helyi borral.",
+          "links": [
+            { "label": "📍 Térkép", "url": "https://maps.google.com/?q=Heuriger+Wien" }
+          ],
+          "guide": {
+            "tips": ["A heurigerek nagy része a város szélén, a szőlők közelében van."]
+          }
+        }
+      ],
+      "costs": [
+        { "item": "Schönbrunn belépő / 2 fő", "cost": "~€52" },
+        { "item": "Belvedere belépő / 2 fő", "cost": "~€36" },
+        { "item": "Étkezés / 2 fő", "cost": "~€70" },
+        { "item": "2. nap összesen", "cost": "~€158", "total": true }
+      ]
+    },
+    {
+      "dayNum": 3,
+      "title": "Prater és hazaút",
+      "subtitle": "Május 17. vasárnap — laza zárás",
+      "alerts": [
+        { "type": "tip", "text": "💡 A csomagot hagyd a pályaudvari csomagmegőrzőben, így könnyebb az utolsó nap." }
+      ],
+      "schedule": [
+        {
+          "time": "09:30",
+          "title": "🧳 Kijelentkezés és csomagleadás",
+          "desc": "Kijelentkezés a szállásról, a csomagok leadása a főpályaudvaron.",
+          "links": [
+            { "label": "📍 Térkép", "url": "https://maps.google.com/?q=Wien+Hauptbahnhof" }
+          ]
+        },
+        {
+          "time": "11:00",
+          "title": "🎡 Prater és az óriáskerék",
+          "desc": "Nagy városi park vidámparkkal. Az óriáskerék a város egyik jelképe.",
+          "highlight": true,
+          "links": [
+            { "label": "📍 Térkép", "url": "https://maps.google.com/?q=Wiener+Prater" }
+          ],
+          "guide": {
+            "history": ["A park a 18. század óta nyilvános, az óriáskerék a 19. század végén épült."],
+            "tips": ["A park bejárása ingyenes, csak az egyes attrakciókért kell fizetni."]
+          }
+        },
+        {
+          "time": "13:00",
+          "title": "🍽 Ebéd a Prater környékén",
+          "desc": "Gyors, egyszerű ebéd indulás előtt.",
+          "links": [
+            { "label": "📍 Térkép", "url": "https://maps.google.com/?q=restaurant+Prater+Wien" }
+          ]
+        },
+        {
+          "time": "15:00",
+          "title": "☕ Kávé egy bécsi kávéházban",
+          "desc": "Az út zárása egy melange és egy sütemény mellett.",
+          "optional": true,
+          "links": [
+            { "label": "📍 Térkép", "url": "https://maps.google.com/?q=Kaffeehaus+Wien" }
+          ],
+          "guide": {
+            "tips": ["A kávéházakban nem baj, ha sokáig ülsz egy kávé mellett — ez a helyi szokás."]
+          }
+        },
+        {
+          "time": "17:40",
+          "title": "🚄 Indulás haza",
+          "desc": "Railjet a Wien Hauptbahnhofról Budapestre.",
+          "links": [
+            { "label": "📍 Térkép", "url": "https://maps.google.com/?q=Wien+Hauptbahnhof" },
+            { "label": "Menetrend", "url": "https://www.oebb.at" }
+          ]
+        }
+      ],
+      "costs": [
+        { "item": "Óriáskerék / 2 fő", "cost": "~€28" },
+        { "item": "Étkezés / 2 fő", "cost": "~€45" },
+        { "item": "Csomagmegőrző", "cost": "~€8" },
+        { "item": "3. nap összesen", "cost": "~€81", "total": true }
+      ]
+    }
+  ]
+}

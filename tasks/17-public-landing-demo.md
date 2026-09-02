@@ -1,6 +1,6 @@
-# 17 — Public Landing And Demo
+# 17 — Public Landing And Demo ✅ DONE
 
-Status: planned. Can start after the auth route model is stable.
+Status: ✅ complete. All 4 subtasks are done.
 
 ## Goal
 

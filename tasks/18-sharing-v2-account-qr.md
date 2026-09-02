@@ -1,6 +1,9 @@
-# 18 — Sharing V2: QR, Persistent Links, And Account Sharing
+# 18 — Sharing V2: QR, Persistent Links, And Account Sharing — IMPLEMENTATION COMPLETE, AUDIT PENDING
 
-Status: planned. Start only after Phase 16 read-only public sharing is merged.
+Status: implementation complete; follow-up audit pending. The 11 implementation
+subtasks (18-01 .. 18-11) are done, but the phase is NOT closed: the audit in
+`tasks/18-sharing-v2-account-qr/18-12-roadmap-and-final-state-audit.md` has not
+been run yet. Do not treat this phase as finished until it has.
 
 ## Goal
 
@@ -44,6 +47,10 @@ Make sharing simple for both non-app users and app users:
 9. `18-09-profile-qr-opt-in-and-rotation.md`
 10. `18-10-email-invite-provider-and-abuse-controls.md`
 11. `18-11-sharing-v2-security-tests-and-e2e.md`
+
+## Follow-up Tasks
+
+1. `18-12-roadmap-and-final-state-audit.md`
 
 ## Workflow
 

@@ -1,10 +1,16 @@
 import { Link, useLocation } from 'react-router-dom'
 import { Settings } from 'lucide-react'
 import { useTrips } from '@/hooks/useTrips'
+import { useAuth } from '@/hooks/useAuth'
+import { ROUTES } from '@/lib/constants'
 
 export function Header() {
   const location = useLocation()
   const { trips } = useTrips()
+  const { user } = useAuth()
+  // A gyoker mar a publikus landing (17-04), ezert a marka bejelentkezve az
+  // appba visz vissza, kijelentkezve a landingre.
+  const brandTarget = user ? ROUTES.TRIPS : ROUTES.HOME
   const tripsPrefix = '/app/trips/'
   const isTrip = location.pathname.startsWith(tripsPrefix) && location.pathname !== '/app/trips/new'
   const slug = isTrip ? location.pathname.slice(tripsPrefix.length).split('/')[0] : null
@@ -18,19 +24,19 @@ export function Header() {
         className="fixed left-0 right-0 z-50 bg-[#1a1a2e] text-white h-14 flex items-center justify-between px-4 shadow-lg"
         style={{ top: 'env(safe-area-inset-top, 0px)' }}
       >
-        <Link to="/" className="flex items-center gap-2 font-bold text-base tracking-tight no-underline text-white">
+        <Link to={brandTarget} className="flex items-center gap-2 font-bold text-base tracking-tight no-underline text-white">
           <span className="text-xl">✈️</span>
           <span>Az Utazásaim</span>
         </Link>
         <div className="flex items-center gap-3">
           {isTrip && trip && (
             <div className="text-xs opacity-70 flex items-center gap-1.5 max-w-[50vw] truncate">
-              <Link to="/app/trips" className="text-white no-underline hover:opacity-100">Utazásaim</Link>
+              <Link to={ROUTES.TRIPS} className="text-white no-underline hover:opacity-100">Utazásaim</Link>
               <span className="opacity-40">›</span>
               <span className="truncate">{trip.title}</span>
             </div>
           )}
-          <Link to="/app/settings" aria-label="Beállítások" className="text-white/60 hover:text-white transition-colors p-1">
+          <Link to={ROUTES.SETTINGS} aria-label="Beállítások" className="text-white/60 hover:text-white transition-colors p-1">
             <Settings className="w-4.5 h-4.5" />
           </Link>
         </div>

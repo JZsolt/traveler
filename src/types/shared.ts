@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react'
 import type { PublicTrip, ActiveShare, PendingInvite, SharedWithMeTrip } from './api'
 import type { Trip } from './trip'
 import type { LucideIcon } from 'lucide-react'
@@ -21,13 +22,27 @@ export interface SharedTripViewProps {
   trip: PublicTrip
 }
 
+export type DemoTripStatus = 'loading' | 'ok' | 'error'
+
+export interface DemoTripState {
+  status: DemoTripStatus
+  trip: PublicTrip | null
+}
+
+export interface SharedHeaderProps {
+  label?: string
+  trailing?: ReactNode
+}
+
 export interface SharedWithMeTripPageState {
   status: 'loading' | 'ok' | 'notfound' | 'error'
   trip: PublicTrip | null
 }
 
+export type PublicViewErrorVariant = 'notfound' | 'error' | 'demo'
+
 export interface SharedTripErrorProps {
-  variant: 'notfound' | 'error'
+  variant: PublicViewErrorVariant
 }
 
 export interface UseTripSharingParams {

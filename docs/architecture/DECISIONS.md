@@ -331,6 +331,40 @@ Planned
 
 ---
 
+## 2026-09-02
+
+### Public Demo Trip Data Source
+
+**Decision**
+
+The public demo trip is static, versioned repository data
+(`src/data/demo/demo-trip.json`), validated with the existing `TripSchema` and
+rendered through the existing `projectPublicTrip()` projection.
+
+It is not a database row, not owned by any user, and not reachable from a share
+token.
+
+**Reason**
+
+Serving the demo from `trips` would require either a public `SELECT` policy on
+`public.trips` — the exact policy `004_trip_rls_owner_scoped.sql` removed — or a
+new unauthenticated database endpoint for content that is identical for every
+visitor and changes a few times a year.
+
+Static data keeps the landing page available when Supabase is not, keeps RLS
+untouched, and makes demo content a reviewed commit instead of a live edit.
+
+The cost is that updating the demo needs a deploy, which is acceptable for
+marketing-critical content.
+
+Details: `docs/architecture/DEMO_TRIP_STRATEGY.md`
+
+**Status**
+
+Accepted
+
+---
+
 ## Rejected Decisions
 
 ### AI-first Interface

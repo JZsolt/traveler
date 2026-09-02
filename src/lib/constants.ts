@@ -18,7 +18,13 @@ export const ROUTES = {
   LOGIN: '/login',
   REGISTER: '/register',
   SHARE: '/share/:token',
+  DEMO: '/demo',
 } as const
+
+// A publikus bemutato utazas azonositoja. A demo statikus repo-adat
+// (src/data/demo/demo-trip.json), nincs mogotte Supabase sor es owner.
+// Lasd: docs/architecture/DEMO_TRIP_STRATEGY.md
+export const DEMO_TRIP_SLUG = 'demo'
 
 export const API = {
   ADMIN_LOGIN: '/api/admin-login',
