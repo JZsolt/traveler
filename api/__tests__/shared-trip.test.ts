@@ -117,6 +117,21 @@ describe('shared-trip endpoint', () => {
     expect(filters).not.toContainEqual({ method: 'eq', args: ['token_hash', TOKEN] })
   })
 
+  it('filters out revoked and expired shares in the lookup query', async () => {
+    // A visszavont/lejart link ugyanaz a 404 osztaly, mint az ismeretlen token —
+    // de ezt a DB query szurofeltetelei biztositjak, ezert azokat allitjuk.
+    // Enelkul egy regresszio, ami elejti a szuroket, zolden atmenne.
+    queue = [{ data: null }]
+    const res = mockRes()
+    await handler(mockReq({ token: TOKEN }), res)
+    expect(res._data.statusCode).toBe(404)
+    expect(filters).toContainEqual({ method: 'is', args: ['revoked_at', null] })
+    const orFilter = filters.find((f) => f.method === 'or')
+    expect(orFilter).toBeDefined()
+    expect(String(orFilter?.args[0])).toContain('expires_at.is.null')
+    expect(String(orFilter?.args[0])).toContain('expires_at.gt.')
+  })
+
   it('returns only public projected trip data for a valid share', async () => {
     queue = [
       { data: { trip_id: 'trip-1' } },

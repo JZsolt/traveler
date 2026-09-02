@@ -25,8 +25,8 @@ a tényleges végrehajtás eltért ettől, a tétel mellett ott a jelölés.
 16. ~~15-authentication-user-ownership.md~~ ✅ (18 subtask)
 17. ~~16-read-only-trip-sharing.md~~ ✅ (8 subtask)
 18. ~~17-public-landing-demo.md~~ ✅ (4 subtask)
-19. 18-sharing-v2-account-qr.md — **a 17-es előtt készült el** (11 implementációs
-    subtask ✅), a 18-12 follow-up audit még hátra
+19. 18-sharing-v2-account-qr.md — implementáció ✅ + automatizált audit ✅,
+    **élő RLS ellenőrzés (18-13) még nyitva** (**a 17-es előtt készült el**)
 20. 19-supabase-self-host-audit.md — planned follow-up, még nem indult (1 audit subtask)
 
 ### Tényleges végrehajtási sorrend
@@ -38,9 +38,14 @@ A lista sorrendje egy helyen eltér a valós végrehajtástól, ezért itt rögz
   README és a 18-as fázis fejlécei ekkor lettek visszamenőleg pontosítva
   (korábban a 18-as még "planned"-ként szerepelt, holott mind a 11
   implementációs subtask kész volt).
-- A **18-12 — Roadmap And Final State Audit** ezért nyitott: ez hivatott
-  összevetni a Sharing V2 dokumentált és tényleges állapotát. Amíg ez nem fut le,
-  a 18-as fázis nem lezárt, csak "implementation complete".
+- A **18-12 — Roadmap And Final State Audit** 2026-09-02-án lefutott. Öt eltérést
+  talált a dokumentált és a tényleges állapot között; mind javítva (részletek a
+  18-12 task Output szekciójában).
+- A **18-as fázis ettől még nincs teljesen lezárva**: a **18-13 — Live Supabase
+  RLS Verification** nyitva van. A security checklist élő ellenőrzései sosem
+  futottak le valós Supabase projekten, és az endpoint tesztek mockolt Supabase
+  klienssel dolgoznak, tehát nem bizonyítják, hogy az RLS visszautasít egy valós
+  cross-user olvasást. Biztonsági fázisnál ezt nem írjuk le késznek.
 - A **19-es fázis** planned follow-up, még nem indult el.
 
 Új munkánál továbbra is a fenti sorrend az irányadó: egy fázis akkor tekinthető

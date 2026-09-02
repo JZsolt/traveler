@@ -1,4 +1,4 @@
-# 18-01 — Sharing V2 Product And Security Spec — DONE
+# 18-01 — Sharing V2 Product And Security Spec ✅ DONE
 
 **Estimate:** 1-2 hours
 

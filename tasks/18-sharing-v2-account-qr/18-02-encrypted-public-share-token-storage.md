@@ -1,4 +1,4 @@
-# 18-02 — Encrypted Public Share Token Storage — DONE
+# 18-02 — Encrypted Public Share Token Storage ✅ DONE
 
 **Estimate:** 2-3 hours
 

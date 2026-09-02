@@ -1,9 +1,17 @@
-# 18 — Sharing V2: QR, Persistent Links, And Account Sharing — IMPLEMENTATION COMPLETE, AUDIT PENDING
+# 18 — Sharing V2: QR, Persistent Links, And Account Sharing — LIVE RLS PENDING
 
-Status: implementation complete; follow-up audit pending. The 11 implementation
-subtasks (18-01 .. 18-11) are done, but the phase is NOT closed: the audit in
-`tasks/18-sharing-v2-account-qr/18-12-roadmap-and-final-state-audit.md` has not
-been run yet. Do not treat this phase as finished until it has.
+Status:
+
+- Implementation: ✅ complete (18-01 .. 18-11).
+- Automated audit: ✅ complete (18-12; findings fixed).
+- Live RLS verification: ⏳ pending (18-13).
+
+This is a security phase, so the last line is not a formality. The endpoint
+tests mock the Supabase client: they prove the server sends the right queries
+and returns the right shapes, but they cannot prove that RLS rejects a real
+cross-user read. Until `18-13` runs against a real project with two real users,
+do not describe Phase 18 as verified end to end, and do not treat it as
+production-ready on the strength of the green test suite alone.
 
 ## Goal
 
@@ -50,7 +58,9 @@ Make sharing simple for both non-app users and app users:
 
 ## Follow-up Tasks
 
-1. `18-12-roadmap-and-final-state-audit.md`
+1. `18-12-roadmap-and-final-state-audit.md` ✅
+2. `18-13-live-supabase-rls-verification.md` — open (manual, needs a real
+   Supabase project; created by the 18-12 audit)
 
 ## Workflow
 

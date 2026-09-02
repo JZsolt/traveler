@@ -1,4 +1,4 @@
-# 18-04 — Public Link QR UI — DONE
+# 18-04 — Public Link QR UI ✅ DONE
 
 **Estimate:** 1-2 hours
 

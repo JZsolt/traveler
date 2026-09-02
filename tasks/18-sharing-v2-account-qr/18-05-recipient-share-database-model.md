@@ -1,4 +1,4 @@
-# 18-05 — Recipient Share Database Model — DONE
+# 18-05 — Recipient Share Database Model ✅ DONE
 
 **Estimate:** 2-3 hours
 

@@ -2,13 +2,21 @@
 
 ## Automated Coverage
 
+Everything in this section is asserted by `pnpm run test:run`. Anything that is
+only enforced structurally, or that needs a real Supabase project, belongs in
+the manual section below — do not move items up here without a test.
+
 - Share token storage:
   - raw public share tokens are generated with 32 random bytes;
   - DB lookup uses `token_hash`;
   - owner re-display uses AES-256-GCM ciphertext;
   - tests do not log raw tokens.
 - Public shared-trip lookup:
-  - malformed/random/expired/revoked tokens all return the same 404 class;
+  - malformed, too-short, and unknown tokens all return the same 404 class;
+  - revoked and expired shares are excluded by the lookup query itself — the
+    `revoked_at` and `expires_at` filters are asserted, so dropping one fails
+    the suite (the end-to-end "revoked link returns 404" path is still a manual
+    check, see below);
   - response is `PublicTrip` only;
   - private fields such as tickets, insurance, and nested passthrough extras are stripped.
 - Account recipient sharing:
@@ -29,6 +37,12 @@
   - non-app recipients get only a public link, no claimable recipient row.
 
 ## Live Supabase RLS Checks
+
+**Status: not yet executed.** These require a real Supabase project and two real
+users, so no automated run can stand in for them. Tracked as an explicit task:
+`tasks/18-sharing-v2-account-qr/18-13-live-supabase-rls-verification.md`. Until
+that task is done, treat the RLS behavior below as designed and unit-tested at
+the endpoint layer, but not verified end to end against a live database.
 
 Run after applying migrations `006` through `010` in a real Supabase project.
 Use two normal users: `owner_a` and `recipient_b`.
