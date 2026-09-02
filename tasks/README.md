@@ -4,7 +4,8 @@ This folder contains the implementation roadmap for the Traveler project.
 
 ## Development Order
 
-Always complete the phases in this order:
+Always complete the phases in this order. A lista a **tervezett** sorrend; ahol
+a tényleges végrehajtás eltért ettől, a tétel mellett ott a jelölés.
 
 1. ~~01-crud.md~~ ✅
 2. ~~02-safe-rendering.md~~ ✅
@@ -23,8 +24,27 @@ Always complete the phases in this order:
 15. ~~11-design-system-foundation.md~~ ✅ (12 subtask — legacy filename)
 16. ~~15-authentication-user-ownership.md~~ ✅ (18 subtask)
 17. ~~16-read-only-trip-sharing.md~~ ✅ (8 subtask)
-18. 17-public-landing-demo.md (4 subtask)
-19. 18-sharing-v2-account-qr.md (11 subtask — planned)
+18. ~~17-public-landing-demo.md~~ ✅ (4 subtask)
+19. 18-sharing-v2-account-qr.md — **a 17-es előtt készült el** (11 implementációs
+    subtask ✅), a 18-12 follow-up audit még hátra
+20. 19-supabase-self-host-audit.md — planned follow-up, még nem indult (1 audit subtask)
+
+### Tényleges végrehajtási sorrend
+
+A lista sorrendje egy helyen eltér a valós végrehajtástól, ezért itt rögzítjük:
+
+- A **18-as fázis (Sharing V2)** implementációja a **17-es (Public Landing And
+  Demo)** előtt készült el. A 17-es fázist utólag, 2026-09-02-án zártuk le; a
+  README és a 18-as fázis fejlécei ekkor lettek visszamenőleg pontosítva
+  (korábban a 18-as még "planned"-ként szerepelt, holott mind a 11
+  implementációs subtask kész volt).
+- A **18-12 — Roadmap And Final State Audit** ezért nyitott: ez hivatott
+  összevetni a Sharing V2 dokumentált és tényleges állapotát. Amíg ez nem fut le,
+  a 18-as fázis nem lezárt, csak "implementation complete".
+- A **19-es fázis** planned follow-up, még nem indult el.
+
+Új munkánál továbbra is a fenti sorrend az irányadó: egy fázis akkor tekinthető
+lezártnak, ha minden subtaskja ✅ és a fázis fejléce is ezt tükrözi.
 
 ## Workflow
 

@@ -1,4 +1,4 @@
-# 17-01 — Landing Information Architecture
+# 17-01 — Landing Information Architecture ✅ DONE
 
 **Estimate:** 1-2 hours
 
@@ -24,7 +24,25 @@ Define the content structure for the public landing page.
 
 ## Review Checklist
 
-- [ ] Does not become a generic marketing page.
-- [ ] First viewport clearly explains Traveler.
-- [ ] Logged-in state points to `/app/trips`.
-- [ ] Admin is not mentioned.
+- [x] Does not become a generic marketing page — section count is fixed at six
+  plus footer, and pricing, testimonials, logos, and newsletter capture are
+  explicitly excluded (`LANDING_IA.md` 4).
+- [x] First viewport clearly explains Traveler — the hero must stand alone with
+  positioning, one supporting sentence, and exactly one primary action
+  (`LANDING_IA.md` 3.1).
+- [x] Logged-in state points to `/app/trips` — authenticated root behavior:
+  `/` is gated by `PublicOnlyRoute`, so a signed-in visitor is redirected to
+  `ROUTES.TRIPS` instead of seeing the landing (`LANDING_IA.md` 5).
+- [x] Admin is not mentioned — excluded in `LANDING_IA.md` 1, 3.7, and 6.
+
+## Output
+
+Documentation:
+
+- `docs/product/LANDING_IA.md` (new) — route model, six-section outline with the
+  design-system primitives each section uses, content rules, CTA behavior by
+  session state, out-of-scope list, acceptance mapping.
+
+No application code changed in this task.
+
+Quality gate: typecheck OK, lint OK, 219 tests passed, build clean.

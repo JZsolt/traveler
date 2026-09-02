@@ -1,8 +1,12 @@
-// Public brand sav a megosztott (anonim) nezethez. Szandekosan NINCS benne
-// owner/admin vezerlo: nincs beallitasok link, nincs app-navigacio, nincs
-// trip breadcrumb. Csak a marka + egy "megosztott utiterv" jelzes. A magassaga
-// (h-14) megegyezik az app Headerrel, igy a Page felso paddingje passzol.
-export function SharedHeader() {
+import type { SharedHeaderProps } from '@/types/shared'
+
+// Public brand sav az anonim nezetekhez (megosztott trip, demo). Szandekosan
+// NINCS benne owner/admin vezerlo: nincs beallitasok link, nincs app-navigacio,
+// nincs trip breadcrumb. Csak a marka + egy jelzes arrol, mit nez a latogato.
+// A magassaga (h-14) megegyezik az app Headerrel, igy a Page felso paddingje
+// passzol. A jobb oldal alapertelmezesben egy statikus felirat, de a landing
+// egy sajat CTA-t tesz oda a `trailing` sloton at.
+export function SharedHeader({ label = 'Megosztott útiterv', trailing }: SharedHeaderProps = {}) {
   return (
     <>
       <div
@@ -17,7 +21,7 @@ export function SharedHeader() {
           <span className="text-xl">✈️</span>
           <span>Az Utazásaim</span>
         </div>
-        <span className="text-xs text-white/50">Megosztott útiterv</span>
+        {trailing ?? <span className="text-xs text-white/50">{label}</span>}
       </header>
     </>
   )

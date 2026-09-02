@@ -3,8 +3,10 @@ import { ROUTES } from '@/lib/constants'
 import { Page } from '@/components/ui/Page'
 import type { SharedTripErrorProps } from '@/types/shared'
 
-// Megkulonboztetett, felhasznalobarat allapot ervenytelen/visszavont/nem talalt
-// linkre (notfound) es szerver/halozati hibara (error).
+// Megkulonboztetett, felhasznalobarat allapot a publikus nezetek hibaira:
+// ervenytelen/visszavont/nem talalt link (notfound), szerver/halozati hiba
+// (error), es a statikus bemutato utiterv betoltesi hibaja (demo). A demo
+// kulon variant, mert ott nincs megosztasi link, amire a masik ket szoveg utal.
 const CONTENT = {
   notfound: {
     emoji: '🔗',
@@ -15,6 +17,11 @@ const CONTENT = {
     emoji: '😕',
     title: 'Valami hiba történt',
     desc: 'Nem sikerült betölteni a megosztott utazást. Kérlek próbáld újra kicsit később.',
+  },
+  demo: {
+    emoji: '🧭',
+    title: 'A bemutató útiterv most nem érhető el',
+    desc: 'Nem sikerült betölteni a példa utazást. Frissítsd az oldalt, vagy nézz vissza kicsit később.',
   },
 } as const
 
