@@ -28,6 +28,7 @@ a tényleges végrehajtás eltért ettől, a tétel mellett ott a jelölés.
 19. 18-sharing-v2-account-qr.md — implementáció ✅ + automatizált audit ✅,
     **élő RLS ellenőrzés (18-13) még nyitva** (**a 17-es előtt készült el**)
 20. 19-supabase-self-host-audit.md — planned follow-up, még nem indult (1 audit subtask)
+21. 20-productization-design-ai-live-mode.md — planned follow-up, még nem indult
 
 ### Tényleges végrehajtási sorrend
 
