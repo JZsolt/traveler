@@ -1,6 +1,6 @@
 # 19 — Supabase Self-Host Audit And Migration Plan
 
-Status: planned.
+Status: audit complete (19-01 ✅), migration not started.
 
 ## Goal
 
@@ -31,7 +31,17 @@ features. A self-host migration must preserve these security boundaries.
 
 ## Subtasks
 
-1. `19-01-supabase-self-host-feasibility-audit.md`
+1. `19-01-supabase-self-host-feasibility-audit.md` — ✅ done
+2. `19-02-managed-keepalive.md` — ⛔ superseded (teljes migráció mellett tárgytalan;
+   a 012-es grant migráció viszont belőle született és kell)
+3. `19-03-host-readiness-and-stack-bring-up.md` — planned
+4. `19-04-full-backup-and-restore-rehearsal.md` — planned
+5. `19-05-functional-and-live-rls-verification.md` — planned (absorbs `18-13`)
+6. `19-06-cutover-and-rollback-window.md` — planned (first task that touches
+   production)
+
+Tasks 19-02 through 19-05 are risk-free: production stays live and untouched.
+Only 19-06 changes production.
 
 ## Workflow
 

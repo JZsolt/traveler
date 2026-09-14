@@ -12,6 +12,9 @@ dist
 dist-ssr
 server-dist
 *.local
+.env
+.env.*
+!.env.example
 
 # BMad core (telepíthető külön)
 _bmad/
@@ -42,3 +45,6 @@ dev-dist
 *.sln
 *.sw?
 .vercel
+
+# Supabase full dumps (19-04) — never commit database dumps
+backups/supabase/

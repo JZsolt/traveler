@@ -27,7 +27,9 @@ a tényleges végrehajtás eltért ettől, a tétel mellett ott a jelölés.
 18. ~~17-public-landing-demo.md~~ ✅ (4 subtask)
 19. 18-sharing-v2-account-qr.md — implementáció ✅ + automatizált audit ✅,
     **élő RLS ellenőrzés (18-13) még nyitva** (**a 17-es előtt készült el**)
-20. 19-supabase-self-host-audit.md — planned follow-up, még nem indult (1 audit subtask)
+20. 19-supabase-self-host-audit.md — audit ✅ (19-01), keepalive ⛔ superseded
+    (19-02; workflow eldobva, 012 grant migráció megtartva), migráció tervezve
+    (19-03…19-06)
 21. 20-productization-design-ai-live-mode.md — planned follow-up, még nem indult
 
 ### Tényleges végrehajtási sorrend

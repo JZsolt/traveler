@@ -6,6 +6,7 @@
   "packageManager": "pnpm@10.33.2",
   "scripts": {
     "dev": "vite",
+    "dev:managed": "vite --mode managed",
     "build": "vite build",
     "build:server": "tsc -p tsconfig.server.json",
     "build:docker": "pnpm run build && pnpm run build:server",
@@ -15,6 +16,9 @@
     "validate:trips:strict": "node scripts/validate-trips.mjs --strict",
     "preview": "vite preview",
     "seed": "node scripts/seed-supabase.mjs",
+    "backup:db": "bash scripts/backup-supabase-full.sh",
+    "db:migrate": "bash scripts/apply-migrations.sh",
+    "db:verify": "bash scripts/apply-migrations.sh --verify-only",
     "typecheck": "tsc --noEmit",
     "test": "vitest",
     "test:run": "vitest run"

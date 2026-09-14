@@ -1,4 +1,4 @@
-# 19-01 — Supabase Self-Host Feasibility Audit
+# 19-01 — Supabase Self-Host Feasibility Audit ✅ DONE
 
 **Estimate:** 2-4 hours
 
@@ -83,6 +83,31 @@ The document must include:
 - [ ] Backup restore is tested or clearly marked as untested.
 - [ ] The final recommendation separates cost, reliability, maintenance, and
       security tradeoffs.
+
+## Result
+
+Audit complete: `docs/architecture/SUPABASE_SELF_HOST_AUDIT.md` (2026-09-07).
+
+Key findings:
+
+- Storage, Realtime and Edge Functions are **not** used by Traveler, so the
+  self-host stack can drop them plus the analytics/vector layer.
+- The trimmed stack needs roughly 2-3 GB RAM; the target host has 15.5 GiB.
+  Capacity is not the constraint, operations are.
+- The existing GitHub backup covers `trip_data` only. It does not contain
+  `auth.users`, profiles, shares, recipients or invite events, and must not be
+  treated as a migration safety net.
+- `SHARE_TOKEN_ENCRYPTION_KEY` must be carried over unchanged or existing share
+  token ciphertexts become undecryptable.
+- Migration invalidates every session, because the JWT secret changes.
+- GoTrue needs its own SMTP configuration; `RESEND_API_KEY` covers only the
+  app's invite emails, not signup confirmation and password reset.
+- `on_auth_user_created` is a trigger on `auth.users`, which constrains restore
+  ordering.
+
+Recommendation: run steps 1-8 of the migration sequence (all risk-free, on a
+copy), run `18-13` against the self-host stack rather than twice, and add a
+keepalive to the managed project meanwhile.
 
 ## Quality Gate
 
