@@ -33,7 +33,7 @@ The app should feel like an end-to-end travel operating system:
 
 ## Subtasks
 
-1. `20-01-design-lab-parity-and-productization-audit.md` — planned
+1. `20-01-design-lab-parity-and-productization-audit.md` — ✅ done
 2. `20-02-scoped-dashboard-and-trip-detail-product-polish.md` — planned
 3. `20-03-create-trip-guided-flow-and-ai-surface-audit.md` — planned
 4. `20-04-ai-domain-guardrails-and-usage-metering-spec.md` — planned
